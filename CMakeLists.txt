@@ -1,0 +1,79 @@
+cmake_minimum_required(VERSION 3.5)
+
+project(worldIMaker)
+
+set(EXECUTABLE_NAME worldIMaker)
+
+add_definitions(-std=c++11 -Wall -O2 -g)
+
+set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DcIR}/CMake)
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
+set(LIBRARY_OUTPUT_PATH  ${PROJECT_BINARY_DIR}/lib)
+
+# For UPEM compilation
+if(UPEMLV)
+    set(OPENGL_LIBRARIES /usr/lib/x86_64-linux-gnu/libGL.so.1)
+endif(UPEMLV)
+
+include_directories(${SDLMIXER_INCLUDE_DIR} ${SDL2_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLEW_INCLUDE_DIR} glimac/include third-party/include)
+
+set(ALL_LIBRARIES glimac ${SDL_LIBRARY} ${OPENGL_LIBRARIES} ${GLEW_LIBRARY})
+
+# Add the glimac library
+add_subdirectory(lib/glimac)
+
+## INCLUDE LIB ##
+
+
+#OpenGL
+message("Looking for OpenGL...")
+find_package(OpenGL REQUIRED)
+if(${OpenGL_FOUND})
+    message(STATUS "... found")
+    message(STATUS "  version " ${OpenGL_VERSION_STRING})
+    message(STATUS "  include " ${OpenGL_INCLUDE_DIR})
+endif()
+
+#GLEW
+message("Looking for GLEW...")
+find_package(GLEW REQUIRED)
+if(${GLEW_FOUND})
+    message(STATUS "... found")
+    message(STATUS "  version " ${OpenGL_VERSION_STRING})
+    message(STATUS "  include " ${OpenGL_INCLUDE_DIR})
+endif()
+
+#SDL2
+message("Looking for SDL...")
+find_package(SDL2 REQUIRED)
+if(${SDL2_FOUND})
+    message(STATUS "... found")
+    message(STATUS "  version " ${SDL2_VERSION_STRING})
+    message(STATUS "  include " ${SDL2_INCLUDE_DIR})
+endif()
+
+# include eigen
+message("Looking for Eigen...")
+find_package(Eigen3 REQUIRED)
+if(${EIGEN3_FOUND})
+    message(STATUS "lib EIGEN3 found")
+    message(STATUS "  version " ${EIGEN3_VERSION_STRING})
+    message(STATUS "  include " ${EIGEN3_INCLUDE_DIR})
+else()
+    include_directories("/usr/include/eigen3") # manually specify the include location
+endif()
+
+
+file(GLOB_RECURSE HEADER_FILES src/include/*.hpp) # get all headers
+file(GLOB_RECURSE SRC_FILES src/*.cpp) # get all sources files
+file(GLOB_RECURSE SHADER_FILES shaders/*.glsl) # get all shaders
+file(GLOB_RECURSE ASSET_FILES assets/*) # get all the assets
+
+add_executable(${EXECUTABLE_NAME} ${SRC_FILES} ${HEADER_FILES} ${SHADER_FILES} ${ASSET_FILES}) # add the executable
+
+target_link_libraries(${EXECUTABLE_NAME} ${ALL_LIBRARIES})
+
+ADD_SHADER_DIRECTORY(${CMAKE_CURRENT_SOURCE_DIR}/shaders)
+ADD_ASSET_DIRECTORY(${CMAKE_CURRENT_SOURCE_DIR}/assets)
+
+
