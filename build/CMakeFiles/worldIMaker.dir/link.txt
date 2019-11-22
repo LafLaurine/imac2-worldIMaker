@@ -1,0 +1,1 @@
+/usr/bin/c++   -Wall -O2 -std=c++11  -rdynamic CMakeFiles/worldIMaker.dir/src/src/main.cpp.o  -o bin/worldIMaker lib/libglimac.a -Wl,-Bstatic -lSDLmain -Wl,-Bdynamic -lSDL -lpthread -lGL -lGLU -lGLEW 
