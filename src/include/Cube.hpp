@@ -4,10 +4,10 @@
 class Cube
 {
 	protected:
-		double m_height;
+		double m=_height;
 		double m_width;
 		double m_length;
-		bool empty;
+		bool m_empty;
 
 	public:
 		// Builder
@@ -20,11 +20,13 @@ class Cube
 		inline double getHeight()const{ return m_height; };
 		inline double getWidth()const{ return m_width; };
 		inline double getLength()const{ return m_length; };
+		inline double getEmpty()const{ return m_empty; };
 
 		// Setter
-		void setHeight(Cube &cubeObj);
-		void setWidth(Cube &cubeObj);
-		void setLength(Cube &cubeObj);
+		void setHeight(double height);
+		void setWidth(double width);
+		void setLength(double length);
+		void setEmpty(bool empty);
 
 		void display(glm::vec3 position,GLuint tex_id);
 };
