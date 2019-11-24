@@ -7,6 +7,10 @@
 #IncludeRegexTransform: 
 
 ../lib/glimac/include/glimac/Cube.hpp
+glimac/glm.hpp
+-
+GL/glew.h
+-
 
 ../lib/glimac/include/glimac/glm.hpp
 glm/glm.hpp
@@ -759,8 +763,6 @@ detail/func_vector_relational.hpp
 ../third-party/include/glm/detail/func_vector_relational.hpp
 
 /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/lib/glimac/src/Cube.cpp
-glimac/glm.hpp
--
 glimac/Cube.hpp
 /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/lib/glimac/src/glimac/Cube.hpp
 
