@@ -57,27 +57,27 @@ include CMakeFiles/worldIMaker.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/worldIMaker.dir/flags.make
 
-CMakeFiles/worldIMaker.dir/src/src/main.cpp.o: CMakeFiles/worldIMaker.dir/flags.make
-CMakeFiles/worldIMaker.dir/src/src/main.cpp.o: ../src/src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/worldIMaker.dir/src/src/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/worldIMaker.dir/src/src/main.cpp.o -c /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/src/src/main.cpp
+CMakeFiles/worldIMaker.dir/src/main.cpp.o: CMakeFiles/worldIMaker.dir/flags.make
+CMakeFiles/worldIMaker.dir/src/main.cpp.o: ../src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/worldIMaker.dir/src/main.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/worldIMaker.dir/src/main.cpp.o -c /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/src/main.cpp
 
-CMakeFiles/worldIMaker.dir/src/src/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/worldIMaker.dir/src/src/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/src/src/main.cpp > CMakeFiles/worldIMaker.dir/src/src/main.cpp.i
+CMakeFiles/worldIMaker.dir/src/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/worldIMaker.dir/src/main.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/src/main.cpp > CMakeFiles/worldIMaker.dir/src/main.cpp.i
 
-CMakeFiles/worldIMaker.dir/src/src/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/worldIMaker.dir/src/src/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/src/src/main.cpp -o CMakeFiles/worldIMaker.dir/src/src/main.cpp.s
+CMakeFiles/worldIMaker.dir/src/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/worldIMaker.dir/src/main.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/src/main.cpp -o CMakeFiles/worldIMaker.dir/src/main.cpp.s
 
 # Object files for target worldIMaker
 worldIMaker_OBJECTS = \
-"CMakeFiles/worldIMaker.dir/src/src/main.cpp.o"
+"CMakeFiles/worldIMaker.dir/src/main.cpp.o"
 
 # External object files for target worldIMaker
 worldIMaker_EXTERNAL_OBJECTS =
 
-bin/worldIMaker: CMakeFiles/worldIMaker.dir/src/src/main.cpp.o
+bin/worldIMaker: CMakeFiles/worldIMaker.dir/src/main.cpp.o
 bin/worldIMaker: CMakeFiles/worldIMaker.dir/build.make
 bin/worldIMaker: lib/libglimac.a
 bin/worldIMaker: /usr/lib/x86_64-linux-gnu/libSDLmain.a

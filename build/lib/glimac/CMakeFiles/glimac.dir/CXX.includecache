@@ -6,31 +6,7 @@
 
 #IncludeRegexTransform: 
 
-../lib/glimac/include/glimac/FilePath.hpp
-string
--
-
-../lib/glimac/include/glimac/Image.hpp
-vector
--
-memory
--
-unordered_map
--
-glm.hpp
-../lib/glimac/include/glimac/glm.hpp
-FilePath.hpp
-../lib/glimac/include/glimac/FilePath.hpp
-
-../lib/glimac/include/glimac/Texture.hpp
-iostream
--
-string
--
-glimac/Image.hpp
--
-GL/glew.h
--
+../lib/glimac/include/glimac/Cube.hpp
 
 ../lib/glimac/include/glimac/glm.hpp
 glm/glm.hpp
@@ -782,13 +758,9 @@ detail/type_vec4.hpp
 detail/func_vector_relational.hpp
 ../third-party/include/glm/detail/func_vector_relational.hpp
 
-/home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/lib/glimac/src/Texture.cpp
-iostream
+/home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/lib/glimac/src/Cube.cpp
+glimac/glm.hpp
 -
-string
--
-glimac/Texture.hpp
-/home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/lib/glimac/src/glimac/Texture.hpp
-GL/glew.h
--
+glimac/Cube.hpp
+/home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/lib/glimac/src/glimac/Cube.hpp
 

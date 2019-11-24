@@ -11,15 +11,15 @@ namespace glimac
 	class Texture
 	{
 		private:
-			std::string _name;
-			GLuint _textureId;
-			std::unique_ptr<Image> _texturePointer;
+			std::string m_name;
+			GLuint m_textureId;
+			std::unique_ptr<Image> m_texturePointer;
 
 		public:
 			// Constructors
 			Texture(){};
 			Texture(std::string n);
-			inline GLuint getId() const{return _textureId;}
+			inline GLuint getId() const{return m_textureId;}
 
 	};
 }

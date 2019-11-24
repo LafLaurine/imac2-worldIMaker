@@ -136,32 +136,32 @@ glimac/fast:
 	$(MAKE) -f lib/glimac/CMakeFiles/glimac.dir/build.make lib/glimac/CMakeFiles/glimac.dir/build
 .PHONY : glimac/fast
 
-src/src/main.o: src/src/main.cpp.o
+src/main.o: src/main.cpp.o
 
-.PHONY : src/src/main.o
+.PHONY : src/main.o
 
 # target to build an object file
-src/src/main.cpp.o:
-	$(MAKE) -f CMakeFiles/worldIMaker.dir/build.make CMakeFiles/worldIMaker.dir/src/src/main.cpp.o
-.PHONY : src/src/main.cpp.o
+src/main.cpp.o:
+	$(MAKE) -f CMakeFiles/worldIMaker.dir/build.make CMakeFiles/worldIMaker.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
 
-src/src/main.i: src/src/main.cpp.i
+src/main.i: src/main.cpp.i
 
-.PHONY : src/src/main.i
+.PHONY : src/main.i
 
 # target to preprocess a source file
-src/src/main.cpp.i:
-	$(MAKE) -f CMakeFiles/worldIMaker.dir/build.make CMakeFiles/worldIMaker.dir/src/src/main.cpp.i
-.PHONY : src/src/main.cpp.i
+src/main.cpp.i:
+	$(MAKE) -f CMakeFiles/worldIMaker.dir/build.make CMakeFiles/worldIMaker.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
 
-src/src/main.s: src/src/main.cpp.s
+src/main.s: src/main.cpp.s
 
-.PHONY : src/src/main.s
+.PHONY : src/main.s
 
 # target to generate assembly for a file
-src/src/main.cpp.s:
-	$(MAKE) -f CMakeFiles/worldIMaker.dir/build.make CMakeFiles/worldIMaker.dir/src/src/main.cpp.s
-.PHONY : src/src/main.cpp.s
+src/main.cpp.s:
+	$(MAKE) -f CMakeFiles/worldIMaker.dir/build.make CMakeFiles/worldIMaker.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
 
 # Help Target
 help:
@@ -173,9 +173,9 @@ help:
 	@echo "... worldIMaker"
 	@echo "... edit_cache"
 	@echo "... glimac"
-	@echo "... src/src/main.o"
-	@echo "... src/src/main.i"
-	@echo "... src/src/main.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 .PHONY : help
 
 

@@ -12,13 +12,13 @@ namespace glimac {
 class FreeFlyCamera {
 private:
     //position caméra
-    glm::vec3 _position;
+    glm::vec3 m_position;
     //coordonnées sphériques du vecteur
-    float _fPhi;
-    float _fTheta;
-    glm::vec3 _frontVector;
-    glm::vec3 _leftVector;
-    glm::vec3 _upVector;
+    float m_fPhi;
+    float m_fTheta;
+    glm::vec3 m_frontVector;
+    glm::vec3 m_leftVector;
+    glm::vec3 m_upVector;
 
 public:
     FreeFlyCamera();

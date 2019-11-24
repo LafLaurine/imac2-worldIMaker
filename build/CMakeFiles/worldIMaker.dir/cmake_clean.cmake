@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/worldIMaker.dir/src/src/main.cpp.o"
+  "CMakeFiles/worldIMaker.dir/src/main.cpp.o"
   "bin/worldIMaker.pdb"
   "bin/worldIMaker"
 )
