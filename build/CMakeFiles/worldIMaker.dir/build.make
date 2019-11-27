@@ -80,6 +80,7 @@ worldIMaker_EXTERNAL_OBJECTS =
 bin/worldIMaker: CMakeFiles/worldIMaker.dir/src/main.cpp.o
 bin/worldIMaker: CMakeFiles/worldIMaker.dir/build.make
 bin/worldIMaker: lib/libglimac.a
+bin/worldIMaker: lib/libimgui.a
 bin/worldIMaker: /usr/lib/x86_64-linux-gnu/libSDLmain.a
 bin/worldIMaker: /usr/lib/x86_64-linux-gnu/libSDL.so
 bin/worldIMaker: /usr/lib/x86_64-linux-gnu/libGL.so

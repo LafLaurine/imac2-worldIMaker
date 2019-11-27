@@ -69,9 +69,10 @@ CMAKE_BINARY_DIR = /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/bui
 
 # All Build rule for target.
 CMakeFiles/worldIMaker.dir/all: lib/glimac/CMakeFiles/glimac.dir/all
+CMakeFiles/worldIMaker.dir/all: lib/imgui/CMakeFiles/imgui.dir/all
 	$(MAKE) -f CMakeFiles/worldIMaker.dir/build.make CMakeFiles/worldIMaker.dir/depend
 	$(MAKE) -f CMakeFiles/worldIMaker.dir/build.make CMakeFiles/worldIMaker.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/CMakeFiles --progress-num=14,15 "Built target worldIMaker"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/CMakeFiles --progress-num=18,19 "Built target worldIMaker"
 .PHONY : CMakeFiles/worldIMaker.dir/all
 
 # Include target in all.
@@ -81,7 +82,7 @@ all: CMakeFiles/worldIMaker.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/worldIMaker.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/CMakeFiles 15
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/CMakeFiles 19
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/worldIMaker.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/CMakeFiles 0
 .PHONY : CMakeFiles/worldIMaker.dir/rule
@@ -153,6 +154,61 @@ lib/glimac/CMakeFiles/glimac.dir/clean:
 
 # clean rule for target.
 clean: lib/glimac/CMakeFiles/glimac.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory lib/imgui
+
+# Convenience name for "all" pass in the directory.
+lib/imgui/all: lib/imgui/CMakeFiles/imgui.dir/all
+
+.PHONY : lib/imgui/all
+
+# Convenience name for "clean" pass in the directory.
+lib/imgui/clean: lib/imgui/CMakeFiles/imgui.dir/clean
+
+.PHONY : lib/imgui/clean
+
+# Convenience name for "preinstall" pass in the directory.
+lib/imgui/preinstall:
+
+.PHONY : lib/imgui/preinstall
+
+#=============================================================================
+# Target rules for target lib/imgui/CMakeFiles/imgui.dir
+
+# All Build rule for target.
+lib/imgui/CMakeFiles/imgui.dir/all:
+	$(MAKE) -f lib/imgui/CMakeFiles/imgui.dir/build.make lib/imgui/CMakeFiles/imgui.dir/depend
+	$(MAKE) -f lib/imgui/CMakeFiles/imgui.dir/build.make lib/imgui/CMakeFiles/imgui.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/CMakeFiles --progress-num=14,15,16,17 "Built target imgui"
+.PHONY : lib/imgui/CMakeFiles/imgui.dir/all
+
+# Include target in all.
+all: lib/imgui/CMakeFiles/imgui.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+lib/imgui/CMakeFiles/imgui.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/CMakeFiles 4
+	$(MAKE) -f CMakeFiles/Makefile2 lib/imgui/CMakeFiles/imgui.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/CMakeFiles 0
+.PHONY : lib/imgui/CMakeFiles/imgui.dir/rule
+
+# Convenience name for target.
+imgui: lib/imgui/CMakeFiles/imgui.dir/rule
+
+.PHONY : imgui
+
+# clean rule for target.
+lib/imgui/CMakeFiles/imgui.dir/clean:
+	$(MAKE) -f lib/imgui/CMakeFiles/imgui.dir/build.make lib/imgui/CMakeFiles/imgui.dir/clean
+.PHONY : lib/imgui/CMakeFiles/imgui.dir/clean
+
+# clean rule for target.
+clean: lib/imgui/CMakeFiles/imgui.dir/clean
 
 .PHONY : clean
 

@@ -4,3 +4,6 @@
 /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/lib/glimac/CMakeFiles/rebuild_cache.dir
 /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/lib/glimac/CMakeFiles/glimac.dir
 /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/lib/glimac/CMakeFiles/edit_cache.dir
+/home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/lib/imgui/CMakeFiles/rebuild_cache.dir
+/home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/lib/imgui/CMakeFiles/imgui.dir
+/home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/lib/imgui/CMakeFiles/edit_cache.dir

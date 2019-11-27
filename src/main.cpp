@@ -46,7 +46,6 @@ int main(int argc, char** argv) {
 
     //Load lights
 
-
     // Application loop
     bool done = false;
     while(!done) {

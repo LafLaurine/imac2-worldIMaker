@@ -56,13 +56,13 @@ endif()
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O2 -std=c++11")
 set(CMAKE_CXX_FLAGS_DEBUG_INIT "-g")
 
-include_directories(${SDL2_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLEW_INCLUDE_DIR} lib/glimac/include third-party/include)
+include_directories(${SDL2_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLEW_INCLUDE_DIR} lib/glimac/include lib/imgui/src third-party/include)
 
-set(ALL_LIBRARIES glimac ${SDL_LIBRARY} ${OPENGL_LIBRARIES} ${GLEW_LIBRARY})
+set(ALL_LIBRARIES glimac imgui ${SDL_LIBRARY} ${OPENGL_LIBRARIES} ${GLEW_LIBRARY})
 
 # Add the glimac library
 add_subdirectory(lib/glimac)
-
+add_subdirectory(lib/imgui)
 
 file(GLOB_RECURSE HEADER_FILES src/include/*.hpp) # get all headers
 file(GLOB_RECURSE SRC_FILES src/*.cpp) # get all sources files

@@ -12,6 +12,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.13.4/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.13.4/CMakeSystem.cmake"
   "../lib/glimac/CMakeLists.txt"
+  "../lib/imgui/CMakeLists.txt"
   "/usr/lib/cmake/eigen3/Eigen3Config.cmake"
   "/usr/lib/cmake/eigen3/Eigen3ConfigVersion.cmake"
   "/usr/lib/cmake/eigen3/Eigen3Targets.cmake"
@@ -49,10 +50,12 @@ set(CMAKE_MAKEFILE_OUTPUTS
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   "lib/glimac/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "lib/imgui/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/worldIMaker.dir/DependInfo.cmake"
   "lib/glimac/CMakeFiles/glimac.dir/DependInfo.cmake"
+  "lib/imgui/CMakeFiles/imgui.dir/DependInfo.cmake"
   )

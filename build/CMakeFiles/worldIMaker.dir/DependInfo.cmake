@@ -11,12 +11,14 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../lib/glimac/include"
+  "../lib/imgui/src"
   "../third-party/include"
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
   "/home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/lib/glimac/CMakeFiles/glimac.dir/DependInfo.cmake"
+  "/home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/lib/imgui/CMakeFiles/imgui.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.
