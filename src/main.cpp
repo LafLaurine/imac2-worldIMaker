@@ -6,8 +6,15 @@
 #include <glimac/Program.hpp> 
 #include <glimac/FilePath.hpp> 
 #include <glimac/glm.hpp> 
+#include <imgui/imgui.h> 
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+
 
 using namespace glimac;
+
+//il faudra penser à ajouter -Werror au CMAKE, mais là c'est pas viable comme c'est la construction des fichiers
+
 
 int main(int argc, char** argv) {
     const int WINDOW_WIDTH = 800;
@@ -24,6 +31,7 @@ int main(int argc, char** argv) {
 
     std::cout << "OpenGL Version : " << glGetString(GL_VERSION) << std::endl;
     std::cout << "GLEW Version : " << glewGetString(GLEW_VERSION) << std::endl;
+    
 
 
     // a mon avis, utilisation des programmes genre : struct CubeProgramm {};

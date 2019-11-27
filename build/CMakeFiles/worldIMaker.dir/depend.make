@@ -6,6 +6,8 @@ CMakeFiles/worldIMaker.dir/src/main.cpp.o: ../lib/glimac/include/glimac/Program.
 CMakeFiles/worldIMaker.dir/src/main.cpp.o: ../lib/glimac/include/glimac/SDLWindowManager.hpp
 CMakeFiles/worldIMaker.dir/src/main.cpp.o: ../lib/glimac/include/glimac/Shader.hpp
 CMakeFiles/worldIMaker.dir/src/main.cpp.o: ../lib/glimac/include/glimac/glm.hpp
+CMakeFiles/worldIMaker.dir/src/main.cpp.o: ../lib/imgui/include/imgui/imconfig.h
+CMakeFiles/worldIMaker.dir/src/main.cpp.o: ../lib/imgui/include/imgui/imgui.h
 CMakeFiles/worldIMaker.dir/src/main.cpp.o: ../third-party/include/glm/common.hpp
 CMakeFiles/worldIMaker.dir/src/main.cpp.o: ../third-party/include/glm/detail/_fixes.hpp
 CMakeFiles/worldIMaker.dir/src/main.cpp.o: ../third-party/include/glm/detail/_swizzle.hpp

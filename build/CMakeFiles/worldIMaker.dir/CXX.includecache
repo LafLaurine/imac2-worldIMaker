@@ -48,6 +48,26 @@ glm/gtx/io.hpp
 glm/gtc/random.hpp
 -
 
+../lib/imgui/include/imgui/imconfig.h
+
+../lib/imgui/include/imgui/imgui.h
+imconfig.h
+../lib/imgui/include/imgui/imconfig.h
+float.h
+-
+stdarg.h
+-
+stddef.h
+-
+string.h
+-
+assert.h
+-
+stdint.h
+-
+imgui_user.h
+../lib/imgui/include/imgui/imgui_user.h
+
 ../third-party/include/glm/common.hpp
 detail/func_common.hpp
 ../third-party/include/glm/detail/func_common.hpp
