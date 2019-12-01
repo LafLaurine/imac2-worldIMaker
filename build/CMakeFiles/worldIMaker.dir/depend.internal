@@ -9,6 +9,8 @@ CMakeFiles/worldIMaker.dir/src/main.cpp.o
  ../lib/glimac/include/glimac/glm.hpp
  ../lib/imgui/include/imgui/imconfig.h
  ../lib/imgui/include/imgui/imgui.h
+ ../lib/imgui/include/imgui/imgui_impl_opengl3.h
+ ../lib/imgui/include/imgui/imgui_impl_sdl.h
  ../third-party/include/glm/common.hpp
  ../third-party/include/glm/detail/_fixes.hpp
  ../third-party/include/glm/detail/_swizzle.hpp

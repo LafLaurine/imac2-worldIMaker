@@ -33,7 +33,7 @@ if(${GLEW_FOUND})
 endif()
 
 #SDL2
-message("Looking for SDL...")
+message("Looking for SDL2...")
 find_package(SDL2 REQUIRED)
 if(${SDL2_FOUND})
     message(STATUS "lib SDL2 found")
@@ -53,12 +53,12 @@ else()
 endif()
 
 # compilation flags
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O2 -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O2 -lSDL2 -std=c++11")
 set(CMAKE_CXX_FLAGS_DEBUG_INIT "-g")
 
-include_directories(${SDL2_INCLUDE_DIR} ${OPENGL_INCLUDE_DIR} ${GLEW_INCLUDE_DIR} lib/glimac/include lib/imgui/include third-party/include)
+include_directories(${SDL2_INCLUDE_DIRS} ${OPENGL_INCLUDE_DIR} ${GLEW_INCLUDE_DIR} lib/glimac/include lib/imgui/include third-party/include)
 
-set(ALL_LIBRARIES glimac imgui ${SDL_LIBRARY} ${OPENGL_LIBRARIES} ${GLEW_LIBRARY})
+set(ALL_LIBRARIES ${SDL2_LIBRARIES} glimac imgui ${OPENGL_LIBRARIES} ${GLEW_LIBRARY})
 
 # Add the glimac library
 add_subdirectory(lib/glimac)

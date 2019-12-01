@@ -10,6 +10,7 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
+  "/usr/include/SDL2"
   "../lib/glimac/include"
   "../lib/imgui/include"
   "../third-party/include"
