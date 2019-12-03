@@ -483,6 +483,13 @@ lib/glimac/CMakeFiles/glimac.dir/src/Image.cpp.o: ../third-party/include/glm/vec
 lib/glimac/CMakeFiles/glimac.dir/src/Image.cpp.o: ../lib/glimac/src/Image.cpp
 lib/glimac/CMakeFiles/glimac.dir/src/Image.cpp.o: ../lib/glimac/src/stb_image.h
 
+lib/glimac/CMakeFiles/glimac.dir/src/Interface.cpp.o: ../lib/glimac/include/glimac/Interface.hpp
+lib/glimac/CMakeFiles/glimac.dir/src/Interface.cpp.o: ../lib/imgui/include/imgui/imconfig.h
+lib/glimac/CMakeFiles/glimac.dir/src/Interface.cpp.o: ../lib/imgui/include/imgui/imgui.h
+lib/glimac/CMakeFiles/glimac.dir/src/Interface.cpp.o: ../lib/imgui/include/imgui/imgui_impl_opengl3.h
+lib/glimac/CMakeFiles/glimac.dir/src/Interface.cpp.o: ../lib/imgui/include/imgui/imgui_impl_sdl.h
+lib/glimac/CMakeFiles/glimac.dir/src/Interface.cpp.o: ../lib/glimac/src/Interface.cpp
+
 lib/glimac/CMakeFiles/glimac.dir/src/Program.cpp.o: ../lib/glimac/include/glimac/FilePath.hpp
 lib/glimac/CMakeFiles/glimac.dir/src/Program.cpp.o: ../lib/glimac/include/glimac/Program.hpp
 lib/glimac/CMakeFiles/glimac.dir/src/Program.cpp.o: ../lib/glimac/include/glimac/Shader.hpp

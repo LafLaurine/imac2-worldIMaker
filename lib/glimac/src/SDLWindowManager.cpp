@@ -4,7 +4,12 @@
 
 namespace glimac {
 
+bool SDLWindowManager::m_instanciated = false;
+
 SDLWindowManager::SDLWindowManager(uint32_t width, uint32_t height, const char* title) {
+    assert(!m_instanciated && "App already created !");
+    m_instanciated = true;
+   
     if(0 != SDL_Init(SDL_INIT_VIDEO)) {
         std::cerr << SDL_GetError() << std::endl;
         return;
@@ -14,19 +19,34 @@ SDLWindowManager::SDLWindowManager(uint32_t width, uint32_t height, const char* 
     SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 3 );
     SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 3 );
 
-    window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL);
+    m_window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL);
 
-    SDL_GLContext openglContext = SDL_GL_CreateContext (window);
-
-    std::cout <<  glGetString (GL_VERSION) << std::endl;
-
-    if(!window) {
+    m_glContext = SDL_GL_CreateContext(m_window);
+    if(!m_window) {
         std::cerr << SDL_GetError() << std::endl;
         return;
     }
+    if (m_glContext == nullptr) {
+        std::cerr << SDL_GetError() << std::endl;
+        return;
+    }
+    // Initialize glew for OpenGL3+ support
+    GLenum glewInitError = glewInit();
+    if(GLEW_OK != glewInitError) {
+        std::cerr << glewGetErrorString(glewInitError) << std::endl;
+    }
+
+    std::cout << "OpenGL Version : " << glGetString(GL_VERSION) << std::endl;
+    std::cout << "GLEW Version : " << glewGetString(GLEW_VERSION) << std::endl;
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
 }
 
 SDLWindowManager::~SDLWindowManager() {
+    SDL_GL_DeleteContext(m_glContext);
+    SDL_DestroyWindow(m_window);
     SDL_Quit();
 }
 
@@ -50,7 +70,7 @@ glm::ivec2 SDLWindowManager::getMousePosition() const {
 }
 
 void SDLWindowManager::swapBuffers() {
-    SDL_GL_SwapWindow(window);
+    SDL_GL_SwapWindow(m_window);
 }
 
 float SDLWindowManager::getTime() const {
