@@ -1,4 +1,4 @@
-# Install script for directory: /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker
+# Install script for directory: /home/flora/Documents/imac/IMAC2/imac2-worldIMaker
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,8 +39,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/lib/glimac/cmake_install.cmake")
-  include("/home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/lib/imgui/cmake_install.cmake")
+  include("/home/flora/Documents/imac/IMAC2/imac2-worldIMaker/build/lib/glimac/cmake_install.cmake")
+  include("/home/flora/Documents/imac/IMAC2/imac2-worldIMaker/build/lib/imgui/cmake_install.cmake")
 
 endif()
 
@@ -52,5 +52,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/flora/Documents/imac/IMAC2/imac2-worldIMaker/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

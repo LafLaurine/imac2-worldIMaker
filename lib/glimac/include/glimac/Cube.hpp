@@ -3,7 +3,6 @@
 
 #pragma once
 #include <glimac/glm.hpp> 
-#include <glimac/Shader.hpp> 
 #include <GL/glew.h>
 
 namespace glimac
@@ -14,10 +13,8 @@ namespace glimac
 		private:
 			unsigned int m_vao;
 			unsigned int m_ib;
-			Shader m_shader;
-
 		public:
-			Cube();
+			Cube(){};
 			~Cube() = default;
 			inline glm::vec3 getPosition()const{ return m_position; };
 			void display();
