@@ -24,8 +24,8 @@ SDLWindowManager::SDLWindowManager(uint32_t width, uint32_t height, const char* 
 
 
     m_window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI);
-
     m_glContext = SDL_GL_CreateContext(m_window);
+    
     if(!m_window) {
         std::cerr << SDL_GetError() << std::endl;
         return;

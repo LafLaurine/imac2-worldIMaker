@@ -18,10 +18,10 @@ namespace glimac
 			Overlay(){};
 			//Destructor
 			~Overlay() = default;
-			void initImgui(SDL_Window* window,SDL_GLContext glContext) const;
+			void initImgui(SDL_Window* window,SDL_GLContext* glContext) const;
 			void beginFrame(SDL_Window* window) const;
 			void drawOverlay() const;
-    		void endFrame(SDL_Window* window,SDL_GLContext glContext) const;
+    		void endFrame(SDL_Window* window) const;
 	};
 }
 

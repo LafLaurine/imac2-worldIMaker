@@ -1,4 +1,4 @@
-# Install script for directory: /home/flora/Documents/imac/IMAC2/imac2-worldIMaker/lib/glimac
+# Install script for directory: /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/lib/glimac
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -11,14 +11,15 @@ namespace glimac
 	class Cube
 	{
 		private:
-			unsigned int m_vao;
-			unsigned int m_ib;
+			GLuint m_vao;
+			GLuint m_ibo;
+			glm::vec3 m_position;
 		public:
-			Cube(){};
+			Cube();
 			~Cube() = default;
 			inline glm::vec3 getPosition()const{ return m_position; };
+			void initBuffer();
 			void display();
-			glm::vec3 m_position;
 
 			//something inline to assign its shader maybe
 	};

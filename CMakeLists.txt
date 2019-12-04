@@ -3,9 +3,9 @@ cmake_minimum_required(VERSION 2.8)
 project(worldIMaker)
 
 set(EXECUTABLE_NAME worldIMaker)
-
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
-set(LIBRARY_OUTPUT_PATH  ${PROJECT_BINARY_DIR}/lib)
+set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
+set(SHADER_OUTPUT_PATH ${PROJECT_BINARY_DIR}/shaders)
 
 # For UPEM compilation
 if(UPEMLV)

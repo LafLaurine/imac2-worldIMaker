@@ -1,4 +1,4 @@
-# Install script for directory: /home/flora/Documents/imac/IMAC2/imac2-worldIMaker/lib/imgui
+# Install script for directory: /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/lib/imgui
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
