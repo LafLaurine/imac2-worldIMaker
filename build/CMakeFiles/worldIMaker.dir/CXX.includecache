@@ -10,6 +10,22 @@
 string
 -
 
+../lib/glimac/include/glimac/Overlay.hpp
+iostream
+-
+string
+-
+SDL2/SDL.h
+-
+GL/glew.h
+-
+imgui/imgui.h
+-
+imgui/imgui_impl_opengl3.h
+-
+imgui/imgui_impl_sdl.h
+-
+
 ../lib/glimac/include/glimac/Program.hpp
 GL/glew.h
 -
@@ -824,6 +840,8 @@ math.h
 glimac/Program.hpp
 -
 glimac/SDLWindowManager.hpp
+-
+glimac/Overlay.hpp
 -
 glimac/FilePath.hpp
 -

@@ -5,7 +5,7 @@
 #include <math.h>
 #include <glimac/Program.hpp> 
 #include <glimac/SDLWindowManager.hpp> 
-//#include <glimac/Interface.hpp> 
+#include <glimac/Overlay.hpp> 
 #include <glimac/FilePath.hpp> 
 #include <glimac/glm.hpp> 
 #include <imgui/imgui.h>
@@ -23,10 +23,6 @@ int main(int argc, char** argv) {
 
     // Initialize SDL and open a window
     SDLWindowManager windowManager(WINDOW_WIDTH, WINDOW_HEIGTH, "worldIMaker");
-    
-   /* Interface interface;
-
-    interface.initImgui(windowManager.m_window,windowManager.m_glContext);*/
 
     //Load shaders
 
@@ -45,16 +41,10 @@ int main(int argc, char** argv) {
                 windowManager.exit(); // Leave the loop after this iteration
             }
         }
-
-        //begin imgui
-     //   interface.beginFrame(windowManager.m_window);
-
-       // interface.drawInterface();
             
         /*********************************
          * HERE SHOULD COME THE RENDERING CODE
          *********************************/
-        //interface.endFrame(windowManager.m_window,windowManager.m_glContext);        
 
         //Update display
         windowManager.swapBuffers();

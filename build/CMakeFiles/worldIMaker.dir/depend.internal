@@ -3,6 +3,7 @@
 
 CMakeFiles/worldIMaker.dir/src/main.cpp.o
  ../lib/glimac/include/glimac/FilePath.hpp
+ ../lib/glimac/include/glimac/Overlay.hpp
  ../lib/glimac/include/glimac/Program.hpp
  ../lib/glimac/include/glimac/SDLWindowManager.hpp
  ../lib/glimac/include/glimac/Shader.hpp

@@ -260,32 +260,32 @@ src/Image.cpp.s:
 	cd /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build && $(MAKE) -f lib/glimac/CMakeFiles/glimac.dir/build.make lib/glimac/CMakeFiles/glimac.dir/src/Image.cpp.s
 .PHONY : src/Image.cpp.s
 
-src/Interface.o: src/Interface.cpp.o
+src/Overlay.o: src/Overlay.cpp.o
 
-.PHONY : src/Interface.o
+.PHONY : src/Overlay.o
 
 # target to build an object file
-src/Interface.cpp.o:
-	cd /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build && $(MAKE) -f lib/glimac/CMakeFiles/glimac.dir/build.make lib/glimac/CMakeFiles/glimac.dir/src/Interface.cpp.o
-.PHONY : src/Interface.cpp.o
+src/Overlay.cpp.o:
+	cd /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build && $(MAKE) -f lib/glimac/CMakeFiles/glimac.dir/build.make lib/glimac/CMakeFiles/glimac.dir/src/Overlay.cpp.o
+.PHONY : src/Overlay.cpp.o
 
-src/Interface.i: src/Interface.cpp.i
+src/Overlay.i: src/Overlay.cpp.i
 
-.PHONY : src/Interface.i
+.PHONY : src/Overlay.i
 
 # target to preprocess a source file
-src/Interface.cpp.i:
-	cd /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build && $(MAKE) -f lib/glimac/CMakeFiles/glimac.dir/build.make lib/glimac/CMakeFiles/glimac.dir/src/Interface.cpp.i
-.PHONY : src/Interface.cpp.i
+src/Overlay.cpp.i:
+	cd /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build && $(MAKE) -f lib/glimac/CMakeFiles/glimac.dir/build.make lib/glimac/CMakeFiles/glimac.dir/src/Overlay.cpp.i
+.PHONY : src/Overlay.cpp.i
 
-src/Interface.s: src/Interface.cpp.s
+src/Overlay.s: src/Overlay.cpp.s
 
-.PHONY : src/Interface.s
+.PHONY : src/Overlay.s
 
 # target to generate assembly for a file
-src/Interface.cpp.s:
-	cd /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build && $(MAKE) -f lib/glimac/CMakeFiles/glimac.dir/build.make lib/glimac/CMakeFiles/glimac.dir/src/Interface.cpp.s
-.PHONY : src/Interface.cpp.s
+src/Overlay.cpp.s:
+	cd /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build && $(MAKE) -f lib/glimac/CMakeFiles/glimac.dir/build.make lib/glimac/CMakeFiles/glimac.dir/src/Overlay.cpp.s
+.PHONY : src/Overlay.cpp.s
 
 src/Program.o: src/Program.cpp.o
 
@@ -500,9 +500,9 @@ help:
 	@echo "... src/Image.o"
 	@echo "... src/Image.i"
 	@echo "... src/Image.s"
-	@echo "... src/Interface.o"
-	@echo "... src/Interface.i"
-	@echo "... src/Interface.s"
+	@echo "... src/Overlay.o"
+	@echo "... src/Overlay.i"
+	@echo "... src/Overlay.s"
 	@echo "... src/Program.o"
 	@echo "... src/Program.i"
 	@echo "... src/Program.s"

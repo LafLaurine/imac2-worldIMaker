@@ -15,21 +15,27 @@ SDLWindowManager::SDLWindowManager(uint32_t width, uint32_t height, const char* 
         return;
     }
 
-    SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );
-    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 3 );
-    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 3 );
+    // Use OpenGL 3.3
+    SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");
+    SDL_GL_LoadLibrary(NULL);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 
-    m_window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL);
+
+    m_window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI);
 
     m_glContext = SDL_GL_CreateContext(m_window);
     if(!m_window) {
         std::cerr << SDL_GetError() << std::endl;
         return;
     }
-    if (m_glContext == nullptr) {
+    if (!m_glContext) {
         std::cerr << SDL_GetError() << std::endl;
         return;
     }
+    SDL_GL_MakeCurrent(m_window, m_glContext);
+    SDL_GL_SetSwapInterval(1); // Enable vsync
     // Initialize glew for OpenGL3+ support
     GLenum glewInitError = glewInit();
     if(GLEW_OK != glewInitError) {

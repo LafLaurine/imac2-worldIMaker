@@ -122,18 +122,18 @@ lib/glimac/CMakeFiles/glimac.dir/src/Image.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/glimac.dir/src/Image.cpp.s"
 	cd /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/lib/glimac && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/lib/glimac/src/Image.cpp -o CMakeFiles/glimac.dir/src/Image.cpp.s
 
-lib/glimac/CMakeFiles/glimac.dir/src/Interface.cpp.o: lib/glimac/CMakeFiles/glimac.dir/flags.make
-lib/glimac/CMakeFiles/glimac.dir/src/Interface.cpp.o: ../lib/glimac/src/Interface.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object lib/glimac/CMakeFiles/glimac.dir/src/Interface.cpp.o"
-	cd /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/lib/glimac && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/glimac.dir/src/Interface.cpp.o -c /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/lib/glimac/src/Interface.cpp
+lib/glimac/CMakeFiles/glimac.dir/src/Overlay.cpp.o: lib/glimac/CMakeFiles/glimac.dir/flags.make
+lib/glimac/CMakeFiles/glimac.dir/src/Overlay.cpp.o: ../lib/glimac/src/Overlay.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object lib/glimac/CMakeFiles/glimac.dir/src/Overlay.cpp.o"
+	cd /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/lib/glimac && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/glimac.dir/src/Overlay.cpp.o -c /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/lib/glimac/src/Overlay.cpp
 
-lib/glimac/CMakeFiles/glimac.dir/src/Interface.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/glimac.dir/src/Interface.cpp.i"
-	cd /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/lib/glimac && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/lib/glimac/src/Interface.cpp > CMakeFiles/glimac.dir/src/Interface.cpp.i
+lib/glimac/CMakeFiles/glimac.dir/src/Overlay.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/glimac.dir/src/Overlay.cpp.i"
+	cd /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/lib/glimac && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/lib/glimac/src/Overlay.cpp > CMakeFiles/glimac.dir/src/Overlay.cpp.i
 
-lib/glimac/CMakeFiles/glimac.dir/src/Interface.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/glimac.dir/src/Interface.cpp.s"
-	cd /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/lib/glimac && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/lib/glimac/src/Interface.cpp -o CMakeFiles/glimac.dir/src/Interface.cpp.s
+lib/glimac/CMakeFiles/glimac.dir/src/Overlay.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/glimac.dir/src/Overlay.cpp.s"
+	cd /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/lib/glimac && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/lib/glimac/src/Overlay.cpp -o CMakeFiles/glimac.dir/src/Overlay.cpp.s
 
 lib/glimac/CMakeFiles/glimac.dir/src/Program.cpp.o: lib/glimac/CMakeFiles/glimac.dir/flags.make
 lib/glimac/CMakeFiles/glimac.dir/src/Program.cpp.o: ../lib/glimac/src/Program.cpp
@@ -233,7 +233,7 @@ glimac_OBJECTS = \
 "CMakeFiles/glimac.dir/src/FreeflyCamera.cpp.o" \
 "CMakeFiles/glimac.dir/src/Geometry.cpp.o" \
 "CMakeFiles/glimac.dir/src/Image.cpp.o" \
-"CMakeFiles/glimac.dir/src/Interface.cpp.o" \
+"CMakeFiles/glimac.dir/src/Overlay.cpp.o" \
 "CMakeFiles/glimac.dir/src/Program.cpp.o" \
 "CMakeFiles/glimac.dir/src/SDLWindowManager.cpp.o" \
 "CMakeFiles/glimac.dir/src/Shader.cpp.o" \
@@ -250,7 +250,7 @@ lib/libglimac.a: lib/glimac/CMakeFiles/glimac.dir/src/Cube.cpp.o
 lib/libglimac.a: lib/glimac/CMakeFiles/glimac.dir/src/FreeflyCamera.cpp.o
 lib/libglimac.a: lib/glimac/CMakeFiles/glimac.dir/src/Geometry.cpp.o
 lib/libglimac.a: lib/glimac/CMakeFiles/glimac.dir/src/Image.cpp.o
-lib/libglimac.a: lib/glimac/CMakeFiles/glimac.dir/src/Interface.cpp.o
+lib/libglimac.a: lib/glimac/CMakeFiles/glimac.dir/src/Overlay.cpp.o
 lib/libglimac.a: lib/glimac/CMakeFiles/glimac.dir/src/Program.cpp.o
 lib/libglimac.a: lib/glimac/CMakeFiles/glimac.dir/src/SDLWindowManager.cpp.o
 lib/libglimac.a: lib/glimac/CMakeFiles/glimac.dir/src/Shader.cpp.o

@@ -97,6 +97,8 @@ lib/glimac/CMakeFiles/glimac.dir/src/Cone.cpp.o: ../third-party/include/glm/vect
 lib/glimac/CMakeFiles/glimac.dir/src/Cone.cpp.o: ../lib/glimac/src/Cone.cpp
 
 lib/glimac/CMakeFiles/glimac.dir/src/Cube.cpp.o: ../lib/glimac/include/glimac/Cube.hpp
+lib/glimac/CMakeFiles/glimac.dir/src/Cube.cpp.o: ../lib/glimac/include/glimac/FilePath.hpp
+lib/glimac/CMakeFiles/glimac.dir/src/Cube.cpp.o: ../lib/glimac/include/glimac/Shader.hpp
 lib/glimac/CMakeFiles/glimac.dir/src/Cube.cpp.o: ../lib/glimac/include/glimac/glm.hpp
 lib/glimac/CMakeFiles/glimac.dir/src/Cube.cpp.o: ../third-party/include/glm/common.hpp
 lib/glimac/CMakeFiles/glimac.dir/src/Cube.cpp.o: ../third-party/include/glm/detail/_fixes.hpp
@@ -483,12 +485,12 @@ lib/glimac/CMakeFiles/glimac.dir/src/Image.cpp.o: ../third-party/include/glm/vec
 lib/glimac/CMakeFiles/glimac.dir/src/Image.cpp.o: ../lib/glimac/src/Image.cpp
 lib/glimac/CMakeFiles/glimac.dir/src/Image.cpp.o: ../lib/glimac/src/stb_image.h
 
-lib/glimac/CMakeFiles/glimac.dir/src/Interface.cpp.o: ../lib/glimac/include/glimac/Interface.hpp
-lib/glimac/CMakeFiles/glimac.dir/src/Interface.cpp.o: ../lib/imgui/include/imgui/imconfig.h
-lib/glimac/CMakeFiles/glimac.dir/src/Interface.cpp.o: ../lib/imgui/include/imgui/imgui.h
-lib/glimac/CMakeFiles/glimac.dir/src/Interface.cpp.o: ../lib/imgui/include/imgui/imgui_impl_opengl3.h
-lib/glimac/CMakeFiles/glimac.dir/src/Interface.cpp.o: ../lib/imgui/include/imgui/imgui_impl_sdl.h
-lib/glimac/CMakeFiles/glimac.dir/src/Interface.cpp.o: ../lib/glimac/src/Interface.cpp
+lib/glimac/CMakeFiles/glimac.dir/src/Overlay.cpp.o: ../lib/glimac/include/glimac/Overlay.hpp
+lib/glimac/CMakeFiles/glimac.dir/src/Overlay.cpp.o: ../lib/imgui/include/imgui/imconfig.h
+lib/glimac/CMakeFiles/glimac.dir/src/Overlay.cpp.o: ../lib/imgui/include/imgui/imgui.h
+lib/glimac/CMakeFiles/glimac.dir/src/Overlay.cpp.o: ../lib/imgui/include/imgui/imgui_impl_opengl3.h
+lib/glimac/CMakeFiles/glimac.dir/src/Overlay.cpp.o: ../lib/imgui/include/imgui/imgui_impl_sdl.h
+lib/glimac/CMakeFiles/glimac.dir/src/Overlay.cpp.o: ../lib/glimac/src/Overlay.cpp
 
 lib/glimac/CMakeFiles/glimac.dir/src/Program.cpp.o: ../lib/glimac/include/glimac/FilePath.hpp
 lib/glimac/CMakeFiles/glimac.dir/src/Program.cpp.o: ../lib/glimac/include/glimac/Program.hpp
