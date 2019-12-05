@@ -5,7 +5,6 @@ project(worldIMaker)
 set(EXECUTABLE_NAME worldIMaker)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
-set(SHADER_OUTPUT_PATH ${PROJECT_BINARY_DIR}/shaders)
 
 # For UPEM compilation
 if(UPEMLV)
@@ -62,13 +61,16 @@ set(ALL_LIBRARIES ${SDL2_LIBRARIES} glimac imgui ${OPENGL_LIBRARIES} ${GLEW_LIBR
 
 # Add the glimac library
 add_subdirectory(lib/glimac)
+# Add the imgui library
 add_subdirectory(lib/imgui)
 
 file(GLOB_RECURSE HEADER_FILES src/include/*.hpp) # get all headers
 file(GLOB_RECURSE SRC_FILES src/*.cpp) # get all sources files
-file(GLOB_RECURSE SHADER_FILES shaders/*.glsl) # get all shaders
-file(GLOB_RECURSE ASSET_FILES assets/*) # get all the assets
+file(GLOB_RECURSE SHADERS_FILES shaders/*.glsl) # get all shaders
+file(GLOB_RECURSE ASSETS_FILES assets/*) # get all the assets
 
-add_executable(${EXECUTABLE_NAME} ${SRC_FILES} ${HEADER_FILES} ${SHADER_FILES} ${ASSET_FILES}) # add the executable
+add_executable(${EXECUTABLE_NAME} ${SHADERS_FILES} ${ASSETS_FILES} ${SRC_FILES} ${HEADER_FILES}) # add the executable
 
 target_link_libraries(${EXECUTABLE_NAME} ${ALL_LIBRARIES})
+file(COPY shaders DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+file(COPY assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

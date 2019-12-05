@@ -27,10 +27,10 @@ int main(int argc, char** argv) {
     Overlay overlay;
 
     //Load shaders
-   /* FilePath applicationPath(argv[0]);
+    FilePath applicationPath(argv[0]);
     Program program = loadProgram(applicationPath.dirPath() + "shaders/3D.vs.glsl",
                                   applicationPath.dirPath() + "shaders/normal.fs.glsl");
-    program.use();*/
+    program.use();
 
 
     //Recupère variables uniformes
