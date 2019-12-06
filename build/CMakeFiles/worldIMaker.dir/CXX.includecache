@@ -6,6 +6,12 @@
 
 #IncludeRegexTransform: 
 
+../lib/glimac/include/glimac/Cube.hpp
+glimac/glm.hpp
+-
+GL/glew.h
+-
+
 ../lib/glimac/include/glimac/FilePath.hpp
 string
 -
@@ -844,6 +850,8 @@ glimac/SDLWindowManager.hpp
 glimac/FilePath.hpp
 -
 glimac/Overlay.hpp
+-
+glimac/Cube.hpp
 -
 glimac/glm.hpp
 -

@@ -1,10 +1,6 @@
 #version 330 core
-
-in vec3 vPosition;
-in vec3 vNormal;
-
-out vec3 fFragColor;
+out vec4 fragColor;
 
 void main() {
-    fFragColor = normalize(vNormal);
+    fragColor = vec4(1.0f, 0.0f, 0.0f, 1.0f);
 }

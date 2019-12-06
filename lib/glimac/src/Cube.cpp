@@ -41,7 +41,7 @@ namespace glimac {
         20,21,22,  22,23,20		  // back
     };
 
-        void Cube::initBuffer() {
+    void Cube::initBuffer() {
         GLuint cubeVbo;
         //Vertex buffer
         glGenBuffers(1, &cubeVbo);

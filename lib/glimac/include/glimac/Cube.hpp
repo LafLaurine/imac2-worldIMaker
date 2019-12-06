@@ -13,10 +13,10 @@ namespace glimac
 		private:
 			GLuint m_vao;
 			GLuint m_ibo;
-			glm::vec3 m_position;
 		public:
 			Cube();
 			~Cube() = default;
+			glm::vec3 m_position;
 			inline glm::vec3 getPosition()const{ return m_position; };
 			void initBuffer();
 			void display();
