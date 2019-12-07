@@ -1,1 +1,0 @@
-/usr/bin/c++   -Wall -O2 -lSDL2 -std=c++11  -rdynamic CMakeFiles/worldIMaker.dir/src/main.cpp.o  -o bin/worldIMaker -lSDL2 lib/libglimac.a lib/libimgui.a lib/libGLAD.a -lGL -lGLU -lGLEW 

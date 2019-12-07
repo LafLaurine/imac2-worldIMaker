@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
                         GL_FALSE, // Transpose
                         glm::value_ptr(viewProjMat)); // Value
     //Load camera
-    
+
 
     //Load lights
 
@@ -90,17 +90,19 @@ int main(int argc, char** argv) {
         /*********************************
          * HERE SHOULD COME THE RENDERING CODE
          *********************************/
+
+        overlay.beginFrame(windowManager.m_window);
         cube.initCube();
         glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), cube.m_position);
         glUniformMatrix4fv(uModelLocation, // Location
                         1, // Count
                         GL_FALSE, // Transpose
                         glm::value_ptr(modelMat)); // Value
+        overlay.drawOverlay();
 
         cube.draw();
-        overlay.beginFrame(windowManager.m_window);
-        overlay.drawOverlay();
         overlay.endFrame(windowManager.m_window);
+
         //Update display
         glBindVertexArray(0);
         windowManager.swapBuffers();
