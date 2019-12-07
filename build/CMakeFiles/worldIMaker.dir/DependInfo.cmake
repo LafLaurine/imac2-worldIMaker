@@ -13,6 +13,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/usr/include/SDL2"
   "../lib/glimac/include"
   "../lib/imgui/include"
+  "../lib/glad/include"
   "../third-party/include"
   )
 
@@ -20,6 +21,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 set(CMAKE_TARGET_LINKED_INFO_FILES
   "/home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/lib/glimac/CMakeFiles/glimac.dir/DependInfo.cmake"
   "/home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/lib/imgui/CMakeFiles/imgui.dir/DependInfo.cmake"
+  "/home/laurine/Documents/IMAC2/WorldIMAC/imac2-worldIMaker/build/CMakeFiles/GLAD.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

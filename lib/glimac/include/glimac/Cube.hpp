@@ -19,7 +19,8 @@ namespace glimac
 			glm::vec3 m_position;
 			inline glm::vec3 getPosition()const{ return m_position; };
 			void initBuffer();
-			void display();
+			void initCube();
+			void draw();
 
 			//something inline to assign its shader maybe
 	};

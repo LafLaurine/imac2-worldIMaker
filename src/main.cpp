@@ -24,44 +24,41 @@ int main(int argc, char** argv) {
 
     // Initialize SDL and open a window
     SDLWindowManager windowManager(WINDOW_WIDTH, WINDOW_HEIGTH, "worldIMaker");
-
     Overlay overlay;
 
     //Load shaders
     FilePath applicationPath(argv[0]);
-    Program program = loadProgram(applicationPath.dirPath() + "shaders/3D.vs.glsl",
-                                  applicationPath.dirPath() + "shaders/normal.fs.glsl");
+    Program program = loadProgram(applicationPath.dirPath() + "../shaders/3D.vs.glsl",
+                                  applicationPath.dirPath() + "../shaders/normal.fs.glsl");
     program.use();
 
+    Cube cube;
+    overlay.initImgui(windowManager.m_window,&windowManager.m_glContext);
 
-    //Recupère variables uniformes
     GLint uModelLocation = glGetUniformLocation(program.getGLId(), "uModel");
     GLint uViewProjLocation = glGetUniformLocation(program.getGLId(), "uViewProj");
 
-    Cube cube;
-
-    const GLuint VERTEX_ATTR_POSITION = 0;
-
-    glVertexAttribPointer(
-    VERTEX_ATTR_POSITION, // index
-    3, // size
-    GL_FLOAT, // type
-    GL_FALSE, // normalized
-    3 * sizeof(float), // stride
-    NULL // pointer
-    );
-    
-    overlay.initImgui(windowManager.m_window,&windowManager.m_glContext);
-
-    //Load camera
-
-    //Load lights
-
-    //Calcul model matrix
     glm::mat4 modelMat = glm::mat4(1.0f);
+
+    glUniformMatrix4fv(uModelLocation, // Location
+                        1, // Count
+                        GL_FALSE, // Transpose
+                        glm::value_ptr(modelMat)); // Value
+
     glm::mat4 viewMat = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
     glm::mat4 projMat = glm::perspective(glm::radians(45.0f), 1.0f, 0.1f, 100.0f);
     glm::mat4 viewProjMat = projMat * viewMat;
+
+    glUniformMatrix4fv(uViewProjLocation, // Location
+                        1, // Count
+                        GL_FALSE, // Transpose
+                        glm::value_ptr(viewProjMat)); // Value
+    //Load camera
+    
+
+    //Load lights
+
+    glClearColor(0.4, 0.6, 0.2, 1);
 
     // Application loop
     while(windowManager.isRunning()) {
@@ -93,17 +90,14 @@ int main(int argc, char** argv) {
         /*********************************
          * HERE SHOULD COME THE RENDERING CODE
          *********************************/
+        cube.initCube();
+        glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), cube.m_position);
         glUniformMatrix4fv(uModelLocation, // Location
-                    1, // Count
-                    GL_FALSE, // Transpose
-                    glm::value_ptr(modelMat)); // Value
-        
-        glUniformMatrix4fv(uViewProjLocation, // Location
-                    1, // Count
-                    GL_FALSE, // Transpose
-                    glm::value_ptr(viewProjMat)); // Value
+                        1, // Count
+                        GL_FALSE, // Transpose
+                        glm::value_ptr(modelMat)); // Value
 
-        cube.display();
+        cube.draw();
         overlay.beginFrame(windowManager.m_window);
         overlay.drawOverlay();
         overlay.endFrame(windowManager.m_window);
@@ -111,12 +105,6 @@ int main(int argc, char** argv) {
         glBindVertexArray(0);
         windowManager.swapBuffers();
     }
-
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplSDL2_Shutdown();
-    ImGui::DestroyContext();
-    SDL_GL_DeleteContext(&windowManager.m_glContext);
-    SDL_DestroyWindow(windowManager.m_window);
 
     return EXIT_SUCCESS;
 }

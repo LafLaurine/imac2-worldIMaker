@@ -2,6 +2,12 @@
 #include <iostream>
 
 namespace glimac {
+
+    Overlay::~Overlay() {
+        ImGui_ImplOpenGL3_Shutdown();
+        ImGui_ImplSDL2_Shutdown();
+        ImGui::DestroyContext();
+    }
     void Overlay::initImgui(SDL_Window* window,SDL_GLContext* glContext) const {
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
@@ -27,12 +33,9 @@ namespace glimac {
             ImGui::SliderFloat("float", &f, 0.0f, 1.0f);
             ImGui::ColorEdit3("clear color", (float*)&col);
             if (ImGui::Button("Test Window")) show ^= 1;
-            if (ImGui::Button("Another Window")) show ^= 1;
         }
-        ImVec2 v = ImGui::GetWindowSize();  // v = {32, 48} ,   is tool small
+        ImVec2 v = ImGui::GetWindowSize();
         ImGui::Text("%f %f", v.x, v.y);
-        if (ImGui::GetFrameCount() < 10)
-            printf("Frame %d: Size %f %f\n", ImGui::GetFrameCount(), v.x, v.y);
         ImGui::End();
     }
 

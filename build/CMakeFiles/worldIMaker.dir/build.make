@@ -81,6 +81,7 @@ bin/worldIMaker: CMakeFiles/worldIMaker.dir/src/main.cpp.o
 bin/worldIMaker: CMakeFiles/worldIMaker.dir/build.make
 bin/worldIMaker: lib/libglimac.a
 bin/worldIMaker: lib/libimgui.a
+bin/worldIMaker: lib/libGLAD.a
 bin/worldIMaker: /usr/lib/x86_64-linux-gnu/libGL.so
 bin/worldIMaker: /usr/lib/x86_64-linux-gnu/libGLU.so
 bin/worldIMaker: /usr/lib/x86_64-linux-gnu/libGLEW.so

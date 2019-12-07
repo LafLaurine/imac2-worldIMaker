@@ -6,6 +6,18 @@
 
 #IncludeRegexTransform: 
 
+../lib/glad/include/KHR/khrplatform.h
+stdint.h
+-
+inttypes.h
+-
+stdint.h
+-
+
+../lib/glad/include/glad/glad.h
+KHR/khrplatform.h
+-
+
 ../lib/imgui/include/imgui/imconfig.h
 
 ../lib/imgui/include/imgui/imgui.h

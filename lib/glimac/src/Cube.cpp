@@ -54,7 +54,9 @@ namespace glimac {
         //Vertex array
         glGenVertexArrays(1, &m_vao);
         glBindVertexArray(m_vao);
-        glBindBuffer(GL_ARRAY_BUFFER, m_vao);
+        glEnableVertexAttribArray(0);
+        glBindBuffer(GL_ARRAY_BUFFER, cubeVbo);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), NULL);
         glBindVertexArray(0);
 
         //Index buffer
@@ -69,10 +71,13 @@ namespace glimac {
         initBuffer();
     }
 
-    void Cube::display() {
+    void Cube::initCube() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glBindVertexArray(m_vao);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
-        glDrawElements(GL_TRIANGLES, sizeof(indices), GL_UNSIGNED_SHORT, (void*) 0);
     }   
+
+    void Cube::draw() {
+        glDrawElements(GL_TRIANGLES, sizeof(indices), GL_UNSIGNED_SHORT, (void*) 0);
+    }
 }

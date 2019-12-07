@@ -15,6 +15,8 @@ lib/imgui/CMakeFiles/imgui.dir/src/imgui_draw.cpp.o: ../lib/imgui/include/imgui/
 lib/imgui/CMakeFiles/imgui.dir/src/imgui_draw.cpp.o: ../lib/imgui/include/imgui/imstb_truetype.h
 lib/imgui/CMakeFiles/imgui.dir/src/imgui_draw.cpp.o: ../lib/imgui/src/imgui_draw.cpp
 
+lib/imgui/CMakeFiles/imgui.dir/src/imgui_impl_opengl3.cpp.o: ../lib/glad/include/KHR/khrplatform.h
+lib/imgui/CMakeFiles/imgui.dir/src/imgui_impl_opengl3.cpp.o: ../lib/glad/include/glad/glad.h
 lib/imgui/CMakeFiles/imgui.dir/src/imgui_impl_opengl3.cpp.o: ../lib/imgui/include/imgui/imconfig.h
 lib/imgui/CMakeFiles/imgui.dir/src/imgui_impl_opengl3.cpp.o: ../lib/imgui/include/imgui/imgui.h
 lib/imgui/CMakeFiles/imgui.dir/src/imgui_impl_opengl3.cpp.o: ../lib/imgui/include/imgui/imgui_impl_opengl3.h
