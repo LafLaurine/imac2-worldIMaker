@@ -22,6 +22,7 @@ private:
 
 public:
     FreeFlyCamera();
+    ~FreeFlyCamera() = default;
     void computeDirectionVectors();
     void moveLeft(float t);
     void moveFront(float t);

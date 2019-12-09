@@ -78,16 +78,12 @@ add_subdirectory(lib/imgui)
 
 file(GLOB_RECURSE HEADER_FILES src/include/*) # get all headers
 file(GLOB_RECURSE SRC_FILES src/*.cpp) # get all sources files
-file(GLOB_RECURSE SHADERS_FILES shaders/*.glsl) # get all shaders
-file(GLOB_RECURSE ASSETS_FILES assets/*) # get all the assets
 
-add_executable(${EXECUTABLE_NAME} ${SHADERS_FILES} ${ASSETS_FILES} ${SRC_FILES} ${HEADER_FILES}) # add the executable
+add_executable(${EXECUTABLE_NAME} ${SRC_FILES}) # add the executable
 
 target_link_libraries(${EXECUTABLE_NAME} ${ALL_LIBRARIES})
 file(COPY shaders DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 file(COPY assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-file(COPY lib/debug_break DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/lib)
-file(COPY lib/spdlog DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/lib)
 
 if (WIN32) # Copy .dll to build folder
     add_custom_command(

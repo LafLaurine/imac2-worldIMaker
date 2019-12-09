@@ -6,7 +6,7 @@ namespace glimac {
 
 bool SDLWindowManager::m_instanciated = false;
 
-SDLWindowManager::SDLWindowManager(uint32_t width, uint32_t height, const char* title) {
+SDLWindowManager::SDLWindowManager(uint32_t width, uint32_t height, const char* title) : m_running(true) {
     assert(!m_instanciated && "App already created !");
     m_instanciated = true;
    
