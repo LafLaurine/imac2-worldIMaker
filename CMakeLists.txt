@@ -60,16 +60,13 @@ else()
     include_directories("/usr/include/eigen3") # manually specify the include location
 endif()
 
-#GLAD
-add_library(GLAD STATIC "lib/glad/src/glad.c")
-
 # compilation flags
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O2 -lSDL2 -std=c++11")
 set(CMAKE_CXX_FLAGS_DEBUG_INIT "-g")
 
-include_directories(${SDL2_INCLUDE_DIRS} ${OPENGL_INCLUDE_DIR} ${GLEW_INCLUDE_DIR} lib/glimac/include lib/imgui/include lib/glad/include third-party/include)
+include_directories(${SDL2_INCLUDE_DIRS} ${OPENGL_INCLUDE_DIR} ${GLEW_INCLUDE_DIR} lib/glimac/include lib/imgui/include third-party/include)
 
-set(ALL_LIBRARIES ${SDL2_LIBRARIES} glimac imgui GLAD ${OPENGL_LIBRARIES} ${GLEW_LIBRARY})
+set(ALL_LIBRARIES ${SDL2_LIBRARIES} glimac imgui ${OPENGL_LIBRARIES} ${GLEW_LIBRARY})
 
 # Add the glimac library
 add_subdirectory(lib/glimac)
@@ -84,12 +81,3 @@ add_executable(${EXECUTABLE_NAME} ${SRC_FILES}) # add the executable
 target_link_libraries(${EXECUTABLE_NAME} ${ALL_LIBRARIES})
 file(COPY shaders DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 file(COPY assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-
-if (WIN32) # Copy .dll to build folder
-    add_custom_command(
-        TARGET ${PROJECT_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        "${PROJECT_SOURCE_DIR}/lib/SDL2-2.0.10/lib/x64/SDL2.dll"
-        $<TARGET_FILE_DIR:${PROJECT_NAME}>
-    )
-endif()

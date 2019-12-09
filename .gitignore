@@ -1,1 +1,5 @@
 build
+
+# Settings
+.vs
+.vscode

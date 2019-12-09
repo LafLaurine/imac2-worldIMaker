@@ -19,8 +19,8 @@ using namespace glimac;
 //il faudra penser à ajouter -Werror au CMAKE, mais là c'est pas viable comme c'est la construction des fichiers
 
 int main(int argc, char** argv) {    
-    const int WINDOW_WIDTH = 500;
-    const int WINDOW_HEIGTH = 500;
+    const int WINDOW_WIDTH = 1000;
+    const int WINDOW_HEIGTH = 1000;
 
     // Initialize SDL and open a window
     SDLWindowManager windowManager(WINDOW_WIDTH, WINDOW_HEIGTH, "worldIMaker");
@@ -28,7 +28,7 @@ int main(int argc, char** argv) {
 
     //Load shaders
     FilePath applicationPath(argv[0]);
-    Program program = loadProgram(applicationPath.dirPath() + "../sœhaders/3D.vs.glsl",
+    Program program = loadProgram(applicationPath.dirPath() + "../shaders/3D.vs.glsl",
                                   applicationPath.dirPath() + "../shaders/normal.fs.glsl");
     program.use();
 
