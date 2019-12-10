@@ -19,8 +19,8 @@ using namespace glimac;
 //il faudra penser à ajouter -Werror au CMAKE, mais là c'est pas viable comme c'est la construction des fichiers
 
 int main(int argc, char** argv) {    
-    const int WINDOW_WIDTH = 1000;
-    const int WINDOW_HEIGTH = 1000;
+    const int WINDOW_WIDTH = 900;
+    const int WINDOW_HEIGTH = 900;
 
     // Initialize SDL and open a window
     SDLWindowManager windowManager(WINDOW_WIDTH, WINDOW_HEIGTH, "worldIMaker");
@@ -46,8 +46,9 @@ int main(int argc, char** argv) {
                         glm::value_ptr(modelMat)); // Value
 
     glm::mat4 viewMat = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
-    glm::mat4 projMat = glm::perspective(glm::radians(45.0f), 1.0f, 0.1f, 100.0f);
+    glm::mat4 projMat = glm::perspective(glm::radians(45.0f), (float) (WINDOW_WIDTH / WINDOW_HEIGTH), 0.1f, 100.0f);
     glm::mat4 viewProjMat = projMat * viewMat;
+    
 
     glUniformMatrix4fv(uViewProjLocation, // Location
                         1, // Count
