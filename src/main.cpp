@@ -28,19 +28,20 @@ int main(int argc, char** argv) {
 
     //Load shaders
     FilePath applicationPath(argv[0]);
-    Program program = loadProgram(applicationPath.dirPath() + "../shaders/3D.vs.glsl",
-                                  applicationPath.dirPath() + "../shaders/normal.fs.glsl");
+    Program program = loadProgram("../shaders/3D.vs.glsl",
+                                  + "../shaders/normal.fs.glsl");
     program.use();
 
     Cube cube;
     overlay.initImgui(windowManager.m_window,&windowManager.m_glContext);
 
-    GLuint uModelLocation = glGetUniformLocation(program.getGLId(), "uModel");
-    GLuint uViewProjLocation = glGetUniformLocation(program.getGLId(), "uViewProj");
+
+    GLuint uMVPLocation = glGetUniformLocation(program.getGLId(), "uMVPMatrix");
+    GLuint uMVLocation = glGetUniformLocation(program.getGLId(), "uMVMatrix");
 
     glm::mat4 modelMat = glm::mat4(1.0f);
 
-    glUniformMatrix4fv(uModelLocation, // Location
+    glUniformMatrix4fv(uMVLocation, // Location
                         1, // Count
                         GL_FALSE, // Transpose
                         glm::value_ptr(modelMat)); // Value
@@ -50,7 +51,7 @@ int main(int argc, char** argv) {
     glm::mat4 viewProjMat = projMat * viewMat;
     
 
-    glUniformMatrix4fv(uViewProjLocation, // Location
+    glUniformMatrix4fv(uMVPLocation, // Location
                         1, // Count
                         GL_FALSE, // Transpose
                         glm::value_ptr(viewProjMat)); // Value
@@ -113,14 +114,17 @@ int main(int argc, char** argv) {
          *********************************/
 
         overlay.beginFrame(windowManager.m_window);
-        cube.initCube();
+        cube.initCube(); 
+        glm::mat4 globalMVMatrix =  camera.getViewMatrix();
+       
+        //move cube
         glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), cube.m_position);
-        glUniformMatrix4fv(uModelLocation, // Location
+        glUniformMatrix4fv(uMVLocation, // Location
                         1, // Count
                         GL_FALSE, // Transpose
-                        glm::value_ptr(modelMat)); // Value*/
+                        glm::value_ptr(modelMat * globalMVMatrix));
+        
         overlay.drawOverlay();
-
         cube.draw();
         overlay.endFrame(windowManager.m_window);
     }
