@@ -24,18 +24,31 @@ namespace glimac {
     }
 
     void Overlay::drawOverlay() const {
-        ImGui::Begin("Main debug window");
+        ImGui::Begin("WorldIMaker tools");
         {
-            static float f = 0.0f;
-            float col = 0.f;
             int show = 1;
-            ImGui::Text(u8"Hello, world! ");
-            ImGui::SliderFloat("float", &f, 0.0f, 1.0f);
-            ImGui::ColorEdit3("clear color", (float*)&col);
-            if (ImGui::Button("Test Window")) show ^= 1;
+            static int clicked = 0;
+            if (ImGui::Button("Add cube")) {
+                show ^= 1;
+                clicked++;
+            }
+            if(clicked &1) {
+                ImGui::SameLine();
+                ImGui::Text("Thanks for clicking me!");
+            }
+            if (ImGui::Button("Add texture")) 
+            {
+                show ^= 1;
+            }
+            if (ImGui::Button("Destroy cube")) 
+            { 
+                show ^= 1;
+            }
+            if (ImGui::Button("Save"))
+            {
+                show ^= 1;
+            }
         }
-        ImVec2 v = ImGui::GetWindowSize();
-        ImGui::Text("%f %f", v.x, v.y);
         ImGui::End();
     }
 

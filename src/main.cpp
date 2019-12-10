@@ -67,6 +67,7 @@ int main(int argc, char** argv) {
         SDL_Event e;
         while(SDL_PollEvent(&e)) {
             float zoom = 0.1f;
+            float speed = 1.0f;
             switch (e.type) {
                 case SDL_QUIT: windowManager.exit();
                 case SDL_KEYDOWN:
@@ -93,17 +94,25 @@ int main(int argc, char** argv) {
                         camera.moveLeft(-zoom);              
                     }
                  break;
-                case SDL_MOUSEMOTION: 
+                case SDL_MOUSEWHEEL: 
                 {
-                    float speed = 0.5f;
-                    //scroll right
-                    if (e.motion.xrel != 0 ) {
-                    camera.rotateUp(float(-e.motion.xrel) * speed);
+                    if (e.wheel.y > 0) {
+                    camera.rotateUp(float(e.wheel.y) * speed);
                     }
-                    else if (e.motion.yrel != 0 ) {
-                    camera.rotateLeft(float(e.motion.yrel) * speed);
+                    else if (e.wheel.y < 0) {
+                    camera.rotateUp(float(-e.wheel.y) * speed);
                     }
                 }
+                /*case SDL_BUTTON_MIDDLE:
+                {
+                    if (e.wheel.x < 0) {
+                    camera.rotateLeft(float(e.wheel.x) * speed);
+                    }
+                    else if (e.wheel.x > 0) {
+                    camera.rotateLeft(float(-e.wheel.x) * speed);
+                    }
+                }
+                break;*/
                 default : break;
             }
 
