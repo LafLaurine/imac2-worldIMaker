@@ -13,11 +13,14 @@ namespace glimac
 		private:
 			GLuint m_vao;
 			GLuint m_ibo;
+			glm::vec3 m_position;
 		public:
 			Cube();
 			~Cube() = default;
-			glm::vec3 m_position;
-			inline glm::vec3 getPosition()const{ return m_position; };
+			inline glm::vec3 getPosition(){ return m_position; };
+			inline float setPositionX(float positionX){return m_position.x = positionX;};
+			inline float setPositionY(float positionY){return m_position.y = positionY;};
+			inline float setPositionZ(float positionZ){return m_position.z = positionZ;};
 			void initBuffer();
 			void initCube();
 			void draw();
