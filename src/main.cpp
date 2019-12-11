@@ -33,6 +33,7 @@ int main(int argc, char** argv) {
     program.use();
 
     Cube cube;
+    Cube cube2;
     overlay.initImgui(windowManager.m_window,&windowManager.m_glContext);
 
 
@@ -72,18 +73,17 @@ int main(int argc, char** argv) {
                 case SDL_QUIT: windowManager.exit();
                 case SDL_KEYDOWN:
                     if (e.key.keysym.scancode == SDL_SCANCODE_LEFT) {
-                        cube.m_position.x--;
+                        cube.setPositionX((cube.getPosition().x)-1);
                     } else if (e.key.keysym.scancode == SDL_SCANCODE_RIGHT) {
-                        cube.m_position.x++;
+                        cube.setPositionX((cube.getPosition().x)+1);
                     } else if (e.key.keysym.scancode == SDL_SCANCODE_UP) {
-                        cube.m_position.y++;
-                        std::cout << "cube.m_position : = " << cube.m_position << std::endl;
+                        cube.setPositionY((cube.getPosition().y)+1);
                     } else if (e.key.keysym.scancode == SDL_SCANCODE_DOWN) {
-                        cube.m_position.y--;
+                        cube.setPositionY((cube.getPosition().y)-1);
                     } else if (e.key.keysym.scancode == SDL_SCANCODE_PAGEUP) {
-                        cube.m_position.z++;
+                        cube.setPositionZ((cube.getPosition().z)+1);
                     } else if (e.key.keysym.scancode == SDL_SCANCODE_PAGEDOWN) {
-                        cube.m_position.z--;
+                        cube.setPositionZ((cube.getPosition().z)-1);
                     } else if(e.key.keysym.sym == SDLK_z) {
                         camera.moveFront(zoom);
                     } else if (e.key.keysym.sym == SDLK_s) {
@@ -97,10 +97,10 @@ int main(int argc, char** argv) {
                 case SDL_MOUSEWHEEL: 
                 {
                     if (e.wheel.y > 0) {
-                    camera.rotateUp(float(e.wheel.y) * speed);
+                    camera.rotateUp(float(-e.wheel.y) * speed);
                     }
                     else if (e.wheel.y < 0) {
-                    camera.rotateUp(float(-e.wheel.y) * speed);
+                    camera.rotateUp(float(e.wheel.y) * speed);
                     }
                 }
                 /*case SDL_BUTTON_MIDDLE:
@@ -124,18 +124,27 @@ int main(int argc, char** argv) {
 
         overlay.beginFrame(windowManager.m_window);
         cube.initCube(); 
+        cube2.initCube();
         glm::mat4 globalMVMatrix =  camera.getViewMatrix();
        
         //move cube
-        glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), cube.m_position);
+        glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), cube.getPosition());
         glUniformMatrix4fv(uMVLocation, // Location
                         1, // Count
                         GL_FALSE, // Transpose
                         glm::value_ptr(modelMat * globalMVMatrix));
+
+        glm::mat4 modelMat2 = glm::translate(glm::mat4(1.0f), cube2.getPosition());
+        glUniformMatrix4fv(uMVLocation, // Location
+                        1, // Count
+                        GL_FALSE, // Transpose
+                        glm::value_ptr(modelMat2 * globalMVMatrix));
         
         overlay.drawOverlay();
         cube.draw();
+        cube2.draw();
         overlay.endFrame(windowManager.m_window);
+        windowManager.swapBuffers();
     }
 
     return EXIT_SUCCESS;
