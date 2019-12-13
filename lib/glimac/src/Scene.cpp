@@ -10,8 +10,9 @@ namespace glimac{
 		m_programs[type].use();
 	}
 
-    void Scene::loadTexture(ProgramType type)
+    void Scene::loadScene(ProgramType type, CubeType cubeType)
     {
+        m_cubes[cubeType].initCube(); 
         uMVPLocation = glGetUniformLocation(m_programs[type].getGLId(), "uMVPMatrix");
         uMVLocation = glGetUniformLocation(m_programs[type].getGLId(), "uMVMatrix");
         glm::mat4 modelMat = glm::mat4(1.0f);
@@ -30,5 +31,17 @@ namespace glimac{
                             1, // Count
                             GL_FALSE, // Transpose
                             glm::value_ptr(viewProjMat)); // Value
+    }
+
+    void Scene::moveCube(CubeType cubeType) {
+        glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), m_cubes[cubeType].getPosition());
+        glUniformMatrix4fv(uMVLocation, // Location
+                        1, // Count
+                        GL_FALSE, // Transpose
+                        glm::value_ptr(modelMat));
+    }
+
+    void Scene::drawCube(CubeType cubeType) {
+        m_cubes[cubeType].draw();
     }
 }

@@ -27,13 +27,11 @@ int main(int argc, char** argv) {
 
     Scene scene;
     ProgramType FlatCube;
+    CubeType CubeFlat;
     scene.loadProgram(FlatCube,"../shaders/3D.vs.glsl","../shaders/normal.fs.glsl");
     scene.useProgram(FlatCube);
 
-    Cube cube;
     overlay.initImgui(windowManager.m_window,&windowManager.m_glContext);
-
-    scene.loadTexture(FlatCube);
 
     //Load camera
     FreeFlyCamera camera;
@@ -50,7 +48,7 @@ int main(int argc, char** argv) {
             float speed = 1.0f;
             switch (e.type) {
                 case SDL_QUIT: windowManager.exit();
-                case SDL_KEYDOWN:
+                /*case SDL_KEYDOWN:
                     if (e.key.keysym.scancode == SDL_SCANCODE_LEFT) {
                         cube.setPositionX((cube.getPosition().x)-1);
                     } else if (e.key.keysym.scancode == SDL_SCANCODE_RIGHT) {
@@ -72,7 +70,7 @@ int main(int argc, char** argv) {
                     } else if(e.key.keysym.sym == SDLK_d) {
                         camera.moveLeft(-zoom);              
                     }
-                 break;
+                 break;*/
                 case SDL_MOUSEWHEEL: 
                 {
                     if (e.wheel.y > 0) {
@@ -102,18 +100,11 @@ int main(int argc, char** argv) {
          *********************************/
 
         overlay.beginFrame(windowManager.m_window);
-        cube.initCube(); 
         glm::mat4 globalMVMatrix =  camera.getViewMatrix();
-       
-        //move cube
-        glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), cube.getPosition());
-        glUniformMatrix4fv(scene.uMVLocation, // Location
-                        1, // Count
-                        GL_FALSE, // Transpose
-                        glm::value_ptr(modelMat * globalMVMatrix));
-        
+        scene.loadScene(FlatCube,CubeFlat);
+        scene.moveCube(CubeFlat);
         overlay.drawOverlay();
-        cube.draw();
+        scene.drawCube(CubeFlat);
         overlay.endFrame(windowManager.m_window);
         windowManager.swapBuffers();
     }

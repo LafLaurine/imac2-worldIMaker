@@ -19,8 +19,8 @@ namespace glimac
 
 	enum class CubeType
 	{
-		FlatCube,
-		TexturedCube,
+		CubeFlat,
+		CubeTextured,
 	};
 
 	class Scene
@@ -35,7 +35,9 @@ namespace glimac
 			GLuint uMVLocation;
 			void loadProgram(ProgramType type, std::string vertexShader, std::string fragmentShader);
 			void useProgram(ProgramType type);
-			void loadTexture(ProgramType type);
+			void loadScene(ProgramType type, CubeType cubeType);
+			void moveCube(CubeType cubeType);
+			void drawCube(CubeType cubeType);
 
 	};
 }
