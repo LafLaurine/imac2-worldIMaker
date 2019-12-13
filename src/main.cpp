@@ -3,13 +3,12 @@
 #include <iostream>
 #include <cstddef>
 #include <math.h>
-#include <glimac/Program.hpp> 
 #include <glimac/FreeFlyCamera.hpp>
 #include <glimac/SDLWindowManager.hpp> 
 #include <glimac/FilePath.hpp> 
 #include <glimac/Overlay.hpp>
-#include <glimac/Cube.hpp> 
-#include <glimac/glm.hpp> 
+#include <glimac/Cube.hpp>
+#include <glimac/Scene.hpp>
 #include <imgui/imgui.h>
 #include <imgui/imgui_impl_opengl3.h>
 #include <imgui/imgui_impl_sdl.h>
@@ -26,36 +25,16 @@ int main(int argc, char** argv) {
     SDLWindowManager windowManager(WINDOW_WIDTH, WINDOW_HEIGTH, "worldIMaker");
     Overlay overlay;
 
-    //Load shaders
-    FilePath applicationPath(argv[0]);
-    Program program = loadProgram("../shaders/3D.vs.glsl",
-                                  + "../shaders/normal.fs.glsl");
-    program.use();
+    Scene scene;
+    ProgramType FlatCube;
+    scene.loadProgram(FlatCube,"../shaders/3D.vs.glsl","../shaders/normal.fs.glsl");
+    scene.useProgram(FlatCube);
 
     Cube cube;
-    Cube cube2;
     overlay.initImgui(windowManager.m_window,&windowManager.m_glContext);
 
+    scene.loadTexture(FlatCube);
 
-    GLuint uMVPLocation = glGetUniformLocation(program.getGLId(), "uMVPMatrix");
-    GLuint uMVLocation = glGetUniformLocation(program.getGLId(), "uMVMatrix");
-
-    glm::mat4 modelMat = glm::mat4(1.0f);
-
-    glUniformMatrix4fv(uMVLocation, // Location
-                        1, // Count
-                        GL_FALSE, // Transpose
-                        glm::value_ptr(modelMat)); // Value
-
-    glm::mat4 viewMat = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
-    glm::mat4 projMat = glm::perspective(glm::radians(45.0f), (float) (WINDOW_WIDTH / WINDOW_HEIGTH), 0.1f, 100.0f);
-    glm::mat4 viewProjMat = projMat * viewMat;
-    
-
-    glUniformMatrix4fv(uMVPLocation, // Location
-                        1, // Count
-                        GL_FALSE, // Transpose
-                        glm::value_ptr(viewProjMat)); // Value
     //Load camera
     FreeFlyCamera camera;
     //Load lights
@@ -124,25 +103,17 @@ int main(int argc, char** argv) {
 
         overlay.beginFrame(windowManager.m_window);
         cube.initCube(); 
-        cube2.initCube();
         glm::mat4 globalMVMatrix =  camera.getViewMatrix();
        
         //move cube
         glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), cube.getPosition());
-        glUniformMatrix4fv(uMVLocation, // Location
+        glUniformMatrix4fv(scene.uMVLocation, // Location
                         1, // Count
                         GL_FALSE, // Transpose
                         glm::value_ptr(modelMat * globalMVMatrix));
-
-        glm::mat4 modelMat2 = glm::translate(glm::mat4(1.0f), cube2.getPosition());
-        glUniformMatrix4fv(uMVLocation, // Location
-                        1, // Count
-                        GL_FALSE, // Transpose
-                        glm::value_ptr(modelMat2 * globalMVMatrix));
         
         overlay.drawOverlay();
         cube.draw();
-        cube2.draw();
         overlay.endFrame(windowManager.m_window);
         windowManager.swapBuffers();
     }

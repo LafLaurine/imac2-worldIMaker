@@ -5,26 +5,38 @@
 
 #include <glimac/glm.hpp> 
 #include <GL/glew.h>
+#include <glimac/Program.hpp>
 #include <glimac/Cube.hpp>
-#include <glimac/FreeFlyCamera.hpp> 
-#include <imgui/imgui.h>
-#include <imgui/imgui_impl_opengl3.h>
-#include <imgui/imgui_impl_sdl.h>
+#include <map>
 
 namespace glimac
 {
+	enum class ProgramType
+	{
+		FlatCube,
+		TexturedCube,
+	};
+
+	enum class CubeType
+	{
+		FlatCube,
+		TexturedCube,
+	};
+
 	class Scene
 	{
 		private:
-			Cube cube1;
-			Cube cube2;
-			Cube cube3;
-			
-			
+			std::map<ProgramType, Program> m_programs;
+			std::map<CubeType, Cube> m_cubes;
 		public:
 			Scene() = default;
 			~Scene() = default;
-			void displayScene();
+			GLuint uMVPLocation;
+			GLuint uMVLocation;
+			void loadProgram(ProgramType type, std::string vertexShader, std::string fragmentShader);
+			void useProgram(ProgramType type);
+			void loadTexture(ProgramType type);
+
 	};
 }
 
