@@ -40,6 +40,13 @@ GLEW :
 sudo apt-get install glew
 ```
 
+DOXYGEN : 
+
+```bash
+sudo apt install graphviz doxygen
+```
+
+
 ## Build project
 
 There are mainly 2 ways of handling the CMake :

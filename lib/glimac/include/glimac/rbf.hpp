@@ -4,6 +4,8 @@
 #include <glm/glm.hpp>
 #include <math.h>
 #include <vector>
+#include <algorithm>
+#include <numeric>
 
 namespace glimac {
     enum class FunctionType

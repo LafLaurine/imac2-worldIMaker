@@ -7,6 +7,7 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 
 # For UPEM compilation
+
 if(UPEMLV)
     set(OPENGL_LIBRARIES /usr/lib/x86_64-linux-gnu/libGL.so.1)
 endif(UPEMLV)
