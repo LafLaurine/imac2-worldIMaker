@@ -34,6 +34,7 @@ namespace glimac
     		Cube(glm::vec3 position, glm::vec3 color);
 			~Cube();
 			inline glm::vec3 getPosition(){ return m_position; };
+			inline glm::vec3 getColor(){ return m_color; };
 			inline GLuint getVAO(){ return m_vao; };
 			inline GLuint getIBO(){ return m_ibo; };
 			inline float setPositionX(float positionX){return m_position.x = positionX;};

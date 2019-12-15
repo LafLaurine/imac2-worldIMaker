@@ -6,22 +6,24 @@ namespace glimac {
     }
 
     Cube::Cube(glm::vec3 position, glm::vec3 color) : m_vao(0), m_ibo(0), m_vbo(0), m_position(position), m_color(color) {
+        initBuffer();
     }
 
     Cube::~Cube() {
+        initBuffer();
     }
 
     void Cube::initBuffer() {
 
         Vertex3DColor vertices[] = {
-            Vertex3DColor(glm::vec3(0.5, -0.5, 0.5)+m_position, m_color), //0
-            Vertex3DColor(glm::vec3(-0.5, -0.5, 0.5)+m_position, m_color), //1
-            Vertex3DColor(glm::vec3(-0.5, 0.5, 0.5)+m_position, m_color), //2
-            Vertex3DColor(glm::vec3(0.5, 0.5, 0.5)+m_position, m_color), //3
-            Vertex3DColor(glm::vec3(0.5, -0.5, -0.5)+m_position, m_color), //4
-            Vertex3DColor(glm::vec3(-0.5, -0.5, -0.5)+m_position, m_color), //5
-            Vertex3DColor(glm::vec3(-0.5, 0.5, -0.5)+m_position, m_color), //6
-            Vertex3DColor(glm::vec3(0.5, 0.5, -0.5)+m_position, m_color) //7
+            Vertex3DColor(glm::vec3(0.5, -0.5, 0.5), m_color), //0
+            Vertex3DColor(glm::vec3(-0.5, -0.5, 0.5), m_color), //1
+            Vertex3DColor(glm::vec3(-0.5, 0.5, 0.5), m_color), //2
+            Vertex3DColor(glm::vec3(0.5, 0.5, 0.5), m_color), //3
+            Vertex3DColor(glm::vec3(0.5, -0.5, -0.5), m_color), //4
+            Vertex3DColor(glm::vec3(-0.5, -0.5, -0.5), m_color), //5
+            Vertex3DColor(glm::vec3(-0.5, 0.5, -0.5), m_color), //6
+            Vertex3DColor(glm::vec3(0.5, 0.5, -0.5), m_color) //7
         };
 
         uint32_t indexes[36] = {

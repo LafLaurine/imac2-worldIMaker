@@ -1,6 +1,9 @@
 #ifndef WORLD_IMAKER_RBF_HPP 
 #define WORLD_IMAKER_RBF_HPP
 #pragma once
+#include <glm/glm.hpp>
+#include <math.h>
+#include <vector>
 
 namespace glimac {
     enum class FunctionType
@@ -12,21 +15,23 @@ namespace glimac {
         Multiquadric,     // f(r) = sqrt(1 + (epsiolon * r^2))
     };
 
-    class Rbf {
-        private:
-        // Function type
-        FunctionType functionType;
-        //control parameter for some functions
-        double epsilon;
-        // Data points
-       /* std::vector<double> ys;
-        std::vector<std::vector<double>> xs;
-        // Weights
-        std::vector<double> w;*/
+    template <typename T>
+    double vectors_distance(const std::vector<T>& a, const std::vector<T>& b)
+    {
+        std::vector<double>	auxiliary;
 
-        // Returns f(r)
-        double getRbfValue(const double r) const;
-    };
+        std::transform (a.begin(), a.end(), b.begin(), std::back_inserter(auxiliary),//
+        [](T element1, T element2) {return pow((element1-element2),2);});
+        auxiliary.shrink_to_fit();
+
+        return  std::sqrt(std::accumulate(auxiliary.begin(), auxiliary.end(), 0.0));    
+    } 
+
+    template <typename T>
+    // Data points
+    /* std::vector<glm::vec3> get_control_points(const std::string &filename)*/
+    // Function type
+    T getRBF(FunctionType type, const std::vector<T> v1, const std::vector<T> v2, const T epsilon);
 }
 
 #endif

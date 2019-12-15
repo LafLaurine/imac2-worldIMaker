@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
 
     overlay.initImgui(windowManager.m_window,&windowManager.m_glContext);
     
-    scene.initAllCubes(8);
+    scene.initAllCubes(9);
     scene.displayScene(FlatCube);
 
     //Load camera
@@ -47,6 +47,7 @@ int main(int argc, char** argv) {
     while(windowManager.isRunning()) {
         SDL_Event e;
         float zoom = 0.1f;
+
         while(SDL_PollEvent(&e)) {
         switch (e.type) {
             case SDL_QUIT: windowManager.exit();
@@ -94,12 +95,11 @@ int main(int argc, char** argv) {
         }
     }
             
-        /*********************************
+        /******unsigned***************************
          * HERE SHOULD COME THE RENDERING CODE
          *********************************/
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         overlay.beginFrame(windowManager.m_window);
-        
         scene.moveCube(FlatCube);
         overlay.drawOverlay();
         scene.drawCube(FlatCube);
