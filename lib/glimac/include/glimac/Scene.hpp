@@ -17,24 +17,19 @@ namespace glimac
 	class Scene
 	{
 		private:
-			/*std::map<ProgramType, Cube> m_cubes;
 			std::vector<Cube> m_all_cubes;
 			FreeFlyCamera camera;
-
-			GLuint uMVPLocation;
-			GLuint uMVLocation;
-			GLuint uNormalLocation;*/
+			GLuint uModelLocation;
+			GLuint uViewProjLocation;
 		public:
 			std::map<ProgramType, Program> m_programs;
 			Scene() = default;
 			~Scene() = default;
-			//void initAllCubes(unsigned int nb_cubes);
 			void loadProgram(ProgramType type, std::string vertexShader, std::string fragmentShader);
 			void useProgram(ProgramType type);
-			/*void loadScene(ProgramType type);
-    		void displayScene(ProgramType type);
-			void moveCube(ProgramType cubeType);
-			void drawCube(ProgramType cubeType);*/
+			void create_uniform_matrices(ProgramType type);
+			void drawCube(ProgramType cubeType);
+			void recalculate_matrices(FreeFlyCamera camera, Cube cube);
 	};
 }
 

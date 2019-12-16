@@ -41,24 +41,7 @@ int main(int argc, char** argv) {
     glClearColor(0.4, 0.6, 0.2, 1);
     glm::ivec2 mouse;
     bool mouseDown = false;
-    GLuint uModelLocation = glGetUniformLocation(scene.m_programs[FlatCube].getGLId(), "uModel");
-    GLuint uViewProjLocation = glGetUniformLocation(scene.m_programs[FlatCube].getGLId(), "uViewProj");
-
-    glm::mat4 modelMat = glm::mat4(1.0f);
-
-    glUniformMatrix4fv(uModelLocation, // Location
-                        1, // Count
-                        GL_FALSE, // Transpose
-                        glm::value_ptr(modelMat)); // Value
-
-    glm::mat4 viewMat = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
-    glm::mat4 projMat = glm::perspective(glm::radians(45.0f), 1.0f, 0.1f, 100.0f);
-    glm::mat4 viewProjMat = projMat * viewMat;
-
-    glUniformMatrix4fv(uViewProjLocation, // Location
-                        1, // Count
-                        GL_FALSE, // Transpose
-                        glm::value_ptr(viewProjMat)); // Value
+    scene.create_uniform_matrices(FlatCube);
 
     // Application loop
     while(windowManager.isRunning()) {
@@ -69,7 +52,7 @@ int main(int argc, char** argv) {
         switch (e.type) {
             case SDL_QUIT: windowManager.exit();
             case SDL_KEYDOWN:
-            /* if (e.key.keysym.scancode == SDL_SCANCODE_LEFT) {
+            if (e.key.keysym.scancode == SDL_SCANCODE_LEFT) {
                      cube.setPositionX((cube.getPosition().x)-1);
             } else if (e.key.keysym.scancode == SDL_SCANCODE_RIGHT) {
                 cube.setPositionX((cube.getPosition().x)+1);
@@ -81,7 +64,7 @@ int main(int argc, char** argv) {
                     cube.setPositionZ((cube.getPosition().z)+1);
                 } else if (e.key.keysym.scancode == SDL_SCANCODE_PAGEDOWN) {
                     cube.setPositionZ((cube.getPosition().z)-1);
-                } */if(e.key.keysym.sym == SDLK_z) {
+                } if(e.key.keysym.sym == SDLK_z) {
                     camera.moveFront(zoom);
                 } else if (e.key.keysym.sym == SDLK_s) {
                     camera.moveFront(-zoom);
@@ -113,15 +96,8 @@ int main(int argc, char** argv) {
     }
         //Rendering code
         overlay.beginFrame(windowManager.m_window);
-        cube.initCube();
-        glm::mat4 camera_VM = camera.getViewMatrix();
-        glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), cube.m_position);
-        glUniformMatrix4fv(uModelLocation, // Location
-                        1, // Count
-                        GL_FALSE, // Transpose
-                        glm::value_ptr(modelMat * camera_VM)); // Value
+        scene.recalculate_matrices(camera,cube);
         overlay.drawOverlay();
-
         cube.draw();
         overlay.endFrame(windowManager.m_window);
     }

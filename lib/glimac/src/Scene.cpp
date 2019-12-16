@@ -11,14 +11,37 @@ namespace glimac{
 		m_programs[type].use();
 	}
 
-   /* void Scene::loadScene(ProgramType type)
+    void Scene::create_uniform_matrices(ProgramType type)
     {
-        m_cubes[type].initBuffer(); 
-        uMVPLocation = glGetUniformLocation(m_programs[type].getGLId(), "uMVPMatrix");
-        uMVLocation = glGetUniformLocation(m_programs[type].getGLId(), "uMVMatrix");
-        uNormalLocation = glGetUniformLocation(m_programs[type].getGLId(), "uNormalMatrix");
+        uModelLocation = glGetUniformLocation(m_programs[type].getGLId(), "uModel");
+        uViewProjLocation = glGetUniformLocation(m_programs[type].getGLId(), "uViewProj");
+        glm::mat4 modelMat = glm::mat4(1.0f);
+
+        glUniformMatrix4fv(uModelLocation, // Location
+                            1, // Count
+                            GL_FALSE, // Transpose
+                            glm::value_ptr(modelMat)); // Value
+
+        glm::mat4 viewMat = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
+        glm::mat4 projMat = glm::perspective(glm::radians(45.0f), 1.0f, 0.1f, 100.0f);
+        glm::mat4 viewProjMat = projMat * viewMat;
+
+        glUniformMatrix4fv(uViewProjLocation, // Location
+                            1, // Count
+                            GL_FALSE, // Transpose
+                            glm::value_ptr(viewProjMat)); // Value
+
     }
 
+    void Scene::recalculate_matrices(FreeFlyCamera camera, Cube cube) {
+        glm::mat4 camera_VM = camera.getViewMatrix();
+        glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), cube.getPosition());
+        glUniformMatrix4fv(uModelLocation, // Location
+                        1, // Count
+                        GL_FALSE, // Transpose
+                        glm::value_ptr(modelMat * camera_VM)); // Value
+    }
+/*
     void Scene::initAllCubes(unsigned int nb_cubes) {
         for (unsigned int i=0; i<nb_cubes; i++)
         {
@@ -35,23 +58,7 @@ namespace glimac{
         }
     }
 
-    void Scene::moveCube(ProgramType cubeType) {
-        for(long unsigned int i = 0; i < m_all_cubes.size(); i++) {
-            glm::mat4 viewMat = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.0f, -5.0f));
-            glm::mat4 projMat = glm::perspective(glm::radians(45.0f), (float) 900.0f / 900.0f, 0.1f, 100.0f);
-            glm::mat4 normalMatrix = glm::transpose(glm::inverse(viewMat));
-            glm::mat4 globalMVMatrix = camera.getViewMatrix();
-
-            glBindVertexArray(m_cubes[cubeType].getVAO());
-          
-            glUniformMatrix4fv(uMVPLocation, 1, GL_FALSE, glm::value_ptr(projMat * globalMVMatrix));
-            glUniformMatrix4fv(uMVLocation, 1, GL_FALSE, glm::value_ptr(globalMVMatrix * viewMat));
-            glUniformMatrix4fv(uNormalLocation, 1, GL_FALSE, glm::value_ptr(normalMatrix));
-        }
-        
-    }
-
-    void Scene::drawCube(ProgramType cubeType) {
+    void Scene::drawCubes(ProgramType cubeType) {
         for(long unsigned int i = 0; i < m_all_cubes.size(); i++) {
             m_cubes[cubeType].draw();
         }
