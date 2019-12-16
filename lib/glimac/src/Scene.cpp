@@ -2,7 +2,6 @@
 #include <iostream>
 
 namespace glimac{
-
     void Scene::loadProgram(ProgramType type, std::string vertexShader, std::string fragmentShader) {
         m_programs.emplace(type, glimac::loadProgram(vertexShader,fragmentShader));
         //appel des cubes utilisant le type
@@ -12,33 +11,49 @@ namespace glimac{
 		m_programs[type].use();
 	}
 
-	void Scene::initAllCubes() {
-        for(unsigned int i=0; i<m_length; i++)
-		{
-			for(unsigned int j=0; j<m_width; j++)
-			{
-				for (unsigned int layer=0; layer<3; layer++)
-				{
-					Cube new_cube = Cube(glm::vec3(i,layer,j), glm::vec3(0.2,1,0));
-					m_all_cubes(i,j).push_back(new_cube);
-					//std::cout << m_all_cubes(i,j).at(i).getPosition() << std::endl;
-				}
-			}
-        } 
+   /* void Scene::loadScene(ProgramType type)
+    {
+        m_cubes[type].initBuffer(); 
+        uMVPLocation = glGetUniformLocation(m_programs[type].getGLId(), "uMVPMatrix");
+        uMVLocation = glGetUniformLocation(m_programs[type].getGLId(), "uMVMatrix");
+        uNormalLocation = glGetUniformLocation(m_programs[type].getGLId(), "uNormalMatrix");
     }
 
-    void Scene::renderAll(ProgramType type)
-    {       
-        for (unsigned int length=0; length<m_length; length++) 
+    void Scene::initAllCubes(unsigned int nb_cubes) {
+        for (unsigned int i=0; i<nb_cubes; i++)
         {
-            for (unsigned int width=0; width<m_width; width++)
-            {
-                for(unsigned int i=0; i<3; i++)
-                {
-                    m_all_cubes(length,width).at(i).create_uniform_matrices(m_programs[type]);
-                    m_all_cubes(length,width).at(i).draw();
-                }
-            }
+            m_all_cubes.push_back(Cube());
         }
     }
+
+    void Scene::displayScene(ProgramType type) 
+    {
+        for(long unsigned int i = 0; i < m_all_cubes.size(); i++)
+        {
+            loadScene(type);
+            std::cout << m_all_cubes[i].getPosition() << std::endl;
+        }
+    }
+
+    void Scene::moveCube(ProgramType cubeType) {
+        for(long unsigned int i = 0; i < m_all_cubes.size(); i++) {
+            glm::mat4 viewMat = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.0f, -5.0f));
+            glm::mat4 projMat = glm::perspective(glm::radians(45.0f), (float) 900.0f / 900.0f, 0.1f, 100.0f);
+            glm::mat4 normalMatrix = glm::transpose(glm::inverse(viewMat));
+            glm::mat4 globalMVMatrix = camera.getViewMatrix();
+
+            glBindVertexArray(m_cubes[cubeType].getVAO());
+          
+            glUniformMatrix4fv(uMVPLocation, 1, GL_FALSE, glm::value_ptr(projMat * globalMVMatrix));
+            glUniformMatrix4fv(uMVLocation, 1, GL_FALSE, glm::value_ptr(globalMVMatrix * viewMat));
+            glUniformMatrix4fv(uNormalLocation, 1, GL_FALSE, glm::value_ptr(normalMatrix));
+        }
+        
+    }
+
+    void Scene::drawCube(ProgramType cubeType) {
+        for(long unsigned int i = 0; i < m_all_cubes.size(); i++) {
+            m_cubes[cubeType].draw();
+        }
+    }*/
 }

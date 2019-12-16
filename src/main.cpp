@@ -27,15 +27,13 @@ int main(int argc, char** argv) {
     Overlay overlay;
 
     Scene scene;
-    Program program;
     ProgramType FlatCube;
     scene.loadProgram(FlatCube,"../shaders/3D.vs.glsl","../shaders/normal.fs.glsl");
     scene.useProgram(FlatCube);
 
+    Cube cube;
+
     overlay.initImgui(windowManager.m_window,&windowManager.m_glContext);
-    
-    scene.initAllCubes();
-    scene.get_cubes()(0,0).at(0).create_uniform_matrices(program);
    
     //Load camera
     FreeFlyCamera camera;
@@ -43,6 +41,24 @@ int main(int argc, char** argv) {
     glClearColor(0.4, 0.6, 0.2, 1);
     glm::ivec2 mouse;
     bool mouseDown = false;
+    GLuint uModelLocation = glGetUniformLocation(scene.m_programs[FlatCube].getGLId(), "uModel");
+    GLuint uViewProjLocation = glGetUniformLocation(scene.m_programs[FlatCube].getGLId(), "uViewProj");
+
+    glm::mat4 modelMat = glm::mat4(1.0f);
+
+    glUniformMatrix4fv(uModelLocation, // Location
+                        1, // Count
+                        GL_FALSE, // Transpose
+                        glm::value_ptr(modelMat)); // Value
+
+    glm::mat4 viewMat = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
+    glm::mat4 projMat = glm::perspective(glm::radians(45.0f), 1.0f, 0.1f, 100.0f);
+    glm::mat4 viewProjMat = projMat * viewMat;
+
+    glUniformMatrix4fv(uViewProjLocation, // Location
+                        1, // Count
+                        GL_FALSE, // Transpose
+                        glm::value_ptr(viewProjMat)); // Value
 
     // Application loop
     while(windowManager.isRunning()) {
@@ -97,8 +113,16 @@ int main(int argc, char** argv) {
     }
         //Rendering code
         overlay.beginFrame(windowManager.m_window);
-        scene.renderAll(FlatCube);
+        cube.initCube();
+        glm::mat4 camera_VM = camera.getViewMatrix();
+        glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), cube.m_position);
+        glUniformMatrix4fv(uModelLocation, // Location
+                        1, // Count
+                        GL_FALSE, // Transpose
+                        glm::value_ptr(modelMat * camera_VM)); // Value
         overlay.drawOverlay();
+
+        cube.draw();
         overlay.endFrame(windowManager.m_window);
     }
     return EXIT_SUCCESS;
