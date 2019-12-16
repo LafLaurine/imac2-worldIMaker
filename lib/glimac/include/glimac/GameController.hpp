@@ -2,7 +2,7 @@
 #define WORLD_IMAKER_GAMECONTROLLER_HPP
 #pragma once
 #include <glimac/glm.hpp> 
-#include <glimac/FreeFlyCamera.hpp>
+#include <glimac/Scene.hpp>
 #include <SDL2/SDL.h>
 
 namespace glimac {

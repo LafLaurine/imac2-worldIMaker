@@ -20,10 +20,11 @@ using namespace glimac;
 
 int main(int argc, char** argv) {    
     const int WINDOW_WIDTH = 900;
-    const int WINDOW_HEIGTH = 900;
+    const int WINDOW_HEIGHT = 900;
 
     // Initialize SDL and open a window
-    SDLWindowManager windowManager(WINDOW_WIDTH, WINDOW_HEIGTH, "worldIMaker");
+    SDLWindowManager windowManager(WINDOW_WIDTH, WINDOW_HEIGHT, "worldIMaker");
+    SDL_WarpMouseInWindow(windowManager.m_window, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2); // set users mouse positioin to the center  
     Overlay overlay;
 
     Scene scene;
@@ -50,9 +51,9 @@ int main(int argc, char** argv) {
         switch (e.type) {
             case SDL_QUIT: windowManager.exit();
             case SDL_KEYDOWN:
-            /*if (e.key.keysym.scancode == SDL_SCANCODE_LEFT) {
-                     cube.setPositionX((cube.getPosition().x)-1);
-            } else if (e.key.keysym.scancode == SDL_SCANCODE_RIGHT) {
+            if (e.key.keysym.scancode == SDL_SCANCODE_LEFT) {
+                    scene.moveCubes();
+            }/* else if (e.key.keysym.scancode == SDL_SCANCODE_RIGHT) {
                 cube.setPositionX((cube.getPosition().x)+1);
             } else if (e.key.keysym.scancode == SDL_SCANCODE_UP) {
                 cube.setPositionY((cube.getPosition().y)+1);
@@ -62,7 +63,7 @@ int main(int argc, char** argv) {
                     cube.setPositionZ((cube.getPosition().z)+1);
                 } else if (e.key.keysym.scancode == SDL_SCANCODE_PAGEDOWN) {
                     cube.setPositionZ((cube.getPosition().z)-1);
-                }*/ if(e.key.keysym.sym == SDLK_z) {
+                }*/ else if(e.key.keysym.sym == SDLK_z) {
                     camera.moveFront(zoom);
                 } else if (e.key.keysym.sym == SDLK_s) {
                     camera.moveFront(-zoom);

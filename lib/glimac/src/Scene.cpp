@@ -56,4 +56,10 @@ namespace glimac{
             m_all_cubes.at(i).draw();
         }
     }
+ 
+    void Scene::moveCubes() {
+        for(unsigned int i = 0; i < m_all_cubes.size(); i++) {
+        m_all_cubes.at(i).setPositionX((m_all_cubes.at(i).getPosition().x)-1);
+        }
+    }
 }

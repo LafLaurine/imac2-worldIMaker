@@ -32,6 +32,7 @@ namespace glimac
 			void recalculate_matrices(FreeFlyCamera camera, Cube cube);
 			void initAllCubes();
 			void drawCubes(FreeFlyCamera camera);
+			void moveCubes();
 	};
 }
 
