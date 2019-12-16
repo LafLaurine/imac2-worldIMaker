@@ -30,9 +30,7 @@ int main(int argc, char** argv) {
     ProgramType FlatCube;
     scene.loadProgram(FlatCube,"../shaders/3D.vs.glsl","../shaders/normal.fs.glsl");
     scene.useProgram(FlatCube);
-
-    Cube cube;
-
+    scene.initAllCubes();
     overlay.initImgui(windowManager.m_window,&windowManager.m_glContext);
    
     //Load camera
@@ -52,7 +50,7 @@ int main(int argc, char** argv) {
         switch (e.type) {
             case SDL_QUIT: windowManager.exit();
             case SDL_KEYDOWN:
-            if (e.key.keysym.scancode == SDL_SCANCODE_LEFT) {
+            /*if (e.key.keysym.scancode == SDL_SCANCODE_LEFT) {
                      cube.setPositionX((cube.getPosition().x)-1);
             } else if (e.key.keysym.scancode == SDL_SCANCODE_RIGHT) {
                 cube.setPositionX((cube.getPosition().x)+1);
@@ -64,7 +62,7 @@ int main(int argc, char** argv) {
                     cube.setPositionZ((cube.getPosition().z)+1);
                 } else if (e.key.keysym.scancode == SDL_SCANCODE_PAGEDOWN) {
                     cube.setPositionZ((cube.getPosition().z)-1);
-                } if(e.key.keysym.sym == SDLK_z) {
+                }*/ if(e.key.keysym.sym == SDLK_z) {
                     camera.moveFront(zoom);
                 } else if (e.key.keysym.sym == SDLK_s) {
                     camera.moveFront(-zoom);
@@ -96,9 +94,8 @@ int main(int argc, char** argv) {
     }
         //Rendering code
         overlay.beginFrame(windowManager.m_window);
-        scene.recalculate_matrices(camera,cube);
         overlay.drawOverlay();
-        cube.draw();
+        scene.drawCubes(camera);
         overlay.endFrame(windowManager.m_window);
     }
     return EXIT_SUCCESS;
