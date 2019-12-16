@@ -17,10 +17,11 @@ namespace glimac{
 		{
 			for(unsigned int j=0; j<m_width; j++)
 			{
-				for (unsigned int layer=0; layer<m_max_cubes_in_column; layer++)
+				for (unsigned int layer=0; layer<3; layer++)
 				{
 					Cube new_cube = Cube(glm::vec3(i,layer,j), glm::vec3(0.2,1,0));
 					m_all_cubes(i,j).push_back(new_cube);
+					//std::cout << m_all_cubes(i,j).at(i).getPosition() << std::endl;
 				}
 			}
         } 
@@ -32,11 +33,10 @@ namespace glimac{
         {
             for (unsigned int width=0; width<m_width; width++)
             {
-                for(unsigned int i=0; i<m_max_cubes_in_column; i++)
+                for(unsigned int i=0; i<3; i++)
                 {
                     m_all_cubes(length,width).at(i).create_uniform_matrices(m_programs[type]);
                     m_all_cubes(length,width).at(i).draw();
-                    std::cout << m_all_cubes(length,width).at(i).getPosition() << std::endl;
                 }
             }
         }

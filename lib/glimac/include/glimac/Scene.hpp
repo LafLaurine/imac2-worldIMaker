@@ -20,7 +20,6 @@ namespace glimac
 			static const unsigned int m_width = 3;
 			static const unsigned int m_length = 3;
 			static const unsigned int m_height = 3;
-    		static const unsigned int m_max_cubes_in_column = 10;
 			Eigen::Matrix <std::vector<Cube>, m_length, m_width> m_all_cubes;
 			std::map<ProgramType, Program> m_programs;
 			//std::vector<Cube> m_all_cubes;

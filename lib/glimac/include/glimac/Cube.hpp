@@ -48,7 +48,6 @@ namespace glimac
 			inline float setPositionZ(float positionZ){return m_position.z = positionZ;};
 			void create_uniform_matrices(Program &program);
 			void initBuffer();
-			void initCube();
 			void draw();
 	};
 };

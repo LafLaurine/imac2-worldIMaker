@@ -95,16 +95,11 @@ int main(int argc, char** argv) {
                 default : break;
         }
     }
-            
-        /******unsigned***************************
-         * HERE SHOULD COME THE RENDERING CODE
-         *********************************/
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        //Rendering code
         overlay.beginFrame(windowManager.m_window);
         scene.renderAll(FlatCube);
         overlay.drawOverlay();
         overlay.endFrame(windowManager.m_window);
-        windowManager.swapBuffers();
     }
     return EXIT_SUCCESS;
 }
