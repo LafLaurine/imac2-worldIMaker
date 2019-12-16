@@ -20,7 +20,7 @@ namespace glimac {
     template <typename T>
     double vectors_distance(const std::vector<T>& a, const std::vector<T>& b)
     {
-        std::vector<double>	auxiliary;
+        std::vector<T> auxiliary;
 
         std::transform (a.begin(), a.end(), b.begin(), std::back_inserter(auxiliary),//
         [](T element1, T element2) {return pow((element1-element2),2);});
