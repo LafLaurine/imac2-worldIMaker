@@ -64,12 +64,11 @@ endif()
 # include doxygen
 message("Looking for doxygen...")
 find_package(Doxygen
-             REQUIRED dot
-             OPTIONAL_COMPONENTS mscgen dia)
+             REQUIRED)
 if(${DOXYGEN_FOUND})
-    message(STATUS "lib EIGEN3 found")
-    message(STATUS "  version " ${EIGEN3_VERSION_STRING})
-    message(STATUS "  include " ${EIGEN3_INCLUDE_DIR})
+    message(STATUS "lib Doxygen found")
+    message(STATUS "  version " ${DOXYGEN_VERSION_STRING})
+    message(STATUS "  include " ${DOXYGEN_INCLUDE_DIR})
 endif()
 
 
