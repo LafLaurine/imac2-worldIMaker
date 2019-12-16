@@ -27,15 +27,16 @@ int main(int argc, char** argv) {
     Overlay overlay;
 
     Scene scene;
+    Program program;
     ProgramType FlatCube;
     scene.loadProgram(FlatCube,"../shaders/3D.vs.glsl","../shaders/normal.fs.glsl");
     scene.useProgram(FlatCube);
 
     overlay.initImgui(windowManager.m_window,&windowManager.m_glContext);
     
-    scene.initAllCubes(9);
-    scene.displayScene(FlatCube);
-
+    scene.initAllCubes();
+    scene.get_cubes()(0,0).at(0).create_uniform_matrices(program);
+   
     //Load camera
     FreeFlyCamera camera;
 
@@ -100,9 +101,8 @@ int main(int argc, char** argv) {
          *********************************/
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         overlay.beginFrame(windowManager.m_window);
-        scene.moveCube(FlatCube);
+        scene.renderAll(FlatCube);
         overlay.drawOverlay();
-        scene.drawCube(FlatCube);
         overlay.endFrame(windowManager.m_window);
         windowManager.swapBuffers();
     }

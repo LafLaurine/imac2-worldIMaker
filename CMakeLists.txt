@@ -61,6 +61,18 @@ else()
     include_directories("/usr/include/eigen3") # manually specify the include location
 endif()
 
+# include doxygen
+message("Looking for doxygen...")
+find_package(Doxygen
+             REQUIRED dot
+             OPTIONAL_COMPONENTS mscgen dia)
+if(${DOXYGEN_FOUND})
+    message(STATUS "lib EIGEN3 found")
+    message(STATUS "  version " ${EIGEN3_VERSION_STRING})
+    message(STATUS "  include " ${EIGEN3_INCLUDE_DIR})
+endif()
+
+
 # compilation flags
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O2 -lSDL2 -std=c++11")
 set(CMAKE_CXX_FLAGS_DEBUG_INIT "-g")
@@ -73,7 +85,8 @@ set(ALL_LIBRARIES ${SDL2_LIBRARIES} glimac imgui ${OPENGL_LIBRARIES} ${GLEW_LIBR
 add_subdirectory(lib/glimac)
 # Add the imgui library
 add_subdirectory(lib/imgui)
-
+# Add doxygen
+add_subdirectory(doc)
 file(GLOB_RECURSE HEADER_FILES src/include/*) # get all headers
 file(GLOB_RECURSE SRC_FILES src/*.cpp) # get all sources files
 

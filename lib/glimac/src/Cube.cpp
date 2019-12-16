@@ -1,4 +1,4 @@
-#include "glimac/Cube.hpp"
+#include <glimac/Cube.hpp>
 
 namespace glimac {
 
@@ -42,7 +42,7 @@ namespace glimac {
                 GL_STATIC_DRAW);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-        //Index buffer
+        //Index bufferm_max_cubes_in_column
         glGenBuffers(1, &m_ibo);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint32_t), indexes, GL_STATIC_DRAW);
@@ -61,8 +61,30 @@ namespace glimac {
         glBindVertexArray(0);
     }
 
+    void Cube::create_uniform_matrices(Program &program)
+    {
+        uMVPLocation = glGetUniformLocation(program.getGLId(), "uMVPMatrix");
+        uMVLocation = glGetUniformLocation(program.getGLId(), "uMVMatrix");
+        uNormalLocation = glGetUniformLocation(program.getGLId(), "uNormalMatrix");
+    }
+
     void Cube::draw() {
-        glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (void*) 0);
+        glm::mat4 camera_VM = camera.getViewMatrix();
+        glm::mat4 ProjMatrix = glm::perspective(glm::radians(70.f), 900.0f/900.0f, 0.1f, 100.f);
+        glm::mat4 MVMatrix = glm::translate(glm::mat4(), glm::vec3(0.f, 0.f, -5.f));
+        glm::mat4 NormalMatrix = glm::transpose(glm::inverse(MVMatrix));
+        
+        glBindVertexArray(m_vao);
+
+        glUniformMatrix4fv(uMVPLocation, 1, GL_FALSE, glm::value_ptr(ProjMatrix*camera_VM));
+        glUniformMatrix4fv(uMVLocation, 1, GL_FALSE, glm::value_ptr(camera_VM*MVMatrix));
+        glUniformMatrix4fv(uNormalLocation, 1, GL_FALSE, glm::value_ptr(NormalMatrix));
+
+        glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+        //unbind vao
         glBindVertexArray(0);
+
+        glBindTexture(GL_TEXTURE_2D, 0);
     }
 }
