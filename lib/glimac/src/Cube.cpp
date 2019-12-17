@@ -2,44 +2,40 @@
 
 namespace glimac {
 
-    const glm::vec3 cubePositions[] = {
-        //Front face
-        glm::vec3(0.5, 0.5, 0.5), glm::vec3(-0.5, 0.5, 0.5), glm::vec3(-0.5, -0.5, 0.5), glm::vec3(0.5, -0.5, 0.5),
-        //Left face
-        glm::vec3(-0.5, 0.5, 0.5), glm::vec3(-0.5, 0.5, -0.5), glm::vec3(-0.5, -0.5, -0.5), glm::vec3(-0.5, -0.5, 0.5),
-        //Bottom face
-        glm::vec3(-0.5, -0.5, -0.5), glm::vec3(0.5, -0.5, -0.5), glm::vec3(0.5, -0.5, 0.5), glm::vec3(-0.5, -0.5, 0.5),       
-        //Right face
-        glm::vec3(0.5, 0.5, 0.5), glm::vec3(0.5, -0.5, 0.5), glm::vec3(0.5, -0.5, -0.5), glm::vec3(0.5, 0.5, -0.5),       
-        //Back face
-        glm::vec3(0.5, -0.5, -0.5), glm::vec3(-0.5, -0.5, -0.5), glm::vec3(-0.5, 0.5, -0.5), glm::vec3(0.5, 0.5, -0.5),
-        //Top face
-        glm::vec3(0.5, 0.5, 0.5), glm::vec3(0.5, 0.5, -0.5), glm::vec3(-0.5, 0.5, -0.5), glm::vec3(-0.5, 0.5, 0.5)   
-    };
-
-    const glm::vec3 cubeNormals[] = {
-        //Front
-        glm::vec3(0, 0, 1), glm::vec3(0, 0, 1), glm::vec3(0, 0, 1), glm::vec3(0, 0, 1),
-        //Left
-        glm::vec3(-1, 0, 0), glm::vec3(-1, 0, 0), glm::vec3(-1, 0, 0), glm::vec3(-1, 0, 0),
-        //Bottom
-        glm::vec3(0,-1, 0), glm::vec3(0,-1, 0), glm::vec3(0,-1, 0), glm::vec3(0,-1, 0),
-        //Right
-        glm::vec3(1, 0, 0), glm::vec3(1, 0, 0), glm::vec3(1, 0, 0), glm::vec3(1, 0, 0),
-        //Back
-        glm::vec3(0, 0,-1), glm::vec3(0, 0,-1), glm::vec3(0, 0,-1), glm::vec3(0, 0,-1),
-        //Top
-        glm::vec3(0, 1, 0), glm::vec3(0, 1, 0), glm::vec3(0, 1, 0), glm::vec3(0, 1, 0)
+    const float cubePositions[] = {
+        // v0
+        0.5,  0.5,  0.5,
+        // v1
+        -0.5,  0.5,  0.5,
+        // v2
+        -0.5, -0.5,  0.5,
+        // v3
+        0.5, -0.5,  0.5,
+        // v4
+        0.5, -0.5, -0.5,
+        // v5
+        0.5,  0.5, -0.5,
+        // v6
+        -0.5,  0.5, -0.5,
+        // v7
+        -0.5, -0.5, -0.5,
     };
 
     const unsigned short indices[] = {
-        0, 1, 2,   2, 3, 0,       // front
-        12,13,14,  14,15,12,      // left
-        16,17,18,  18,19,16,      // bottom
-        4, 5, 6,   6, 7, 4,       // right
-        20,21,22,  22,23,20,      // back
-        8, 9, 10,  10,11,8	      // top
-    };
+        // face de devant : v0, v1, v2 puis v0, v2, v3
+        0, 1, 2,  0, 2, 3,
+        // face de derrière
+        4, 7, 6,  4, 6, 5,
+        // face de gauche
+        1, 6, 7,  1, 7, 2,
+        // face de droite
+        0, 3, 4,  0, 4, 5,
+        // face de dessous
+        2, 7, 4,  2, 4, 3,
+        // face de dessus
+        0, 5, 6,  0, 6, 1
+        };
+
 
     void Cube::initBuffer() {
         GLuint cubeVbo;

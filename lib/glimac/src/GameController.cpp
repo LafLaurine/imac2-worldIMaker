@@ -4,7 +4,7 @@
 namespace glimac {
 
     void GameController::handleCamera(SDL_Event &e, FreeFlyCamera &cam) {
-                if(e.key.keysym.sym == SDLK_z) {
+        if(e.key.keysym.sym == SDLK_z) {
             cam.moveFront(zoom);
             } else if (e.key.keysym.sym == SDLK_s) {
             cam.moveFront(-zoom);
@@ -34,8 +34,9 @@ namespace glimac {
             	&& mouse.y >= ((scene.getAllCubes().at(i).getPosition().y)+400) 
             	&& mouse.y <= ((scene.getAllCubes().at(i).getPosition().y)+514)){
             	return true; 
-            } else return false;
+            }
         }
+        return false;
     }
 
     void GameController::selectCube(Scene& scene, glm::ivec2 mouse){
