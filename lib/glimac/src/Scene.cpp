@@ -46,13 +46,13 @@ namespace glimac{
         
         for (unsigned int i=0; i<nb_cubes; i++)
         {
-            //for(unsigned int j=0 ; j<3 ; j++)
-            //{
+            m_all_cubes.emplace_back(Cube());
+            m_all_cubes.at(i).setPositionX(m_all_cubes.at(i).getPosition().x-1+i);
+            for(unsigned int j=0 ; j<3 ; j++)
+            {
                 m_all_cubes.emplace_back(Cube());
-                m_all_cubes.at(i).setPositionX(m_all_cubes.at(i).getPosition().x-1+i);
-                //m_all_cubes.at(i).set_invisible(true);
-                //m_all_cubes.at(j).setPositionY(m_all_cubes.at(j).getPosition().y-0.5+j);   
-            //}
+                m_all_cubes.at(j+1).setPositionY(m_all_cubes.at(j+1).getPosition().y-1+j);   
+            }
         }
     }
 
