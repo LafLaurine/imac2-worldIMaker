@@ -4,7 +4,7 @@
 namespace glimac {
 
     void GameController::handleCamera(SDL_Event &e, FreeFlyCamera &cam) {
-                if(e.key.keysym.sym == SDLK_z) {
+        if(e.key.keysym.sym == SDLK_z) {
             cam.moveFront(zoom);
             } else if (e.key.keysym.sym == SDLK_s) {
             cam.moveFront(-zoom);
@@ -14,39 +14,38 @@ namespace glimac {
         } else if(e.key.keysym.sym == SDLK_d) {
         }
     }
-
-    void GameController::handleScene(SDL_Event &e, Scene &scene, FreeFlyCamera &cam) {
-    	glm::vec3 position = cam.getCamPosition();
+    
+    void GameController::handleScene(SDL_Event &e, Scene &scene, Cube& cursor) {
         if (e.key.keysym.scancode == SDL_SCANCODE_LEFT) {
-            scene.moveCubesLeft();
-            selectCube(scene, position);
+            cursor.setPositionX((cursor.getPosition().x)-1);            
+            selectCube(scene, cursor);
         } else if (e.key.keysym.scancode == SDL_SCANCODE_RIGHT) {
-            scene.moveCubesRight();
-            selectCube(scene, position);
+           cursor.setPositionX((cursor.getPosition().x)+1);
+            selectCube(scene, cursor);
         } else if (e.key.keysym.scancode == SDL_SCANCODE_UP) {
-        	scene.moveCubesUp();
-        	selectCube(scene, position);
+        	cursor.setPositionY((cursor.getPosition().y)+1);
+        	selectCube(scene, cursor);
         } else if (e.key.keysym.scancode == SDL_SCANCODE_DOWN) {
-            scene.moveCubesDown();
-            selectCube(scene, position);
+            cursor.setPositionY((cursor.getPosition().y)-1);
+            selectCube(scene, cursor);
         }
     }
             
     
-    Cube* GameController::isItCube(Scene& scene, glm::vec3 position){
+    Cube* GameController::isItCube(Scene& scene, Cube& cursor){
         for(unsigned int i = 0; i < scene.getAllCubes().size(); i++) {
-            if(position.x >= ((scene.getAllCubes().at(i).getPosition().x)-0.5) 
-            	&& position.x <= ((scene.getAllCubes().at(i).getPosition().x)+0.5)
-            	&& position.y >= ((scene.getAllCubes().at(i).getPosition().y)-0.5) 
-            	&& position.y <= ((scene.getAllCubes().at(i).getPosition().y)+0.5)){
+            if(cursor.getPosition().x >= ((scene.getAllCubes().at(i).getPosition().x)-0.5) 
+            	&& cursor.getPosition().x <= ((scene.getAllCubes().at(i).getPosition().x)+0.5)
+            	&& cursor.getPosition().y >= ((scene.getAllCubes().at(i).getPosition().y)-0.5) 
+            	&& cursor.getPosition().y <= ((scene.getAllCubes().at(i).getPosition().y)+0.5)){
             	return &(scene.getAllCubes().at(i)); 
             }
         } 
         return nullptr;
     }
 
-    void GameController::selectCube(Scene& scene, glm::vec3 position){
-    	Cube* cubeSelected = isItCube(scene, position);
+    void GameController::selectCube(Scene& scene, Cube& cursor){
+    	Cube* cubeSelected = isItCube(scene, cursor);
     	if(cubeSelected != nullptr){
     		std::cout << "Il y a un cube ! " << std::endl;
     	} else {
@@ -54,16 +53,3 @@ namespace glimac {
     	}
     }
 };
-
-
-/*Cube* GameController::isItCube(Scene& scene, glm::vec3 position){
-        for(unsigned int i = 0; i < scene.getAllCubes().size(); i++) {
-            if(mouse.x >= ((scene.getAllCubes().at(i).getPosition().x)+400) 
-            	&& mouse.x <= ((scene.getAllCubes().at(i).getPosition().x)+514)
-            	&& mouse.y >= ((scene.getAllCubes().at(i).getPosition().y)+400) 
-            	&& mouse.y <= ((scene.getAllCubes().at(i).getPosition().y)+514)){
-            	return &(scene.getAllCubes().at(i)); 
-            }
-        } 
-        return nullptr;
-    }*/

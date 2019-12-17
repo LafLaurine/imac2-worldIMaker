@@ -43,6 +43,8 @@ int main(int argc, char** argv) {
     bool mouseDown = false;
     scene.create_uniform_matrices(FlatCube);
 
+    Cube cursor;
+
     // Application loop
     while(windowManager.isRunning()) {
         SDL_Event e;
@@ -51,9 +53,6 @@ int main(int argc, char** argv) {
             case SDL_QUIT: windowManager.exit();
                 case SDL_MOUSEBUTTONDOWN:
                     mouseDown = true;
-                    mouse = windowManager.getMousePosition();
-                    std::cout << windowManager.getMousePosition() << std::endl;
-                    //gameController.selectCube(scene, mouse);
                     break;
 
                 case SDL_MOUSEBUTTONUP:
@@ -70,7 +69,8 @@ int main(int argc, char** argv) {
                 break;
 
                 case SDL_KEYDOWN:
-                    gameController.handleScene(e,scene,camera);
+                    gameController.handleScene(e,scene,cursor);
+                    std::cout << cursor.getPosition() << std::endl;
                     gameController.handleCamera(e,camera);
                 default : break;
         }
