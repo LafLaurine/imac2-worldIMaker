@@ -18,11 +18,12 @@ namespace glimac
 	{
 		private:
 			std::vector<Cube> m_all_cubes;
+			std::map<ProgramType, Program> m_programs;
 			FreeFlyCamera camera;
 			GLuint uModelLocation;
 			GLuint uViewProjLocation;
+			glm::mat4 MV, ProjMatrix;
 		public:
-			std::map<ProgramType, Program> m_programs;
 			Scene() = default;
 			~Scene() = default;
 			inline std::vector<Cube> getAllCubes(){ return m_all_cubes; };

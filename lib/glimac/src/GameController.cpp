@@ -2,10 +2,11 @@
 #include <iostream>
 
 namespace glimac {
-        if(e.key.keysym.sym == SDLK_z) {
-            cam.moveFront(zoom);
+
     void GameController::handleCamera(SDL_Event &e, FreeFlyCamera &cam) {
-        } else if (e.key.keysym.sym == SDLK_s) {
+                if(e.key.keysym.sym == SDLK_z) {
+            cam.moveFront(zoom);
+            } else if (e.key.keysym.sym == SDLK_s) {
             cam.moveFront(-zoom);
         } else if (e.key.keysym.sym == SDLK_q) {
             cam.moveLeft(zoom);              
@@ -19,12 +20,12 @@ namespace glimac {
             scene.moveCubesLeft();
         } else if (e.key.keysym.scancode == SDL_SCANCODE_RIGHT) {
             scene.moveCubesRight();
-        } else if (e.key.keysym.scancode == SDL_SCANCODE_UP) {
+        } else if (e.key.keysym.scancode == SDL_SCANCODE_UP) {scene.moveCubesUp();
         } else if (e.key.keysym.scancode == SDL_SCANCODE_DOWN) {
             scene.moveCubesDown();
         }
     }
-            scene.moveCubesUp();
+            
     
     bool GameController::isItCube(Scene& scene, glm::ivec2 mouse){
         for(unsigned int i = 0; i < scene.getAllCubes().size(); i++) {

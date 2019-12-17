@@ -22,9 +22,9 @@ namespace glimac{
                             GL_FALSE, // Transpose
                             glm::value_ptr(modelMat)); // Value
 
-        glm::mat4 viewMat = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
-        glm::mat4 projMat = glm::perspective(glm::radians(45.0f), 1.0f, 0.1f, 100.0f);
-        glm::mat4 viewProjMat = projMat * viewMat;
+        MV = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
+        ProjMatrix = glm::perspective(glm::radians(45.0f), 1.0f, 0.1f, 100.0f);
+        glm::mat4 viewProjMat = ProjMatrix * MV;
 
         glUniformMatrix4fv(uViewProjLocation, // Location
                             1, // Count

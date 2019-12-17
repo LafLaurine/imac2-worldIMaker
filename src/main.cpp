@@ -70,8 +70,8 @@ int main(int argc, char** argv) {
                 break;
 
                 case SDL_KEYDOWN:
-                    gamecontroller.handleScene(e,scene);
-                    gamecontroller.handleCamera(e,camera);
+                    gameController.handleScene(e,scene);
+                    gameController.handleCamera(e,camera);
                 default : break;
         }
     }
