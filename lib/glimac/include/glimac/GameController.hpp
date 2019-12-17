@@ -16,10 +16,10 @@ namespace glimac {
             GameController() = default;
             ~GameController() = default;
             void handleCamera(SDL_Event &e, FreeFlyCamera &cam);
-            void handleScene(SDL_Event &e, Scene &scene);
+            void handleScene(SDL_Event &e, Scene &scene, FreeFlyCamera &cam);
             void handleEvents(SDL_Event &e);
-            bool isItCube(Scene& scene, glm::ivec2 mouse);
-            void selectCube(Scene& scene, glm::ivec2 mouse);
+            Cube* isItCube(Scene& scene, glm::vec3 position);
+            void selectCube(Scene& scene, glm::vec3 position);
     };
 
 }

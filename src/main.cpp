@@ -53,7 +53,7 @@ int main(int argc, char** argv) {
                     mouseDown = true;
                     mouse = windowManager.getMousePosition();
                     std::cout << windowManager.getMousePosition() << std::endl;
-                    gameController.selectCube(scene, mouse);
+                    //gameController.selectCube(scene, mouse);
                     break;
 
                 case SDL_MOUSEBUTTONUP:
@@ -70,7 +70,7 @@ int main(int argc, char** argv) {
                 break;
 
                 case SDL_KEYDOWN:
-                    gameController.handleScene(e,scene);
+                    gameController.handleScene(e,scene,camera);
                     gameController.handleCamera(e,camera);
                 default : break;
         }

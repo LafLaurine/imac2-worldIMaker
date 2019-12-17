@@ -23,6 +23,7 @@ private:
 public:
     FreeFlyCamera();
     ~FreeFlyCamera() = default;
+    inline glm::vec3 getCamPosition(){ return m_position; };
     void computeDirectionVectors();
     void moveLeft(float t);
     void moveFront(float t);
