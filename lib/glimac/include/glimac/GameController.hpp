@@ -9,11 +9,13 @@ namespace glimac {
 
     class GameController {
         private :
-            FreeFlyCamera camera;
+            float zoom = 0.1f;
         public:
             GameController() = default;
             ~GameController() = default;
-            void handleCamera(SDL_Event e, FreeFlyCamera cam);
+            void handleCamera(SDL_Event &e, FreeFlyCamera &cam);
+            void handleScene(SDL_Event &e, Scene &scene);
+            void handleEvents(SDL_Event &e);
     };
 
 }

@@ -33,7 +33,7 @@ namespace glimac{
 
     }
 
-    void Scene::recalculate_matrices(FreeFlyCamera camera,Cube cube) {
+    void Scene::recalculate_matrices(FreeFlyCamera &camera,Cube cube) {
             glm::mat4 camera_VM = camera.getViewMatrix();
             glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), cube.getPosition());
             glUniformMatrix4fv(uModelLocation, // Location
@@ -50,16 +50,35 @@ namespace glimac{
         }
     }
 
-    void Scene::drawCubes(FreeFlyCamera camera) {
+    void Scene::drawCubes(FreeFlyCamera &camera) {
         for(unsigned int i = 0; i < m_all_cubes.size(); i++) {
             recalculate_matrices(camera,m_all_cubes.at(i));
             m_all_cubes.at(i).draw();
         }
     }
  
-    void Scene::moveCubes() {
+    void Scene::moveCubesLeft() {
         for(unsigned int i = 0; i < m_all_cubes.size(); i++) {
-        m_all_cubes.at(i).setPositionX((m_all_cubes.at(i).getPosition().x)-1);
+            m_all_cubes.at(i).setPositionX((m_all_cubes.at(i).getPosition().x)-1);
+        }
+    }
+
+    void Scene::moveCubesRight() {
+        for(unsigned int i = 0; i < m_all_cubes.size(); i++) {
+            m_all_cubes.at(i).setPositionX((m_all_cubes.at(i).getPosition().x)+1);
+        }
+    }
+
+    void Scene::moveCubesUp() {
+        for(unsigned int i = 0; i < m_all_cubes.size(); i++) {
+            m_all_cubes.at(i).setPositionY((m_all_cubes.at(i).getPosition().y)+1);
+        }
+    }
+
+
+    void Scene::moveCubesDown() {
+        for(unsigned int i = 0; i < m_all_cubes.size(); i++) {
+            m_all_cubes.at(i).setPositionY((m_all_cubes.at(i).getPosition().y)-1);
         }
     }
 }

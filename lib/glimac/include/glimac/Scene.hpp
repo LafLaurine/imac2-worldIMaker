@@ -29,10 +29,13 @@ namespace glimac
 			void useProgram(ProgramType type);
 			void create_uniform_matrices(ProgramType type);
 			void drawCube(ProgramType cubeType);
-			void recalculate_matrices(FreeFlyCamera camera, Cube cube);
+			void recalculate_matrices(FreeFlyCamera &camera, Cube cube);
 			void initAllCubes();
-			void drawCubes(FreeFlyCamera camera);
-			void moveCubes();
+			void drawCubes(FreeFlyCamera &camera);
+			void moveCubesLeft();
+			void moveCubesRight();
+			void moveCubesUp();
+			void moveCubesDown();
 	};
 }
 
