@@ -49,10 +49,12 @@ namespace glimac{
                 for(unsigned int j= 0 ; j<nb_cubes ; j++)
                 {
                     Cube temp_cube(glm::vec3(layer,i,j));
+                    if(layer > 3) {
+                        temp_cube.setInvisible(true);
+                    }
                     temp_cube.setPositionX((temp_cube.getPosition().x)-1);
                     temp_cube.setPositionY((temp_cube.getPosition().y)-1);
                     m_all_cubes.emplace_back(temp_cube);
-                    //std::cout << temp_cube.getPosition() << std::endl;
                 }
             }
         }

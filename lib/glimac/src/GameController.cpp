@@ -58,12 +58,10 @@ namespace glimac {
                 std::cout << "HE OH TU PEUX PAS AJOUTER DE CUBE Y'EN A DEJA UN !!!" << std::endl;
             }
             else {
-                Cube new_cube;
                 std::cout << "Taille avant ajout cube : " << scene.getAllCubes().size() << std::endl;
-                new_cube.setPositionX(cursor.getPosition().x);
-                new_cube.setPositionY(cursor.getPosition().y);
-                new_cube.setPositionZ(cursor.getPosition().z);
-                scene.getAllCubes().push_back(new_cube);
+                if(cursor.getInvisible() == true) {
+                    cursor.setInvisible(0);
+                }
                 std::cout << "Taille après ajout cube : " << scene.getAllCubes().size() << std::endl;
             }
     }
@@ -71,7 +69,9 @@ namespace glimac {
     void GameController::deleteCube(Scene& scene, Cube& cursor){
         for(unsigned int i = 0; i < scene.getAllCubes().size(); i++) {
             if(isItCube(scene,cursor)) {
-                
+                if(cursor.getInvisible() == false) {
+                    cursor.setInvisible(1);
+                }
             }
             else {
                 std::cout << "HE OH TU PEUX PAS SUPPRIMER DU VIDE !!!" << std::endl;

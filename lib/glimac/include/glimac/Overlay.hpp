@@ -23,9 +23,11 @@ namespace glimac
 			void drawOverlay();
     		void endFrame(SDL_Window* window) const;
 			inline int getClickedAddCube(){return clickedAddCube;};
+			inline int getClickedDeleteCube(){return clickedDeleteCube;};
 		private:
 			bool p_open;
 			int clickedAddCube;
+			int clickedDeleteCube;
 	};
 }
 

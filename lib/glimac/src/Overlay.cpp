@@ -24,10 +24,25 @@ namespace glimac {
     }
 
     void Overlay::drawOverlay() {
-        ImGui::Begin("WorldIMaker tools",&p_open,ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
+        ImGui::Begin("WorldIMaker tools",&p_open,ImGuiWindowFlags_NoMove | ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
         {
+            if (ImGui::BeginMenuBar())
+            {
+                if (ImGui::BeginMenu("File"))
+                {
+                    if (ImGui::MenuItem("Open..", "Ctrl+O")) { /* Do stuff */ }
+                    if (ImGui::MenuItem("Save", "Ctrl+S"))   { /* Do stuff */ }
+                    ImGui::EndMenu();
+                }
+                ImGui::EndMenuBar();
+            }
+            float myCol = 0.f;
+            // Edit a color (stored as ~4 floats)
+            ImGui::ColorEdit4("Color", &myCol);
+
             int show = 1;
             clickedAddCube = 0;
+            clickedDeleteCube = 0;
             if (ImGui::Button("Add cube")) {
                 show ^= 1;
                 clickedAddCube++;
@@ -39,6 +54,7 @@ namespace glimac {
             if (ImGui::Button("Destroy cube")) 
             { 
                 show ^= 1;
+                clickedDeleteCube++;
             }
             if (ImGui::Button("Save"))
             {
