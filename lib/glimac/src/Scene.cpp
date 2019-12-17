@@ -5,11 +5,11 @@ namespace glimac{
     void Scene::loadProgram(ProgramType type, std::string vertexShader, std::string fragmentShader) {
         m_programs.emplace(type, glimac::loadProgram(vertexShader,fragmentShader));
         //appel des cubes utilisant le type
-	}
+    }
 
-	void Scene::useProgram(ProgramType type) {
-		m_programs[type].use();
-	}
+    void Scene::useProgram(ProgramType type) {
+        m_programs[type].use();
+    }
 
     void Scene::create_uniform_matrices(ProgramType type)
     {
@@ -45,8 +45,12 @@ namespace glimac{
     void Scene::initAllCubes() {
         for (unsigned int i=0; i<3; i++)
         {
-            m_all_cubes.emplace_back(Cube());
-            m_all_cubes.at(i).setPositionX(m_all_cubes.at(i).getPosition().x-1+i);
+            //for(unsigned int j=0 ; j<3 ; j++)
+            //{
+                m_all_cubes.emplace_back(Cube());
+                m_all_cubes.at(i).setPositionX(m_all_cubes.at(i).getPosition().x-0.5+i);
+                //m_all_cubes.at(j).setPositionY(m_all_cubes.at(j).getPosition().y-0.5+j);   
+            //}
         }
     }
 
