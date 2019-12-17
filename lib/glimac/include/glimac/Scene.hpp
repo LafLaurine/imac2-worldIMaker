@@ -25,6 +25,7 @@ namespace glimac
 			std::map<ProgramType, Program> m_programs;
 			Scene() = default;
 			~Scene() = default;
+			inline std::vector<Cube> getAllCubes(){ return m_all_cubes; };
 			void loadProgram(ProgramType type, std::string vertexShader, std::string fragmentShader);
 			void useProgram(ProgramType type);
 			void create_uniform_matrices(ProgramType type);

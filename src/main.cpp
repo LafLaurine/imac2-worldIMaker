@@ -36,6 +36,7 @@ int main(int argc, char** argv) {
    
     //Load camera
     FreeFlyCamera camera;
+    GameController gameController;
 
     glClearColor(0.4, 0.6, 0.2, 1);
     glm::ivec2 mouse;
@@ -76,6 +77,8 @@ int main(int argc, char** argv) {
                 case SDL_MOUSEBUTTONDOWN:
                     mouseDown = true;
                     mouse = windowManager.getMousePosition();
+                    std::cout << windowManager.getMousePosition() << std::endl;
+                    gameController.selectCube(scene, mouse);
                     break;
 
                 case SDL_MOUSEBUTTONUP:
