@@ -39,41 +39,16 @@ int main(int argc, char** argv) {
     GameController gameController;
 
     glClearColor(0.4, 0.6, 0.2, 1);
-    glm::ivec2 mouse;
+    glm::ivec2 mouse = glm::vec2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
     bool mouseDown = false;
     scene.create_uniform_matrices(FlatCube);
 
     // Application loop
     while(windowManager.isRunning()) {
         SDL_Event e;
-        float zoom = 0.1f;
-
         while(SDL_PollEvent(&e)) {
         switch (e.type) {
             case SDL_QUIT: windowManager.exit();
-            case SDL_KEYDOWN:
-            if (e.key.keysym.scancode == SDL_SCANCODE_LEFT) {
-                    scene.moveCubes();
-            }/* else if (e.key.keysym.scancode == SDL_SCANCODE_RIGHT) {
-                cube.setPositionX((cube.getPosition().x)+1);
-            } else if (e.key.keysym.scancode == SDL_SCANCODE_UP) {
-                cube.setPositionY((cube.getPosition().y)+1);
-                } else if (e.key.keysym.scancode == SDL_SCANCODE_DOWN) {
-                    cube.setPositionY((cube.getPosition().y)-1);
-                } else if (e.key.keysym.scancode == SDL_SCANCODE_PAGEUP) { 
-                    cube.setPositionZ((cube.getPosition().z)+1);
-                } else if (e.key.keysym.scancode == SDL_SCANCODE_PAGEDOWN) {
-                    cube.setPositionZ((cube.getPosition().z)-1);
-                }*/ else if(e.key.keysym.sym == SDLK_z) {
-                    camera.moveFront(zoom);
-                } else if (e.key.keysym.sym == SDLK_s) {
-                    camera.moveFront(-zoom);
-                } else if (e.key.keysym.sym == SDLK_q) {
-                    camera.moveLeft(zoom);              
-                } else if(e.key.keysym.sym == SDLK_d) {
-                    camera.moveLeft(-zoom);              
-                }
-                break;
                 case SDL_MOUSEBUTTONDOWN:
                     mouseDown = true;
                     mouse = windowManager.getMousePosition();
@@ -93,6 +68,10 @@ int main(int argc, char** argv) {
                         camera.rotateLeft(offsetMouse.x/2.f);
                     }
                 break;
+
+                case SDL_KEYDOWN:
+                    gamecontroller.handleScene(e,scene);
+                    gamecontroller.handleCamera(e,camera);
                 default : break;
         }
     }
