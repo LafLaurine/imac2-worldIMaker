@@ -42,13 +42,15 @@ namespace glimac{
                             glm::value_ptr(modelMat * camera_VM)); // Value   
     }
     
-    void Scene::initAllCubes() {
-        for (unsigned int i=0; i<3; i++)
+    void Scene::initAllCubes(unsigned int nb_cubes) {
+        
+        for (unsigned int i=0; i<nb_cubes; i++)
         {
             //for(unsigned int j=0 ; j<3 ; j++)
             //{
                 m_all_cubes.emplace_back(Cube());
-                m_all_cubes.at(i).setPositionX(m_all_cubes.at(i).getPosition().x-0.5+i);
+                m_all_cubes.at(i).setPositionX(m_all_cubes.at(i).getPosition().x-1+i);
+                //m_all_cubes.at(i).set_invisible(true);
                 //m_all_cubes.at(j).setPositionY(m_all_cubes.at(j).getPosition().y-0.5+j);   
             //}
         }

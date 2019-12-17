@@ -35,7 +35,7 @@ namespace glimac
 			void create_uniform_matrices(ProgramType type);
 			void drawCube(ProgramType cubeType);
 			void recalculate_matrices(FreeFlyCamera &camera, Cube cube);
-			void initAllCubes();
+			void initAllCubes(unsigned int nb_cubes);
 			void drawCubes(FreeFlyCamera &camera);
 			void moveCubesLeft();
 			void moveCubesRight();

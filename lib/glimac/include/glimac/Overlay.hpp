@@ -20,8 +20,11 @@ namespace glimac
 			~Overlay();
 			void initImgui(SDL_Window* window,SDL_GLContext* glContext) const;
 			void beginFrame(SDL_Window* window) const;
-			void drawOverlay() const;
+			void drawOverlay();
     		void endFrame(SDL_Window* window) const;
+			inline int getClickedAddCube(){return clickedAddCube;};
+		private:
+			int clickedAddCube;
 	};
 }
 

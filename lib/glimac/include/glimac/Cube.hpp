@@ -16,8 +16,10 @@ namespace glimac
 			GLuint m_ibo;
 			glm::vec3 m_position;
 			glm::vec3 m_color;
+			bool m_invisible;
 		public:
 			Cube();
+			Cube(glm::vec3 position,glm::vec3 color, bool invisible);
 			~Cube() = default;
 			inline glm::vec3 getPosition(){ return m_position; };
 			inline GLuint getVAO(){ return m_vao; };
@@ -28,7 +30,7 @@ namespace glimac
 			inline float setPositionZ(float positionZ){return m_position.z = positionZ;};
 			void initBuffer();
 			void draw();
-			void applyTexture();
+			void set_invisible(const bool invisible);
 	};
 }
 

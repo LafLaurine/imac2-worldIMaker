@@ -6,6 +6,7 @@
 #include <glimac/Scene.hpp>
 #include <SDL2/SDL.h>
 
+
 namespace glimac {
 
     class GameController {
@@ -21,6 +22,8 @@ namespace glimac {
             Cube* isItCube(Scene& scene, Cube &cursor);
             void selectCube(Scene& scene, Cube &cursor);
             inline glm::vec3 getPosition(){return m_position;};
+            void addCube(Scene& scene, Cube& cursor);
+            void deleteCube(Scene& scene, Cube& cursor);
     };
 
 }

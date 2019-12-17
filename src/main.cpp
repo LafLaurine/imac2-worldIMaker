@@ -31,7 +31,7 @@ int main(int argc, char** argv) {
     ProgramType FlatCube;
     scene.loadProgram(FlatCube,"../shaders/3D.vs.glsl","../shaders/normal.fs.glsl");
     scene.useProgram(FlatCube);
-    scene.initAllCubes();
+    scene.initAllCubes(3);
     overlay.initImgui(windowManager.m_window,&windowManager.m_glContext);
    
     //Load camera
@@ -78,7 +78,12 @@ int main(int argc, char** argv) {
         //Rendering code
         overlay.beginFrame(windowManager.m_window);
         overlay.drawOverlay();
+        unsigned int nb_cubes = scene.getAllCubes().size();
         scene.drawCubes(camera);
+        if(overlay.getClickedAddCube() &1) {
+            nb_cubes++;
+            gameController.addCube(scene,cursor);
+        }
         overlay.endFrame(windowManager.m_window);
     }
     return EXIT_SUCCESS;

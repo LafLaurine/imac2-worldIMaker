@@ -23,18 +23,14 @@ namespace glimac {
         ImGui::NewFrame();
     }
 
-    void Overlay::drawOverlay() const {
+    void Overlay::drawOverlay() {
         ImGui::Begin("WorldIMaker tools");
         {
             int show = 1;
-            static int clicked = 0;
+            clickedAddCube = 0;
             if (ImGui::Button("Add cube")) {
                 show ^= 1;
-                clicked++;
-            }
-            if(clicked &1) {
-                ImGui::SameLine();
-                ImGui::Text("Thanks for clicking me!");
+                clickedAddCube++;
             }
             if (ImGui::Button("Add texture")) 
             {

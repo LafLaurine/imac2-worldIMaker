@@ -34,10 +34,10 @@ namespace glimac {
     
     Cube* GameController::isItCube(Scene& scene, Cube& cursor){
         for(unsigned int i = 0; i < scene.getAllCubes().size(); i++) {
-            if(cursor.getPosition().x >= ((scene.getAllCubes().at(i).getPosition().x)-0.5) 
-            	&& cursor.getPosition().x <= ((scene.getAllCubes().at(i).getPosition().x)+0.5)
-            	&& cursor.getPosition().y >= ((scene.getAllCubes().at(i).getPosition().y)-0.5) 
-            	&& cursor.getPosition().y <= ((scene.getAllCubes().at(i).getPosition().y)+0.5)){
+            if(cursor.getPosition().x >= ((scene.getAllCubes().at(i).getPosition().x)) 
+            	&& cursor.getPosition().x <= ((scene.getAllCubes().at(i).getPosition().x))
+            	&& cursor.getPosition().y >= ((scene.getAllCubes().at(i).getPosition().y)) 
+            	&& cursor.getPosition().y <= ((scene.getAllCubes().at(i).getPosition().y))){
             	return &(scene.getAllCubes().at(i)); 
             }
         } 
@@ -51,5 +51,31 @@ namespace glimac {
     	} else {
     		std::cout << "Il n'y a PAS de cube, c'est vide ! " << std::endl;
     	}
+    }
+
+    void GameController::addCube(Scene& scene, Cube& cursor){
+            if(isItCube(scene,cursor)) {
+                std::cout << "HE OH TU PEUX PAS AJOUTER DE CUBE Y'EN A DEJA UN !!!" << std::endl;
+            }
+            else {
+                Cube new_cube;
+                std::cout << "Taille avant ajout cube : " << scene.getAllCubes().size() << std::endl;
+                new_cube.setPositionX(cursor.getPosition().x);
+                new_cube.setPositionY(cursor.getPosition().y);
+                new_cube.setPositionZ(cursor.getPosition().z);
+                scene.getAllCubes().push_back(new_cube);
+                std::cout << "Taille après ajout cube : " << scene.getAllCubes().size() << std::endl;
+            }
+    }
+
+    void GameController::deleteCube(Scene& scene, Cube& cursor){
+        for(unsigned int i = 0; i < scene.getAllCubes().size(); i++) {
+            if(isItCube(scene,cursor)) {
+                
+            }
+            else {
+                std::cout << "HE OH TU PEUX PAS SUPPRIMER DU VIDE !!!" << std::endl;
+            }
+        }
     }
 };
