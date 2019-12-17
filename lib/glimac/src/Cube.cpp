@@ -35,14 +35,8 @@ namespace glimac {
         // face de dessus
         0, 5, 6,  0, 6, 1
         };
-    
 
-    void Cube::set_invisible(const bool invisible)
-    {
-        m_invisible = invisible;
-    }
-
-    Cube::Cube(glm::vec3 position,glm::vec3 color, bool invisible): m_position(0), m_color(color), m_invisible(invisible) {
+    Cube::Cube(glm::vec3 position): m_vao(0), m_ibo(0), m_position(position), m_color(0), m_invisible(0) {
          initBuffer();
     }
 
@@ -76,7 +70,7 @@ namespace glimac {
     }
 
 
-    Cube::Cube() : m_vao(0), m_ibo(0), m_position(0), m_color(0), m_invisible(1) {
+    Cube::Cube() : m_vao(0), m_ibo(0), m_position(0), m_color(0), m_invisible(0) {
         initBuffer();
     }
 

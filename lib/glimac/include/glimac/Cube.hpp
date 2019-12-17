@@ -19,18 +19,20 @@ namespace glimac
 			bool m_invisible;
 		public:
 			Cube();
-			Cube(glm::vec3 position,glm::vec3 color, bool invisible);
+			Cube(glm::vec3 position);
 			~Cube() = default;
 			inline glm::vec3 getPosition(){ return m_position; };
 			inline GLuint getVAO(){ return m_vao; };
 			inline GLuint getVBO(){ return m_vbo; };
 			inline GLuint getIBO(){ return m_ibo; };
+			inline bool getInvisible(){ return m_invisible; };
+			inline glm::vec3 setPosition(glm::vec3 position){return m_position = position;};
 			inline float setPositionX(float positionX){return m_position.x = positionX;};
 			inline float setPositionY(float positionY){return m_position.y = positionY;};
 			inline float setPositionZ(float positionZ){return m_position.z = positionZ;};
+			inline bool setInvisible(const bool invisible){return m_invisible = invisible;}
 			void initBuffer();
 			void draw();
-			void set_invisible(const bool invisible);
 	};
 }
 

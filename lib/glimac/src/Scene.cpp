@@ -41,17 +41,19 @@ namespace glimac{
                             GL_FALSE, // Transpose
                             glm::value_ptr(modelMat * camera_VM)); // Value   
     }
-    
+
     void Scene::initAllCubes(unsigned int nb_cubes) {
-        
-        for (unsigned int i=0; i<nb_cubes; i++)
-        {
-            m_all_cubes.emplace_back(Cube());
-            m_all_cubes.at(i).setPositionX(m_all_cubes.at(i).getPosition().x-1+i);
-            for(unsigned int j=0 ; j<3 ; j++)
+        for (unsigned int layer = 0; layer < nb_cubes; layer++) {
+            for (unsigned int i= 0; i < nb_cubes; i++)
             {
-                m_all_cubes.emplace_back(Cube());
-                m_all_cubes.at(j+1).setPositionY(m_all_cubes.at(j+1).getPosition().y-1+j);   
+                for(unsigned int j= 0 ; j<nb_cubes ; j++)
+                {
+                    Cube temp_cube(glm::vec3(layer,i,j));
+                    temp_cube.setPositionX((temp_cube.getPosition().x)-1);
+                    temp_cube.setPositionY((temp_cube.getPosition().y)-1);
+                    m_all_cubes.emplace_back(temp_cube);
+                    //std::cout << temp_cube.getPosition() << std::endl;
+                }
             }
         }
     }
@@ -59,10 +61,13 @@ namespace glimac{
     void Scene::drawCubes(FreeFlyCamera &camera) {
         for(unsigned int i = 0; i < m_all_cubes.size(); i++) {
             recalculate_matrices(camera,m_all_cubes.at(i));
-            m_all_cubes.at(i).draw();
+            if(m_all_cubes.at(i).getInvisible() == 0) {
+                m_all_cubes.at(i).draw();
+            }
         }
     }
  
+ /*
     void Scene::moveCubesLeft() {
         for(unsigned int i = 0; i < m_all_cubes.size(); i++) {
             m_all_cubes.at(i).setPositionX((m_all_cubes.at(i).getPosition().x)-1);
@@ -86,6 +91,6 @@ namespace glimac{
         for(unsigned int i = 0; i < m_all_cubes.size(); i++) {
             m_all_cubes.at(i).setPositionY((m_all_cubes.at(i).getPosition().y)-1);
         }
-    }
+    }*/
 
 }

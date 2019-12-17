@@ -24,6 +24,7 @@ namespace glimac
     		void endFrame(SDL_Window* window) const;
 			inline int getClickedAddCube(){return clickedAddCube;};
 		private:
+			bool p_open;
 			int clickedAddCube;
 	};
 }

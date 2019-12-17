@@ -24,7 +24,7 @@ namespace glimac {
     }
 
     void Overlay::drawOverlay() {
-        ImGui::Begin("WorldIMaker tools");
+        ImGui::Begin("WorldIMaker tools",&p_open,ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
         {
             int show = 1;
             clickedAddCube = 0;
