@@ -4,7 +4,6 @@
 #include <iostream>
 #include <glimac/glm.hpp> 
 #include <glimac/Scene.hpp>
-#include <glimac/SDLWindowManager.hpp>
 #include <SDL2/SDL.h>
 
 namespace glimac {
@@ -12,14 +11,16 @@ namespace glimac {
     class GameController {
         private :
             float zoom = 0.1f;
+            glm::vec3 m_position;
         public:
             GameController() = default;
             ~GameController() = default;
             void handleCamera(SDL_Event &e, FreeFlyCamera &cam);
-            void handleScene(SDL_Event &e, Scene &scene, FreeFlyCamera &cam);
+            void handleScene(SDL_Event &e, Scene &scene, Cube &cursor);
             void handleEvents(SDL_Event &e);
-            Cube* isItCube(Scene& scene, glm::vec3 position);
-            void selectCube(Scene& scene, glm::vec3 position);
+            Cube* isItCube(Scene& scene, Cube &cursor);
+            void selectCube(Scene& scene, Cube &cursor);
+            inline glm::vec3 getPosition(){return m_position;};
     };
 
 }
