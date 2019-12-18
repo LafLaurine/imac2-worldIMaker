@@ -36,7 +36,7 @@ namespace glimac {
     };
 
 
-    Cube::Cube(glm::vec3 position): m_vao(0), m_ibo(0), m_position(position), m_color(0), m_invisible(0) {
+    Cube::Cube(glm::vec3 position): m_vao(0), m_ibo(0), m_position(position), m_color(0), m_visible(false) {
          initBuffer();
     }
 
@@ -84,12 +84,18 @@ namespace glimac {
     }
 
 
-    Cube::Cube() : m_vao(0), m_ibo(0), m_position(0), m_color(0), m_invisible(false) {
+    Cube::Cube() : m_vao(0), m_ibo(0), m_position(0), m_color(0), m_visible(false) {
         initBuffer();
     }
 
     void Cube::draw() {
         glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, (void*) 0);
+    }
+    
+    void Cube::setVisible() {
+        if(!m_visible){
+            m_visible = true;
+        }
     }
 
     void Cube::editColor(int type) {

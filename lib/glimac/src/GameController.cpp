@@ -65,9 +65,7 @@ namespace glimac {
             }
             else {
                 std::cout << "Taille avant ajout cube : " << scene.getAllCubes().size() << std::endl;
-                //if(cursor.getInvisible()) {
-                    cursor.setInvisible(false);
-                //}
+                cursor.setVisible();
                 std::cout << "Taille après ajout cube : " << scene.getAllCubes().size() << std::endl;
             }
     }
@@ -75,8 +73,8 @@ namespace glimac {
     void GameController::deleteCube(Scene& scene, Cube& cursor){
         for(unsigned int i = 0; i < scene.getAllCubes().size(); i++) {
             if(isItCube(scene,cursor)) {
-                if(cursor.getInvisible() == false) {
-                    cursor.setInvisible(true);
+                if(cursor.isVisible()) {
+                    cursor.m_visible = false;
                 }
             }
             else {

@@ -64,7 +64,7 @@ namespace glimac{
                 {
                     Cube temp_cube(glm::vec3(width,length,i));
                     
-                    temp_cube.setInvisible(false);
+                    temp_cube.setVisible();
                     temp_cube.setPositionX((temp_cube.getPosition().x)-1);
                     temp_cube.setPositionY((temp_cube.getPosition().y)-1);
                     temp_cube.setPositionZ((temp_cube.getPosition().z)-1);
@@ -87,7 +87,7 @@ namespace glimac{
             for(int j = 0 ; j < this->m_length ; j++){
                 for(int k = 0 ; k < this->m_height ; k++){
                     recalculate_matrices(camera,m_all_cubes.at(i));
-                    if(!this->m_all_cubes.at(i).getInvisible()) {
+                    if(!this->m_all_cubes.at(i).isVisible()) {
                         this->m_all_cubes.at(i).draw();
                     }
                 }
