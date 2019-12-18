@@ -1,8 +1,6 @@
 #include <glimac/Scene.hpp>
 #include <iostream>
 
-#include <glimac/gl-exception.hpp>
-
 namespace glimac{
     void Scene::loadProgram(ProgramType type, std::string vertexShader, std::string fragmentShader) {
         m_programs.emplace(type, glimac::loadProgram(vertexShader,fragmentShader));
@@ -22,9 +20,10 @@ namespace glimac{
         std::cout << "value uViewProjLocation : " << uViewProjLocation << "id program used uViewProjLocation : " << m_programs[type].getGLId() << std::endl;
         glm::mat4 modelMat = glm::mat4(1.0f);
 
-        uViewProjLocation = glGetUniformLocation(m_programs[type].getGLId(), "uMVPMatrix");
-        if(uViewProjLocation == -1)
-            break_assert(false);
+        glUniformMatrix4fv(uModelLocation, // Location
+                            1, // Count
+                            GL_FALSE, // Transpose
+                            glm::value_ptr(modelMat)); // Value
 
         MV = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
         ProjMatrix = glm::perspective(glm::radians(45.0f), 1.0f, 0.1f, 100.0f);
@@ -44,16 +43,12 @@ namespace glimac{
     }
 
     void Scene::recalculate_matrices(FreeFlyCamera &camera,Cube cube) {
-            GLCall(glBindVertexArray(cube.getVAO()));
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cube.getIBO());
             glm::mat4 camera_VM = camera.getViewMatrix();
-            glm::mat4 cubeMVMatrix = glm::translate(camera_VM, cube.getPosition()*glm::vec3(2,2,2));
-            
-           /* glBindTexture(GL_TEXTURE_2D, cube.texId);
-            glUniform1i(uTexLocation, 0);*/
-            glUniformMatrix4fv(uModelLocation, 1, GL_FALSE, glm::value_ptr(cubeMVMatrix));
-            glUniformMatrix4fv(uViewProjLocation, 1, GL_FALSE, glm::value_ptr(ProjMatrix * cubeMVMatrix));
-            glUniformMatrix4fv(uNormalLocation, 1, GL_FALSE, glm::value_ptr(NormalMatrix));
+            glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), cube.getPosition());
+            glUniformMatrix4fv(uModelLocation, // Location
+                            1, // Count
+                            GL_FALSE, // Transpose
+                            glm::value_ptr(modelMat * camera_VM)); // Value   
     }
 
     void Scene::initAllCubes(unsigned int nb_cubes) {
@@ -68,7 +63,7 @@ namespace glimac{
                     }
                     temp_cube.setPositionX((temp_cube.getPosition().x)-1);
                     temp_cube.setPositionY((temp_cube.getPosition().y)-1);
-                    m_all_cubes.emplace_back(temp_cube);
+                    m_all_cubes.push_back(temp_cube);
                 }
             }
         }
