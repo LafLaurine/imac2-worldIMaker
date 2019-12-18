@@ -9,9 +9,9 @@ namespace glimac {
             } else if (e.key.keysym.sym == SDLK_s) {
             cam.moveFront(-zoom);
         } else if (e.key.keysym.sym == SDLK_q) {
-            cam.moveLeft(zoom);              
-            cam.moveLeft(-zoom);              
+            cam.moveLeft(zoom);                    
         } else if(e.key.keysym.sym == SDLK_d) {
+            cam.moveLeft(-zoom);
         }
     }
     

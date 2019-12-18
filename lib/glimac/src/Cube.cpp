@@ -1,4 +1,7 @@
 #include "glimac/Cube.hpp"
+#include <iostream>
+
+#include "glimac/gl-exception.hpp"
 
 namespace glimac {
 
@@ -34,7 +37,7 @@ namespace glimac {
         2, 7, 4,  2, 4, 3,
         // face de dessus
         0, 5, 6,  0, 6, 1
-        };
+    };
 
 
     const glm::vec3 normals[] = {
@@ -45,7 +48,6 @@ namespace glimac {
     Cube::Cube(glm::vec3 position): m_vao(0), m_ibo(0), m_position(position), m_color(0), m_invisible(0) {
          initBuffer();
     }
-
 
     void Cube::initBuffer() {
         GLuint cubeVbo;
@@ -79,16 +81,11 @@ namespace glimac {
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), NULL);
         glBindVertexArray(0);
 
-        //Index buffer
-        glGenBuffers(1, &m_ibo);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+        GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));
 
-        glBindVertexArray(m_vao);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
-    }
+        GLCall(glBufferData(GL_ARRAY_BUFFER, sizeof(cubePositions),cubePositions, GL_STATIC_DRAW));
 
+        GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 
     Cube::Cube() : m_vao(0), m_ibo(0), m_position(0), m_color(0), m_invisible(false) {
         initBuffer();

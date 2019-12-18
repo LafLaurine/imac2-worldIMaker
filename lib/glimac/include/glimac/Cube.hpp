@@ -21,6 +21,7 @@ namespace glimac
 			Cube();
 			Cube(glm::vec3 position);
 			~Cube() = default;
+			GLuint texId;
 			inline glm::vec3 getPosition(){ return m_position; };
 			inline GLuint getVAO(){ return m_vao; };
 			inline GLuint getVBO(){ return m_vbo; };

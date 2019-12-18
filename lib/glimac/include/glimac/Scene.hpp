@@ -20,7 +20,7 @@ namespace glimac
 			std::vector<Cube> m_all_cubes;
 			std::map<ProgramType, Program> m_programs;
 			FreeFlyCamera camera;
-			glm::mat4 MV, ProjMatrix;
+			glm::mat4 MVMatrix, ProjMatrix, NormalMatrix;
 		public:
 			Scene() = default;
 			~Scene() = default;

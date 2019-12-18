@@ -4,6 +4,8 @@
 #include "Shader.hpp"
 #include "FilePath.hpp"
 
+#include "glimac/gl-exception.hpp"
+
 namespace glimac {
 
 
@@ -45,7 +47,7 @@ namespace glimac {
 		const std::string getInfoLog() const;
 
 		void use() const {
-			glUseProgram(m_nGLId);
+			GLCall(glUseProgram(m_nGLId));
 		}
 
 	private:

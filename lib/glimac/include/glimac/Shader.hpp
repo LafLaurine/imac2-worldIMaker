@@ -3,7 +3,7 @@
 #include <GL/glew.h>
 #include <string>
 #include "FilePath.hpp"
-
+#include <iostream>
 #define GLIMAC_SHADER_SRC(str) #str
 
 namespace glimac {
@@ -38,6 +38,7 @@ public:
 	bool compile();
 
 	const std::string getInfoLog() const;
+	
 
 private:
 	Shader(const Shader&);
