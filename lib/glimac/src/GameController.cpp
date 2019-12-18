@@ -65,9 +65,9 @@ namespace glimac {
             }
             else {
                 std::cout << "Taille avant ajout cube : " << scene.getAllCubes().size() << std::endl;
-                if(cursor.getInvisible() == true) {
-                    cursor.setInvisible(0);
-                }
+                //if(cursor.getInvisible()) {
+                    cursor.setInvisible(false);
+                //}
                 std::cout << "Taille après ajout cube : " << scene.getAllCubes().size() << std::endl;
             }
     }
@@ -76,7 +76,7 @@ namespace glimac {
         for(unsigned int i = 0; i < scene.getAllCubes().size(); i++) {
             if(isItCube(scene,cursor)) {
                 if(cursor.getInvisible() == false) {
-                    cursor.setInvisible(1);
+                    cursor.setInvisible(true);
                 }
             }
             else {

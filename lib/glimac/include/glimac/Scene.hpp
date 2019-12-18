@@ -28,7 +28,7 @@ namespace glimac
 			GLuint uModelLocation;
 			GLuint uViewProjLocation;
 			GLuint uTexLocation;
-			GLuint uNormalLocation;
+			GLuint uNormalMatLocation;
 			inline std::vector<Cube> getAllCubes(){ return m_all_cubes; };
 			void loadProgram(ProgramType type, std::string vertexShader, std::string fragmentShader);
 			void useProgram(ProgramType type);

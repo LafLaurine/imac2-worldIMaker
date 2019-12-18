@@ -1,6 +1,12 @@
 #version 330 core
 out vec4 fragColor;
 
+in vec3 vNormal;
+
+
+uniform mat4 uNormalMat;
+
 void main() {
-    fragColor = vec4(1.0f, 0.0f, 0.0f, 1.0f);
+	vec3 normal = (uNormalMat * vec4(vNormal, 0.)).xyz;
+    fragColor = vec4(normal, 1.0f);
 }

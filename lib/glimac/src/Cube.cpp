@@ -36,6 +36,12 @@ namespace glimac {
         0, 5, 6,  0, 6, 1
         };
 
+
+    const glm::vec3 normals[] = {
+        glm::vec3(0, 0, 1), glm::vec3(0, 0, 1), glm::vec3(0, 0, 1), glm::vec3(0, 0, 1),
+        glm::vec3(1, 0, 0), glm::vec3(1, 0, 0), glm::vec3(1, 0, 0), glm::vec3(1, 0, 0)
+    };
+
     Cube::Cube(glm::vec3 position): m_vao(0), m_ibo(0), m_position(position), m_color(0), m_invisible(0) {
          initBuffer();
     }
@@ -43,7 +49,7 @@ namespace glimac {
 
     void Cube::initBuffer() {
         GLuint cubeVbo;
-        //Vertex buffer
+        //Vertex buffer position
         glGenBuffers(1, &cubeVbo);
         glBindBuffer(GL_ARRAY_BUFFER, cubeVbo);    
         glBufferData(GL_ARRAY_BUFFER,
@@ -51,12 +57,26 @@ namespace glimac {
                 GL_STATIC_DRAW);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
+        GLuint cubeNormalVbo;
+        //Vertex buffer position
+        glGenBuffers(1, &cubeNormalVbo);
+        glBindBuffer(GL_ARRAY_BUFFER, cubeNormalVbo);    
+        glBufferData(GL_ARRAY_BUFFER,
+                sizeof(normals), normals,
+                GL_STATIC_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+
         //Vertex array
         glGenVertexArrays(1, &m_vao);
         glBindVertexArray(m_vao);
+        // pos vbo
         glEnableVertexAttribArray(0);
         glBindBuffer(GL_ARRAY_BUFFER, cubeVbo);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), NULL);
+        // normal vbo
+        glEnableVertexAttribArray(1);
+        glBindBuffer(GL_ARRAY_BUFFER, cubeNormalVbo);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), NULL);
         glBindVertexArray(0);
 
         //Index buffer
@@ -70,7 +90,7 @@ namespace glimac {
     }
 
 
-    Cube::Cube() : m_vao(0), m_ibo(0), m_position(0), m_color(0), m_invisible(0) {
+    Cube::Cube() : m_vao(0), m_ibo(0), m_position(0), m_color(0), m_invisible(false) {
         initBuffer();
     }
 

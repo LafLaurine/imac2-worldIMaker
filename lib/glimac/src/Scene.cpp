@@ -14,7 +14,10 @@ namespace glimac{
     void Scene::create_uniform_matrices(ProgramType type)
     {
         uModelLocation = glGetUniformLocation(m_programs[type].getGLId(), "uModel");
+        std::cout << "value uModelLocation : " << uModelLocation << "id program used uModelLocation : " << m_programs[type].getGLId() << std::endl;
         uViewProjLocation = glGetUniformLocation(m_programs[type].getGLId(), "uViewProj");
+        uNormalMatLocation = glGetUniformLocation(m_programs[type].getGLId(), "uNormalMat");
+        std::cout << "value uViewProjLocation : " << uViewProjLocation << "id program used uViewProjLocation : " << m_programs[type].getGLId() << std::endl;
         glm::mat4 modelMat = glm::mat4(1.0f);
 
         glUniformMatrix4fv(uModelLocation, // Location
@@ -25,11 +28,17 @@ namespace glimac{
         MV = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
         ProjMatrix = glm::perspective(glm::radians(45.0f), 1.0f, 0.1f, 100.0f);
         glm::mat4 viewProjMat = ProjMatrix * MV;
+        glm::mat4 normalMat = glm::transpose(glm::inverse(MV));
 
         glUniformMatrix4fv(uViewProjLocation, // Location
                             1, // Count
                             GL_FALSE, // Transpose
                             glm::value_ptr(viewProjMat)); // Value
+
+        glUniformMatrix4fv(uNormalMatLocation, // Location
+                    1, // Count
+                    GL_FALSE, // Transpose
+                    glm::value_ptr(normalMat)); // Value
 
     }
 
@@ -48,8 +57,8 @@ namespace glimac{
             {
                 for(unsigned int j= 0 ; j<nb_cubes ; j++)
                 {
-                    Cube temp_cube(glm::vec3(layer,i,j));
-                    if(layer > 3) {
+                    Cube temp_cube(glm::vec3(i,layer,j));
+                    if(layer > 2) {
                         temp_cube.setInvisible(true);
                     }
                     temp_cube.setPositionX((temp_cube.getPosition().x)-1);
@@ -63,7 +72,7 @@ namespace glimac{
     void Scene::drawCubes(FreeFlyCamera &camera) {
         for(unsigned int i = 0; i < m_all_cubes.size(); i++) {
             recalculate_matrices(camera,m_all_cubes.at(i));
-            if(m_all_cubes.at(i).getInvisible() == 0) {
+            if(!m_all_cubes.at(i).getInvisible()) {
                 m_all_cubes.at(i).draw();
             }
         }

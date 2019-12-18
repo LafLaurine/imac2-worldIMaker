@@ -31,7 +31,7 @@ int main(int argc, char** argv) {
     ProgramType FlatCube;
     scene.loadProgram(FlatCube,"../shaders/3D.vs.glsl","../shaders/normal.fs.glsl");
     scene.useProgram(FlatCube);
-    scene.initAllCubes(3);
+    scene.initAllCubes(5);
     overlay.initImgui(windowManager.m_window,&windowManager.m_glContext);
    
     //Load camera
