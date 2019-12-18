@@ -9,9 +9,9 @@ namespace glimac {
             } else if (e.key.keysym.sym == SDLK_s) {
             cam.moveFront(-zoom);
         } else if (e.key.keysym.sym == SDLK_q) {
-            cam.moveLeft(zoom);              
-            cam.moveLeft(-zoom);              
+            cam.moveLeft(zoom);                    
         } else if(e.key.keysym.sym == SDLK_d) {
+            cam.moveLeft(-zoom);
         }
     }
     
@@ -58,11 +58,10 @@ namespace glimac {
                 std::cout << "HE OH TU PEUX PAS AJOUTER DE CUBE Y'EN A DEJA UN !!!" << std::endl;
             }
             else {
-                std::cout << "Taille avant ajout cube : " << scene.getAllCubes().size() << std::endl;
                 if(cursor.getInvisible() == true) {
                     cursor.setInvisible(0);
+                    cursor.draw();
                 }
-                std::cout << "Taille après ajout cube : " << scene.getAllCubes().size() << std::endl;
             }
     }
 
@@ -71,6 +70,7 @@ namespace glimac {
             if(isItCube(scene,cursor)) {
                 if(cursor.getInvisible() == false) {
                     cursor.setInvisible(1);
+                    cursor.draw();
                 }
             }
             else {

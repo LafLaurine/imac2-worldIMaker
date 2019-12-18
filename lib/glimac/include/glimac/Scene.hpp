@@ -20,15 +20,15 @@ namespace glimac
 			std::vector<Cube> m_all_cubes;
 			std::map<ProgramType, Program> m_programs;
 			FreeFlyCamera camera;
-			glm::mat4 MV, ProjMatrix;
+			glm::mat4 MVMatrix, ProjMatrix, NormalMatrix;
 		public:
 			Scene() = default;
 			~Scene() = default;
 
-			GLuint uModelLocation;
-			GLuint uViewProjLocation;
-			GLuint uTexLocation;
-			GLuint uNormalLocation;
+			int uModelLocation;
+			int uViewProjLocation;
+			int uTexLocation;
+			int uNormalLocation;
 			inline std::vector<Cube> getAllCubes(){ return m_all_cubes; };
 			void loadProgram(ProgramType type, std::string vertexShader, std::string fragmentShader);
 			void useProgram(ProgramType type);

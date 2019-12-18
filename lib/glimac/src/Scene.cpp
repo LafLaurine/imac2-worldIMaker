@@ -1,6 +1,8 @@
 #include <glimac/Scene.hpp>
 #include <iostream>
 
+#include <glimac/gl-exception.hpp>
+
 namespace glimac{
     void Scene::loadProgram(ProgramType type, std::string vertexShader, std::string fragmentShader) {
         m_programs.emplace(type, glimac::loadProgram(vertexShader,fragmentShader));
@@ -13,33 +15,40 @@ namespace glimac{
 
     void Scene::create_uniform_matrices(ProgramType type)
     {
-        uModelLocation = glGetUniformLocation(m_programs[type].getGLId(), "uModel");
-        uViewProjLocation = glGetUniformLocation(m_programs[type].getGLId(), "uViewProj");
-        glm::mat4 modelMat = glm::mat4(1.0f);
+        GLCall(useProgram(type));
+        std::cout << "id: " << m_programs[type].getGLId() << " uniloc: " << m_programs[type].getGLId() << std::endl;
+        uModelLocation = glGetUniformLocation(m_programs[type].getGLId(), "uMVMatrix");
+        if(uModelLocation == -1)
+            break_assert(false);
 
-        glUniformMatrix4fv(uModelLocation, // Location
-                            1, // Count
-                            GL_FALSE, // Transpose
-                            glm::value_ptr(modelMat)); // Value
+        uViewProjLocation = glGetUniformLocation(m_programs[type].getGLId(), "uMVPMatrix");
+        if(uViewProjLocation == -1)
+            break_assert(false);
 
-        MV = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
-        ProjMatrix = glm::perspective(glm::radians(45.0f), 1.0f, 0.1f, 100.0f);
-        glm::mat4 viewProjMat = ProjMatrix * MV;
+        uNormalLocation = glGetUniformLocation(m_programs[type].getGLId(), "uNormalMatrix");
+        if(uNormalLocation == -1)
+            break_assert(false);
 
-        glUniformMatrix4fv(uViewProjLocation, // Location
-                            1, // Count
-                            GL_FALSE, // Transpose
-                            glm::value_ptr(viewProjMat)); // Value
-
+       /* uTexLocation = glGetUniformLocation(m_programs[type].getGLId(), "uTexture");
+        if(uTexLocation == -1)
+            break_assert(false);*/
+        
+        ProjMatrix = glm::perspective(glm::radians(70.f), 900.0f/900.0f,0.1f,100.f); 
+        MVMatrix = glm::translate(glm::mat4(), glm::vec3(0, 0, -5));
+        NormalMatrix = glm::transpose(glm::inverse(MVMatrix));
     }
 
     void Scene::recalculate_matrices(FreeFlyCamera &camera,Cube cube) {
+            GLCall(glBindVertexArray(cube.getVAO()));
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cube.getIBO());
             glm::mat4 camera_VM = camera.getViewMatrix();
-            glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), cube.getPosition());
-            glUniformMatrix4fv(uModelLocation, // Location
-                            1, // Count
-                            GL_FALSE, // Transpose
-                            glm::value_ptr(modelMat * camera_VM)); // Value   
+            glm::mat4 cubeMVMatrix = glm::translate(camera_VM, cube.getPosition()*glm::vec3(2,2,2));
+            
+           /* glBindTexture(GL_TEXTURE_2D, cube.texId);
+            glUniform1i(uTexLocation, 0);*/
+            glUniformMatrix4fv(uModelLocation, 1, GL_FALSE, glm::value_ptr(cubeMVMatrix));
+            glUniformMatrix4fv(uViewProjLocation, 1, GL_FALSE, glm::value_ptr(ProjMatrix * cubeMVMatrix));
+            glUniformMatrix4fv(uNormalLocation, 1, GL_FALSE, glm::value_ptr(NormalMatrix));
     }
 
     void Scene::initAllCubes(unsigned int nb_cubes) {

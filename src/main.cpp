@@ -25,13 +25,16 @@ int main(int argc, char** argv) {
     // Initialize SDL and open a window
     SDLWindowManager windowManager(WINDOW_WIDTH, WINDOW_HEIGHT, "worldIMaker");
     SDL_WarpMouseInWindow(windowManager.m_window, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2); // set users mouse positioin to the center  
-    Overlay overlay;
 
     Scene scene;
     ProgramType FlatCube;
     scene.loadProgram(FlatCube,"../shaders/3D.vs.glsl","../shaders/normal.fs.glsl");
-    scene.useProgram(FlatCube);
-    scene.initAllCubes(5);
+    
+    scene.initAllCubes(3);
+
+    scene.create_uniform_matrices(FlatCube);
+
+    Overlay overlay;
     overlay.initImgui(windowManager.m_window,&windowManager.m_glContext);
    
     //Load camera
@@ -41,8 +44,6 @@ int main(int argc, char** argv) {
     glClearColor(0.4, 0.6, 0.2, 1);
     glm::ivec2 mouse = glm::vec2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
     bool mouseDown = false;
-    scene.create_uniform_matrices(FlatCube);
-
     Cube cursor;
 
     // Application loop
