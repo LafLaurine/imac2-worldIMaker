@@ -34,6 +34,7 @@ namespace glimac
 			inline bool setInvisible(const bool invisible){return m_invisible = invisible;}
 			void initBuffer();
 			void draw();
+			void editColor(int type);
 	};
 }
 

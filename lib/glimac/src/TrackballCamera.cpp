@@ -4,7 +4,7 @@
 
 namespace glimac {
 
-    TrackballCamera::TrackballCamera():_fDistance(5.0f), _fAngleX(0.0f), _fAngleY(0.0f) 
+    TrackballCamera::TrackballCamera():_fDistance(10.0f), _fAngleX(-3.0f), _fAngleY(-3.0f) 
     {	
     }
 
@@ -20,6 +20,8 @@ namespace glimac {
     void TrackballCamera::rotateRight(const float &degrees) {
         _fAngleY += degrees;
     }
+
+    
     
     glm::mat4 TrackballCamera::getViewMatrix() const {
         glm::mat4 VM = glm::mat4(1.f);
@@ -28,5 +30,8 @@ namespace glimac {
         VM = glm::rotate(VM,glm::radians(_fAngleY), glm::vec3(0.0f,1.0f,0.0f));
         return VM;
     }
+    
+
+    
     
 }

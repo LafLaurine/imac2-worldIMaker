@@ -27,11 +27,11 @@ int main(int argc, char** argv) {
     SDL_WarpMouseInWindow(windowManager.m_window, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2); // set users mouse positioin to the center  
     Overlay overlay;
 
-    Scene scene;
+    Scene scene(10,10,10);
     ProgramType FlatCube;
     scene.loadProgram(FlatCube,"../shaders/3D.vs.glsl","../shaders/normal.fs.glsl");
     scene.useProgram(FlatCube);
-    scene.initAllCubes(5);
+    scene.initAllCubes();
     overlay.initImgui(windowManager.m_window,&windowManager.m_glContext);
    
     //Load camera
@@ -70,7 +70,6 @@ int main(int argc, char** argv) {
 
                 case SDL_KEYDOWN:
                     gameController.handleScene(e,scene,cursor);
-                    std::cout << cursor.getPosition() << std::endl;
                     gameController.handleCamera(e,camera);
                 default : break;
         }

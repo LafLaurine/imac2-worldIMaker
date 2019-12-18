@@ -20,27 +20,29 @@ namespace glimac
 			std::vector<Cube> m_all_cubes;
 			std::map<ProgramType, Program> m_programs;
 			FreeFlyCamera camera;
-			glm::mat4 MV, ProjMatrix;
+			glm::mat4 MVMatrix, ProjMatrix, NormalMatrix;
+			glm::vec3 Kd,Ks,lightDir,lightIntensity;
+			int m_height;
+			int m_width;
+			int m_length;
 		public:
 			Scene() = default;
+			Scene(int height, int width, int len);
 			~Scene() = default;
 
-			GLuint uModelLocation;
-			GLuint uViewProjLocation;
-			GLuint uTexLocation;
-			GLuint uNormalMatLocation;
+			GLuint uModelLocation,uViewProjLocation, uTexLocation, uNormalMatLocation;
+			GLuint uKd,uKs,uShininess,uLightDir_vs, uLightIntensity;
+			inline int getHeight(){ return m_height; };
+			inline int getWidth(){ return m_width; };
+			inline int getLength(){ return m_length; };
 			inline std::vector<Cube> getAllCubes(){ return m_all_cubes; };
 			void loadProgram(ProgramType type, std::string vertexShader, std::string fragmentShader);
 			void useProgram(ProgramType type);
 			void create_uniform_matrices(ProgramType type);
 			void drawCube(ProgramType cubeType);
 			void recalculate_matrices(FreeFlyCamera &camera, Cube cube);
-			void initAllCubes(unsigned int nb_cubes);
+			void initAllCubes();
 			void drawCubes(FreeFlyCamera &camera);
-			void moveCubesLeft();
-			void moveCubesRight();
-			void moveCubesUp();
-			void moveCubesDown();
 	};
 }
 

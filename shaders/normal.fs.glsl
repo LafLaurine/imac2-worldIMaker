@@ -2,8 +2,6 @@
 out vec4 fragColor;
 
 in vec3 vNormal;
-
-
 uniform mat4 uNormalMat;
 
 void main() {
