@@ -79,6 +79,8 @@ int main(int argc, char** argv) {
         overlay.beginFrame(windowManager.m_window);
         overlay.drawOverlay();
         scene.drawCubes(camera);
+        scene.recalculate_matrices(camera,cursor);
+        cursor.draw();
         if(overlay.getClickedAddCube() &1) {
             gameController.addCube(scene,cursor);
         }
