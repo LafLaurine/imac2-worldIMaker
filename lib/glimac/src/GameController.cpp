@@ -28,6 +28,12 @@ namespace glimac {
         } else if (e.key.keysym.scancode == SDL_SCANCODE_DOWN) {
             cursor.setPositionY((cursor.getPosition().y)-1);
             selectCube(scene, cursor);
+        } else if(e.key.keysym.scancode == SDL_SCANCODE_KP_MINUS){
+        	cursor.setPositionZ((cursor.getPosition().z)-1);
+        	selectCube(scene, cursor);
+        } else if(e.key.keysym.scancode == SDL_SCANCODE_KP_PLUS){
+        	cursor.setPositionZ((cursor.getPosition().z)+1);
+        	selectCube(scene, cursor);
         }
     }
             
