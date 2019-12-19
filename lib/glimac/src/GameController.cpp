@@ -10,12 +10,12 @@ namespace glimac {
             cam.moveFront(-zoom);
         } else if (e.key.keysym.sym == SDLK_q) {
             cam.moveLeft(zoom);              
-            cam.moveLeft(-zoom);              
         } else if(e.key.keysym.sym == SDLK_d) {
+            cam.moveLeft(-zoom);            
         }
     }
     
-    void GameController::handleScene(SDL_Event &e, Scene &scene, Cube& cursor) {
+    void GameController::handleScene(SDL_Event &e, Scene &scene, Cursor& cursor) {
         if (e.key.keysym.scancode == SDL_SCANCODE_LEFT) {
             cursor.setPositionX((cursor.getPosition().x)-1);            
             selectCube(scene, cursor);
@@ -38,7 +38,7 @@ namespace glimac {
     }
             
     
-    Cube* GameController::isItCube(Scene& scene, Cube& cursor){
+    Cube* GameController::isItCube(Scene& scene, Cursor& cursor){
         for(unsigned int i = 0; i < scene.getAllCubes().size(); i++) {
             if(cursor.getPosition().x >= ((scene.getAllCubes().at(i).getPosition().x)) 
             	&& cursor.getPosition().x <= ((scene.getAllCubes().at(i).getPosition().x))
@@ -50,7 +50,19 @@ namespace glimac {
         return nullptr;
     }
 
-    void GameController::selectCube(Scene& scene, Cube& cursor){
+    bool GameController::checkPositionCursor(Scene &scene, glm::vec3 position) {
+        if (   position.x <= scene.getLength() && position.z <= scene.getWidth()
+            && position.x >= 0 && position.z >= 0
+            && position.y <= 10 && position.y >= 0) return true;
+        else
+        {
+            std::cerr << "Curseur en dehors du monde" << std::endl;
+            return false;
+        } 
+    }
+
+
+    void GameController::selectCube(Scene& scene, Cursor& cursor){
     	Cube* cubeSelected = isItCube(scene, cursor);
     	if(cubeSelected != nullptr){
     		std::cout << "Il y a un cube ! " << std::endl;
@@ -59,24 +71,20 @@ namespace glimac {
     	}
     }
 
-    void GameController::addCube(Scene& scene, Cube& cursor){
-            if(isItCube(scene,cursor)) {
+    void GameController::addCube(Scene& scene, Cursor& cursor){
+            if(cursor.isVisible()) {
                 std::cout << "HE OH TU PEUX PAS AJOUTER DE CUBE Y'EN A DEJA UN !!!" << std::endl;
             }
             else {
-                std::cout << "Taille avant ajout cube : " << scene.getAllCubes().size() << std::endl;
-                //if(cursor.getInvisible()) {
-                    cursor.setInvisible(false);
-                //}
-                std::cout << "Taille après ajout cube : " << scene.getAllCubes().size() << std::endl;
+                cursor.setVisible();
             }
     }
 
-    void GameController::deleteCube(Scene& scene, Cube& cursor){
+    void GameController::deleteCube(Scene& scene, Cursor& cursor){
         for(unsigned int i = 0; i < scene.getAllCubes().size(); i++) {
             if(isItCube(scene,cursor)) {
-                if(cursor.getInvisible() == false) {
-                    cursor.setInvisible(true);
+                if(cursor.isVisible()) {
+                    cursor.setInvisible();
                 }
             }
             else {

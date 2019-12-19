@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
     ProgramType FlatCube;
     scene.loadProgram(FlatCube,"../shaders/3D.vs.glsl","../shaders/normal.fs.glsl");
     scene.useProgram(FlatCube);
-    scene.initAllCubes(5);
+    scene.initAllCubes();
     overlay.initImgui(windowManager.m_window,&windowManager.m_glContext);
    
     //Load camera
@@ -71,7 +71,6 @@ int main(int argc, char** argv) {
 
                 case SDL_KEYDOWN:
                     gameController.handleScene(e,scene,cursor);
-                    std::cout << cursor.getPosition() << std::endl;
                     gameController.handleCamera(e,camera);
                 default : break;
         }
@@ -82,12 +81,12 @@ int main(int argc, char** argv) {
         scene.drawCubes(camera);
         scene.recalculate_matrices(camera,cursor);
         cursor.draw();
-        if(overlay.getClickedAddCube() &1) {
+ /*       if(overlay.getClickedAddCube() &1) {
             gameController.addCube(scene,cursor);
         }
         if(overlay.getClickedDeleteCube() &1) {
             gameController.deleteCube(scene,cursor);
-        }
+        }*/
         overlay.endFrame(windowManager.m_window);
     }
     return EXIT_SUCCESS;
