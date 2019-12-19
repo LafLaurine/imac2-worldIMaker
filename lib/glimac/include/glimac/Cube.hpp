@@ -16,8 +16,8 @@ namespace glimac
 			GLuint m_ibo;
 			glm::vec3 m_position;
 			glm::vec3 m_color;
-		public:
 			bool m_visible;
+		public:
 			Cube();
 			Cube(glm::vec3 position);
 			~Cube() = default;
@@ -32,6 +32,7 @@ namespace glimac
 			inline float setPositionY(float positionY){return m_position.y = positionY;};
 			inline float setPositionZ(float positionZ){return m_position.z = positionZ;};
 			void setVisible();
+			void setInvisible();
 			void initBuffer();
 			void draw();
 			void editColor(int type);

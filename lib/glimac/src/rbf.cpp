@@ -3,27 +3,36 @@
 
 namespace glimac{
     template <typename T>
-    T getRBF(FunctionType type, const std::vector<T> v1, const std::vector<T> v2, const T epsilon){
+    T getRBF(FunctionType type, T d, const T epsilon){
         if(type == FunctionType::Gaussian) {
-            T d = vectors_distance(v1, v2);
             return exp(-epsilon*d*d); 
         }
         else if(type == FunctionType::ThinPlateSpline) {
-        	T d = vectors_distance(v1, v2);
             return pow(d, 2)*log(d);
         }
         else if(type == FunctionType::InverseQuadratic) {
-        	T d = vectors_distance(v1, v2);
         	return pow(1+pow((epsilon*d),2),-1);
         }
         else if(type == FunctionType::BiharmonicSpline) {
-        	return vectors_distance(v1, v2);
+        	return d;
         }
         else if(type == FunctionType::Multiquadric) {
-        	T d = vectors_distance(v1, v2);
         	return sqrt(1+(epsilon*pow(d,2)));
         }
     }
+/*
+    float distance(Eigen::Vector2f p1, Eigen::Vector2f p2) {
+        return sqrt(pow((p1.x - p2.x), 2) + pow((p1.y - p2.y), 2));
+    }*/
+
+    /*Eigen::VectorXd computeOmega(Eigen::Matrix3f X, Eigen::VectorXd u) {
+        Eigen::ColPivHouseholderQR<Eigen::Matrix3f> dec(X);
+        return dec.solve(u);
+    }*/
+
+    /*Eigen::VectorXd phi(Eigen::Matrix3f X, Eigen::VectorXd u) {
+	    Eigen::VectorXd wk = computeOmega(X, u);
+    }*/
 
 
     void reset()

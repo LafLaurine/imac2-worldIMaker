@@ -1,4 +1,5 @@
 #include "glimac/Cube.hpp"
+#include <glimac/gl-exception.hpp>
 
 namespace glimac {
 
@@ -42,30 +43,28 @@ namespace glimac {
 
 
     void Cube::initBuffer() {
-        GLuint cubeVbo;
-        //Vertex buffer position
-        glGenBuffers(1, &cubeVbo);
-        glBindBuffer(GL_ARRAY_BUFFER, cubeVbo);    
-        glBufferData(GL_ARRAY_BUFFER,
-                sizeof(cubePositions), cubePositions,
-                GL_STATIC_DRAW);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
+          //Vertex buffer position
+          GLCall(glGenBuffers(1, &m_vbo));
+          GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));    
+          GLCall(glBufferData(GL_ARRAY_BUFFER,
+                  sizeof(cubePositions), cubePositions,
+                  GL_STATIC_DRAW));
+          GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
+          GLuint cubeNormalVbo;
+          //Vertex buffer position
+          GLCall(glGenBuffers(1, &cubeNormalVbo));
+          GLCall(glBindBuffer(GL_ARRAY_BUFFER, cubeNormalVbo));    
+          GLCall(glBufferData(GL_ARRAY_BUFFER,
+                  sizeof(normals), normals,
+                  GL_STATIC_DRAW));
+          GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 
-        GLuint cubeNormalVbo;
-        //Vertex buffer position
-        glGenBuffers(1, &cubeNormalVbo);
-        glBindBuffer(GL_ARRAY_BUFFER, cubeNormalVbo);    
-        glBufferData(GL_ARRAY_BUFFER,
-                sizeof(normals), normals,
-                GL_STATIC_DRAW);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-        //Vertex array
+         //Vertex array
         glGenVertexArrays(1, &m_vao);
         glBindVertexArray(m_vao);
         // pos vao
         glEnableVertexAttribArray(0);
-        glBindBuffer(GL_ARRAY_BUFFER, cubeVbo);
+        glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), NULL);
         // normal vao
         glEnableVertexAttribArray(1);
@@ -103,8 +102,14 @@ namespace glimac {
     }
     
     void Cube::setVisible() {
-        if(!m_visible){
+        if(m_visible == false){
             m_visible = true;
+        }
+    }
+
+    void Cube::setInvisible() {
+        if(m_visible == true){
+            m_visible = false;
         }
     }
 

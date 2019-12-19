@@ -11,10 +11,6 @@ namespace glimac{
         m_programs[type].use();
     }
 
-    Scene::Scene(unsigned int height, unsigned int width, unsigned int len):m_height(height), m_width(width), m_length(len) {
-
-    }
-
     void Scene::create_uniform_matrices(ProgramType type)
     {
         uMVLocation = glGetUniformLocation(m_programs[type].getGLId(), "uModel");

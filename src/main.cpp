@@ -27,7 +27,7 @@ int main(int argc, char** argv) {
     SDL_WarpMouseInWindow(windowManager.m_window, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2); // set users mouse positioin to the center  
     Overlay overlay;
 
-    Scene scene(10,10,10);
+    Scene scene;
     ProgramType FlatCube;
     scene.loadProgram(FlatCube,"../shaders/3D.vs.glsl","../shaders/normal.fs.glsl");
     scene.useProgram(FlatCube);
@@ -43,7 +43,7 @@ int main(int argc, char** argv) {
     bool mouseDown = false;
     scene.create_uniform_matrices(FlatCube);
 
-    Cube cursor;
+    Cursor cursor;
 
     // Application loop
     while(windowManager.isRunning()) {
@@ -80,12 +80,12 @@ int main(int argc, char** argv) {
         scene.drawCubes(camera);
         scene.recalculate_matrices(camera,cursor);
         cursor.draw();
-        if(overlay.getClickedAddCube() &1) {
+ /*       if(overlay.getClickedAddCube() &1) {
             gameController.addCube(scene,cursor);
         }
         if(overlay.getClickedDeleteCube() &1) {
             gameController.deleteCube(scene,cursor);
-        }
+        }*/
         overlay.endFrame(windowManager.m_window);
     }
     return EXIT_SUCCESS;

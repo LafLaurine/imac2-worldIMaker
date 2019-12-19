@@ -11,23 +11,23 @@
 #include <glimac/Cube.hpp>
 #include <vector>
 
+
 namespace glimac
 {
 	
 	class Scene
 	{
 		private:
+			static const unsigned int m_height = 10;
+			static const unsigned int m_width = 10;
+			static const unsigned int m_length = 10;
 			std::vector<Cube> m_allCubes;
 			std::map<ProgramType, Program> m_programs;
 			FreeFlyCamera camera;
 			glm::mat4 MVMatrix, ProjMatrix, globalMVMatrix, cubeMVMatrix, NormalMatrix;
 			glm::vec3 Kd,Ks,lightDir,lightIntensity, m_color;
-			unsigned int m_height;
-			unsigned int m_width;
-			unsigned int m_length;
 		public:
 			Scene() = default;
-			Scene(unsigned int height, unsigned int width, unsigned int len);
 			~Scene() = default;
 
 			GLuint uMVLocation,uMVPLocation, uLightLocation, uLightPosLocation, uObjectColorPosition, uNormalMatLocation, cubeColorLoc;
@@ -35,7 +35,7 @@ namespace glimac
 			inline int getHeight(){ return m_height; };
 			inline int getWidth(){ return m_width; };
 			inline int getLength(){ return m_length; };
-			inline std::vector<Cube> getAllCubes(){ return m_allCubes; };
+			inline std::vector<Cube> getAllCubes() {return m_allCubes;};
 			void loadProgram(ProgramType type, std::string vertexShader, std::string fragmentShader);
 			void useProgram(ProgramType type);
 			void create_uniform_matrices(ProgramType type);
