@@ -17,25 +17,25 @@ namespace glimac
 	class Scene
 	{
 		private:
-			std::vector<Cube> m_all_cubes;
+			std::vector<Cube> m_allCubes;
 			std::map<ProgramType, Program> m_programs;
 			FreeFlyCamera camera;
-			glm::mat4 MVMatrix, ProjMatrix, NormalMatrix;
-			glm::vec3 Kd,Ks,lightDir,lightIntensity;
-			int m_height;
-			int m_width;
-			int m_length;
+			glm::mat4 MVMatrix, ProjMatrix, globalMVMatrix, cubeMVMatrix, NormalMatrix;
+			glm::vec3 Kd,Ks,lightDir,lightIntensity, m_color;
+			unsigned int m_height;
+			unsigned int m_width;
+			unsigned int m_length;
 		public:
 			Scene() = default;
-			Scene(int height, int width, int len);
+			Scene(unsigned int height, unsigned int width, unsigned int len);
 			~Scene() = default;
 
-			GLuint uModelLocation,uViewProjLocation, uTexLocation, uNormalMatLocation;
-			GLuint uKd,uKs,uShininess,uLightDir_vs, uLightIntensity;
+			GLuint uMVLocation,uMVPLocation, uLightLocation, uLightPosLocation, uObjectColorPosition, uNormalMatLocation, cubeColorLoc;
+			GLuint uKd,uKs,uShininess, uLightIntensity;
 			inline int getHeight(){ return m_height; };
 			inline int getWidth(){ return m_width; };
 			inline int getLength(){ return m_length; };
-			inline std::vector<Cube> getAllCubes(){ return m_all_cubes; };
+			inline std::vector<Cube> getAllCubes(){ return m_allCubes; };
 			void loadProgram(ProgramType type, std::string vertexShader, std::string fragmentShader);
 			void useProgram(ProgramType type);
 			void create_uniform_matrices(ProgramType type);
@@ -43,6 +43,8 @@ namespace glimac
 			void recalculate_matrices(FreeFlyCamera &camera, Cube cube);
 			void initAllCubes();
 			void drawCubes(FreeFlyCamera &camera);
+			void refresh();
+			
 	};
 }
 

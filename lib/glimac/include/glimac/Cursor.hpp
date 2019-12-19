@@ -5,12 +5,12 @@
 #include <glimac/Cube.hpp>
 
 namespace glimac {
-    class Cursor {
+    class Cursor:public Cube {
         public:
         Cursor() = default;
         ~Cursor() = default;
         void drawCursor(Cube &cursor);
-    } 
+    }; 
 }
 
 #endif

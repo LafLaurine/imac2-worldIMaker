@@ -11,7 +11,7 @@ namespace glimac {
 
     class GameController {
         private :
-            float zoom = 0.1f;
+            float zoom = 1.0f;
             glm::vec3 m_position;
         public:
             GameController() = default;

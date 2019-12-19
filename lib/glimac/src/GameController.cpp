@@ -60,7 +60,7 @@ namespace glimac {
     }
 
     void GameController::addCube(Scene& scene, Cube& cursor){
-            if(isItCube(scene,cursor)) {
+            if(cursor.isVisible()) {
                 std::cout << "HE OH TU PEUX PAS AJOUTER DE CUBE Y'EN A DEJA UN !!!" << std::endl;
             }
             else {

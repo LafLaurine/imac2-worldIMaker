@@ -1,13 +1,13 @@
 #include <glimac/glm.hpp> 
 #include "glimac/FreeFlyCamera.hpp"
-
+#include <iostream>
 
 namespace glimac {
 
     const double PI = 3.141592653589;
     const double HALF_PI = PI/2;
 
-    FreeFlyCamera::FreeFlyCamera(): m_position(glm::vec3(0.f, 0.f, 0.f)), m_fPhi(PI), m_fTheta(0) {
+    FreeFlyCamera::FreeFlyCamera(): m_position(glm::vec3(0.f, 0.f, 10.f)), m_fPhi(PI), m_fTheta(0) {
         computeDirectionVectors();	
     }
     

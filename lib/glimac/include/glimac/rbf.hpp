@@ -6,6 +6,7 @@
 #include <vector>
 #include <algorithm>
 #include <numeric>
+#include <eigen3/Eigen/Dense>
 
 namespace glimac {
     enum class FunctionType
@@ -30,10 +31,13 @@ namespace glimac {
     } 
 
     template <typename T>
-    // Data points
-    /* std::vector<glm::vec3> get_control_points(const std::string &filename)*/
-    // Function type
     T getRBF(FunctionType type, const std::vector<T> v1, const std::vector<T> v2, const T epsilon);
+    // Data points
+    std::vector<double> ys;
+    std::vector<std::vector<double>> xs;
+    std::vector<double> ws;
+    // Function type
+    
 }
 
 #endif

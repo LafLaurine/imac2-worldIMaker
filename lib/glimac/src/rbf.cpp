@@ -1,5 +1,5 @@
 #include <glimac/rbf.hpp>
-#include <iostream>
+#include <assert.h>
 
 namespace glimac{
     template <typename T>
@@ -23,6 +23,20 @@ namespace glimac{
         	T d = vectors_distance(v1, v2);
         	return sqrt(1+(epsilon*pow(d,2)));
         }
+    }
+
+
+    void reset()
+    {
+        ys.clear();
+        xs.clear();
+        ws.clear();
+    }
+
+    void addCenterPoint(const double y, const std::vector<double>& x)
+    {
+        ys.push_back(y);
+        xs.push_back(x);
     }
 
 };

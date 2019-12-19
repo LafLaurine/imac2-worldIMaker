@@ -12,6 +12,7 @@ namespace glimac {
 	enum class ProgramType
 	{
 		FlatCube,
+		Light,
 		TexturedCube,
 	};
 
