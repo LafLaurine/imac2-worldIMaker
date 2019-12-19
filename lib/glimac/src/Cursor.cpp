@@ -3,8 +3,7 @@
 
 namespace glimac{
 
-    void Cursor::drawCursor(Cube &cursor) {
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        cursor.draw();
+    void Cursor::draw() {
+        glDrawElements(GL_LINES, 36, GL_UNSIGNED_SHORT, (void*) 0);
     }
 }

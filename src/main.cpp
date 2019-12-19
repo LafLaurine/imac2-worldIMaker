@@ -10,6 +10,7 @@
 #include <glimac/Overlay.hpp>
 #include <glimac/Cube.hpp>
 #include <glimac/Scene.hpp>
+#include <glimac/Cursor.hpp>
 #include <imgui/imgui.h>
 #include <imgui/imgui_impl_opengl3.h>
 #include <imgui/imgui_impl_sdl.h>
@@ -43,7 +44,7 @@ int main(int argc, char** argv) {
     bool mouseDown = false;
     scene.create_uniform_matrices(FlatCube);
 
-    Cube cursor;
+    Cursor cursor;
 
     // Application loop
     while(windowManager.isRunning()) {
