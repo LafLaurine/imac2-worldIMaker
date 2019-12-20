@@ -24,7 +24,7 @@ namespace glimac {
     }
 
     void Overlay::drawOverlay() {
-        ImGui::Begin("WorldIMaker tools",&p_open,ImGuiWindowFlags_NoMove | ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
+        ImGui::Begin("WorldIMaker tools",&p_open,ImGuiWindowFlags_NoMove | ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
         {
             if (ImGui::BeginMenuBar())
             {
@@ -56,6 +56,7 @@ namespace glimac {
                 show ^= 1;
                 clickedDeleteCube++;
             }
+
             if (ImGui::Button("Save"))
             {
                 show ^= 1;

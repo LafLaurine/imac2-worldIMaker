@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <math.h>
 #include <glimac/GameController.hpp>
-#include <glimac/FreeFlyCamera.hpp>
+#include <glimac/TrackballCamera.hpp>
 #include <glimac/SDLWindowManager.hpp> 
 #include <glimac/FilePath.hpp> 
 #include <glimac/Overlay.hpp>
@@ -36,12 +36,10 @@ int main(int argc, char** argv) {
     overlay.initImgui(windowManager.m_window,&windowManager.m_glContext);
    
     //Load camera
-    FreeFlyCamera camera;
+    TrackballCamera camera;
     GameController gameController;
 
     glClearColor(0.4, 0.6, 0.2, 1);
-    glm::ivec2 mouse = glm::vec2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
-    bool mouseDown = false;
     scene.create_uniform_matrices(FlatCube);
 
     Cursor cursor;
@@ -52,22 +50,6 @@ int main(int argc, char** argv) {
         while(SDL_PollEvent(&e)) {
         switch (e.type) {
             case SDL_QUIT: windowManager.exit();
-                case SDL_MOUSEBUTTONDOWN:
-                    mouseDown = true;
-                    break;
-
-                case SDL_MOUSEBUTTONUP:
-                    mouseDown = false;
-                    break;
-
-                case SDL_MOUSEMOTION:
-                    if(mouseDown) {
-                        glm::ivec2 offsetMouse = windowManager.getMousePosition() - mouse;
-                        mouse = windowManager.getMousePosition();
-                        camera.rotateUp(offsetMouse.y/2.f);
-                        camera.rotateLeft(offsetMouse.x/2.f);
-                    }
-                break;
 
                 case SDL_KEYDOWN:
                     gameController.handleScene(e,scene,cursor);
@@ -81,12 +63,12 @@ int main(int argc, char** argv) {
         scene.drawCubes(camera);
         scene.recalculate_matrices(camera,cursor);
         cursor.draw();
- /*       if(overlay.getClickedAddCube() &1) {
+        if(overlay.getClickedAddCube() &1) {
             gameController.addCube(scene,cursor);
         }
         if(overlay.getClickedDeleteCube() &1) {
             gameController.deleteCube(scene,cursor);
-        }*/
+        }
         overlay.endFrame(windowManager.m_window);
     }
     return EXIT_SUCCESS;

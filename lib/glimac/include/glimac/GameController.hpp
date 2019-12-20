@@ -17,11 +17,11 @@ namespace glimac {
         public:
             GameController() = default;
             ~GameController() = default;
-            void handleCamera(SDL_Event &e, FreeFlyCamera &cam);
+            void handleCamera(SDL_Event &e, TrackballCamera &cam);
             void handleScene(SDL_Event &e, Scene &scene, Cursor &cursor);
             void handleEvents(SDL_Event &e);
-            Cube* isItCube(Scene& scene, Cursor &cursor);
-            void selectCube(Scene& scene, Cursor &cursor);
+            int getIndexCube(Scene& scene, Cursor &cursor);
+            bool isThereACube(Scene& scene, Cursor &cursor);
             inline glm::vec3 getPosition(){return m_position;};
             void addCube(Scene& scene, Cursor& cursor);
             void deleteCube(Scene& scene, Cursor& cursor);
@@ -29,6 +29,7 @@ namespace glimac {
             void extrudeCube(Scene &scene, Cursor &cursor);
             void digCube(Scene &scene, Cursor &cursor);
             bool checkPositionCursor(Scene &scene, glm::vec3 position);
+            int getHighestCube(Scene &scene, Cursor &cursor);
     };
 
 }

@@ -3,51 +3,60 @@
 
 namespace glimac {
 
-    void GameController::handleCamera(SDL_Event &e, FreeFlyCamera &cam) {
+    void GameController::handleCamera(SDL_Event &e, TrackballCamera &cam) {
         if(e.key.keysym.sym == SDLK_z) {
-            cam.moveFront(zoom);
-            } else if (e.key.keysym.sym == SDLK_s) {
             cam.moveFront(-zoom);
+            } else if (e.key.keysym.sym == SDLK_s) {
+            cam.moveFront(zoom);
         } else if (e.key.keysym.sym == SDLK_q) {
-            cam.moveLeft(zoom);              
+            cam.rotateLeft(zoom);              
         } else if(e.key.keysym.sym == SDLK_d) {
-            cam.moveLeft(-zoom);            
+            cam.rotateLeft(-zoom);            
+        }
+        else if(e.key.keysym.sym == SDLK_u) {
+            cam.rotateUp(-zoom);            
+        }
+
+        else if(e.key.keysym.sym == SDLK_w) {
+            cam.rotateUp(zoom);            
         }
     }
     
     void GameController::handleScene(SDL_Event &e, Scene &scene, Cursor& cursor) {
         if (e.key.keysym.scancode == SDL_SCANCODE_LEFT) {
             cursor.setPositionX((cursor.getPosition().x)-1);            
-            selectCube(scene, cursor);
+            isThereACube(scene, cursor);
         } else if (e.key.keysym.scancode == SDL_SCANCODE_RIGHT) {
            cursor.setPositionX((cursor.getPosition().x)+1);
-            selectCube(scene, cursor);
+            isThereACube(scene, cursor);
         } else if (e.key.keysym.scancode == SDL_SCANCODE_UP) {
         	cursor.setPositionY((cursor.getPosition().y)+1);
-        	selectCube(scene, cursor);
+        	isThereACube(scene, cursor);
         } else if (e.key.keysym.scancode == SDL_SCANCODE_DOWN) {
             cursor.setPositionY((cursor.getPosition().y)-1);
-            selectCube(scene, cursor);
+            isThereACube(scene, cursor);
         } else if(e.key.keysym.scancode == SDL_SCANCODE_KP_MINUS){
         	cursor.setPositionZ((cursor.getPosition().z)-1);
-        	selectCube(scene, cursor);
+        	isThereACube(scene, cursor);
         } else if(e.key.keysym.scancode == SDL_SCANCODE_KP_PLUS){
         	cursor.setPositionZ((cursor.getPosition().z)+1);
-        	selectCube(scene, cursor);
+        	isThereACube(scene, cursor);
+        } else if (e.key.keysym.sym == SDLK_e) {
+            extrudeCube(scene,cursor);
         }
     }
             
     
-    Cube* GameController::isItCube(Scene& scene, Cursor& cursor){
+    int GameController::getIndexCube(Scene& scene, Cursor& cursor){
         for(unsigned int i = 0; i < scene.getAllCubes().size(); i++) {
             if(cursor.getPosition().x >= ((scene.getAllCubes().at(i).getPosition().x)) 
             	&& cursor.getPosition().x <= ((scene.getAllCubes().at(i).getPosition().x))
             	&& cursor.getPosition().y >= ((scene.getAllCubes().at(i).getPosition().y)) 
             	&& cursor.getPosition().y <= ((scene.getAllCubes().at(i).getPosition().y))){
-            	return &(scene.getAllCubes().at(i)); 
+            	return  i; 
             }
-        } 
-        return nullptr;
+        }
+        return -1; 
     }
 
     bool GameController::checkPositionCursor(Scene &scene, glm::vec3 position) {
@@ -62,35 +71,80 @@ namespace glimac {
     }
 
 
-    void GameController::selectCube(Scene& scene, Cursor& cursor){
-    	Cube* cubeSelected = isItCube(scene, cursor);
-    	if(cubeSelected != nullptr){
-    		std::cout << "Il y a un cube ! " << std::endl;
+    bool GameController::isThereACube(Scene& scene, Cursor& cursor){
+    	int cubeIndex = getIndexCube(scene,cursor);
+    	if(cubeIndex == -1 || !scene.getAllCubes().at(cubeIndex).isVisible()){
+    		std::cout << "Il n'y a PAS de cube, c'est vide !  " << std::endl;
+            return false;
     	} else {
-    		std::cout << "Il n'y a PAS de cube, c'est vide ! " << std::endl;
+    		std::cout << "Il y a un cube ! " << std::endl;
+            return true;
     	}
     }
 
     void GameController::addCube(Scene& scene, Cursor& cursor){
-            if(cursor.isVisible()) {
+            int cubeIndex = getIndexCube(scene,cursor);
+            if(isThereACube(scene,cursor)) {
                 std::cout << "HE OH TU PEUX PAS AJOUTER DE CUBE Y'EN A DEJA UN !!!" << std::endl;
             }
+            else if(cubeIndex != -1){
+                scene.getAllCubes().at(cubeIndex).setVisible();
+            }
             else {
-                cursor.setVisible();
-                cursor.update();
+                std::cout << "en dehors grille" << std::endl;
             }
     }
 
-    void GameController::deleteCube(Scene& scene, Cursor& cursor){
-        for(unsigned int i = 0; i < scene.getAllCubes().size(); i++) {
-            if(isItCube(scene,cursor)) {
-                if(cursor.isVisible()) {
-                    cursor.setInvisible();
+
+        int GameController::getHighestCube(Scene &scene, Cursor &cursor)
+        {
+            int maxCol = scene.getHeight();
+            int cubeIndex = getIndexCube(scene,cursor);
+            if(checkPositionCursor(scene, cursor.getPosition()))
+            {
+                bool cube_found = false;
+                while(maxCol>=0 && !cube_found)
+                {
+                    if(scene.getAllCubes().at(cubeIndex).isVisible() ) {
+                        cube_found = true;
+                    }
+                    else{
+                        maxCol--;
+                    }
                 }
             }
-            else {
-                std::cout << "HE OH TU PEUX PAS SUPPRIMER DU VIDE !!!" << std::endl;
+            return cubeIndex;
+        }
+
+    void GameController::deleteCube(Scene& scene, Cursor& cursor){
+            int cubeIndex = getIndexCube(scene,cursor);
+            if(isThereACube(scene,cursor)) {
+               scene.getAllCubes().at(cubeIndex).setInvisible();
             }
+            else if (cubeIndex == -1) {
+                std::cout << "EH OH TU PEUX PAS SUPP DU VIDE" << std::endl;
+            }
+            else {
+                std::cout << "en dehors grille" << std::endl;
+            }
+    }
+
+    void GameController::extrudeCube(Scene& scene, Cursor &cursor)
+    {
+        if(isThereACube(scene,cursor))
+        {
+            int y = getHighestCube(scene,cursor);
+            scene.getAllCubes().at(y+1).setInvisible();
+            
+        }
+    }
+
+    void GameController::digCube(Scene& scene, Cursor &cursor)
+    {
+        if(isThereACube(scene,cursor))
+        {
+            int y = getHighestCube(scene,cursor);
+            scene.getAllCubes().at(y-1).setInvisible();           
         }
     }
 };

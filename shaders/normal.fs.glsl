@@ -4,23 +4,11 @@ out vec4 fragColor;
 in vec3 vPos;
 in vec3 vNormal;
 
-uniform vec3 uKd;
-uniform vec3 uKs;
-uniform float uShininess;
 uniform vec3 lightPos;
 uniform mat4 uNormalMat;
-uniform vec3 uLightIntensity;
 
-vec3 blinnPhong() {
-    // Couleur=Li(Kd(wi˙N)+Ks(halfVector˙N)shininess)
-    vec3 wi = normalize(lightPos);
-    vec3 halfVector = normalize(-vPos);
-    vec3 p1 = uKd*(dot(wi, vNormal));
-    vec3 p2 = uKs*pow((dot(halfVector, vNormal)), uShininess);
-    vec3 color =  uLightIntensity*(p1+p2);;
-    return color;
-}
 void main() {
+    float lum = max(-dot(lightPos, vNormal), 0.8);
     vec3 normal = (uNormalMat * vec4(vNormal, 0.)).xyz;
-    fragColor = vec4(blinnPhong() * normal , 1.0f);
+    fragColor = vec4(lum * normal , 1.0f);
 }

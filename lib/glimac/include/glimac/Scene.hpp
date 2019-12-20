@@ -6,7 +6,7 @@
 #include <glimac/glm.hpp> 
 #include <GL/glew.h>
 #include <map>
-#include <glimac/FreeFlyCamera.hpp>
+#include <glimac/TrackballCamera.hpp>
 #include <glimac/Program.hpp>
 #include <glimac/Cube.hpp>
 #include <vector>
@@ -23,7 +23,7 @@ namespace glimac
 			static const unsigned int m_length = 10;
 			std::vector<Cube> m_allCubes;
 			std::map<ProgramType, Program> m_programs;
-			FreeFlyCamera camera;
+			TrackballCamera camera;
 			glm::mat4 MVMatrix, ProjMatrix, globalMVMatrix, cubeMVMatrix, NormalMatrix;
 			glm::vec3 Kd,Ks,lightDir,lightIntensity, m_color;
 		public:
@@ -35,14 +35,14 @@ namespace glimac
 			inline int getHeight(){ return m_height; };
 			inline int getWidth(){ return m_width; };
 			inline int getLength(){ return m_length; };
-			inline std::vector<Cube> getAllCubes() {return m_allCubes;};
+			inline std::vector<Cube>& getAllCubes() {return m_allCubes;};
 			void loadProgram(ProgramType type, std::string vertexShader, std::string fragmentShader);
 			void useProgram(ProgramType type);
 			void create_uniform_matrices(ProgramType type);
 			void drawCube(ProgramType cubeType);
-			void recalculate_matrices(FreeFlyCamera &camera, Cube cube);
+			void recalculate_matrices(TrackballCamera &camera, Cube cube);
 			void initAllCubes();
-			void drawCubes(FreeFlyCamera &camera);
+			void drawCubes(TrackballCamera &camera);
 			void refresh();
 			
 	};

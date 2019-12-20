@@ -113,13 +113,6 @@ namespace glimac {
         }
     }
 
-
-    void Cube::update(){
-        GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_vbo)); 
-        GLCall(glBufferData(GL_ARRAY_BUFFER,sizeof(cubePositions), cubePositions,GL_STATIC_DRAW));        
-        GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
-    }
-
     void Cube::editColor(int type) {
     switch (type) {
       case 0: m_color = glm::vec3(1,0,0);

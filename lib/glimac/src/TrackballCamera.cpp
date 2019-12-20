@@ -4,12 +4,16 @@
 
 namespace glimac {
 
-    TrackballCamera::TrackballCamera():_fDistance(60.0f), _fAngleX(-60.0f), _fAngleZ(0.f), _ViewMatrix(glm::mat4(1.f))
+    TrackballCamera::TrackballCamera():_fDistance(40.0f), _fAngleX(-40.0f), _fAngleY(-40.0f), _fAngleZ(0.f), _ViewMatrix(glm::mat4(1.f))
     {	
     }
 
     void TrackballCamera::moveFront(const float &delta) {
         _fDistance += delta;
+    }
+
+    void TrackballCamera::moveUp(const float &delta) {
+        _fAngleY += delta;
     }
 
     void TrackballCamera::rotateLeft(const float &degrees) {
