@@ -66,7 +66,7 @@ namespace glimac{
             {
                 for(unsigned int j= 0 ; j<m_length ; j++)
                 {
-                    Cube temp_cube(glm::vec3(i,layer,j));
+                    Cube temp_cube(glm::vec3(i+5,layer,j));
                     if(layer < 3) {
                         temp_cube.setVisible();
                     }

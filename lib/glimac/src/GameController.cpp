@@ -44,6 +44,10 @@ namespace glimac {
         } else if (e.key.keysym.sym == SDLK_e) {
             extrudeCube(scene,cursor);
         }
+        else if (e.key.keysym.sym == SDLK_g) {
+            digCube(scene,cursor);
+        }
+        std::cout << cursor.getPosition() << std::endl;
     }
             
     
@@ -52,7 +56,9 @@ namespace glimac {
             if(cursor.getPosition().x >= ((scene.getAllCubes().at(i).getPosition().x)) 
             	&& cursor.getPosition().x <= ((scene.getAllCubes().at(i).getPosition().x))
             	&& cursor.getPosition().y >= ((scene.getAllCubes().at(i).getPosition().y)) 
-            	&& cursor.getPosition().y <= ((scene.getAllCubes().at(i).getPosition().y))){
+            	&& cursor.getPosition().y <= ((scene.getAllCubes().at(i).getPosition().y))
+                && cursor.getPosition().z <= ((scene.getAllCubes().at(i).getPosition().z))
+                && cursor.getPosition().z >= ((scene.getAllCubes().at(i).getPosition().z))){
             	return  i; 
             }
         }
@@ -96,25 +102,26 @@ namespace glimac {
     }
 
 
-        int GameController::getHighestCube(Scene &scene, Cursor &cursor)
-        {
+    int GameController::getHighestCube(Scene &scene, Cursor &cursor)
+    {
             int maxCol = scene.getHeight();
             int cubeIndex = getIndexCube(scene,cursor);
             if(checkPositionCursor(scene, cursor.getPosition()))
             {
                 bool cube_found = false;
-                while(maxCol>=0 && !cube_found)
+                while(maxCol<=cubeIndex && !cube_found)
                 {
-                    if(scene.getAllCubes().at(cubeIndex).isVisible() ) {
+                    if(scene.getAllCubes().at(maxCol).isVisible() ) {
                         cube_found = true;
                     }
                     else{
-                        maxCol--;
+                        maxCol++;
                     }
                 }
             }
+            std::cout << cubeIndex << std::endl;
             return cubeIndex;
-        }
+    }
 
     void GameController::deleteCube(Scene& scene, Cursor& cursor){
             int cubeIndex = getIndexCube(scene,cursor);
@@ -134,7 +141,7 @@ namespace glimac {
         if(isThereACube(scene,cursor))
         {
             int y = getHighestCube(scene,cursor);
-            scene.getAllCubes().at(y+1).setInvisible();
+            scene.getAllCubes().at(y+1).setVisible();
             
         }
     }
@@ -144,7 +151,7 @@ namespace glimac {
         if(isThereACube(scene,cursor))
         {
             int y = getHighestCube(scene,cursor);
-            scene.getAllCubes().at(y-1).setInvisible();           
+            scene.getAllCubes().at(y-1).setInvisible();          
         }
     }
 };
