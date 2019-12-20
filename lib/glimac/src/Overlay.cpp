@@ -37,7 +37,6 @@ namespace glimac {
                 ImGui::EndMenuBar();
             }
 
-
             ImGui::ColorEdit4("Color", getColor());
 
             int show = 1;
