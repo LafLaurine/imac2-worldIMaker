@@ -1,5 +1,6 @@
 #include <glimac/Scene.hpp>
 #include <iostream>
+#include <glm/gtc/type_ptr.hpp>
 
 namespace glimac {
     void Scene::loadProgram(ProgramType type, std::string vertexShader, std::string fragmentShader) {
@@ -17,7 +18,7 @@ namespace glimac {
         std::cout << "value uModelLocation : " << uMVLocation << "id program used uModelLocation : " << m_programs[type].getGLId() << std::endl;
         uMVPLocation = glGetUniformLocation(m_programs[type].getGLId(), "uViewProj");
         uNormalMatLocation = glGetUniformLocation(m_programs[type].getGLId(), "uNormalMat");
-
+        uColorLocation = glGetUniformLocation(m_programs[type].getGLId(), "uColor");
         uLightPosLocation = glGetUniformLocation(m_programs[type].getGLId(), "lightPos");
         std::cout << "value uViewProjLocation : " << uMVPLocation << "id program used uViewProjLocation : " << m_programs[type].getGLId() << std::endl;
         
@@ -45,9 +46,10 @@ namespace glimac {
 
     }
 
-    void Scene::recalculate_matrices(TrackballCamera &camera,Cube cube) {
+    void Scene::recalculate_matrices(TrackballCamera &camera,Cube cube, glm::vec3 &color) {
             glm::mat4 camera_VM = camera.getViewMatrix();
             glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), cube.getPosition());
+            glUniform3fv(uColorLocation, 1, glm::value_ptr(color));
             
             glUniformMatrix4fv(uMVLocation, // Location
                             1, // Count
@@ -69,35 +71,36 @@ namespace glimac {
     }
 
     void Scene::initAllCubes() {
-        for (unsigned int layer = 0; layer < m_width; layer++) {
-            for (unsigned int i= 0; i < m_height; i++)
+        for (unsigned int z = 0; z < m_length; z++) {
+            for (unsigned int y= 0; y < m_height; y++)
             {
-                for(unsigned int j= 0 ; j<m_length ; j++)
+                for(unsigned int x= 0 ; x<m_width ; x++)
                 {
-                    Cube temp_cube(glm::vec3(i+5,layer,j));
-                    if(layer < 3) {
-                        temp_cube.setVisible();
-                    }
+                    Cube temp_cube(glm::vec3(x+5,y,z));
                     m_allCubes.push_back(temp_cube);
                 }
             }
         }
+        //set ground
+        for(unsigned int x = 0; x < m_width; x++) {
+            for(unsigned int z = 0; z < m_length; z++) {
+                m_allCubes.at(from1Dto3D(glm::ivec3(x,0,z))).setVisible();
+            }
+        }
+
     }
 
-    void Scene::drawCubes(TrackballCamera &camera) {
+    void Scene::drawCubes(TrackballCamera &camera, glm::vec3 &color) {
         for(Cube& cube : m_allCubes){
             addLight();
-            recalculate_matrices(camera,cube);
+            recalculate_matrices(camera,cube,color);
             if(cube.isVisible()) {
                 cube.draw();
             }
         }
     }
 
-    void from1Dto3D(std::vector<Cube> allCubes) {
-        for(int i = 0;  i < allCubes.size(); i++) {
-
-        }
+    unsigned int Scene::from1Dto3D(glm::ivec3 pos) {
+        return (pos.y * m_width + pos.x + pos.z * m_width * m_length);
     }
-
 }

@@ -37,25 +37,8 @@ namespace glimac {
                 ImGui::EndMenuBar();
             }
 
-            if (ImGui::BeginMenu("Color : "))
-            {
-                ImGui::MenuItem("Rouge", NULL, &rouge);
-                ImGui::MenuItem("Vert", NULL, &vert);
-                ImGui::MenuItem("Bleu", NULL, &bleu);
-                ImGui::EndMenu();
-            }
 
-            if (rouge==true){
-                *current_color = glm::vec4(1.0f, 0.0f, 0.0f, 0.8f);
-                current_color_string="Rouge";
-                rouge=false;
-            }
-
-            if (vert==true){
-                *current_color = glm::vec4(0.0f,1.0f, 0.0f, 0.8f);
-                current_color_string="Vert";
-                vert=false;
-            }
+            ImGui::ColorEdit4("Color", getColor());
 
             int show = 1;
             clickedAddCube = 0;

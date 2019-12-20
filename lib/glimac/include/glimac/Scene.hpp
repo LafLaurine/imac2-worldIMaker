@@ -31,7 +31,7 @@ namespace glimac
 			Scene() = default;
 			~Scene() = default;
 
-			GLuint uMVLocation,uMVPLocation, uLightLocation, uLightPosLocation, uObjectColorPosition, uNormalMatLocation, cubeColorLoc;
+			GLuint uMVLocation,uMVPLocation, uLightLocation, uLightPosLocation, uColorLocation,uObjectColorPosition, uNormalMatLocation, cubeColorLoc;
 			GLuint uKd,uKs,uShininess, uLightIntensity;
 			inline int getHeight(){ return m_height; };
 			inline int getWidth(){ return m_width; };
@@ -41,13 +41,13 @@ namespace glimac
 			void useProgram(ProgramType type);
 			void create_uniform_matrices(ProgramType type);
 			void drawCube(ProgramType cubeType);
-			void recalculate_matrices(TrackballCamera &camera, Cube cube);
+			void recalculate_matrices(TrackballCamera &camera, Cube cube, glm::vec3 &color);
 			void initAllCubes();
-			void drawCubes(TrackballCamera &camera);
+			void drawCubes(TrackballCamera &camera, glm::vec3 &color);
 			void refresh();
 			void addLight();
 			void removeLight();
-			void from1Dto3D(std::vector<Cube>);
+			static unsigned int from1Dto3D(glm::ivec3 pos);
 	};
 }
 

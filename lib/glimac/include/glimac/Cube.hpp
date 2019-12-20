@@ -33,11 +33,11 @@ namespace glimac
 			inline float setPositionX(float positionX){return m_position.x = positionX;};
 			inline float setPositionY(float positionY){return m_position.y = positionY;};
 			inline float setPositionZ(float positionZ){return m_position.z = positionZ;};
+			inline glm::vec3 getColor() {return m_color;};
 			void setVisible();
 			void setInvisible();
 			void initBuffer();
 			void draw();
-			void editColor(int type);
 			void update();
 			void setSelected();
 			void unselect();

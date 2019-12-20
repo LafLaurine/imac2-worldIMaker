@@ -108,22 +108,22 @@ namespace glimac {
     {
             int maxCol = scene.getHeight();
             int cubeIndex = getIndexCube(scene,cursor);
-            if(checkPositionCursor(scene, cursor.getPosition()))
-            {
+            if(checkPositionCursor(scene, cursor.getPosition())) {
                 bool cube_found = false;
-                while(maxCol<=cubeIndex && !cube_found)
-                {
-                    if(scene.getAllCubes().at(maxCol).isVisible() ) {
+                while(cursor.getPosition().y<=maxCol && !cube_found) {
+                    if(scene.getAllCubes().at(Scene::from1Dto3D(glm::ivec3(cursor.getPosition().x, cursor.getPosition().y, cursor.getPosition().z))).isVisible() ){
                         cube_found = true;
                     }
                     else{
-                        maxCol++;
+                        cursor.setPositionY((cursor.getPosition().y)+1);
                     }
                 }
             }
             std::cout << cubeIndex << std::endl;
             return cubeIndex;
     }
+
+    //retourner position cubeIndex
 
     void GameController::deleteCube(Scene& scene, Cursor& cursor){
             int cubeIndex = getIndexCube(scene,cursor);
@@ -143,7 +143,8 @@ namespace glimac {
         if(isThereACube(scene,cursor))
         {
             int y = getHighestCube(scene,cursor);
-            scene.getAllCubes().at(y+1).setVisible();
+            //position heighest cube
+            scene.getAllCubes().at(Scene::from1Dto3D(glm::ivec3(cursor.getPosition().x,y+1,cursor.getPosition().z))).setVisible();
             
         }
     }

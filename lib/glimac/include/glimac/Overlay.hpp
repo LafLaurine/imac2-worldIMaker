@@ -27,14 +27,10 @@ namespace glimac
 			inline int getClickedDeleteCube(){return clickedDeleteCube;};
 			inline int getClickedDayCube(){return clickedDay;};
 			inline int getClickedNightCube(){return clickedNight;};
-			inline glm::vec4* getCurrentColor(){return current_color;};
+			inline float* getColor(){return &m_myCol;};
+			inline void setColor(float color){m_myCol = color;};
 		private:
-			bool rouge=false;
-			bool vert=false;
-			bool bleu=false;
-
-			std::string current_color_string="rouge";
-			glm::vec4* current_color;
+			float m_myCol = 0.f;
 			bool p_open;
 			int clickedAddCube;
 			int clickedDeleteCube;

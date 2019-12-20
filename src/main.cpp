@@ -60,7 +60,8 @@ int main(int argc, char** argv) {
         //Rendering code
         overlay.beginFrame(windowManager.m_window);
         overlay.drawOverlay();
-        scene.drawCubes(camera);
+        glm::vec3 color = glm::make_vec3(overlay.getColor());
+        scene.drawCubes(camera,color);
         if(overlay.getClickedDayCube() &1) {
             scene.addLight();
         }
@@ -68,7 +69,7 @@ int main(int argc, char** argv) {
         if(overlay.getClickedNightCube() &1) {
             scene.removeLight();
         }
-        scene.recalculate_matrices(camera,cursor);
+        scene.recalculate_matrices(camera,cursor,color);
         cursor.draw();
         if(overlay.getClickedAddCube() &1) {
             gameController.addCube(scene,cursor);
