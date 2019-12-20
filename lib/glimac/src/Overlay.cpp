@@ -24,7 +24,7 @@ namespace glimac {
     }
 
     void Overlay::drawOverlay() {
-        ImGui::Begin("WorldIMaker tools",&p_open,ImGuiWindowFlags_NoMove | ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
+        ImGui::Begin("WorldIMaker tools",&p_open,ImGuiWindowFlags_NoMove | ImGuiWindowFlags_MenuBar  |ImGuiWindowFlags_NoCollapse);
         {
             if (ImGui::BeginMenuBar())
             {
@@ -36,13 +36,32 @@ namespace glimac {
                 }
                 ImGui::EndMenuBar();
             }
-            float myCol = 0.f;
-            // Edit a color (stored as ~4 floats)
-            ImGui::ColorEdit4("Color", &myCol);
+
+            if (ImGui::BeginMenu("Color : "))
+            {
+                ImGui::MenuItem("Rouge", NULL, &rouge);
+                ImGui::MenuItem("Vert", NULL, &vert);
+                ImGui::MenuItem("Bleu", NULL, &bleu);
+                ImGui::EndMenu();
+            }
+
+            if (rouge==true){
+                *current_color = glm::vec4(1.0f, 0.0f, 0.0f, 0.8f);
+                current_color_string="Rouge";
+                rouge=false;
+            }
+
+            if (vert==true){
+                *current_color = glm::vec4(0.0f,1.0f, 0.0f, 0.8f);
+                current_color_string="Vert";
+                vert=false;
+            }
 
             int show = 1;
             clickedAddCube = 0;
             clickedDeleteCube = 0;
+            clickedDay = 0;
+            clickedNight = 0;
             if (ImGui::Button("Add cube")) {
                 show ^= 1;
                 clickedAddCube++;
@@ -56,10 +75,21 @@ namespace glimac {
                 show ^= 1;
                 clickedDeleteCube++;
             }
-
             if (ImGui::Button("Save"))
             {
                 show ^= 1;
+            }
+
+            if (ImGui::Button("Day")) 
+            {
+                show ^= 1;
+                clickedDay++;
+            }
+
+            if (ImGui::Button("Night")) 
+            {
+                show ^= 1;
+                clickedNight++;
             }
         }
         ImGui::End();

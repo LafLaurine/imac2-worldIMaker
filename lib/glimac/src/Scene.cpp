@@ -1,7 +1,7 @@
 #include <glimac/Scene.hpp>
 #include <iostream>
 
-namespace glimac{
+namespace glimac {
     void Scene::loadProgram(ProgramType type, std::string vertexShader, std::string fragmentShader) {
         m_programs.emplace(type, glimac::loadProgram(vertexShader,fragmentShader));
         //appel des cubes utilisant le type
@@ -48,16 +48,24 @@ namespace glimac{
     void Scene::recalculate_matrices(TrackballCamera &camera,Cube cube) {
             glm::mat4 camera_VM = camera.getViewMatrix();
             glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), cube.getPosition());
-            glm::vec4 lightDir4 =  glm::vec4(1.0f, 1.0f, 1.0f, 0.0f);
-            lightDir4 = lightDir4 * globalMVMatrix;
-            glm::vec3 lightPos = glm::vec3(lightDir4.x, lightDir4.y, lightDir4.z);
-            // uLightDir_vs
-            glUniform3fv(uLightLocation, 1, glm::value_ptr(lightPos));
             
             glUniformMatrix4fv(uMVLocation, // Location
                             1, // Count
                             GL_FALSE, // Transpose
                             glm::value_ptr(modelMat * camera_VM)); // Value   
+    }
+
+    void Scene::addLight() {
+        glm::vec4 lightDir4 =  glm::vec4(1.0f, 1.0f, 1.0f, 0.0f);
+        lightDir4 = lightDir4 * globalMVMatrix;
+        glm::vec3 lightPos = glm::vec3(lightDir4.x, lightDir4.y, lightDir4.z);
+        // uLightDir_vs
+        glUniform3fv(uLightLocation, 1, glm::value_ptr(lightPos));
+    }
+
+    void Scene::removeLight() {
+        glm::vec3 lightPos = glm::vec3(0.0f, 0.0f, 0.0f);
+        glUniform3fv(uLightLocation, 1, glm::value_ptr(lightPos));   
     }
 
     void Scene::initAllCubes() {
@@ -78,10 +86,17 @@ namespace glimac{
 
     void Scene::drawCubes(TrackballCamera &camera) {
         for(Cube& cube : m_allCubes){
+            addLight();
             recalculate_matrices(camera,cube);
             if(cube.isVisible()) {
                 cube.draw();
             }
+        }
+    }
+
+    void from1Dto3D(std::vector<Cube> allCubes) {
+        for(int i = 0;  i < allCubes.size(); i++) {
+
         }
     }
 

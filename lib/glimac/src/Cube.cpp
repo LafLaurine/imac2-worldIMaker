@@ -37,10 +37,9 @@ namespace glimac {
     };
 
 
-    Cube::Cube(glm::vec3 position): m_vao(0), m_ibo(0), m_position(position), m_color(glm::vec3(0,0,1)), m_visible(false) {
+    Cube::Cube(glm::vec3 position): m_vao(0), m_ibo(0), m_position(position), m_color(glm::vec3(0,0,1)), m_visible(false), m_selected(false) {
          initBuffer();
     }
-
 
     void Cube::initBuffer() {
           //Vertex buffer position
@@ -113,17 +112,16 @@ namespace glimac {
         }
     }
 
-    void Cube::editColor(int type) {
-    switch (type) {
-      case 0: m_color = glm::vec3(1,0,0);
-        break;
-      case 1: m_color = glm::vec3(0,1,0);
-        break;
-      case 2: m_color = glm::vec3(0,0,1);
-        break;
-      case 3: m_color = glm::vec3(0,1,1);
-        break;
-      default : break;
+    void Cube::setSelected() {
+      if(m_selected == false) {
+        m_selected = true;
+      }
     }
-  }
+
+    void Cube::unselect() {
+      if(m_selected == true) {
+        m_selected = false;
+      }
+    }
+    
 }

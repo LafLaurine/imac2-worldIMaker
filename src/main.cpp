@@ -61,6 +61,13 @@ int main(int argc, char** argv) {
         overlay.beginFrame(windowManager.m_window);
         overlay.drawOverlay();
         scene.drawCubes(camera);
+        if(overlay.getClickedDayCube() &1) {
+            scene.addLight();
+        }
+
+        if(overlay.getClickedNightCube() &1) {
+            scene.removeLight();
+        }
         scene.recalculate_matrices(camera,cursor);
         cursor.draw();
         if(overlay.getClickedAddCube() &1) {

@@ -23,7 +23,9 @@ namespace glimac {
     }
     
     void GameController::handleScene(SDL_Event &e, Scene &scene, Cursor& cursor) {
-        if (e.key.keysym.scancode == SDL_SCANCODE_LEFT) {
+        if (e.key.keysym.sym == SDLK_c) {
+            
+        } else if (e.key.keysym.scancode == SDL_SCANCODE_LEFT) {
             cursor.setPositionX((cursor.getPosition().x)-1);            
             isThereACube(scene, cursor);
         } else if (e.key.keysym.scancode == SDL_SCANCODE_RIGHT) {

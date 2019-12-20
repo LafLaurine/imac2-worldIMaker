@@ -17,6 +17,7 @@ namespace glimac
 			glm::vec3 m_position;
 			glm::vec3 m_color;
 			bool m_visible;
+			bool m_selected;
 		public:
 			Cube();
 			Cube(glm::vec3 position);
@@ -27,6 +28,7 @@ namespace glimac
 			inline GLuint getVBO(){ return m_vbo; };
 			inline GLuint getIBO(){ return m_ibo; };
 			inline bool isVisible(){ return m_visible; };
+			inline bool isSelected(){ return m_selected; };
 			inline glm::vec3 setPosition(glm::vec3 position){return m_position = position;};
 			inline float setPositionX(float positionX){return m_position.x = positionX;};
 			inline float setPositionY(float positionY){return m_position.y = positionY;};
@@ -37,6 +39,8 @@ namespace glimac
 			void draw();
 			void editColor(int type);
 			void update();
+			void setSelected();
+			void unselect();
 	};
 }
 
