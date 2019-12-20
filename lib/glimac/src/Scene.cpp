@@ -55,7 +55,7 @@ namespace glimac{
             lightDir4 = lightDir4 * globalMVMatrix;
             glm::vec3 lightPos = glm::vec3(lightDir4.x, lightDir4.y, lightDir4.z);
 
-            glUniform1f(uShininess, 20.0f);
+            glUniform1f(uShininess, 10.0f);
             // uKd
             glUniform3fv(uKd,1, glm::value_ptr(glm::vec3(0.4f, 0.4f, 0.4f)));
             // uKs
@@ -63,8 +63,8 @@ namespace glimac{
             // uLightDir_vs
             glUniform3fv(uLightLocation, 1, glm::value_ptr(lightPos));
             // uLightIntensity
-            float earthLi = 5.f;
-            glUniform3fv(uLightIntensity,1, glm::value_ptr(glm::vec3(earthLi, earthLi, earthLi))); 
+            float li = 5.f;
+            glUniform3fv(uLightIntensity,1, glm::value_ptr(glm::vec3(li, li, li))); 
             
             glUniformMatrix4fv(uMVLocation, // Location
                             1, // Count
@@ -83,7 +83,7 @@ namespace glimac{
                         temp_cube.setVisible();
                     }
                     temp_cube.setPositionX((temp_cube.getPosition().x)-1);
-                    temp_cube.setPositionY((temp_cube.getPosition().y)-1);
+                    temp_cube.setPositionY((temp_cube.getPosition().y));
                     m_allCubes.push_back(temp_cube);
                 }
             }

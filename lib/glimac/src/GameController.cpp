@@ -77,6 +77,7 @@ namespace glimac {
             }
             else {
                 cursor.setVisible();
+                cursor.update();
             }
     }
 

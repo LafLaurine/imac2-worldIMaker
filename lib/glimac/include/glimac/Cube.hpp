@@ -36,6 +36,7 @@ namespace glimac
 			void initBuffer();
 			void draw();
 			void editColor(int type);
+			void update();
 	};
 }
 

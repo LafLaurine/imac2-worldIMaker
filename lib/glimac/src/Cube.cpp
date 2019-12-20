@@ -3,7 +3,7 @@
 
 namespace glimac {
 
-    const glm::vec3 cubePositions[] = {
+    glm::vec3 cubePositions[] = {
         // Front v0,v1,v2,v3
         glm::vec3(0.5, 0.5, 0.5), glm::vec3(-0.5, 0.5, 0.5), glm::vec3(-0.5, -0.5, 0.5), glm::vec3(0.5, -0.5, 0.5),
         // Right v0,v3,v4,v5
@@ -111,6 +111,13 @@ namespace glimac {
         if(m_visible == true){
             m_visible = false;
         }
+    }
+
+
+    void Cube::update(){
+        GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_vbo)); 
+        GLCall(glBufferData(GL_ARRAY_BUFFER,sizeof(cubePositions), cubePositions,GL_STATIC_DRAW));        
+        GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
     }
 
     void Cube::editColor(int type) {

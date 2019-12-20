@@ -8,6 +8,7 @@ uniform vec3 uKd;
 uniform vec3 uKs;
 uniform float uShininess;
 uniform vec3 lightPos;
+uniform mat4 uNormalMat;
 uniform vec3 uLightIntensity;
 
 vec3 blinnPhong() {
@@ -20,5 +21,6 @@ vec3 blinnPhong() {
     return color;
 }
 void main() {
-    fragColor = vec4(blinnPhong(), 1.0f);
+    vec3 normal = (uNormalMat * vec4(vNormal, 0.)).xyz;
+    fragColor = vec4(blinnPhong() * normal , 1.0f);
 }
