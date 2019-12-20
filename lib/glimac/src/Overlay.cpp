@@ -36,9 +36,9 @@ namespace glimac {
                 }
                 ImGui::EndMenuBar();
             }
-            float myCol = 0.f;
+
             // Edit a color (stored as ~4 floats)
-            ImGui::ColorEdit4("Color", &myCol);
+            ImGui::ColorEdit4("Color", getColor());
 
             int show = 1;
             clickedAddCube = 0;

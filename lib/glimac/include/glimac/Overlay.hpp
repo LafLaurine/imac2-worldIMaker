@@ -24,10 +24,13 @@ namespace glimac
     		void endFrame(SDL_Window* window) const;
 			inline int getClickedAddCube(){return clickedAddCube;};
 			inline int getClickedDeleteCube(){return clickedDeleteCube;};
+			inline float* getColor(){return &m_myCol;};
+			inline void setColor(float color){m_myCol = color;};
 		private:
 			bool p_open;
 			int clickedAddCube;
 			int clickedDeleteCube;
+			float m_myCol = 0.f;
 	};
 }
 
