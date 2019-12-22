@@ -28,6 +28,7 @@ namespace glimac
 			inline int getClickedSave(){return clickedSaveFile;};
 			inline int getClickedDayCube(){return clickedDay;};
 			inline int getClickedNightCube(){return clickedNight;};
+			inline int getClickedRBF(){return clickedRBF;};
 			inline float* getColor(){return &m_myCol;};
 			inline void setColor(float color){m_myCol = color;};
 		private:
@@ -36,6 +37,7 @@ namespace glimac
 			int clickedAddCube, clickedDeleteCube;
 			int clickedDay, clickedNight;
 			int clickedSaveFile, clickedLoadFile;
+			int clickedRBF;
 	};
 }
 

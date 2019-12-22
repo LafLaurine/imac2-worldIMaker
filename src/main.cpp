@@ -45,8 +45,9 @@ int main(int argc, char** argv) {
     scene.create_uniform_matrices(FlatCube);
 
 
-   /* std::vector <ControlPoint> list_ctrl;
-    readFileControl("Control.txt",list_ctrl);*/
+    std::vector <ControlPoint> list_ctrl;
+    readFileControl("controls.txt",list_ctrl);
+    std::cout << list_ctrl.size() << std::endl;
 
     Cursor cursor;
 
@@ -85,6 +86,9 @@ int main(int argc, char** argv) {
         }
         if(overlay.getClickedSave() &1) {
             saveFile("world.txt",scene.getAllCubes());
+        }
+        if(overlay.getClickedRBF() &1) {
+            applyRbf(scene.getAllCubes(), list_ctrl, FunctionType::Gaussian);
         }
         overlay.endFrame(windowManager.m_window);
     }

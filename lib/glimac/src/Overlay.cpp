@@ -46,6 +46,7 @@ namespace glimac {
             clickedNight = 0;
             clickedSaveFile = 0;
             clickedLoadFile = 0;
+            clickedRBF = 0;
             if (ImGui::Button("Add cube")) {
                 show ^= 1;
                 clickedAddCube++;
@@ -81,6 +82,13 @@ namespace glimac {
             {
                 show ^= 1;
                 clickedNight++;
+            }
+
+
+            if (ImGui::Button("Generate scene")) 
+            {
+                show ^= 1;
+                clickedRBF++;
             }
         }
         ImGui::End();
