@@ -6,11 +6,10 @@
 #include <glm/glm.hpp>
 
 namespace glimac{
-	/*
 
 	void readFileControl(std::string filename,std::vector<ControlPoint> &ctrlPts){
 	
-		std::ifstream fichier("../assets/doc"+filename, std::ios::in); 
+		std::ifstream fichier("../assets/doc/"+filename, std::ios::in); 
 
 		if (fichier)
 		{
@@ -38,7 +37,7 @@ namespace glimac{
 		 else  
                 std::cerr << "Impossible d'ouvrir le fichier !" << std::endl; 
 
-	}*/
+	}
 
 
     void saveFile(std::string filename,std::vector<Cube> &allCubes){

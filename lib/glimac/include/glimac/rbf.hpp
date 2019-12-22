@@ -18,18 +18,21 @@ namespace glimac {
         BiharmonicSpline, // f(r) = r
         Multiquadric,     // f(r) = sqrt(1 + (epsilon * r^2))
     };
-
-    template <typename T>
-    T getRBF(FunctionType type, const std::vector<T> v1, const std::vector<T> v2, const T epsilon);
-    // Data points
-    std::vector<double> ys;
-    std::vector<std::vector<double>> xs;
-    std::vector<double> ws;
-    const double norm(const glm::vec3 vec1);
-    const double phi(const double &d);
-    void generateCube(unsigned int nbControlPoints, Cube* cube, const std::vector<Cube*> controlPoints);
-    // Function type
     
+
+    class ControlPoint
+    {
+    public:
+        glm::vec3 m_position;
+        float m_value;
+        float m_weight;
+    };
+
+    const double phi(const double &d);
+    const double norm(const glm::vec3 vec1);
+    float getRBF(FunctionType type, const glm::vec3 v1, const glm::vec3 v2, const float epsilon);
+    const Eigen::VectorXf find_omega(std::vector <ControlPoint> &ctrlPts);
+    void applyRbf(std::vector <Cube> &allCubes,  std::vector <ControlPoint> &ctrlPts, FunctionType type);    
 }
 
 #endif
