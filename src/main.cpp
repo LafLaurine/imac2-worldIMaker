@@ -86,6 +86,9 @@ int main(int argc, char** argv) {
         if(overlay.getClickedSave() &1) {
             saveFile("world.txt",scene.getAllCubes());
         }
+        if(overlay.getClickedChangeColor() &1){
+            //gameController.changeColorCube(scene,cursor);
+        }
         overlay.endFrame(windowManager.m_window);
     }
     return EXIT_SUCCESS;

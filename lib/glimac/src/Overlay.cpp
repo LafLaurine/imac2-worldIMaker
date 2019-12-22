@@ -37,7 +37,7 @@ namespace glimac {
                 ImGui::EndMenuBar();
             }
 
-            ImGui::ColorEdit4("Color", getColor());
+            ImGui::ColorEdit4("Color", this->getColor());
 
             int show = 1;
             clickedAddCube = 0;
@@ -46,6 +46,7 @@ namespace glimac {
             clickedNight = 0;
             clickedSaveFile = 0;
             clickedLoadFile = 0;
+            clickedColor = 0;
             if (ImGui::Button("Add cube")) {
                 show ^= 1;
                 clickedAddCube++;
@@ -81,6 +82,10 @@ namespace glimac {
             {
                 show ^= 1;
                 clickedNight++;
+            }
+            if (ImGui::Button("Change cube's color")){
+                show ^= 1;
+                clickedColor++;
             }
         }
         ImGui::End();

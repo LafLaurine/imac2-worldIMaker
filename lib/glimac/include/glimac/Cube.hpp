@@ -34,6 +34,7 @@ namespace glimac
 			inline float setPositionY(float positionY){return m_position.y = positionY;};
 			inline float setPositionZ(float positionZ){return m_position.z = positionZ;};
 			inline glm::vec3 getColor() {return m_color;};
+			inline void setColor(glm::vec3 colorSend){m_color = colorSend;};
 			void setVisible();
 			void setInvisible();
 			void initBuffer();

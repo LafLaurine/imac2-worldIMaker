@@ -5,6 +5,7 @@
 #include <glimac/glm.hpp> 
 #include <glimac/Cursor.hpp>
 #include <glimac/Scene.hpp>
+#include <glimac/Overlay.hpp>
 #include <SDL2/SDL.h>
 
 
@@ -30,6 +31,7 @@ namespace glimac {
             void digCube(Scene &scene, Cursor &cursor);
             bool checkPositionCursor(Scene &scene, glm::vec3 position);
             int getHighestCube(Scene &scene, Cursor &cursor);
+            void changeColorCube(Scene& scene, Cursor &cursor);
     };
 
 }

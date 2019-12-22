@@ -158,6 +158,17 @@ namespace glimac {
         }
     }
 
+    void GameController::changeColorCube(Scene& scene, Cursor &cursor){
+        int cubeIndex = getIndexCube(scene,cursor);
+        if(isThereACube(scene,cursor)){
+            Cube cube = scene.getAllCubes().at(cubeIndex);
+            cube.setColor(cube.getColor());
+        } else {
+            std::cout << "Il n'y a pas de cube" << std::endl;
+        }
+
+    }
+
 
 
 };
