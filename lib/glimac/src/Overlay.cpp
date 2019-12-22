@@ -44,6 +44,8 @@ namespace glimac {
             clickedDeleteCube = 0;
             clickedDay = 0;
             clickedNight = 0;
+            clickedSaveFile = 0;
+            clickedLoadFile = 0;
             if (ImGui::Button("Add cube")) {
                 show ^= 1;
                 clickedAddCube++;
@@ -60,6 +62,13 @@ namespace glimac {
             if (ImGui::Button("Save"))
             {
                 show ^= 1;
+                clickedSaveFile++;
+            }
+
+            if (ImGui::Button("Load"))
+            {
+                show ^= 1;
+                clickedLoadFile++;
             }
 
             if (ImGui::Button("Day")) 

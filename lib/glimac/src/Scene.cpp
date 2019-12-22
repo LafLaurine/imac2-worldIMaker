@@ -76,7 +76,7 @@ namespace glimac {
             {
                 for(unsigned int x= 0 ; x<m_width ; x++)
                 {
-                    Cube temp_cube(glm::vec3(x+5,y,z));
+                    Cube temp_cube(glm::vec3(x,y,z));
                     m_allCubes.push_back(temp_cube);
                 }
             }

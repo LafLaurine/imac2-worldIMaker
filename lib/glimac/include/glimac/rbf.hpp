@@ -2,6 +2,7 @@
 #define WORLD_IMAKER_RBF_HPP
 #pragma once
 #include <glm/glm.hpp>
+#include <glimac/Cube.hpp>
 #include <math.h>
 #include <vector>
 #include <algorithm>
@@ -24,6 +25,9 @@ namespace glimac {
     std::vector<double> ys;
     std::vector<std::vector<double>> xs;
     std::vector<double> ws;
+    const double norm(const glm::vec3 vec1);
+    const double phi(const double &d);
+    void generateCube(unsigned int nbControlPoints, Cube* cube, const std::vector<Cube*> controlPoints);
     // Function type
     
 }

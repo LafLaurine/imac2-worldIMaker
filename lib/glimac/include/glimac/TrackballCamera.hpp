@@ -16,6 +16,7 @@ private:
     float _fAngleZ;
     float _fAngleY;
     glm::mat4 _ViewMatrix;
+    glm::vec3 m_position;
 
 public:
     TrackballCamera();
@@ -24,7 +25,8 @@ public:
     void rotateLeft(const float &degrees);
     void rotateUp(const float &degrees);
     glm::mat4 getViewMatrix() const;
-    void defaultPosition();
+    glm::mat4 getProjMatrix() const;
+    void setPosMatrix(int l, int L, int H);
 };
 
 }

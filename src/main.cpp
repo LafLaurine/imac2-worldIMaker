@@ -8,6 +8,7 @@
 #include <glimac/SDLWindowManager.hpp> 
 #include <glimac/FilePath.hpp> 
 #include <glimac/Overlay.hpp>
+#include <glimac/File.hpp>
 #include <glimac/Cube.hpp>
 #include <glimac/Scene.hpp>
 #include <glimac/Cursor.hpp>
@@ -37,10 +38,15 @@ int main(int argc, char** argv) {
    
     //Load camera
     TrackballCamera camera;
+    camera.setPosMatrix(5,5,5);
     GameController gameController;
 
     glClearColor(0.4, 0.6, 0.2, 1);
     scene.create_uniform_matrices(FlatCube);
+
+
+   /* std::vector <ControlPoint> list_ctrl;
+    readFileControl("Control.txt",list_ctrl);*/
 
     Cursor cursor;
 
@@ -76,6 +82,9 @@ int main(int argc, char** argv) {
         }
         if(overlay.getClickedDeleteCube() &1) {
             gameController.deleteCube(scene,cursor);
+        }
+        if(overlay.getClickedSave() &1) {
+            saveFile("world.txt",scene.getAllCubes());
         }
         overlay.endFrame(windowManager.m_window);
     }

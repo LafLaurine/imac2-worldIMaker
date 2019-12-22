@@ -20,19 +20,15 @@ namespace glimac{
         	return sqrt(1+(epsilon*pow(d,2)));
         }
     }
-/*
-    float distance(Eigen::Vector2f p1, Eigen::Vector2f p2) {
-        return sqrt(pow((p1.x - p2.x), 2) + pow((p1.y - p2.y), 2));
-    }*/
 
-    /*Eigen::VectorXd computeOmega(Eigen::Matrix3f X, Eigen::VectorXd u) {
-        Eigen::ColPivHouseholderQR<Eigen::Matrix3f> dec(X);
-        return dec.solve(u);
-    }*/
+    const double norm(const glm::vec3 vec1){
+        return( (double)sqrt(vec1.x*vec1.x + vec1.y*vec1.y + vec1.z*vec1.z ));
+    } 
 
-    /*Eigen::VectorXd phi(Eigen::Matrix3f X, Eigen::VectorXd u) {
-	    Eigen::VectorXd wk = computeOmega(X, u);
-    }*/
+
+    const double phi(const double &d){
+        return exp(-0.2*d*d);
+    }
 
 
     void reset()

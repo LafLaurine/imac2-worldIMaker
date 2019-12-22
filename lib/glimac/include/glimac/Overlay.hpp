@@ -25,6 +25,7 @@ namespace glimac
     		void endFrame(SDL_Window* window) const;
 			inline int getClickedAddCube(){return clickedAddCube;};
 			inline int getClickedDeleteCube(){return clickedDeleteCube;};
+			inline int getClickedSave(){return clickedSaveFile;};
 			inline int getClickedDayCube(){return clickedDay;};
 			inline int getClickedNightCube(){return clickedNight;};
 			inline float* getColor(){return &m_myCol;};
@@ -32,10 +33,9 @@ namespace glimac
 		private:
 			float m_myCol = 0.f;
 			bool p_open;
-			int clickedAddCube;
-			int clickedDeleteCube;
-			int clickedDay;
-			int clickedNight;
+			int clickedAddCube, clickedDeleteCube;
+			int clickedDay, clickedNight;
+			int clickedSaveFile, clickedLoadFile;
 	};
 }
 
