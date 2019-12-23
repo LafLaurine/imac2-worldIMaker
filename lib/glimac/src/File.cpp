@@ -54,7 +54,7 @@ namespace glimac{
 			std::cout << "Your world is saved" << std::endl;  
         }
         else  
-                std::cerr << "Cannot open file" << std::endl;
+            std::cerr << "Cannot open file" << std::endl;
     }
 
 	 void loadFile(std::string filename,std::vector<Cube> &allCubes){
@@ -67,13 +67,11 @@ namespace glimac{
             int i=0;
 
             glm::vec3 position;
-            int type;
             bool visibility;
              
             fichier >> position.x ;
             fichier >> position.y ;
             fichier >> position.z ;
-            fichier >> type ;
             fichier >> visibility;
 
             allCubes[0].setPosition(position);
@@ -91,7 +89,6 @@ namespace glimac{
             fichier >> position.x ;
             fichier >> position.y ;
             fichier >> position.z ;
-            fichier >> type ;
             fichier >> visibility;
 
             allCubes[i].setPosition(position);
@@ -102,7 +99,6 @@ namespace glimac{
             else allCubes[i].setInvisible();
                             
         }
-
             fichier.close();  
         }
          else  
