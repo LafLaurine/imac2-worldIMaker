@@ -103,6 +103,10 @@ namespace glimac {
         }
     }
 
+    void Scene::drawCursor(Cursor& cursor){
+        cursor.draw();
+    }
+
     unsigned int Scene::from1Dto3D(glm::ivec3 pos) {
         return (pos.y * m_width + pos.x + pos.z * m_width * m_length);
     }

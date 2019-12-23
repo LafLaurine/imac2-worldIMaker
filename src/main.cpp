@@ -88,7 +88,8 @@ int main(int argc, char** argv) {
             scene.removeLight();
         }
         scene.recalculate_matrices(camera,cursor,color);
-        cursor.draw();
+        //cursor.draw();
+        scene.drawCursor(cursor);
 
         if(overlay.getClickedReset() &1) {
             gameController.cleanScene(scene.getAllCubes());

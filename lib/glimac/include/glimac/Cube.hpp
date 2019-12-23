@@ -10,7 +10,7 @@ namespace glimac
 {
 	class Cube
 	{
-		private:
+		protected:
 			GLuint m_vao;
 			GLuint m_vbo;
 			GLuint m_ibo;
