@@ -23,6 +23,7 @@ namespace glimac
 			void beginFrame(SDL_Window* window) const;
 			void drawOverlay();
     		void endFrame(SDL_Window* window) const;
+			inline int getClickedReset(){return clickedReset;};
 			inline int getClickedAddCube(){return clickedAddCube;};
 			inline int getClickedDeleteCube(){return clickedDeleteCube;};
 			inline int getClickedSave(){return clickedSaveFile;};
@@ -36,7 +37,7 @@ namespace glimac
 		private:
 			float m_myCol = 0.f;
 			bool p_open;
-			int clickedAddCube, clickedDeleteCube;
+			int clickedReset, clickedAddCube, clickedDeleteCube;
 			int clickedDay, clickedNight;
 			int clickedSaveFile, clickedLoadFile;
 			int clickedColor;

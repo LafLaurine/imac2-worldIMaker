@@ -78,6 +78,10 @@ int main(int argc, char** argv) {
         }
         scene.recalculate_matrices(camera,cursor,color);
         cursor.draw();
+
+        if(overlay.getClickedReset() &1) {
+            gameController.cleanScene(scene.getAllCubes());
+        }
         if(overlay.getClickedAddCube() &1) {
             gameController.addCube(scene,cursor);
         }

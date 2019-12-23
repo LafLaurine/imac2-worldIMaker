@@ -31,6 +31,7 @@ namespace glimac {
             void digCube(Scene &scene, Cursor &cursor);
             bool checkPositionCursor(Scene &scene, glm::vec3 position);
             int getHighestCube(Scene &scene, Cursor &cursor);
+            void cleanScene(std::vector <Cube> &allCubes);
             void changeColorCube(Scene& scene, Cursor &cursor);
     };
 

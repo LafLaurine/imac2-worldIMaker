@@ -166,7 +166,13 @@ namespace glimac {
         } else {
             std::cout << "Il n'y a pas de cube" << std::endl;
         }
+    }
 
+    void GameController::cleanScene(std::vector <Cube> &allCubes)
+    {
+        for(Cube &c: allCubes){
+            c.setInvisible();
+        }
     }
 
 

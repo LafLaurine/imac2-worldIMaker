@@ -48,10 +48,19 @@ namespace glimac {
             clickedLoadFile = 0;
             clickedColor = 0;
             clickedRBF = 0;
+            clickedReset = 0;
+
+            if (ImGui::Button("Reset")) 
+            {
+                show ^= 1;
+                clickedReset++;
+            }
+
             if (ImGui::Button("Add cube")) {
                 show ^= 1;
                 clickedAddCube++;
             }
+            
             if (ImGui::Button("Add texture")) 
             {
                 show ^= 1;
