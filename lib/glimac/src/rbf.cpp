@@ -22,11 +22,6 @@ namespace glimac{
         else return 0.f;
     }
 
-    //notre fonction Phi
-    const double phi(const double &d){
-        return exp(-0.2*d*d);
-    }
-
     //calcul de la norme
     const double norm(const glm::vec3 vec1){
         return( (double)sqrt(vec1.x*vec1.x + vec1.y*vec1.y + vec1.z*vec1.z ));
@@ -45,7 +40,7 @@ namespace glimac{
     //remplissage de notre matrice 
     for(unsigned int i=0; i<ctrlPts.size(); i++){
         for(unsigned int j=0; j<ctrlPts.size(); j++){
-            M_contrainte(i,j) = phi(norm(ctrlPts[i].m_position-ctrlPts[j].m_position));
+            M_contrainte(i,j) = norm(ctrlPts[i].m_position-ctrlPts[j].m_position);
         }
     }
     

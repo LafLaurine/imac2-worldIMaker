@@ -85,7 +85,16 @@ int main(int argc, char** argv) {
             gameController.deleteCube(scene,cursor);
         }
         if(overlay.getClickedSave() &1) {
+          /*  std::string filename = "world.txt";
+            std::cout << "Enter name of file : " << std::endl;
+            std::cin >> filename;*/
             saveFile("world.txt",scene.getAllCubes());
+        }
+        if(overlay.getClickedLoad() &1) {
+           /* std::string filename = "world.txt";
+            std::cout << "Enter name of file : " << std::endl;
+            std::cin >> filename;*/
+            loadFile("world.txt",scene.getAllCubes());
         }
         if(overlay.getClickedChangeColor() &1){
             //gameController.changeColorCube(scene,cursor);

@@ -15,7 +15,7 @@ namespace glimac {
 
 	void readFileControl(std::string filename,std::vector<ControlPoint> &ctrlPts);
 	void saveFile(std::string filename,std::vector<Cube> &allCubes);
-	void loadFile(std::string filename,std::vector<Cube> &allCubes,GameController &gameController);
+	void loadFile(std::string filename,std::vector<Cube> &allCubes);
 }
 
 #endif

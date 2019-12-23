@@ -26,6 +26,7 @@ namespace glimac
 			inline int getClickedAddCube(){return clickedAddCube;};
 			inline int getClickedDeleteCube(){return clickedDeleteCube;};
 			inline int getClickedSave(){return clickedSaveFile;};
+			inline int getClickedLoad(){return clickedLoadFile;}
 			inline int getClickedDayCube(){return clickedDay;};
 			inline int getClickedNightCube(){return clickedNight;};
 			inline int getClickedChangeColor(){return clickedColor;}
