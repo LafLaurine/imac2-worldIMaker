@@ -78,8 +78,7 @@ int main(int argc, char** argv) {
         //Rendering code
         overlay.beginFrame(windowManager.m_window);
         overlay.drawOverlay();
-        glm::vec3 color = glm::make_vec3(overlay.getColor());
-        scene.drawCubes(camera,color);
+        scene.drawCubes(camera);
         if(overlay.getClickedDayCube() &1) {
             scene.addLight();
         }
@@ -87,7 +86,7 @@ int main(int argc, char** argv) {
         if(overlay.getClickedNightCube() &1) {
             scene.removeLight();
         }
-        scene.recalculate_matrices(camera,cursor,color);
+        scene.recalculate_matrices(camera,cursor);
         //cursor.draw();
         scene.drawCursor(cursor);
 
@@ -111,7 +110,7 @@ int main(int argc, char** argv) {
             loadFile("world.txt",scene.getAllCubes());
         }
         if(overlay.getClickedChangeColor() &1){
-            gameController.changeColorCube(scene,cursor);
+            gameController.changeColorCube(scene,cursor,overlay);
         }
         if(overlay.getClickedRBF() &1) {
             applyRbf(scene.getAllCubes(), list_ctrl, FunctionType::Gaussian);

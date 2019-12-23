@@ -41,9 +41,9 @@ namespace glimac
 			void useProgram(ProgramType type);
 			void create_uniform_matrices(ProgramType type);
 			void drawCube(ProgramType cubeType);
-			void recalculate_matrices(TrackballCamera &camera, Cube cube, glm::vec3 &color);
+			void recalculate_matrices(TrackballCamera &camera, Cube cube);
 			void initAllCubes();
-			void drawCubes(TrackballCamera &camera, glm::vec3 &color);
+			void drawCubes(TrackballCamera &camera);
 			void drawCursor(Cursor& cursor);
 			void refresh();
 			void addLight();

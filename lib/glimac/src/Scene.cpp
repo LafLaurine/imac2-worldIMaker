@@ -46,10 +46,10 @@ namespace glimac {
 
     }
 
-    void Scene::recalculate_matrices(TrackballCamera &camera,Cube cube, glm::vec3 &color) {
+    void Scene::recalculate_matrices(TrackballCamera &camera,Cube cube) {
             glm::mat4 camera_VM = camera.getViewMatrix();
             glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), cube.getPosition());
-            glUniform3fv(uColorLocation, 1, glm::value_ptr(color));
+            glUniform3fv(uColorLocation, 1, glm::value_ptr(cube.getColor()));
             
             glUniformMatrix4fv(uMVLocation, // Location
                             1, // Count
@@ -93,10 +93,10 @@ namespace glimac {
         setGround();
     }
 
-    void Scene::drawCubes(TrackballCamera &camera, glm::vec3 &color) {
+    void Scene::drawCubes(TrackballCamera &camera) {
         for(Cube& cube : m_allCubes){
             addLight();
-            recalculate_matrices(camera,cube,color);
+            recalculate_matrices(camera,cube);
             if(cube.isVisible()) {
                 cube.draw();
             }
