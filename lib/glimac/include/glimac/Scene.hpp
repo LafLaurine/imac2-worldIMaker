@@ -9,6 +9,7 @@
 #include <glimac/TrackballCamera.hpp>
 #include <glimac/Program.hpp>
 #include <glimac/Cube.hpp>
+#include <glimac/Cursor.hpp>
 #include <vector>
 
 
@@ -43,6 +44,7 @@ namespace glimac
 			void recalculate_matrices(TrackballCamera &camera, Cube cube, glm::vec3 &color);
 			void initAllCubes();
 			void drawCubes(TrackballCamera &camera, glm::vec3 &color);
+			void drawCursor(Cursor& cursor);
 			void refresh();
 			void addLight();
 			void setGround();

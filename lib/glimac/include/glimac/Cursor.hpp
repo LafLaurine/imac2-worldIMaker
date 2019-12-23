@@ -9,7 +9,7 @@ namespace glimac {
         public:
         Cursor() = default;
         ~Cursor() = default;
-        void drawCursor();
+        void draw();
     }; 
 }
 
