@@ -7,7 +7,6 @@
 #include <GL/glew.h>
 #include <map>
 #include <glimac/TrackballCamera.hpp>
-#include <glimac/Overlay.hpp>
 #include <glimac/Program.hpp>
 #include <glimac/Cube.hpp>
 #include <vector>
@@ -46,6 +45,7 @@ namespace glimac
 			void drawCubes(TrackballCamera &camera, glm::vec3 &color);
 			void refresh();
 			void addLight();
+			void setGround();
 			void removeLight();
 			static unsigned int from1Dto3D(glm::ivec3 pos);
 	};

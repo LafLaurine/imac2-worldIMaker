@@ -49,6 +49,7 @@ namespace glimac {
             clickedColor = 0;
             clickedRBF = 0;
             clickedReset = 0;
+            clickedSetGround = 0;
 
             if (ImGui::Button("Reset")) 
             {
@@ -96,6 +97,13 @@ namespace glimac {
             if (ImGui::Button("Change cube's color")){
                 show ^= 1;
                 clickedColor++;
+            }
+
+
+            if (ImGui::Button("Set ground")) 
+            {
+                show ^= 1;
+                clickedSetGround++;
             }
 
 

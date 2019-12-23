@@ -106,6 +106,10 @@ int main(int argc, char** argv) {
         if(overlay.getClickedRBF() &1) {
             applyRbf(scene.getAllCubes(), list_ctrl, FunctionType::Gaussian);
         }
+
+        if(overlay.getClickedSetGround() &1){
+            scene.setGround();
+        }
         overlay.endFrame(windowManager.m_window);
     }
     return EXIT_SUCCESS;

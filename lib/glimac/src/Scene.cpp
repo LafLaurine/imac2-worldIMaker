@@ -70,6 +70,14 @@ namespace glimac {
         glUniform3fv(uLightLocation, 1, glm::value_ptr(lightPos));   
     }
 
+    void Scene::setGround() {
+        for(unsigned int x = 0; x < m_width; x++) {
+            for(unsigned int z = 0; z < m_length; z++) {
+                m_allCubes.at(from1Dto3D(glm::ivec3(x,0,z))).setVisible();
+            }
+        }
+    }
+
     void Scene::initAllCubes() {
         for (unsigned int z = 0; z < m_length; z++) {
             for (unsigned int y= 0; y < m_height; y++)
@@ -82,12 +90,7 @@ namespace glimac {
             }
         }
         //set ground
-        for(unsigned int x = 0; x < m_width; x++) {
-            for(unsigned int z = 0; z < m_length; z++) {
-                m_allCubes.at(from1Dto3D(glm::ivec3(x,0,z))).setVisible();
-            }
-        }
-
+        setGround();
     }
 
     void Scene::drawCubes(TrackballCamera &camera, glm::vec3 &color) {

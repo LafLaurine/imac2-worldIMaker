@@ -29,6 +29,7 @@ namespace glimac
 			inline int getClickedSave(){return clickedSaveFile;};
 			inline int getClickedLoad(){return clickedLoadFile;}
 			inline int getClickedDayCube(){return clickedDay;};
+			inline int getClickedSetGround(){return clickedSetGround;};
 			inline int getClickedNightCube(){return clickedNight;};
 			inline int getClickedChangeColor(){return clickedColor;}
 			inline int getClickedRBF(){return clickedRBF;};
@@ -42,6 +43,7 @@ namespace glimac
 			int clickedSaveFile, clickedLoadFile;
 			int clickedColor;
 			int clickedRBF;
+			int clickedSetGround;
 	};
 }
 
