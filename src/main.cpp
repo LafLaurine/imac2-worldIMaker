@@ -87,8 +87,7 @@ int main(int argc, char** argv) {
             scene.removeLight();
         }
         scene.recalculate_matrices(camera,cursor);
-        //cursor.draw();
-        scene.drawCursor(cursor);
+        cursor.draw();
 
         if(overlay.getClickedReset() &1) {
             gameController.cleanScene(scene.getAllCubes());
@@ -110,7 +109,7 @@ int main(int argc, char** argv) {
             loadFile("world.txt",scene.getAllCubes());
         }
         if(overlay.getClickedChangeColor() &1){
-            gameController.changeColorCube(scene,cursor,overlay);
+            gameController.changeColorCube(scene,cursor,overlay,camera);
         }
         if(overlay.getClickedRBF() &1) {
             applyRbf(scene.getAllCubes(), list_ctrl, FunctionType::Gaussian);

@@ -120,17 +120,6 @@ namespace glimac {
             m_visible = false;
         }
     }
-
-    void Cube::setSelected() {
-      if(m_selected == false) {
-        m_selected = true;
-      }
-    }
-
-    void Cube::unselect() {
-      if(m_selected == true) {
-        m_selected = false;
-      }
-    }
+    
     
 }

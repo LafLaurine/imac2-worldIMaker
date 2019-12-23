@@ -32,7 +32,7 @@ namespace glimac {
             bool checkPositionCursor(Scene &scene, glm::vec3 position);
             int getHighestCube(Scene &scene, Cursor &cursor);
             void cleanScene(std::vector <Cube> &allCubes);
-            void changeColorCube(Scene& scene, Cursor &cursor, Overlay &overlay);
+            void changeColorCube(Scene& scene, Cursor &cursor, Overlay &overlay, TrackballCamera &camera);
     };
 
 }

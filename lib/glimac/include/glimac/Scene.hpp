@@ -44,8 +44,6 @@ namespace glimac
 			void recalculate_matrices(TrackballCamera &camera, Cube cube);
 			void initAllCubes();
 			void drawCubes(TrackballCamera &camera);
-			void drawCursor(Cursor& cursor);
-			void refresh();
 			void addLight();
 			void setGround();
 			void removeLight();

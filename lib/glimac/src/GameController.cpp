@@ -158,12 +158,13 @@ namespace glimac {
         }
     }
 
-    void GameController::changeColorCube(Scene& scene, Cursor &cursor, Overlay &overlay){
+    void GameController::changeColorCube(Scene& scene, Cursor &cursor, Overlay &overlay, TrackballCamera &camera){
         int cubeIndex = getIndexCube(scene,cursor);
         if(isThereACube(scene,cursor)){
-            Cube cube = scene.getAllCubes().at(cubeIndex);
-            glm::vec3 color = glm::make_vec3(overlay.getColor());
-            cube.setColor(color);
+            std::cout << scene.getAllCubes().at(cubeIndex).getColor() << std::endl;
+            glm::vec3 color =  glm::make_vec3(overlay.getColor());
+            scene.getAllCubes().at(cubeIndex).setColor(color);
+            std::cout << scene.getAllCubes().at(cubeIndex).getColor() << std::endl;            
         } else {
             std::cout << "Il n'y a pas de cube" << std::endl;
         }

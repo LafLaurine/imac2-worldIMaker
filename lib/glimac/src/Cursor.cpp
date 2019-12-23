@@ -3,10 +3,6 @@
 
 namespace glimac{
 
-    Cursor::Cursor() {
-         //initBuffer();
-    }
-
     void Cursor::draw() {
        glBindVertexArray(m_vao);
        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
