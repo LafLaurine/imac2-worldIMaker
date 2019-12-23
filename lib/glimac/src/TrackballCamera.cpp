@@ -16,6 +16,12 @@ namespace glimac {
         _fAngleY += delta;
     }
 
+        
+    void TrackballCamera::rotateRight(const float &degrees) 
+    {
+        _fAngleY += degrees;
+    }
+
     void TrackballCamera::rotateLeft(const float &degrees) {
         _fAngleZ += degrees;
     }
@@ -39,11 +45,6 @@ namespace glimac {
     }
     
 
-    glm::mat4 TrackballCamera::getProjMatrix() const
-    {
-        glm::mat4 projMat = glm::perspective(glm::radians(45.0f), 1.0f, 0.1f, 100.0f);
-        return projMat;
-    }
 
     
     

@@ -2,3 +2,5 @@ build
 # Settings
 .vs
 .vscode
+
+assets/doc

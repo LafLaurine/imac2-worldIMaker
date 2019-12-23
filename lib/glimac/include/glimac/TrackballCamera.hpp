@@ -24,8 +24,8 @@ public:
     void moveUp(const float &delta);
     void rotateLeft(const float &degrees);
     void rotateUp(const float &degrees);
+    void rotateRight(const float &degrees);
     glm::mat4 getViewMatrix() const;
-    glm::mat4 getProjMatrix() const;
     void setPosMatrix(int l, int L, int H);
 };
 

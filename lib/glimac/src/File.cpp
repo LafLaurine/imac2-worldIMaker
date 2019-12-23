@@ -59,7 +59,7 @@ namespace glimac{
 
 	 void loadFile(std::string filename,std::vector<Cube> &allCubes){
 
-         std::ifstream fichier("../assets/doc/"+filename, std::ios::in); 
+        std::ifstream fichier("../assets/doc/"+filename, std::ios::in); 
 
         if (fichier)
         {

@@ -62,6 +62,17 @@ int main(int argc, char** argv) {
                     gameController.handleScene(e,scene,cursor);
                     gameController.handleCamera(e,camera);
                 default : break;
+
+			case SDL_MOUSEMOTION:
+				/*if (SDL_GetMouseState(NULL, NULL) && SDL_BUTTON(SDL_BUTTON_RIGHT)) {
+					if (e.motion.xrel != 0) {
+						camera.rotateRight(float(e.motion.xrel) * 1.0f);
+					}
+					if (e.motion.yrel != 0) {
+						camera.rotateLeft(float(e.motion.yrel) * 1.0f);
+					}
+				}*/
+			break;
         }
     }
         //Rendering code
@@ -95,13 +106,11 @@ int main(int argc, char** argv) {
             saveFile("world.txt",scene.getAllCubes());
         }
         if(overlay.getClickedLoad() &1) {
-           /* std::string filename = "world.txt";
-            std::cout << "Enter name of file : " << std::endl;
-            std::cin >> filename;*/
+            gameController.cleanScene(scene.getAllCubes());
             loadFile("world.txt",scene.getAllCubes());
         }
         if(overlay.getClickedChangeColor() &1){
-            //gameController.changeColorCube(scene,cursor);
+            gameController.changeColorCube(scene,cursor);
         }
         if(overlay.getClickedRBF() &1) {
             applyRbf(scene.getAllCubes(), list_ctrl, FunctionType::Gaussian);
