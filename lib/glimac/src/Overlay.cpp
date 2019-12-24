@@ -23,20 +23,9 @@ namespace glimac {
         ImGui::NewFrame();
     }
 
-    void Overlay::drawOverlay() {
+    void Overlay::drawOverlay(Scene &scene) {
         ImGui::Begin("WorldIMaker tools",&p_open,ImGuiWindowFlags_NoMove | ImGuiWindowFlags_MenuBar  |ImGuiWindowFlags_NoCollapse);
         {
-            if (ImGui::BeginMenuBar())
-            {
-                if (ImGui::BeginMenu("File"))
-                {
-                    if (ImGui::MenuItem("Open..", "Ctrl+O")) { /* Do stuff */ }
-                    if (ImGui::MenuItem("Save", "Ctrl+S"))   { /* Do stuff */ }
-                    ImGui::EndMenu();
-                }
-                ImGui::EndMenuBar();
-            }
-
             ImGui::ColorEdit4("Color", this->getColor());
 
             int show = 1;
@@ -82,18 +71,10 @@ namespace glimac {
                 show ^= 1;
                 clickedLoadFile++;
             }
-
-            if (ImGui::Button("Day")) 
-            {
-                show ^= 1;
-                clickedDay++;
-            }
-
-            if (ImGui::Button("Night")) 
-            {
-                show ^= 1;
-                clickedNight++;
-            }
+            static float f1=scene.getLuminosity();
+            ImGui::SliderFloat("Luminosity", &f1, 0.0f, 1.0f, "%.4f", 2.0f);
+            scene.changeLuminosity(f1);
+            
             if (ImGui::Button("Change cube's color")){
                 show ^= 1;
                 clickedColor++;

@@ -5,6 +5,7 @@
 #include <string>
 #include <glm/glm.hpp>
 #include <SDL2/SDL.h>
+#include <glimac/Scene.hpp>
 #include <GL/glew.h>
 #include <imgui/imgui.h>
 #include <imgui/imgui_impl_opengl3.h>
@@ -21,7 +22,7 @@ namespace glimac
 			~Overlay();
 			void initImgui(SDL_Window* window,SDL_GLContext* glContext) const;
 			void beginFrame(SDL_Window* window) const;
-			void drawOverlay();
+			void drawOverlay(Scene &scene);
     		void endFrame(SDL_Window* window) const;
 			inline int getClickedReset(){return clickedReset;};
 			inline int getClickedAddCube(){return clickedAddCube;};

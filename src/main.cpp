@@ -43,6 +43,7 @@ int main(int argc, char** argv) {
 
     glClearColor(0.4, 0.6, 0.2, 1);
     scene.create_uniform_matrices(FlatCube);
+    scene.addLight(scene);
 
 
     std::vector <ControlPoint> list_ctrl;
@@ -77,17 +78,17 @@ int main(int argc, char** argv) {
     }
         //Rendering code
         overlay.beginFrame(windowManager.m_window);
-        overlay.drawOverlay();
+        overlay.drawOverlay(scene);
         scene.drawCubes(camera);
+        
+        scene.recalculate_matrices(camera,cursor);
+        cursor.draw();
+
         if(overlay.getClickedDayCube() &1) {
-            scene.addLight();
         }
 
         if(overlay.getClickedNightCube() &1) {
-            scene.removeLight();
         }
-        scene.recalculate_matrices(camera,cursor);
-        cursor.draw();
 
         if(overlay.getClickedReset() &1) {
             gameController.cleanScene(scene.getAllCubes());
