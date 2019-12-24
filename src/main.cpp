@@ -21,8 +21,8 @@ using namespace glimac;
 //il faudra penser à ajouter -Werror au CMAKE, mais là c'est pas viable comme c'est la construction des fichiers
 
 int main(int argc, char** argv) {    
-    const int WINDOW_WIDTH = 900;
-    const int WINDOW_HEIGHT = 900;
+    constexpr int WINDOW_WIDTH = 900;
+    constexpr int WINDOW_HEIGHT = 900;
 
     // Initialize SDL and open a window
     SDLWindowManager windowManager(WINDOW_WIDTH, WINDOW_HEIGHT, "worldIMaker");

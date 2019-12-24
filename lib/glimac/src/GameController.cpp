@@ -129,6 +129,8 @@ namespace glimac {
             int cubeIndex = getIndexCube(scene,cursor);
             if(isThereACube(scene,cursor)) {
                scene.getAllCubes().at(cubeIndex).setInvisible();
+               glm::vec3 color(0.6f,0.2f,0.2f);
+               scene.getAllCubes().at(cubeIndex).setColor(color);
             }
             else if (cubeIndex == -1) {
                 std::cout << "EH OH TU PEUX PAS SUPP DU VIDE" << std::endl;
@@ -161,10 +163,8 @@ namespace glimac {
     void GameController::changeColorCube(Scene& scene, Cursor &cursor, Overlay &overlay, TrackballCamera &camera){
         int cubeIndex = getIndexCube(scene,cursor);
         if(isThereACube(scene,cursor)){
-            std::cout << scene.getAllCubes().at(cubeIndex).getColor() << std::endl;
             glm::vec3 color =  glm::make_vec3(overlay.getColor());
             scene.getAllCubes().at(cubeIndex).setColor(color);
-            std::cout << scene.getAllCubes().at(cubeIndex).getColor() << std::endl;            
         } else {
             std::cout << "Il n'y a pas de cube" << std::endl;
         }
