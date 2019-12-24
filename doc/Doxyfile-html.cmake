@@ -6,7 +6,7 @@ DOXYFILE_ENCODING      = UTF-8
 PROJECT_NAME           = worldIMaker
 PROJECT_NUMBER         = 
 OUTPUT_DIRECTORY       = doc-doxygen
-CREATE_SUBDIRS         = NO
+CREATE_SUBDIRS         = YES
 OUTPUT_LANGUAGE        = English
 BRIEF_MEMBER_DESC      = YES
 REPEAT_BRIEF           = YES
@@ -24,7 +24,7 @@ ABBREVIATE_BRIEF       = "The $name class" \
 ALWAYS_DETAILED_SEC    = YES
 INLINE_INHERITED_MEMB  = NO
 FULL_PATH_NAMES        = YES
-STRIP_FROM_PATH        = @worldIMaker_SOURCE_DIR@/
+STRIP_FROM_PATH        = 
 STRIP_FROM_INC_PATH    =
 SHORT_NAMES            = NO
 JAVADOC_AUTOBRIEF      = NO
@@ -92,7 +92,7 @@ WARN_LOGFILE           =
 #---------------------------------------------------------------------------
 # configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                  = @worldIMaker_SOURCE_DIR@/src
+INPUT                  = @CMAKE_SOURCE_DIR@/lib/glimac @worldIMaker_SOURCE_DIR@/src
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.c \
                          *.cc \
