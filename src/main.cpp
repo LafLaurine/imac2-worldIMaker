@@ -113,7 +113,7 @@ int main(int argc, char** argv) {
             gameController.changeColorCube(scene,cursor,overlay,camera);
         }
         if(overlay.getClickedRBF() &1) {
-            applyRbf(scene.getAllCubes(), list_ctrl, FunctionType::Gaussian);
+            applyRbf(scene.getAllCubes(), list_ctrl, FunctionType::InverseQuadratic);
         }
 
         if(overlay.getClickedSetGround() &1){
