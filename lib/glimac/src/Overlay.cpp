@@ -35,7 +35,6 @@ namespace glimac {
             clickedNight = 0;
             clickedSaveFile = 0;
             clickedLoadFile = 0;
-            clickedColor = 0;
             clickedRBF = 0;
             clickedReset = 0;
             clickedSetGround = 0;
@@ -73,12 +72,6 @@ namespace glimac {
                 clickedLoadFile++;
             }
             
-            if (ImGui::Button("Change cube's color")){
-                show ^= 1;
-                clickedColor++;
-            }
-
-
             if (ImGui::Button("Set ground")) 
             {
                 show ^= 1;

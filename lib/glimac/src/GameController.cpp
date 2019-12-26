@@ -20,13 +20,23 @@ namespace glimac {
         else if(e.key.keysym.sym == SDLK_w) {
             cam.rotateUp(zoom);            
         }
-        std::cout << cam.getPosition() << std::endl;
     }
     
-    void GameController::handleScene(SDL_Event &e, Scene &scene, Cursor& cursor) {
-        if (e.key.keysym.sym == SDLK_c) {
-            
-        } else if (e.key.keysym.scancode == SDL_SCANCODE_LEFT) {
+    void GameController::handleScene(SDL_Event &e, Scene &scene, Cursor& cursor, Overlay &overlay, TrackballCamera &camera) {
+        const Uint8 *state = SDL_GetKeyboardState(NULL);
+        if (state[SDL_SCANCODE_C]) {
+            if (e.key.keysym.scancode == SDL_SCANCODE_LEFT)
+                cursor.setPositionX((cursor.getPosition().x)-1);   
+            else if (e.key.keysym.scancode == SDL_SCANCODE_RIGHT)
+                cursor.setPositionX((cursor.getPosition().x)+1);
+            else if (e.key.keysym.scancode == SDL_SCANCODE_UP)
+        	    cursor.setPositionY((cursor.getPosition().y)+1);   
+            else if (e.key.keysym.scancode == SDL_SCANCODE_DOWN)
+                cursor.setPositionY((cursor.getPosition().y)-1);
+            changeColorCube(scene,cursor,overlay,camera);
+        }
+
+        else if (e.key.keysym.scancode == SDL_SCANCODE_LEFT) {
             cursor.setPositionX((cursor.getPosition().x)-1);            
             isThereACube(scene, cursor);
         } else if (e.key.keysym.scancode == SDL_SCANCODE_RIGHT) {
@@ -103,7 +113,6 @@ namespace glimac {
                 std::cout << "en dehors grille" << std::endl;
             }
     }
-
 
     int GameController::getHighestCube(Scene &scene, Cursor &cursor)
     {

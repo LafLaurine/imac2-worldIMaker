@@ -22,7 +22,7 @@ namespace glimac {
             ~GameController() = default;
             //handle camera movements
             void handleCamera(SDL_Event &e, TrackballCamera &cam);
-            void handleScene(SDL_Event &e, Scene &scene, Cursor &cursor);
+            void handleScene(SDL_Event &e, Scene &scene, Cursor &cursor, Overlay &overlay, TrackballCamera &camera);
             void handleEvents(SDL_Event &e);
             int getIndexCube(Scene& scene, Cursor &cursor);
             bool isThereACube(Scene& scene, Cursor &cursor);
@@ -36,6 +36,7 @@ namespace glimac {
             int getHighestCube(Scene &scene, Cursor &cursor);
             void cleanScene(std::vector <Cube> &allCubes);
             void changeColorCube(Scene& scene, Cursor &cursor, Overlay &overlay, TrackballCamera &camera);
+            void addTexturedCube();
     };
 
 }

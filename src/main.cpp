@@ -29,12 +29,19 @@ int main(int argc, char** argv) {
     Overlay overlay;
 
     Scene scene;
-    ProgramType FlatCube;
-    scene.loadProgram(FlatCube,"../shaders/3D.vs.glsl","../shaders/normal.fs.glsl");
+    ProgramType FlatCube = ProgramType::FlatCube;
+    ProgramType TexturedCube = ProgramType::TexturedCube;
+    scene.loadProgram(FlatCube,"../shaders/colorCube.vs.glsl","../shaders/colorCube.fs.glsl");
+    scene.loadProgram(TexturedCube,"../shaders/texturedCube.vs.glsl","../shaders/texturedCube.fs.glsl");
     scene.useProgram(FlatCube);
     scene.initAllCubes();
     overlay.initImgui(windowManager.m_window,&windowManager.m_glContext);
     scene.addLight();
+/*
+    if(TexturedCube == ProgramType::TexturedCube) {
+        scene.useProgram(TexturedCube);
+        scene.create_uniform_matrices(TexturedCube);
+    }*/
    
     //Load camera
     TrackballCamera camera;
@@ -61,7 +68,7 @@ int main(int argc, char** argv) {
             case SDL_QUIT: windowManager.exit();
 
                 case SDL_KEYDOWN:
-                    gameController.handleScene(e,scene,cursor);
+                    gameController.handleScene(e,scene,cursor,overlay,camera);
                     gameController.handleCamera(e,camera);
                 default : break;
 
@@ -112,9 +119,6 @@ int main(int argc, char** argv) {
             std::cin >> filename;
             gameController.cleanScene(scene.getAllCubes());
             loadFile(filename,scene.getAllCubes());
-        }
-        if(overlay.getClickedChangeColor() &1){
-            gameController.changeColorCube(scene,cursor,overlay,camera);
         }
         if(overlay.getClickedRBF() &1) {
             applyRbf(scene.getAllCubes(), list_ctrl, FunctionType::InverseQuadratic);

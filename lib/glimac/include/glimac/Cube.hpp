@@ -14,6 +14,7 @@ namespace glimac
 			GLuint m_vao;
 			GLuint m_vbo;
 			GLuint m_ibo;
+			GLuint texId;
 			glm::vec3 m_position;
 			glm::vec3 m_color;
 			bool m_visible;
@@ -52,8 +53,11 @@ namespace glimac
 			void setVisible();
 			//set cube invisible
 			void setInvisible();
+			void initTexture();
 			//draw a cube
 			void draw();
+			//draw a textured cube
+			void drawTexturedCube();
 	};
 }
 

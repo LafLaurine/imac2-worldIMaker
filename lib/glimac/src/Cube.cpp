@@ -1,5 +1,6 @@
 #include "glimac/Cube.hpp"
 #include <glimac/gl-exception.hpp>
+#include <iostream>
 
 namespace glimac {
 
@@ -107,6 +108,30 @@ namespace glimac {
       glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
       glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, (void*) 0);
       glBindVertexArray(0);
+    }
+
+    void Cube::initTexture() {
+
+        std::unique_ptr<Image> textureEarth = loadImage("../../../assets/textures/EarthMap.jpg");
+        if (textureEarth == NULL ) std::cout << "Texture couldn't be loaded" << std::endl;
+
+        glGenTextures(1,&texId);
+        glBindTexture(GL_TEXTURE_2D, texId);
+
+        glTexImage2D(GL_TEXTURE_2D,
+        0,
+        GL_RGBA, //internalFormat
+        textureEarth->getWidth(), // Width
+        textureEarth->getHeight(), // Height
+        0, 
+        GL_RGBA, // Format
+        GL_FLOAT, // Type
+        textureEarth->getPixels() // tab pixel
+        );
+        
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glBindTexture(GL_TEXTURE_2D, 0);
     }
     
     void Cube::setVisible() {

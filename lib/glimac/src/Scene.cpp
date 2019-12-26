@@ -14,40 +14,46 @@ namespace glimac {
 
     void Scene::create_uniform_matrices(ProgramType type)
     {
-        uMVLocation = glGetUniformLocation(m_programs[type].getGLId(), "uModel");
-        uMVPLocation = glGetUniformLocation(m_programs[type].getGLId(), "uViewProj");
-        uNormalMatLocation = glGetUniformLocation(m_programs[type].getGLId(), "uNormalMat");
-        uColorLocation = glGetUniformLocation(m_programs[type].getGLId(), "uColor");
-        uLightPosLocation = glGetUniformLocation(m_programs[type].getGLId(), "uLightPos_vs");
-        uKd = glGetUniformLocation(m_programs[type].getGLId(), "uKd");
-        uKs = glGetUniformLocation(m_programs[type].getGLId(), "uKs");
-        uShininess = glGetUniformLocation(m_programs[type].getGLId(), "uShininess");
-        uLightDir_vs = glGetUniformLocation(m_programs[type].getGLId(), "uLightDir_vs");
-        uLightIntensityP = glGetUniformLocation(m_programs[type].getGLId(), "uLightIntensityP");
-        uLightIntensityD = glGetUniformLocation(m_programs[type].getGLId(), "uLightIntensityD");
-    
-        glm::mat4 modelMat = glm::mat4(1.0f);
+        if(type == ProgramType::FlatCube) {
+            uColorLocation = glGetUniformLocation(m_programs[type].getGLId(), "uColor");
+            
+        }
+        else if(type == ProgramType::TexturedCube) {
+            uColorLocation = glGetUniformLocation(m_programs[type].getGLId(), "uTexture");
+        }
+            uMVLocation = glGetUniformLocation(m_programs[type].getGLId(), "uModel");
+            uMVPLocation = glGetUniformLocation(m_programs[type].getGLId(), "uViewProj");
+            uNormalMatLocation = glGetUniformLocation(m_programs[type].getGLId(), "uNormalMat");
+            uLightPosLocation = glGetUniformLocation(m_programs[type].getGLId(), "uLightPos_vs");
+            uKd = glGetUniformLocation(m_programs[type].getGLId(), "uKd");
+            uKs = glGetUniformLocation(m_programs[type].getGLId(), "uKs");
+            uShininess = glGetUniformLocation(m_programs[type].getGLId(), "uShininess");
+            uLightDir_vs = glGetUniformLocation(m_programs[type].getGLId(), "uLightDir_vs");
+            uLightIntensityP = glGetUniformLocation(m_programs[type].getGLId(), "uLightIntensityP");
+            uLightIntensityD = glGetUniformLocation(m_programs[type].getGLId(), "uLightIntensityD");
+        
+            glm::mat4 modelMat = glm::mat4(1.0f);
 
-        glUniformMatrix4fv(uMVLocation, // Location
-                            1, // Count
-                            GL_FALSE, // Transpose
-                            glm::value_ptr(modelMat)); // Value
+            glUniformMatrix4fv(uMVLocation, // Location
+                                1, // Count
+                                GL_FALSE, // Transpose
+                                glm::value_ptr(modelMat)); // Value
 
-        MVMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
-        ProjMatrix = glm::perspective(glm::radians(45.0f), 1.0f, 0.1f, 100.0f);
-        glm::mat4 viewProjMat = ProjMatrix * MVMatrix;
-        glm::mat4 normalMat = glm::transpose(glm::inverse(MVMatrix));
+            MVMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
+            ProjMatrix = glm::perspective(glm::radians(45.0f), 1.0f, 0.1f, 100.0f);
+            glm::mat4 viewProjMat = ProjMatrix * MVMatrix;
+            glm::mat4 normalMat = glm::transpose(glm::inverse(MVMatrix));
 
-        glUniformMatrix4fv(uMVPLocation, // Location
-                            1, // Count
-                            GL_FALSE, // Transpose
-                            glm::value_ptr(viewProjMat)); // Value
+            glUniformMatrix4fv(uMVPLocation, // Location
+                                1, // Count
+                                GL_FALSE, // Transpose
+                                glm::value_ptr(viewProjMat)); // Value
 
-        glUniformMatrix4fv(uNormalMatLocation, // Location
-                    1, // Count
-                    GL_FALSE, // Transpose
-                    glm::value_ptr(normalMat)); // Value
-
+            glUniformMatrix4fv(uNormalMatLocation, // Location
+                        1, // Count
+                        GL_FALSE, // Transpose
+                        glm::value_ptr(normalMat)); // Value
+        
     }
 
     void Scene::recalculate_matrices(TrackballCamera &camera,Cube cube) {
@@ -87,13 +93,13 @@ namespace glimac {
     void Scene::changeLuminosity(int dirLight, int pointLight) {
         // Day / night
         if (dirLight == 0){
-            glUniform3f(uLightIntensityD, 2.0, 2.0, 2.0);   
+            glUniform3f(uLightIntensityD, 3.0, 3.0, 3.0);   
         }
         else {
             glUniform3f(uLightIntensityD, 0.0, 0.0, 0.0);
         }
         if (pointLight == 0){
-            glUniform3f(uLightIntensityP, 2.0, 2.0, 2.0);   
+            glUniform3f(uLightIntensityP, 4.0, 4.0, 4.0);   
         }
         else {
             glUniform3f(uLightIntensityP, 0.0, 0.0, 0.0);
