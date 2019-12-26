@@ -24,6 +24,7 @@ public:
     void moveUp(const float &delta);
     void rotateLeft(const float &degrees);
     void rotateUp(const float &degrees);
+    inline glm::vec3 getPosition() {return m_position;};
     void rotateRight(const float &degrees);
     glm::mat4 getViewMatrix() const;
     void setPosMatrix(int l, int L, int H);

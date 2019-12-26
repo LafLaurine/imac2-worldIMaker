@@ -35,6 +35,7 @@ int main(int argc, char** argv) {
     scene.useProgram(FlatCube);
     scene.initAllCubes();
     overlay.initImgui(windowManager.m_window,&windowManager.m_glContext);
+    scene.addLight();
    
     //Load camera
     TrackballCamera camera;

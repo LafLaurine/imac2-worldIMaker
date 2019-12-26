@@ -66,36 +66,46 @@ namespace glimac {
         directiveLight = 0; // Directive light on/off
 
         // Directive light position
-        xLightD = 0;
-        yLightD = 0;
-        zLightD = 0;
+        xLightD = -1.0f;
+        yLightD = -1.0f;
+        zLightD = -1.0f;
 
         // Spotlight position
-        xLightP = 0;
-        yLightP = 0;
-        zLightP = 0;
+        xLightP = 1.0f;
+        yLightP = 1.0f;
+        zLightP = 1.0f;
 
         glUniform3f(uKd, 0.6, 0.6, 0.6);
         glUniform3f(uKs, 0, 0.0, 0.0);
         glUniform1f(uShininess, 30.0);
-        glm::vec4 LightPos = MVMatrix * glm::vec4((float) getLightXP(), (float) getLightYP(), (float) getLightZP(), 1);
+        glm::vec4 LightPos = MVMatrix * glm::vec4(xLightP, yLightP, zLightP, 1);
         glUniform3f(uLightPosLocation, LightPos.x, LightPos.y, LightPos.z);
-        glm::vec4 LightDir = MVMatrix * glm::vec4((float) getLightXD(), (float) getLightYD(), (float) getLightZD(), 1);
+        glm::vec4 LightDir = MVMatrix * glm::vec4(xLightD, yLightD, zLightD, 1);
         glUniform3f(uLightDir_vs, LightDir.x, LightDir.y, LightDir.z);
-       
+    }
+
+    void Scene::changeLuminosity(int dirLight, int pointLight) {
         // Day / night
-        if (getDirectiveLight() == 0){
+        if (dirLight == 0){
             glUniform3f(uLightIntensityD, 2.0, 2.0, 2.0);   
         }
         else {
             glUniform3f(uLightIntensityD, 0.0, 0.0, 0.0);
         }
-        if (getPointLight() == 0){
+        if (pointLight == 0){
             glUniform3f(uLightIntensityP, 2.0, 2.0, 2.0);   
         }
         else {
             glUniform3f(uLightIntensityP, 0.0, 0.0, 0.0);
         }
+    }
+
+    void Scene::changePointLightPosition(float pointLightX, float pointLightY, float pointLightZ) {
+        glUniform3f(uLightPosLocation, pointLightX, pointLightY, pointLightZ);
+    }
+
+    void Scene::changeDirectiveLightPosition(float directiveLightX, float directiveLightY, float directiveLightZ) {
+        glUniform3f(uLightDir_vs, directiveLightX, directiveLightY, directiveLightZ);
     }
 
     void Scene::setGround() {

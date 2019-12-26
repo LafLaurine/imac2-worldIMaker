@@ -24,8 +24,8 @@ namespace glimac
 			static const unsigned int m_length = 10;
 			int pointLight;
 			int directiveLight;
-			int xLightD, yLightD, zLightD;
-			int xLightP, yLightP, zLightP;
+			float xLightD, yLightD, zLightD;
+			float xLightP, yLightP, zLightP;
 			std::vector<Cube> m_allCubes;
 			std::map<ProgramType, Program> m_programs;
 			TrackballCamera camera;
@@ -48,12 +48,12 @@ namespace glimac
 			inline int getLength(){ return m_length; };
 			inline int getPointLight() {return pointLight;};
 			inline int getDirectiveLight() {return directiveLight;};
-			inline int getLightXD() {return xLightD;};
-			inline int getLightYD() {return yLightD;};
-			inline int getLightZD() {return zLightD;};
-			inline int getLightXP() {return xLightP;};
-			inline int getLightYP() {return yLightP;};
-			inline int getLightZP() {return zLightP;};
+			inline float getLightXD() {return xLightD;};
+			inline float getLightYD() {return yLightD;};
+			inline float getLightZD() {return zLightD;};
+			inline float getLightXP() {return xLightP;};
+			inline float getLightYP() {return yLightP;};
+			inline float getLightZP() {return zLightP;};
 
 			//get scene's cube
 			inline std::vector<Cube>& getAllCubes() {return m_allCubes;};
@@ -70,8 +70,9 @@ namespace glimac
 			void addLight();
 			void setGround();
 			//change luminosity of the scene
-			void changeLuminosity(float &lum);
-			void changeLightPosition(glm::vec3 lumPoint);
+			void changeLuminosity(int dirLight, int pointLight);
+			void changePointLightPosition(float pointLightX, float pointLightY, float pointLightZ);
+			void changeDirectiveLightPosition(float directiveLightX, float directiveLightY, float directiveLightZ);
 			//transform 1D vector to 3D
 			static unsigned int from1Dto3D(glm::ivec3 pos);
 	};

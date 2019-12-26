@@ -95,34 +95,36 @@ namespace glimac {
         ImGui::End();
         ImGui::Begin("Light tools",&p_open); {
             static int dirLight = scene.getDirectiveLight();
-            static int dirLightX = scene.getLightXD();
-            static int dirLightY = scene.getLightYD();
-            static int dirLightZ = scene.getLightZD();
+            static float dirLightX = scene.getLightXD();
+            static float dirLightY = scene.getLightYD();
+            static float dirLightZ = scene.getLightZD();
 
             static int pointLight = scene.getPointLight();
-            static int pointLightX = scene.getLightXP();
-            static int pointLightY = scene.getLightYP();
-            static int pointLightZ = scene.getLightZP();
+            static float pointLightX = scene.getLightXP();
+            static float pointLightY = scene.getLightYP();
+            static float pointLightZ = scene.getLightZP();
 
             const char* itemsLight[] = { "On", "Off"};
             ImGui::Text("Lumiere directionnelle :");
             ImGui::Combo("D", &dirLight, itemsLight, IM_ARRAYSIZE(itemsLight));
             ImGui::Text("Coordinates D");
-            ImGui::InputInt("xD",&dirLightX);
+            ImGui::InputFloat("xD",&dirLightX);
             ImGui::Text("Y :");
-            ImGui::InputInt("yD", &dirLightY);
+            ImGui::InputFloat("yD", &dirLightY);
             ImGui::Text("Z :");
-            ImGui::InputInt("zD", &dirLightZ);
+            ImGui::InputFloat("zD", &dirLightZ);
 
             // Spotlight
             ImGui::Text("Lumiere ponctuelle :");
             ImGui::Combo("P", &pointLight, itemsLight, IM_ARRAYSIZE(itemsLight));
             ImGui::Text("Coordinates P");
-            ImGui::InputInt("xP", &pointLightX);
+            ImGui::InputFloat("xP", &pointLightX);
             ImGui::Text("Y :");
-            ImGui::InputInt("yP", &pointLightY);
+            ImGui::InputFloat("yP", &pointLightY);
             ImGui::Text("Z :");
-            ImGui::InputInt("zP", &pointLightZ);
+            ImGui::InputFloat("zP", &pointLightZ);
+            scene.changeLuminosity(dirLight, pointLight);
+            scene.changeDirectiveLightPosition(dirLightX,dirLightY,dirLightZ);
         }
         ImGui::End();
     }

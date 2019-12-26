@@ -20,6 +20,7 @@ namespace glimac {
         else if(e.key.keysym.sym == SDLK_w) {
             cam.rotateUp(zoom);            
         }
+        std::cout << cam.getPosition() << std::endl;
     }
     
     void GameController::handleScene(SDL_Event &e, Scene &scene, Cursor& cursor) {
