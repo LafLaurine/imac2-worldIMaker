@@ -32,22 +32,25 @@ namespace glimac
 			glm::mat4 MVMatrix, ProjMatrix, globalMVMatrix, cubeMVMatrix, NormalMatrix;
 			glm::vec3 lightDir,lightIntensity, m_color;
 		public:
-			//default constructor
+			///default constructor
 			Scene() = default;
-			//default destructor
+			///default destructor
 			~Scene() = default;
 
 			GLuint uMVLocation,uMVPLocation, uLightLocation, uLightPointLocation, uLightPosLocation, uColorLocation, uNormalMatLocation;
 			GLuint uLuminosityLocation;
 			GLuint uKd, uKs, uShininess, uLightDir_vs, uLightIntensityP, uLightIntensityD;
-			//get scene's height
+			///get scene's height
 			inline int getHeight(){ return m_height; };
-			//get scene's width
+			///get scene's width
 			inline int getWidth(){ return m_width; };
-			//get scene's length
+			///get scene's length
 			inline int getLength(){ return m_length; };
+			///check if there is a point light
 			inline int getPointLight() {return pointLight;};
+			///check if there is a directive light
 			inline int getDirectiveLight() {return directiveLight;};
+			///get x position of directive light
 			inline float getLightXD() {return xLightD;};
 			inline float getLightYD() {return yLightD;};
 			inline float getLightZD() {return zLightD;};

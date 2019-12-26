@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cstddef>
 #include <math.h>
+#include <glimac/main.hpp>
 #include <glimac/GameController.hpp>
 #include <glimac/TrackballCamera.hpp>
 #include <glimac/SDLWindowManager.hpp> 
@@ -17,8 +18,6 @@
 #include <imgui/imgui_impl_sdl.h>
 
 using namespace glimac;
-
-//il faudra penser à ajouter -Werror au CMAKE, mais là c'est pas viable comme c'est la construction des fichiers
 
 int main(int argc, char** argv) {    
     constexpr int WINDOW_WIDTH = 900;
