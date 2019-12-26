@@ -17,31 +17,43 @@ namespace glimac
 			glm::vec3 m_position;
 			glm::vec3 m_color;
 			bool m_visible;
-			bool m_selected;
 		public:
+			//default constructor
 			Cube();
+			//constructor with a specific position
 			Cube(glm::vec3 position);
+			//default destructor
 			~Cube() = default;
-			GLuint texId;
-			inline glm::vec3 getPosition(){ return m_position; };
-			inline GLuint getVAO(){ return m_vao; };
-			inline GLuint getVBO(){ return m_vbo; };
-			inline GLuint getIBO(){ return m_ibo; };
-			inline bool isVisible(){ return m_visible; };
-			inline bool isSelected(){ return m_selected; };
-			inline glm::vec3 setPosition(glm::vec3 position){return m_position = position;};
-			inline float setPositionX(float positionX){return m_position.x = positionX;};
-			inline float setPositionY(float positionY){return m_position.y = positionY;};
-			inline float setPositionZ(float positionZ){return m_position.z = positionZ;};
-			inline glm::vec3 getColor() {return m_color;};
-			inline void setColor(glm::vec3 colorSend){m_color = colorSend;};
-			void setVisible();
-			void setInvisible();
+			//initialize cube buffer
 			void initBuffer();
+			//get cube position
+			inline glm::vec3 getPosition(){ return m_position; };
+			//get cube VAO
+			inline GLuint getVAO(){ return m_vao; };
+			//get cube VBO
+			inline GLuint getVBO(){ return m_vbo; };
+			//get cube IBO
+			inline GLuint getIBO(){ return m_ibo; };
+			//check if cube is visible
+			inline bool isVisible(){ return m_visible; };
+			//set position of the cube
+			inline glm::vec3 setPosition(glm::vec3 position){return m_position = position;};
+			//set X position of the cube
+			inline float setPositionX(float positionX){return m_position.x = positionX;};
+			//set Y position of the cube
+			inline float setPositionY(float positionY){return m_position.y = positionY;};
+			//set Z position of the cube
+			inline float setPositionZ(float positionZ){return m_position.z = positionZ;};
+			//get cube color
+			inline glm::vec3 getColor() {return m_color;};
+			//set cube color
+			inline void setColor(glm::vec3 colorSend){m_color = colorSend;};
+			// set cube visible
+			void setVisible();
+			//set cube invisible
+			void setInvisible();
+			//draw a cube
 			void draw();
-			void update();
-			void setSelected();
-			void unselect();
 	};
 }
 

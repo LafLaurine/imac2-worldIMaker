@@ -16,8 +16,11 @@ namespace glimac {
             float zoom = 1.0f;
             glm::vec3 m_position;
         public:
+            //default constructor
             GameController() = default;
+            //default destructor
             ~GameController() = default;
+            //handle camera movements
             void handleCamera(SDL_Event &e, TrackballCamera &cam);
             void handleScene(SDL_Event &e, Scene &scene, Cursor &cursor);
             void handleEvents(SDL_Event &e);

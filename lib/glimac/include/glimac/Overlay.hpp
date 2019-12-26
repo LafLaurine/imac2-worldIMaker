@@ -35,7 +35,6 @@ namespace glimac
 			inline int getClickedChangeColor(){return clickedColor;}
 			inline int getClickedRBF(){return clickedRBF;};
 			inline float* getColor(){return &m_myCol;};
-			inline void setColor(float color){m_myCol = color;};
 		private:
 			float m_myCol = 0.f;
 			bool p_open;

@@ -43,7 +43,6 @@ int main(int argc, char** argv) {
 
     glClearColor(0.4, 0.6, 0.2, 1);
     scene.create_uniform_matrices(FlatCube);
-    scene.addLight(scene);
 
 
     std::vector <ControlPoint> list_ctrl;
@@ -56,6 +55,8 @@ int main(int argc, char** argv) {
     while(windowManager.isRunning()) {
         SDL_Event e;
         while(SDL_PollEvent(&e)) {
+        // Send event to ImGui
+        ImGui_ImplSDL2_ProcessEvent(&e);
         switch (e.type) {
             case SDL_QUIT: windowManager.exit();
 
@@ -80,7 +81,7 @@ int main(int argc, char** argv) {
         overlay.beginFrame(windowManager.m_window);
         overlay.drawOverlay(scene);
         scene.drawCubes(camera);
-        
+        scene.addLight();
         scene.recalculate_matrices(camera,cursor);
         cursor.draw();
 
@@ -100,14 +101,17 @@ int main(int argc, char** argv) {
             gameController.deleteCube(scene,cursor);
         }
         if(overlay.getClickedSave() &1) {
-          /*  std::string filename = "world.txt";
+            std::string filename = "world.txt";
             std::cout << "Enter name of file : " << std::endl;
-            std::cin >> filename;*/
-            saveFile("world.txt",scene.getAllCubes());
+            std::cin >> filename;
+            saveFile(filename,scene.getAllCubes());
         }
         if(overlay.getClickedLoad() &1) {
+            std::string filename = "world.txt";
+            std::cout << "Enter name of file : " << std::endl;
+            std::cin >> filename;
             gameController.cleanScene(scene.getAllCubes());
-            loadFile("world.txt",scene.getAllCubes());
+            loadFile(filename,scene.getAllCubes());
         }
         if(overlay.getClickedChangeColor() &1){
             gameController.changeColorCube(scene,cursor,overlay,camera);

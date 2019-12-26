@@ -60,6 +60,7 @@ namespace glimac {
                 show ^= 1;
                 clickedDeleteCube++;
             }
+
             if (ImGui::Button("Save"))
             {
                 show ^= 1;
@@ -71,9 +72,6 @@ namespace glimac {
                 show ^= 1;
                 clickedLoadFile++;
             }
-            static float f1=scene.getLuminosity();
-            ImGui::SliderFloat("Luminosity", &f1, 0.0f, 1.0f, "%.4f", 2.0f);
-            scene.changeLuminosity(f1);
             
             if (ImGui::Button("Change cube's color")){
                 show ^= 1;
@@ -93,6 +91,38 @@ namespace glimac {
                 show ^= 1;
                 clickedRBF++;
             }
+        }
+        ImGui::End();
+        ImGui::Begin("Light tools",&p_open); {
+            static int dirLight = scene.getDirectiveLight();
+            static int dirLightX = scene.getLightXD();
+            static int dirLightY = scene.getLightYD();
+            static int dirLightZ = scene.getLightZD();
+
+            static int pointLight = scene.getPointLight();
+            static int pointLightX = scene.getLightXP();
+            static int pointLightY = scene.getLightYP();
+            static int pointLightZ = scene.getLightZP();
+
+            const char* itemsLight[] = { "On", "Off"};
+            ImGui::Text("Lumiere directionnelle :");
+            ImGui::Combo("D", &dirLight, itemsLight, IM_ARRAYSIZE(itemsLight));
+            ImGui::Text("Coordinates D");
+            ImGui::InputInt("xD",&dirLightX);
+            ImGui::Text("Y :");
+            ImGui::InputInt("yD", &dirLightY);
+            ImGui::Text("Z :");
+            ImGui::InputInt("zD", &dirLightZ);
+
+            // Spotlight
+            ImGui::Text("Lumiere ponctuelle :");
+            ImGui::Combo("P", &pointLight, itemsLight, IM_ARRAYSIZE(itemsLight));
+            ImGui::Text("Coordinates P");
+            ImGui::InputInt("xP", &pointLightX);
+            ImGui::Text("Y :");
+            ImGui::InputInt("yP", &pointLightY);
+            ImGui::Text("Z :");
+            ImGui::InputInt("zP", &pointLightZ);
         }
         ImGui::End();
     }

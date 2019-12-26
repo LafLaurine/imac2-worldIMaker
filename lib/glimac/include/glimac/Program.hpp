@@ -12,7 +12,6 @@ namespace glimac {
 	enum class ProgramType
 	{
 		FlatCube,
-		Light,
 		TexturedCube,
 	};
 
@@ -62,6 +61,8 @@ namespace glimac {
 
 	// Load source code from files and build a GLSL program
 	Program loadProgram(const FilePath& vsFile, const FilePath& fsFile);
+
+	void unbindProgram();
 
 
 }

@@ -71,4 +71,8 @@ Program loadProgram(const FilePath& vsFile, const FilePath& fsFile) {
 	return program;
 }
 
+void unbindProgram() {
+	glUseProgram(0);
+}
+
 }

@@ -22,33 +22,57 @@ namespace glimac
 			static const unsigned int m_height = 10;
 			static const unsigned int m_width = 10;
 			static const unsigned int m_length = 10;
-			float lum;
+			int pointLight;
+			int directiveLight;
+			int xLightD, yLightD, zLightD;
+			int xLightP, yLightP, zLightP;
 			std::vector<Cube> m_allCubes;
 			std::map<ProgramType, Program> m_programs;
 			TrackballCamera camera;
 			glm::mat4 MVMatrix, ProjMatrix, globalMVMatrix, cubeMVMatrix, NormalMatrix;
-			glm::vec3 Kd,Ks,lightDir,lightIntensity, m_color;
+			glm::vec3 lightDir,lightIntensity, m_color;
 		public:
+			//default constructor
 			Scene() = default;
+			//default destructor
 			~Scene() = default;
 
-			GLuint uMVLocation,uMVPLocation, uLightLocation, uLightPosLocation, uColorLocation,uObjectColorPosition, uNormalMatLocation, cubeColorLoc;
+			GLuint uMVLocation,uMVPLocation, uLightLocation, uLightPointLocation, uLightPosLocation, uColorLocation, uNormalMatLocation;
 			GLuint uLuminosityLocation;
+			GLuint uKd, uKs, uShininess, uLightDir_vs, uLightIntensityP, uLightIntensityD;
+			//get scene's height
 			inline int getHeight(){ return m_height; };
+			//get scene's width
 			inline int getWidth(){ return m_width; };
+			//get scene's length
 			inline int getLength(){ return m_length; };
-			inline float getLuminosity(){ return lum; };
+			inline int getPointLight() {return pointLight;};
+			inline int getDirectiveLight() {return directiveLight;};
+			inline int getLightXD() {return xLightD;};
+			inline int getLightYD() {return yLightD;};
+			inline int getLightZD() {return zLightD;};
+			inline int getLightXP() {return xLightP;};
+			inline int getLightYP() {return yLightP;};
+			inline int getLightZP() {return zLightP;};
+
+			//get scene's cube
 			inline std::vector<Cube>& getAllCubes() {return m_allCubes;};
+			//load scene program (shaders)
 			void loadProgram(ProgramType type, std::string vertexShader, std::string fragmentShader);
+			//use program
 			void useProgram(ProgramType type);
+			//create uniform matrices for the scene
 			void create_uniform_matrices(ProgramType type);
-			void drawCube(ProgramType cubeType);
+			//calculate matrices for the camera
 			void recalculate_matrices(TrackballCamera &camera, Cube cube);
 			void initAllCubes();
 			void drawCubes(TrackballCamera &camera);
-			void addLight(Scene &scene);
+			void addLight();
 			void setGround();
+			//change luminosity of the scene
 			void changeLuminosity(float &lum);
+			void changeLightPosition(glm::vec3 lumPoint);
+			//transform 1D vector to 3D
 			static unsigned int from1Dto3D(glm::ivec3 pos);
 	};
 }

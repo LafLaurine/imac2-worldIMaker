@@ -18,9 +18,14 @@ namespace glimac {
         uMVPLocation = glGetUniformLocation(m_programs[type].getGLId(), "uViewProj");
         uNormalMatLocation = glGetUniformLocation(m_programs[type].getGLId(), "uNormalMat");
         uColorLocation = glGetUniformLocation(m_programs[type].getGLId(), "uColor");
-        uLightPosLocation = glGetUniformLocation(m_programs[type].getGLId(), "lightPos");
-        uLuminosityLocation = glGetUniformLocation(m_programs[type].getGLId(), "addLuminosity");
-        
+        uLightPosLocation = glGetUniformLocation(m_programs[type].getGLId(), "uLightPos_vs");
+        uKd = glGetUniformLocation(m_programs[type].getGLId(), "uKd");
+        uKs = glGetUniformLocation(m_programs[type].getGLId(), "uKs");
+        uShininess = glGetUniformLocation(m_programs[type].getGLId(), "uShininess");
+        uLightDir_vs = glGetUniformLocation(m_programs[type].getGLId(), "uLightDir_vs");
+        uLightIntensityP = glGetUniformLocation(m_programs[type].getGLId(), "uLightIntensityP");
+        uLightIntensityD = glGetUniformLocation(m_programs[type].getGLId(), "uLightIntensityD");
+    
         glm::mat4 modelMat = glm::mat4(1.0f);
 
         glUniformMatrix4fv(uMVLocation, // Location
@@ -56,17 +61,41 @@ namespace glimac {
             
     }
 
-    void Scene::addLight(Scene &scene) {
-        glm::vec4 lightDir4 =  glm::vec4(1.0f, 1.0f, 1.0f, 0.0f);
-        lightDir4 = lightDir4 * globalMVMatrix;
-        lum = 1.0f;
-        glm::vec3 lightPos = glm::vec3(lightDir4.x, lightDir4.y, lightDir4.z);
-        glUniform3fv(uLightLocation, 1, glm::value_ptr(lightPos));
-        glUniform1f(uLuminosityLocation, scene.getLuminosity());
-    }
+    void Scene::addLight() {
+        pointLight = 0; // Spotlight on/off
+        directiveLight = 0; // Directive light on/off
 
-    void Scene::changeLuminosity(float &lum) {
-        glUniform1f(uLuminosityLocation, lum);   
+        // Directive light position
+        xLightD = 0;
+        yLightD = 0;
+        zLightD = 0;
+
+        // Spotlight position
+        xLightP = 0;
+        yLightP = 0;
+        zLightP = 0;
+
+        glUniform3f(uKd, 0.6, 0.6, 0.6);
+        glUniform3f(uKs, 0, 0.0, 0.0);
+        glUniform1f(uShininess, 30.0);
+        glm::vec4 LightPos = MVMatrix * glm::vec4((float) getLightXP(), (float) getLightYP(), (float) getLightZP(), 1);
+        glUniform3f(uLightPosLocation, LightPos.x, LightPos.y, LightPos.z);
+        glm::vec4 LightDir = MVMatrix * glm::vec4((float) getLightXD(), (float) getLightYD(), (float) getLightZD(), 1);
+        glUniform3f(uLightDir_vs, LightDir.x, LightDir.y, LightDir.z);
+       
+        // Day / night
+        if (getDirectiveLight() == 0){
+            glUniform3f(uLightIntensityD, 2.0, 2.0, 2.0);   
+        }
+        else {
+            glUniform3f(uLightIntensityD, 0.0, 0.0, 0.0);
+        }
+        if (getPointLight() == 0){
+            glUniform3f(uLightIntensityP, 2.0, 2.0, 2.0);   
+        }
+        else {
+            glUniform3f(uLightIntensityP, 0.0, 0.0, 0.0);
+        }
     }
 
     void Scene::setGround() {

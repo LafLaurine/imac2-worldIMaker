@@ -3,4 +3,4 @@ build
 .vs
 .vscode
 
-assets/doc
+assets/doc/world.txt
