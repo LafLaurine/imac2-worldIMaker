@@ -6,7 +6,7 @@ namespace glimac {
     void GameController::handleCamera(SDL_Event &e, TrackballCamera &cam) {
         if(e.key.keysym.sym == SDLK_z) {
             cam.moveFront(-zoom);
-            } else if (e.key.keysym.sym == SDLK_s) {
+        } else if (e.key.keysym.sym == SDLK_s) {
             cam.moveFront(zoom);
         } else if (e.key.keysym.sym == SDLK_q) {
             cam.rotateLeft(zoom);              
@@ -16,9 +16,14 @@ namespace glimac {
         else if(e.key.keysym.sym == SDLK_u) {
             cam.rotateUp(-zoom);            
         }
-
         else if(e.key.keysym.sym == SDLK_w) {
             cam.rotateUp(zoom);            
+        }
+        else if(e.key.keysym.scancode == SDL_SCANCODE_0) {
+            cam.setPosMatrix(10,0,0);
+        }
+        else if(e.key.keysym.scancode == SDL_SCANCODE_1) {
+            cam.setPosMatrix(10,5,5);
         }
     }
     
