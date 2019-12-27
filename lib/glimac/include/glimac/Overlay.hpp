@@ -27,21 +27,15 @@ namespace glimac
 			inline int getClickedReset(){return clickedReset;};
 			inline int getClickedAddCube(){return clickedAddCube;};
 			inline int getClickedDeleteCube(){return clickedDeleteCube;};
-			inline int getClickedSave(){return clickedSaveFile;};
-			inline int getClickedLoad(){return clickedLoadFile;}
-			inline int getClickedDayCube(){return clickedDay;};
-			inline int getClickedSetGround(){return clickedSetGround;};
-			inline int getClickedNightCube(){return clickedNight;};
-			inline int getClickedRBF(){return clickedRBF;};
+			inline int getClickedTree(){return clickedTree;};
+			inline int getClickedCube(){return clickedCube;};
+			inline int getClickedAddTexture(){return clickedAddTexture;};
 			inline float* getColor(){return &m_myCol;};
 		private:
 			float m_myCol = 0.f;
 			bool p_open;
 			int clickedReset, clickedAddCube, clickedDeleteCube;
-			int clickedDay, clickedNight;
-			int clickedSaveFile, clickedLoadFile;
-			int clickedRBF;
-			int clickedSetGround;
+			int clickedTree, clickedCube, clickedAddTexture;
 	};
 }
 

@@ -6,6 +6,7 @@
 #include <glimac/Cursor.hpp>
 #include <glimac/Scene.hpp>
 #include <glimac/Overlay.hpp>
+#include <glimac/Texture.hpp>
 #include <SDL2/SDL.h>
 
 
@@ -36,7 +37,7 @@ namespace glimac {
             int getHighestCube(Scene &scene, Cursor &cursor);
             void cleanScene(std::vector <Cube> &allCubes);
             void changeColorCube(Scene& scene, Cursor &cursor, Overlay &overlay, TrackballCamera &camera);
-            void addTexturedCube();
+            void setTextureCube(Scene &scene, Cursor &cursor, Texture &tex);
     };
 
 }

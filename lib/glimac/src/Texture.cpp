@@ -6,7 +6,7 @@
 namespace glimac {
 	Texture::Texture(std::string n) {
 		m_name = n;
-		m_texturePointer = loadImage("../assets/textures/" + m_name);
+		m_texturePointer = loadImage("./assets/textures/" + m_name);
 		if(m_texturePointer == NULL)
 		{
 			std::cerr << "Couldn't load texture" << std::endl;
@@ -17,5 +17,10 @@ namespace glimac {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glBindTexture(GL_TEXTURE_2D,  0);
+    }
+
+	void Texture::initTexture(Cube &cube, Scene &scene) {
+		glUniform1i(scene.uIsThereTexture, 1);
+		cube.drawTexturedCube(m_textureId);
     }
 }

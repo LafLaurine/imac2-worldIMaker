@@ -1,11 +1,16 @@
 #version 330 core
 out vec4 fragColor;
+out vec3 fragTex;
 
 in vec3 vPos;
 in vec3 vNormal;
 
 uniform mat4 uNormalMat;
 uniform vec3 uColor;
+
+in vec2 vTexCoords;
+uniform sampler2D uTexture;
+uniform bool setTexture;
 
 uniform vec3 uKd;
 uniform vec3 uKs;
@@ -38,5 +43,11 @@ void main() {
 	vec3 totalLuminosity = min(lum + ambiantLightIntensity, 1.);
     vec3 normal = (uNormalMat * vec4(vNormal, 0.)).xyz;
     vec3 color = uColor;
-    fragColor = vec4(totalLuminosity  * color, 1.0f);
+	vec3 tex1 = texture(uTexture, vTexCoords).xyz;
+	if(setTexture) {
+		fragTex = totalLuminosity * tex1;
+	}
+	else {
+		fragColor = vec4(totalLuminosity  * color, 1.0f);
+	}
 }

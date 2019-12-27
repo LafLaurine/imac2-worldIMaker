@@ -14,13 +14,7 @@ namespace glimac {
 
     void Scene::create_uniform_matrices(ProgramType type)
     {
-        if(type == ProgramType::FlatCube) {
             uColorLocation = glGetUniformLocation(m_programs[type].getGLId(), "uColor");
-            
-        }
-        else if(type == ProgramType::TexturedCube) {
-            uColorLocation = glGetUniformLocation(m_programs[type].getGLId(), "uTexture");
-        }
             uMVLocation = glGetUniformLocation(m_programs[type].getGLId(), "uModel");
             uMVPLocation = glGetUniformLocation(m_programs[type].getGLId(), "uViewProj");
             uNormalMatLocation = glGetUniformLocation(m_programs[type].getGLId(), "uNormalMat");
@@ -31,7 +25,9 @@ namespace glimac {
             uLightDir_vs = glGetUniformLocation(m_programs[type].getGLId(), "uLightDir_vs");
             uLightIntensityP = glGetUniformLocation(m_programs[type].getGLId(), "uLightIntensityP");
             uLightIntensityD = glGetUniformLocation(m_programs[type].getGLId(), "uLightIntensityD");
-        
+            uTextureLocation = glGetUniformLocation(m_programs[type].getGLId(), "uTexture");
+            uIsThereTexture = glGetUniformLocation(m_programs[type].getGLId(), "setTexture");
+
             glm::mat4 modelMat = glm::mat4(1.0f);
 
             glUniformMatrix4fv(uMVLocation, // Location
@@ -43,6 +39,7 @@ namespace glimac {
             ProjMatrix = glm::perspective(glm::radians(45.0f), 1.0f, 0.1f, 100.0f);
             glm::mat4 viewProjMat = ProjMatrix * MVMatrix;
             glm::mat4 normalMat = glm::transpose(glm::inverse(MVMatrix));
+            glUniform1i(uIsThereTexture,0);
 
             glUniformMatrix4fv(uMVPLocation, // Location
                                 1, // Count
@@ -133,7 +130,6 @@ namespace glimac {
                 }
             }
         }
-        //set ground
         setGround();
     }
 

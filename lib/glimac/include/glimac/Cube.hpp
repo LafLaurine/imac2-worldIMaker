@@ -19,6 +19,7 @@ namespace glimac
 			glm::vec3 m_color;
 			bool m_visible;
 		public:
+			int m_type;
 			//default constructor
 			Cube();
 			//constructor with a specific position
@@ -57,7 +58,7 @@ namespace glimac
 			//draw a cube
 			void draw();
 			//draw a textured cube
-			void drawTexturedCube();
+			void drawTexturedCube(GLuint textureId);
 	};
 }
 

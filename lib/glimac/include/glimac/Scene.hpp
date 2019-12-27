@@ -39,6 +39,7 @@ namespace glimac
 			GLuint uMVLocation,uMVPLocation, uLightLocation, uLightPointLocation, uLightPosLocation, uColorLocation, uNormalMatLocation;
 			GLuint uLuminosityLocation;
 			GLuint uKd, uKs, uShininess, uLightDir_vs, uLightIntensityP, uLightIntensityD;
+			GLuint uTextureLocation, uIsThereTexture;
 			///get scene's height
 			inline int getHeight(){ return m_height; };
 			///get scene's width

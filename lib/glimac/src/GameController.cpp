@@ -40,7 +40,6 @@ namespace glimac {
                 cursor.setPositionY((cursor.getPosition().y)-1);
             changeColorCube(scene,cursor,overlay,camera);
         }
-
         else if (e.key.keysym.scancode == SDL_SCANCODE_LEFT) {
             cursor.setPositionX((cursor.getPosition().x)-1);            
             isThereACube(scene, cursor);
@@ -159,9 +158,12 @@ namespace glimac {
     {
         if(isThereACube(scene,cursor))
         {
+            int x = cursor.getPosition().x;
+            int z = cursor.getPosition().z;
             int y = getHighestCube(scene,cursor);
-            //position heighest cube
-            scene.getAllCubes().at(Scene::from1Dto3D(glm::ivec3(cursor.getPosition().x,y+1,cursor.getPosition().z))).setVisible();
+            int pos = Scene::from1Dto3D(glm::ivec3(x,y+1,z));
+            std::cout << "posit" << pos << std::endl;
+            scene.getAllCubes().at(pos).setVisible();
             
         }
     }
@@ -180,6 +182,15 @@ namespace glimac {
         if(isThereACube(scene,cursor)){
             glm::vec3 color =  glm::make_vec3(overlay.getColor());
             scene.getAllCubes().at(cubeIndex).setColor(color);
+        } else {
+            std::cout << "Il n'y a pas de cube" << std::endl;
+        }
+    }
+
+    void GameController::setTextureCube(Scene &scene, Cursor &cursor, Texture &tex) {
+        int cubeIndex = getIndexCube(scene,cursor);
+        if(isThereACube(scene,cursor)){
+            tex.initTexture(scene.getAllCubes().at(cubeIndex),scene);
         } else {
             std::cout << "Il n'y a pas de cube" << std::endl;
         }

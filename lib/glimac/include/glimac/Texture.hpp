@@ -5,6 +5,8 @@
 #include <string>
 #include <glimac/Image.hpp>
 #include <GL/glew.h>
+#include <glimac/Cube.hpp>
+#include <glimac/Scene.hpp>
 
 namespace glimac
 {
@@ -12,16 +14,18 @@ namespace glimac
 	{
 		private:
 			std::string m_name;
-			GLuint m_textureId;
+			
 			std::unique_ptr<Image> m_texturePointer;
 
 		public:
 			// Constructors
 			Texture(){};
+			GLuint m_textureId;
 			Texture(std::string n);
 			inline GLuint getId() const{return m_textureId;}
-
+			void initTexture(Cube &cube, Scene &scene);
 	};
 }
+	
 
 #endif //GLIMAC_TEXTURE

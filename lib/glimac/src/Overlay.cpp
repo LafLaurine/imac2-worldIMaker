@@ -31,13 +31,10 @@ namespace glimac {
             ImGui::ColorEdit4("Color", this->getColor());
             clickedAddCube = 0;
             clickedDeleteCube = 0;
-            clickedDay = 0;
-            clickedNight = 0;
-            clickedSaveFile = 0;
-            clickedLoadFile = 0;
-            clickedRBF = 0;
+            clickedTree = 0;
+            clickedCube = 0;
             clickedReset = 0;
-            clickedSetGround = 0;
+            clickedAddTexture = 0;
 
             if (ImGui::Button("Reset")) 
             {
@@ -50,6 +47,7 @@ namespace glimac {
             
             if (ImGui::Button("Add texture")) 
             {
+                clickedAddTexture++;
             }
             if (ImGui::Button("Destroy cube")) 
             { 
@@ -61,10 +59,14 @@ namespace glimac {
                 scene.setGround();
             }
 
-
-            if (ImGui::Button("Generate scene")) 
+            if (ImGui::Button("Generate tree")) 
             {
-                clickedRBF++;
+                clickedTree++;
+            }
+
+            if (ImGui::Button("Generate big cube")) 
+            {
+               clickedCube++;
             }
         }
         ImGui::End();

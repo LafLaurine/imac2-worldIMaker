@@ -13,6 +13,7 @@
 #include <glimac/Cube.hpp>
 #include <glimac/Scene.hpp>
 #include <glimac/Cursor.hpp>
+#include <glimac/Texture.hpp>
 #include <imgui/imgui.h>
 #include <imgui/imgui_impl_opengl3.h>
 #include <imgui/imgui_impl_sdl.h>
@@ -30,18 +31,11 @@ int main(int argc, char** argv) {
 
     Scene scene;
     ProgramType FlatCube = ProgramType::FlatCube;
-    ProgramType TexturedCube = ProgramType::TexturedCube;
     scene.loadProgram(FlatCube,"../shaders/colorCube.vs.glsl","../shaders/colorCube.fs.glsl");
-    scene.loadProgram(TexturedCube,"../shaders/texturedCube.vs.glsl","../shaders/texturedCube.fs.glsl");
     scene.useProgram(FlatCube);
     scene.initAllCubes();
     overlay.initImgui(windowManager.m_window,&windowManager.m_glContext);
     scene.addLight();
-/*
-    if(TexturedCube == ProgramType::TexturedCube) {
-        scene.useProgram(TexturedCube);
-        scene.create_uniform_matrices(TexturedCube);
-    }*/
    
     //Load camera
     TrackballCamera camera;
@@ -51,11 +45,14 @@ int main(int argc, char** argv) {
     glClearColor(0.4, 0.6, 0.2, 1);
     scene.create_uniform_matrices(FlatCube);
 
+    std::vector <ControlPoint> list_ctrlTree;
+    readFileControl("controls.txt",list_ctrlTree);
 
-    std::vector <ControlPoint> list_ctrl;
-    readFileControl("controls.txt",list_ctrl);
+    std::vector <ControlPoint> list_ctrlCube;
+    readFileControl("otherControls.txt",list_ctrlCube);
 
     Cursor cursor;
+    Texture texture("EarthMap.jpg");
 
     // Application loop
     while(windowManager.isRunning()) {
@@ -92,13 +89,12 @@ int main(int argc, char** argv) {
         scene.addLight();
         scene.recalculate_matrices(camera,cursor);
         cursor.draw();
-
-        if(overlay.getClickedDayCube() &1) {
+        if(overlay.getClickedTree() &1) {
+            applyRbf(scene.getAllCubes(), list_ctrlTree, FunctionType::InverseQuadratic);
         }
-
-        if(overlay.getClickedNightCube() &1) {
+        if(overlay.getClickedCube() &1) {
+            applyRbf(scene.getAllCubes(), list_ctrlCube, FunctionType::Gaussian);
         }
-
         if(overlay.getClickedReset() &1) {
             gameController.cleanScene(scene.getAllCubes());
         }
@@ -108,8 +104,8 @@ int main(int argc, char** argv) {
         if(overlay.getClickedDeleteCube() &1) {
             gameController.deleteCube(scene,cursor);
         }
-        if(overlay.getClickedRBF() &1) {
-            applyRbf(scene.getAllCubes(), list_ctrl, FunctionType::InverseQuadratic);
+        if(overlay.getClickedAddTexture() &1) {
+            gameController.setTextureCube(scene,cursor, texture);
         }
         overlay.endFrame(windowManager.m_window);
     }
