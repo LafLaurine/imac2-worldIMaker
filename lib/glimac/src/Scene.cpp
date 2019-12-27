@@ -133,11 +133,11 @@ namespace glimac {
         setGround();
     }
 
-    void Scene::drawCubes(TrackballCamera &camera) {
+    void Scene::drawCubes(TrackballCamera &camera,GLuint texId) {
         for(Cube& cube : m_allCubes){
             recalculate_matrices(camera,cube);
             if(cube.isVisible()) {
-                cube.draw();
+                cube.draw(texId);
             }
         }
     }

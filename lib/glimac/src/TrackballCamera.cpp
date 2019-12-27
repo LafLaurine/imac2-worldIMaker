@@ -30,17 +30,7 @@ namespace glimac {
     void TrackballCamera::moveFront(const float &delta) {
         _fDistance += delta;
     }
-
-    void TrackballCamera::moveUp(const float &delta) {
-        _fAngleY += delta;
-    }
-
-        
-    void TrackballCamera::rotateRight(const float &degrees) 
-    {
-        _fAngleY += degrees;
-    }
-
+    
     void TrackballCamera::rotateLeft(const float &degrees) {
         _fAngleZ += degrees;
     }

@@ -82,22 +82,13 @@ namespace glimac {
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
         glEnableVertexAttribArray(0);
 
-        unsigned int colorVAO;
-        glGenVertexArrays(1, &colorVAO);
-        glBindVertexArray(colorVAO);
-        // we only need to bind to the VBO, the container's VBO's data already contains the correct data.
-        glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-        // set the vertex attributes (only position data for our lamp)
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-        glEnableVertexAttribArray(0);
-
         unsigned int textureVAO;
         glGenVertexArrays(1, &textureVAO);
         glBindVertexArray(textureVAO);
         // we only need to bind to the VBO, the container's VBO's data already contains the correct data.
         glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-        glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(2);
 
         //Index buffer
         glGenBuffers(1, &m_ibo);
@@ -111,23 +102,24 @@ namespace glimac {
         initBuffer();
     }
 
-    void Cube::draw() 
+    void Cube::draw(GLuint textureId) 
     {
-      glBindVertexArray(m_vao);
-      glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
-      glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, (void*) 0);
-      glBindVertexArray(0);
+        if(m_type == 0) {
+            glBindVertexArray(m_vao);
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
+            glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, (void*) 0);
+            glBindVertexArray(0);
+        }
+        else {
+            glBindVertexArray(m_vao);
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, textureId);
+            glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, (void*) 0);
+            glBindVertexArray(0);
+        }
     }
 
-    void Cube::drawTexturedCube(GLuint textureId)
-    {
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, textureId);
-        glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, (void*) 0);
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, 0); 
-    }
-    
     void Cube::setVisible() {
         if(m_visible == false){
             m_visible = true;

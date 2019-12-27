@@ -56,9 +56,7 @@ namespace glimac
 			void setInvisible();
 			void initTexture();
 			//draw a cube
-			void draw();
-			//draw a textured cube
-			void drawTexturedCube(GLuint textureId);
+			void draw(GLuint textureId);
 	};
 }
 

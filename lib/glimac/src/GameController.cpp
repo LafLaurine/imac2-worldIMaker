@@ -9,9 +9,9 @@ namespace glimac {
         } else if (e.key.keysym.sym == SDLK_s) {
             cam.moveFront(zoom);
         } else if (e.key.keysym.sym == SDLK_q) {
-            cam.rotateLeft(zoom);              
+            cam.rotateLeft(-zoom);              
         } else if(e.key.keysym.sym == SDLK_d) {
-            cam.rotateLeft(-zoom);            
+            cam.rotateLeft(zoom);            
         }
         else if(e.key.keysym.sym == SDLK_u) {
             cam.rotateUp(-zoom);            
@@ -192,8 +192,9 @@ namespace glimac {
 
     void GameController::setTextureCube(Scene &scene, Cursor &cursor, Texture &tex) {
         int cubeIndex = getIndexCube(scene,cursor);
+        scene.getAllCubes().at(cubeIndex).m_type = 1;
         if(isThereACube(scene,cursor)){
-            tex.initTexture(scene.getAllCubes().at(cubeIndex),scene);
+            tex.initTexture(scene);
         } else {
             std::cout << "Il n'y a pas de cube" << std::endl;
         }

@@ -42,9 +42,8 @@ void main() {
 	vec3 totalLuminosity = min(lum + ambiantLightIntensity, 1.);
     vec3 normal = (uNormalMat * vec4(vNormal, 0.)).xyz;
     vec3 color = uColor;
-	vec4 tex1 = texture(uTexture, vTexCoords);
 	if(setTexture) {
-		fragColor = vec4(totalLuminosity * color, 1.0f) *tex1;
+		fragColor = vec4(texture(uTexture, vTexCoords).xyz, 1.0f);
 	}
 	else {
 		fragColor = vec4(totalLuminosity  * color, 1.0f);

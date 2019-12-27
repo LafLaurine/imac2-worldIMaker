@@ -52,7 +52,7 @@ int main(int argc, char** argv) {
     readFileControl("otherControls.txt",list_ctrlCube);
 
     Cursor cursor;
-    Texture texture("EarthMap.jpg");
+    Texture texture("MoonMap.jpg",scene);
 
     // Application loop
     while(windowManager.isRunning()) {
@@ -85,7 +85,7 @@ int main(int argc, char** argv) {
         //Rendering code
         overlay.beginFrame(windowManager.m_window);
         overlay.drawOverlay(scene);
-        scene.drawCubes(camera);
+        scene.drawCubes(camera, texture.m_textureId);
         scene.addLight();
         scene.recalculate_matrices(camera,cursor);
         cursor.draw();

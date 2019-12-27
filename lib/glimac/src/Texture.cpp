@@ -4,7 +4,7 @@
 #include <GL/glew.h>
 
 namespace glimac {
-	Texture::Texture(std::string n) {
+	Texture::Texture(std::string n, Scene &scene) {
 		m_name = n;
 		m_texturePointer = loadImage("./assets/textures/" + m_name);
 		if(m_texturePointer == NULL)
@@ -16,11 +16,11 @@ namespace glimac {
 		glTexImage2D(GL_TEXTURE_2D,  0,  GL_RGBA,  m_texturePointer->getWidth(),  m_texturePointer->getHeight(),  0,  GL_RGBA,  GL_FLOAT,  m_texturePointer->getPixels());
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glUniform1i(scene.uTextureLocation,0);
 		glBindTexture(GL_TEXTURE_2D,  0);
     }
 
-	void Texture::initTexture(Cube &cube, Scene &scene) {
+	void Texture::initTexture(Scene &scene) {
 		glUniform1i(scene.uIsThereTexture, 1);
-		cube.drawTexturedCube(m_textureId);
     }
 }

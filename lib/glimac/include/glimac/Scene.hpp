@@ -69,7 +69,7 @@ namespace glimac
 			//calculate matrices for the camera
 			void recalculate_matrices(TrackballCamera &camera, Cube cube);
 			void initAllCubes();
-			void drawCubes(TrackballCamera &camera);
+			void drawCubes(TrackballCamera &camera, GLuint texId);
 			void addLight();
 			void setGround();
 			//change luminosity of the scene
