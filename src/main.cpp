@@ -20,8 +20,8 @@
 using namespace glimac;
 
 int main(int argc, char** argv) {    
-    constexpr int WINDOW_WIDTH = 900;
-    constexpr int WINDOW_HEIGHT = 900;
+    constexpr int WINDOW_WIDTH = 1200;
+    constexpr int WINDOW_HEIGHT = 1200;
 
     // Initialize SDL and open a window
     SDLWindowManager windowManager(WINDOW_WIDTH, WINDOW_HEIGHT, "worldIMaker");
@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
    
     //Load camera
     TrackballCamera camera;
-    camera.setPosMatrix(5,5,5);
+    camera.setPosMatrix(10,5,5);
     GameController gameController;
 
     glClearColor(0.4, 0.6, 0.2, 1);
@@ -54,16 +54,17 @@ int main(int argc, char** argv) {
 
     std::vector <ControlPoint> list_ctrl;
     readFileControl("controls.txt",list_ctrl);
-    std::cout << list_ctrl.size() << std::endl;
 
     Cursor cursor;
 
     // Application loop
     while(windowManager.isRunning()) {
         SDL_Event e;
+
         while(SDL_PollEvent(&e)) {
-        // Send event to ImGui
-        ImGui_ImplSDL2_ProcessEvent(&e);
+            // Send event to ImGui
+            ImGui_ImplSDL2_ProcessEvent(&e);
+
         switch (e.type) {
             case SDL_QUIT: windowManager.exit();
 
@@ -107,25 +108,8 @@ int main(int argc, char** argv) {
         if(overlay.getClickedDeleteCube() &1) {
             gameController.deleteCube(scene,cursor);
         }
-        if(overlay.getClickedSave() &1) {
-            std::string filename = "world.txt";
-            std::cout << "Enter name of file : " << std::endl;
-            std::cin >> filename;
-            saveFile(filename,scene.getAllCubes());
-        }
-        if(overlay.getClickedLoad() &1) {
-            std::string filename = "world.txt";
-            std::cout << "Enter name of file : " << std::endl;
-            std::cin >> filename;
-            gameController.cleanScene(scene.getAllCubes());
-            loadFile(filename,scene.getAllCubes());
-        }
         if(overlay.getClickedRBF() &1) {
             applyRbf(scene.getAllCubes(), list_ctrl, FunctionType::InverseQuadratic);
-        }
-
-        if(overlay.getClickedSetGround() &1){
-            scene.setGround();
         }
         overlay.endFrame(windowManager.m_window);
     }

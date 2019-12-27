@@ -4,7 +4,7 @@
 
 namespace glimac {
 
-    TrackballCamera::TrackballCamera():_fDistance(10.0f), _fAngleX(0.0f),_fAngleZ(0.f),_fAngleY(0.0f), _ViewMatrix(glm::mat4(1.f)),  m_position(0.f, 0.f, 0.f)
+    TrackballCamera::TrackballCamera():_fDistance(30.0f), _fAngleX(0.0f),_fAngleZ(0.f),_fAngleY(0.0f), _ViewMatrix(glm::mat4(1.f)),  m_position(0.f, 0.f, 0.f)
     {	
     }
 

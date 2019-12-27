@@ -1,5 +1,7 @@
 #include "glimac/Overlay.hpp"
 #include <iostream>
+#include <imgui/imgui_stdlib.h>
+#include <glimac/File.hpp>
 
 namespace glimac {
 
@@ -24,11 +26,9 @@ namespace glimac {
     }
 
     void Overlay::drawOverlay(Scene &scene) {
-        ImGui::Begin("WorldIMaker tools",&p_open,ImGuiWindowFlags_NoMove | ImGuiWindowFlags_MenuBar  |ImGuiWindowFlags_NoCollapse);
+        ImGui::Begin("Tools",&p_open,ImGuiWindowFlags_NoMove | ImGuiWindowFlags_MenuBar  |ImGuiWindowFlags_NoCollapse);
         {
             ImGui::ColorEdit4("Color", this->getColor());
-
-            int show = 1;
             clickedAddCube = 0;
             clickedDeleteCube = 0;
             clickedDay = 0;
@@ -41,52 +41,59 @@ namespace glimac {
 
             if (ImGui::Button("Reset")) 
             {
-                show ^= 1;
                 clickedReset++;
             }
 
             if (ImGui::Button("Add cube")) {
-                show ^= 1;
                 clickedAddCube++;
             }
             
             if (ImGui::Button("Add texture")) 
             {
-                show ^= 1;
             }
             if (ImGui::Button("Destroy cube")) 
             { 
-                show ^= 1;
                 clickedDeleteCube++;
-            }
-
-            if (ImGui::Button("Save"))
-            {
-                show ^= 1;
-                clickedSaveFile++;
-            }
-
-            if (ImGui::Button("Load"))
-            {
-                show ^= 1;
-                clickedLoadFile++;
             }
             
             if (ImGui::Button("Set ground")) 
             {
-                show ^= 1;
-                clickedSetGround++;
+                scene.setGround();
             }
 
 
             if (ImGui::Button("Generate scene")) 
             {
-                show ^= 1;
                 clickedRBF++;
             }
         }
         ImGui::End();
-        ImGui::Begin("Light tools",&p_open); {
+        ImGui::Begin("Save and load",&p_open);
+        {
+            static std::string filePath = "./assets/doc/";
+            static std::string filename = "world.txt";
+
+            static std::string loadFilePath = "./assets/doc/";
+            static std::string loadFilename = "world.txt";
+            ImGui::Text("Save file :");
+            ImGui::InputText("Path", &filePath);
+            ImGui::InputText("Filename", &filename);
+            if (ImGui::Button("Save"))
+            {
+                saveFile(filePath,filename,scene.getAllCubes());
+            }
+
+            ImGui::Text("Load file :");
+            ImGui::InputText("Path", &loadFilePath);
+            ImGui::InputText("Filename", &loadFilename);
+
+            if (ImGui::Button("Load"))
+            {
+                loadFile(filePath, loadFilename, scene.getAllCubes());
+            }
+        }
+        ImGui::End();
+        ImGui::Begin("Light",&p_open); {
             static int dirLight = scene.getDirectiveLight();
             static float dirLightX = scene.getLightXD();
             static float dirLightY = scene.getLightYD();

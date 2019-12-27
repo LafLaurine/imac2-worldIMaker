@@ -9,7 +9,6 @@
 #include <glimac/TrackballCamera.hpp>
 #include <glimac/Program.hpp>
 #include <glimac/Cube.hpp>
-#include <glimac/Cursor.hpp>
 #include <vector>
 
 
@@ -19,9 +18,9 @@ namespace glimac
 	class Scene
 	{
 		private:
-			static const unsigned int m_height = 10;
-			static const unsigned int m_width = 10;
-			static const unsigned int m_length = 10;
+			static const unsigned int m_height = 20;
+			static const unsigned int m_width = 20;
+			static const unsigned int m_length = 20;
 			int pointLight;
 			int directiveLight;
 			float xLightD, yLightD, zLightD;

@@ -35,10 +35,9 @@ namespace glimac{
 	}
 
 
-    void saveFile(std::string filename,std::vector<Cube> &allCubes){
+    void saveFile(std::string filePath,std::string filename,std::vector<Cube> &allCubes){
        
-        std::ofstream fichier("../assets/doc/" + filename, std::ios::out | std::ios::trunc); 
-
+        std::ofstream fichier(filePath + filename, std::ios::out | std::ios::trunc); 
         if(fichier)  
         {      
 
@@ -53,13 +52,16 @@ namespace glimac{
             fichier.close();
 			std::cout << "Your world is saved" << std::endl;  
         }
-        else  
-            std::cerr << "Cannot open file" << std::endl;
+        else  {
+            std::cout << filePath << std::endl;
+            std::cout << filename << std::endl;
+            std::cerr << "Cannot write file" << std::endl;
+        }
     }
 
-	 void loadFile(std::string filename,std::vector<Cube> &allCubes){
+	 void loadFile(std::string filePath, std::string filename,std::vector<Cube> &allCubes){
 
-        std::ifstream fichier("../assets/doc/"+filename, std::ios::in); 
+        std::ifstream fichier(filePath + filename, std::ios::in); 
 
         if (fichier)
         {

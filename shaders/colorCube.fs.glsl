@@ -14,6 +14,7 @@ uniform vec3 uLightPos_vs;
 uniform vec3 uLightDir_vs;
 uniform vec3 uLightIntensityP;
 uniform vec3 uLightIntensityD;
+uniform vec3 ambiantLightIntensity;
 
 vec3 blinnPhongP(vec3 position_vs, vec3 normal_vs){
     float d = distance(uLightPos_vs, vPos);
@@ -33,8 +34,9 @@ vec3 blinnPhongD(vec3 position_vs, vec3 normal_vs){
 }
 
 void main() {
-    vec3 lum = (blinnPhongP(vPos, normalize(vNormal)) + blinnPhongD(vPos, normalize(vNormal)));
+	vec3 lum = (blinnPhongP(vPos, normalize(vNormal)) + blinnPhongD(vPos, normalize(vNormal)));
+	vec3 totalLuminosity = min(lum + ambiantLightIntensity, 1.);
     vec3 normal = (uNormalMat * vec4(vNormal, 0.)).xyz;
     vec3 color = uColor;
-    fragColor = vec4(lum  * color, 1.0f);
+    fragColor = vec4(totalLuminosity  * color, 1.0f);
 }
