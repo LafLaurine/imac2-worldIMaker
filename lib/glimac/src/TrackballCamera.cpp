@@ -8,6 +8,25 @@ namespace glimac {
     {	
     }
 
+
+    void TrackballCamera::posDefault()
+    {
+        _fDistance = 30.0f;
+        _fAngleX = 0.0f;
+        _fAngleZ = 0.0f;
+    }
+
+    void TrackballCamera::posBottom() {
+        _fDistance = 40.0f;
+        _fAngleX = 180.0f;
+    }
+
+    void TrackballCamera::posLeft() {
+        _fDistance = 30.0f;
+        _fAngleX = -90.0f;
+        _fAngleZ = 90.0f;
+    }
+
     void TrackballCamera::moveFront(const float &delta) {
         _fDistance += delta;
     }

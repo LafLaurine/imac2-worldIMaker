@@ -28,6 +28,10 @@ public:
     void rotateRight(const float &degrees);
     glm::mat4 getViewMatrix() const;
     void setPosMatrix(int l, int L, int H);
+    void posDefault();
+    void posBottom();
+    void posRight();
+    void posLeft();
 };
 
 }

@@ -20,10 +20,13 @@ namespace glimac {
             cam.rotateUp(zoom);            
         }
         else if(e.key.keysym.scancode == SDL_SCANCODE_0) {
-            cam.setPosMatrix(10,0,0);
+            cam.posBottom();
         }
         else if(e.key.keysym.scancode == SDL_SCANCODE_1) {
-            cam.setPosMatrix(10,5,5);
+            cam.posDefault();
+        }
+        else if(e.key.keysym.scancode == SDL_SCANCODE_2) {
+            cam.posLeft();
         }
     }
     
