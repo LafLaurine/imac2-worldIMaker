@@ -13,7 +13,7 @@ out vec2 vTexCoords;
 
 void main() {
 	vNormal = aNormal;
-    vTexCoords = vec2(aVertexTexCoords.x, aVertexTexCoords.y);
+    vTexCoords = aVertexTexCoords;
     vPos = vec3(uModel * vec4(aPos, 1.0));
     gl_Position = uViewProj * uModel * vec4(aPos, 1.0);
 }

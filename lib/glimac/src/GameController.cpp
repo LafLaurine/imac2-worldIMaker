@@ -91,7 +91,7 @@ namespace glimac {
             && position.y <= 10 && position.y >= 0) return true;
         else
         {
-            std::cerr << "Curseur en dehors du monde" << std::endl;
+            std::cerr << "Cursor out the world" << std::endl;
             return false;
         } 
     }
@@ -110,25 +110,25 @@ namespace glimac {
 
     void GameController::addCube(Scene& scene, Cursor& cursor){
             int cubeIndex = getIndexCube(scene,cursor);
-            if(isThereACube(scene,cursor)) {
-                std::cout << "HE OH TU PEUX PAS AJOUTER DE CUBE Y'EN A DEJA UN !!!" << std::endl;
-            }
-            else if(cubeIndex != -1){
-                scene.getAllCubes().at(cubeIndex).setVisible();
-            }
-            else {
-                std::cout << "en dehors grille" << std::endl;
+            if(checkPositionCursor(scene, cursor.getPosition())) {
+                if(isThereACube(scene,cursor)) {
+                    std::cout << "HE OH TU PEUX PAS AJOUTER DE CUBE Y'EN A DEJA UN !!!" << std::endl;
+                }
+                else if(cubeIndex != -1){
+                    scene.getAllCubes().at(cubeIndex).setVisible();
+                }
             }
     }
 
     int GameController::getHighestCube(Scene &scene, Cursor &cursor)
     {
             int maxCol = scene.getHeight();
-            int cubeIndex = getIndexCube(scene,cursor);
+            int cubeIndex;
             if(checkPositionCursor(scene, cursor.getPosition())) {
                 bool cube_found = false;
                 while(cursor.getPosition().y<=maxCol && !cube_found) {
                     if(scene.getAllCubes().at(Scene::from1Dto3D(glm::ivec3(cursor.getPosition().x, cursor.getPosition().y, cursor.getPosition().z))).isVisible() ){
+                        cubeIndex = getIndexCube(scene,cursor);
                         cube_found = true;
                     }
                     else{
@@ -136,24 +136,20 @@ namespace glimac {
                     }
                 }
             }
-            std::cout << cubeIndex << std::endl;
             return cubeIndex;
     }
 
-    //retourner position cubeIndex
-
     void GameController::deleteCube(Scene& scene, Cursor& cursor){
             int cubeIndex = getIndexCube(scene,cursor);
-            if(isThereACube(scene,cursor)) {
-               scene.getAllCubes().at(cubeIndex).setInvisible();
-               glm::vec3 color(0.6f,0.2f,0.2f);
-               scene.getAllCubes().at(cubeIndex).setColor(color);
-            }
-            else if (cubeIndex == -1) {
-                std::cout << "EH OH TU PEUX PAS SUPP DU VIDE" << std::endl;
-            }
-            else {
-                std::cout << "en dehors grille" << std::endl;
+            if(checkPositionCursor(scene, cursor.getPosition())) {
+                if(isThereACube(scene,cursor)) {
+                scene.getAllCubes().at(cubeIndex).setInvisible();
+                glm::vec3 color(0.6f,0.2f,0.2f);
+                scene.getAllCubes().at(cubeIndex).setColor(color);
+                }
+                else if (cubeIndex == -1) {
+                    std::cout << "EH OH TU PEUX PAS SUPP DU VIDE" << std::endl;
+                }
             }
     }
 
@@ -192,6 +188,7 @@ namespace glimac {
 
     void GameController::setTextureCube(Scene &scene, Cursor &cursor, Texture &tex) {
         int cubeIndex = getIndexCube(scene,cursor);
+        std::cout << cubeIndex << std::endl;
         scene.getAllCubes().at(cubeIndex).m_type = 1;
         if(isThereACube(scene,cursor)){
             tex.initTexture(scene);

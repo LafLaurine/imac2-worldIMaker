@@ -111,11 +111,14 @@ namespace glimac {
             glBindVertexArray(0);
         }
         else {
+            glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
             glBindVertexArray(m_vao);
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
             glActiveTexture(GL_TEXTURE0);
             glBindTexture(GL_TEXTURE_2D, textureId);
             glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, (void*) 0);
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, 0); 
             glBindVertexArray(0);
         }
     }
