@@ -15,28 +15,38 @@ namespace glimac {
     class GameController {
         private :
             float zoom = 1.0f;
-            glm::vec3 m_position;
         public:
-            //default constructor
+            ///default constructor of GameController
             GameController() = default;
-            //default destructor
+            ///default destructor of GameController
             ~GameController() = default;
-            //handle camera movements
+            ///handle camera movements
             void handleCamera(SDL_Event &e, TrackballCamera &cam);
+            ///handle scene movements
             void handleScene(SDL_Event &e, Scene &scene, Cursor &cursor, Overlay &overlay, TrackballCamera &camera);
+            ///handle SDL event
             void handleEvents(SDL_Event &e);
+            ///get index of the cube where the cursor is
             int getIndexCube(Scene& scene, Cursor &cursor);
+            ///check if there is a cube at the cursor position
             bool isThereACube(Scene& scene, Cursor &cursor);
-            inline glm::vec3 getPosition(){return m_position;};
+            ///add cube to the scene where the cursor is
             void addCube(Scene& scene, Cursor& cursor);
+            ///delete cube of the scene where the cursor is
             void deleteCube(Scene& scene, Cursor& cursor);
-            unsigned int checkHeighestCube(Scene &scene, Cursor &cursor);
+            ///extrude cube where the cursor is
             void extrudeCube(Scene &scene, Cursor &cursor);
+            ///dig cube where the cursor is
             void digCube(Scene &scene, Cursor &cursor);
+            ///check if cursor is in the scene
             bool checkPositionCursor(Scene &scene, glm::vec3 position);
+            ///get heighest cube of the column where the cursor is
             int getHighestCube(Scene &scene, Cursor &cursor);
+            ///clean scene
             void cleanScene(std::vector <Cube> &allCubes);
+            ///change color of the cube selected
             void changeColorCube(Scene& scene, Cursor &cursor, Overlay &overlay, TrackballCamera &camera);
+            ///set texture of the cube selected
             void setTextureCube(Scene &scene, Cursor &cursor, Texture &tex);
     };
 

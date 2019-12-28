@@ -4,21 +4,23 @@
 
 namespace glimac {
 
+    ///stock cube positions
     glm::vec3 cubePositions[] = {
-        // Front v0,v1,v2,v3
+        // Front
         glm::vec3(0.5, 0.5, 0.5), glm::vec3(-0.5, 0.5, 0.5), glm::vec3(-0.5, -0.5, 0.5), glm::vec3(0.5, -0.5, 0.5),
-        // Right v0,v3,v4,v5
+        // Right
         glm::vec3(0.5, 0.5, 0.5), glm::vec3(0.5, -0.5, 0.5), glm::vec3(0.5, -0.5, -0.5), glm::vec3(0.5, 0.5, -0.5),
-        // Top v0,v5,v6,v0.5	
+        // Top	
         glm::vec3(0.5, 0.5, 0.5), glm::vec3(0.5, 0.5, -0.5), glm::vec3(-0.5, 0.5, -0.5), glm::vec3(-0.5, 0.5, 0.5), 
-        // Left v0.5,v6,v7,v2	
+        // Left	
         glm::vec3(-0.5, 0.5, 0.5), glm::vec3(-0.5, 0.5, -0.5), glm::vec3(-0.5, -0.5, -0.5), glm::vec3(-0.5, -0.5, 0.5),  
-        // Bottom v7,v4,v3,v2
+        // Bottom
         glm::vec3(-0.5, -0.5, -0.5), glm::vec3(0.5, -0.5, -0.5), glm::vec3(0.5, -0.5, 0.5), glm::vec3(-0.5, -0.5, 0.5), 
-        // Back v4,v7,v6,v5	
+        // Back	
         glm::vec3(0.5, -0.5, -0.5), glm::vec3(-0.5, -0.5, -0.5), glm::vec3(-0.5, 0.5, -0.5), glm::vec3(0.5, 0.5, -0.5)
     };
 
+    ///stock cube normals
     const glm::vec3 normals[] = {
         glm::vec3(0, 0, 0.5), glm::vec3(0, 0, 0.5), glm::vec3(0, 0, 0.5), glm::vec3(0, 0, 0.5),
         glm::vec3(0.5, 0, 0), glm::vec3(0.5, 0, 0), glm::vec3(0.5, 0, 0), glm::vec3(0.5, 0, 0),
@@ -28,7 +30,8 @@ namespace glimac {
         glm::vec3(0, 0,-0.5), glm::vec3(0, 0,-0.5), glm::vec3(0, 0,-0.5), glm::vec3(0, 0,-0.5)
     };
 
-    const unsigned short indices[] = {
+    ///stock cube indexes
+    const unsigned short indexes[] = {
         0, 1, 2,   2, 3, 0,       // front
         4, 5, 6,   6, 7, 4,       // right
         8, 9, 10,  10,11,8,       // top
@@ -37,29 +40,24 @@ namespace glimac {
         20,21,22,  22,23,20		  // back
     };
 
-
     Cube::Cube(glm::vec3 position): m_vao(0), m_ibo(0), m_position(position), m_color(0.6f,0.2f,0.2f), m_visible(false), m_type(0) {
          initBuffer();
     }
 
     void Cube::initBuffer() {
-          //Vertex buffer position
-          GLCall(glGenBuffers(1, &m_vbo));
-          GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));    
-          GLCall(glBufferData(GL_ARRAY_BUFFER,
-                  sizeof(cubePositions), cubePositions,
-                  GL_STATIC_DRAW));
-          GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
-          GLuint cubeNormalVbo;
-          //Vertex buffer position
-          GLCall(glGenBuffers(1, &cubeNormalVbo));
-          GLCall(glBindBuffer(GL_ARRAY_BUFFER, cubeNormalVbo));    
-          GLCall(glBufferData(GL_ARRAY_BUFFER,
-                  sizeof(normals), normals,
-                  GL_STATIC_DRAW));
-          GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
+        //Vertex buffer position
+        GLCall(glGenBuffers(1, &m_vbo));
+        GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));    
+        GLCall(glBufferData(GL_ARRAY_BUFFER,sizeof(cubePositions), cubePositions,GL_STATIC_DRAW));
+        GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
+        GLuint cubeNormalVbo;
+        //Vertex buffer position
+        GLCall(glGenBuffers(1, &cubeNormalVbo));
+        GLCall(glBindBuffer(GL_ARRAY_BUFFER, cubeNormalVbo));    
+        GLCall(glBufferData(GL_ARRAY_BUFFER,sizeof(normals), normals,GL_STATIC_DRAW));
+        GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 
-         //Vertex array
+        //Vertex array
         glGenVertexArrays(1, &m_vao);
         glBindVertexArray(m_vao);
         // pos vao
@@ -93,7 +91,7 @@ namespace glimac {
         //Index buffer
         glGenBuffers(1, &m_ibo);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indexes), indexes, GL_STATIC_DRAW);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 
@@ -104,12 +102,14 @@ namespace glimac {
 
     void Cube::draw(GLuint textureId) 
     {
+        //if cube is not textured
         if(m_type == 0) {
             glBindVertexArray(m_vao);
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
             glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, (void*) 0);
             glBindVertexArray(0);
         }
+        //if cube is textured
         else {
             glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
             glBindVertexArray(m_vao);

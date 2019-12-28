@@ -3,6 +3,7 @@
 
 namespace glimac{
 
+    //the cursor needs to be visible even inside cubes, so we disable the depth_test
     void Cursor::draw() {
        glBindVertexArray(m_vao);
        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);

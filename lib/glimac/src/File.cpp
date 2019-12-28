@@ -8,49 +8,49 @@
 namespace glimac{
 
 	void readFileControl(std::string filename,std::vector<ControlPoint> &ctrlPts){
-	
-		std::ifstream fichier("../assets/doc/"+filename, std::ios::in); 
-
-		if (fichier)
+        //search the file 
+		std::ifstream file("../assets/doc/"+filename, std::ios::in); 
+		if(file)
 		{
-
     		std::string line;
-   			
-   			while(getline(fichier, line))
+            //read each line	
+   			while(getline(file, line))
     		{
-        			ControlPoint control;
-        			fichier >> control.m_position.x;
-        			fichier >> control.m_position.y;
-        			fichier >> control.m_position.z;
-        			fichier >> control.m_value;
-        			
-        			ctrlPts.push_back(control);
-    	}
-
-			fichier.close();  
+                //affect each number to the corresponding attributes of the class ControlPoint
+        		ControlPoint control;
+        		file >> control.m_position.x;
+        		file >> control.m_position.y;
+        		file >> control.m_position.z;
+        		file >> control.m_value;
+                //fill the vector with the control class that contains everything we need to know about control points
+        		ctrlPts.push_back(control);
+    	    }
+            //after reading, close the file
+			file.close();  
 		}
 		 else  
-                std::cerr << "Impossible d'ouvrir le fichier !" << std::endl; 
+            std::cerr << "Cannot open file!" << std::endl; 
 
 	}
 
-
     void saveFile(std::string filePath,std::string filename,std::vector<Cube> &allCubes){
-       
-        std::ofstream fichier(filePath + filename, std::ios::out | std::ios::trunc); 
-        if(fichier)  
-        {      
-
-        for (long unsigned int i = 0; i < allCubes.size(); ++i)
-         {
-             fichier << allCubes[i].getPosition().x <<" ";
-             fichier << allCubes[i].getPosition().y <<" ";
-             fichier << allCubes[i].getPosition().z <<" ";
-             fichier << allCubes[i].isVisible() << std::endl;
-         }
-
-            fichier.close();
-			std::cout << "Your world is saved" << std::endl;  
+        //create a file
+        std::ofstream file(filePath + filename, std::ios::out | std::ios::trunc); 
+        if(file)  
+        {
+            //parse the scene      
+            for (long unsigned int i = 0; i < allCubes.size(); ++i)
+            {
+                //each position of the cube is write into the file
+                file << allCubes[i].getPosition().x <<" ";
+                file << allCubes[i].getPosition().y <<" ";
+                file << allCubes[i].getPosition().z <<" ";
+                //write if the cube is visible or not (0 ou 1)
+                file << allCubes[i].isVisible() << std::endl;
+            }
+                //after constructing the file, close it
+                file.close();
+                std::cout << "Your world is saved" << std::endl;  
         }
         else  {
             std::cout << filePath << std::endl;
@@ -60,48 +60,52 @@ namespace glimac{
     }
 
 	 void loadFile(std::string filePath, std::string filename,std::vector<Cube> &allCubes){
+        //search file
+        std::ifstream file(filePath + filename, std::ios::in); 
 
-        std::ifstream fichier(filePath + filename, std::ios::in); 
-
-        if (fichier)
+        if (file)
         {
             std::string line;
             int i=0;
 
             glm::vec3 position;
             bool visibility;
-             
-            fichier >> position.x ;
-            fichier >> position.y ;
-            fichier >> position.z ;
-            fichier >> visibility;
+            //get position and visibility from the file
+            file >> position.x ;
+            file >> position.y ;
+            file >> position.z ;
+            file >> visibility;
 
+            //set position received to the scene's first cube
             allCubes[0].setPosition(position);
+            //if cube is visible, then set it visible or invisible if not
             if (visibility == true)
             {
               allCubes[0].setVisible();
             }
             else allCubes[0].setInvisible();
 
-            while(getline(fichier, line))
+            //do the scene for every others cubes
+            while(getline(file, line))
             {
-             i++;  
-            glm::vec3 position;
-             
-            fichier >> position.x ;
-            fichier >> position.y ;
-            fichier >> position.z ;
-            fichier >> visibility;
+                i++;  
+                glm::vec3 position;
+                
+                file >> position.x ;
+                file >> position.y ;
+                file >> position.z ;
+                file >> visibility;
 
-            allCubes[i].setPosition(position);
-            if (visibility == true)
-            {
-              allCubes[i].setVisible();
-            }
-            else allCubes[i].setInvisible();
+                allCubes[i].setPosition(position);
+                if (visibility == true)
+                {
+                allCubes[i].setVisible();
+                }
+                else allCubes[i].setInvisible();
                             
-        }
-            fichier.close();  
+            }
+            //when task finished, close the file
+            file.close();  
         }
          else  
             std::cerr << "Cannot open file !" << std::endl; 

@@ -26,33 +26,45 @@ int main(int argc, char** argv) {
 
     // Initialize SDL and open a window
     SDLWindowManager windowManager(WINDOW_WIDTH, WINDOW_HEIGHT, "worldIMaker");
-    SDL_WarpMouseInWindow(windowManager.m_window, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2); // set users mouse positioin to the center  
-    Overlay overlay;
+    SDL_WarpMouseInWindow(windowManager.m_window, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2); // set users mouse position to the center  
 
+    //construct overlay
+    Overlay overlay;
+    //construct scene
     Scene scene;
+    //get flatcube program, load it and use it
     ProgramType FlatCube = ProgramType::FlatCube;
     scene.loadProgram(FlatCube,"../shaders/colorCube.vs.glsl","../shaders/colorCube.fs.glsl");
     scene.useProgram(FlatCube);
+    //initialize all of the scene cubes
     scene.initAllCubes();
+    //initialize imgui
     overlay.initImgui(windowManager.m_window,&windowManager.m_glContext);
+    //add light to the scene
     scene.addLight();
    
-    //Load camera
+    //construct camera
     TrackballCamera camera;
+    //set camera position
     camera.setPosMatrix(10,5,5);
+    //construct gamecontroller
     GameController gameController;
 
+    //set background color
     glClearColor(0.4, 0.6, 0.2, 1);
-    scene.create_uniform_matrices(FlatCube);
+    //first initialization of uniform matrices
+    scene.createUniformMatrices(FlatCube);
+    //construct cursor
+    Cursor cursor;
+    //set texture
+    Texture texture("MoonMap.jpg",scene);
 
+    //read control file for tree
     std::vector <ControlPoint> list_ctrlTree;
     readFileControl("controls.txt",list_ctrlTree);
-
+    //read control file for big cube
     std::vector <ControlPoint> list_ctrlCube;
     readFileControl("otherControls.txt",list_ctrlCube);
-
-    Cursor cursor;
-    Texture texture("MoonMap.jpg",scene);
 
     // Application loop
     while(windowManager.isRunning()) {
@@ -83,12 +95,19 @@ int main(int argc, char** argv) {
         }
     }
         //Rendering code
+        //begin imgui
         overlay.beginFrame(windowManager.m_window);
+        //draw tools
         overlay.drawOverlay(scene);
+        //draw cubes
         scene.drawCubes(camera, texture.m_textureId);
+        //add lights
         scene.addLight();
-        scene.recalculate_matrices(camera,cursor);
+        scene.recalculateMatrices(camera,cursor);
+        //draw cursor
         cursor.draw();
+
+        //handle click on the overlay
         if(overlay.getClickedTree() &1) {
             applyRbf(scene.getAllCubes(), list_ctrlTree, FunctionType::InverseQuadratic);
         }
@@ -107,6 +126,7 @@ int main(int argc, char** argv) {
         if(overlay.getClickedAddTexture() &1) {
             gameController.setTextureCube(scene,cursor, texture);
         }
+        //end imgui
         overlay.endFrame(windowManager.m_window);
     }
     return EXIT_SUCCESS;

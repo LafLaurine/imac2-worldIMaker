@@ -16,11 +16,14 @@ namespace glimac
 			std::unique_ptr<Image> m_texturePointer;
 
 		public:
-			// Constructors
+			///default constructor of texture
 			Texture(){};
-			GLuint m_textureId;
+			///texture constructor with name of the texture and the scene concerned precised
 			Texture(std::string n,Scene &scene);
+			GLuint m_textureId;
+			///get the id of the texture
 			inline GLuint getId() const{return m_textureId;}
+			///initialize texture
 			void initTexture(Scene &scene);
 	};
 }

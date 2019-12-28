@@ -47,7 +47,7 @@ private:
 	GLuint m_nGLId;
 };
 
-// Load a shader (but does not compile it)
+///Load a shader (but does not compile it)
 Shader loadShader(GLenum type, const FilePath& filepath);
 
 }

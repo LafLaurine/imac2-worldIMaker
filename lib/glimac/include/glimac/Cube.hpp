@@ -10,6 +10,7 @@ namespace glimac
 {
 	class Cube
 	{
+		///attributes are set protected because the class cursor inherit of cube
 		protected:
 			GLuint m_vao;
 			GLuint m_vbo;
@@ -20,42 +21,41 @@ namespace glimac
 			bool m_visible;
 		public:
 			int m_type;
-			//default constructor
+			///default constructor of cube
 			Cube();
-			//constructor with a specific position
+			///constructor with a specific position set
 			Cube(glm::vec3 position);
-			//default destructor
+			///default destructor of cube
 			~Cube() = default;
-			//initialize cube buffer
+			///initialize cube buffer
 			void initBuffer();
-			//get cube position
+			///get cube position
 			inline glm::vec3 getPosition(){ return m_position; };
-			//get cube VAO
+			///get cube VAO
 			inline GLuint getVAO(){ return m_vao; };
-			//get cube VBO
+			///get cube VBO
 			inline GLuint getVBO(){ return m_vbo; };
-			//get cube IBO
+			///get cube IBO
 			inline GLuint getIBO(){ return m_ibo; };
-			//check if cube is visible
+			///check if cube is visible
 			inline bool isVisible(){ return m_visible; };
-			//set position of the cube
+			///set position of the cube
 			inline glm::vec3 setPosition(glm::vec3 position){return m_position = position;};
-			//set X position of the cube
+			///set X position of the cube
 			inline float setPositionX(float positionX){return m_position.x = positionX;};
-			//set Y position of the cube
+			///set Y position of the cube
 			inline float setPositionY(float positionY){return m_position.y = positionY;};
-			//set Z position of the cube
+			///set Z position of the cube
 			inline float setPositionZ(float positionZ){return m_position.z = positionZ;};
-			//get cube color
+			///get cube color
 			inline glm::vec3 getColor() {return m_color;};
-			//set cube color
+			///set cube color
 			inline void setColor(glm::vec3 colorSend){m_color = colorSend;};
-			// set cube visible
+			///set cube visible
 			void setVisible();
-			//set cube invisible
+			///set cube invisible
 			void setInvisible();
-			void initTexture();
-			//draw a cube
+			///draw a cube
 			void draw(GLuint textureId);
 	};
 }

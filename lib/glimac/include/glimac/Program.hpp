@@ -8,7 +8,7 @@
 
 namespace glimac {
 
-
+	///get programtype to check if cube is flat or textured
 	enum class ProgramType
 	{
 		FlatCube,
@@ -56,10 +56,10 @@ namespace glimac {
 		GLuint m_nGLId;
 	};
 
-	// Build a GLSL program from source code
+	///Build a GLSL program from source code
 	Program buildProgram(const GLchar* vsSrc, const GLchar* fsSrc);
 
-	// Load source code from files and build a GLSL program
+	///Load source code from files and build a GLSL program
 	Program loadProgram(const FilePath& vsFile, const FilePath& fsFile);
 
 	void unbindProgram();

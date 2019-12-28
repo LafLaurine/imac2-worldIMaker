@@ -32,21 +32,21 @@ public:
         return m_FilePath.empty();
     }
 
-    /*! returns the path of a filepath */
+    ///returns the path of a filepath
     FilePath dirPath() const {
         size_t pos = m_FilePath.find_last_of(PATH_SEPARATOR);
         if (pos == std::string::npos) { return FilePath(); }
             return m_FilePath.substr(0, pos);
         }
 
-    /*! returns the file of a filepath  */
+    ///returns the file of a filepath
     std::string file() const {
         size_t pos = m_FilePath.find_last_of(PATH_SEPARATOR);
         if (pos == std::string::npos) { return m_FilePath; }
         return m_FilePath.substr(pos + 1);
     }
 
-    /*! returns the file extension */
+    ///returns the file extension
     std::string ext() const {
         size_t pos = m_FilePath.find_last_of('.');
         if (pos == std::string::npos || pos == 0) { return ""; }
@@ -58,12 +58,12 @@ public:
         return offset >= 0 && m_FilePath.substr(offset, ext.size()) == ext;
     }
 
-    /*! adds file extension */
+    /// adds file extension
     FilePath addExt(const std::string& ext = "") const {
         return FilePath(m_FilePath + ext);
     }
 
-    /*! concatenates two filepaths to this/other */
+    /// concatenates two filepaths to this/other 
     FilePath operator +(const FilePath& other) const {
         if (m_FilePath.empty()) {
             return other;
@@ -88,7 +88,7 @@ public:
         return !operator ==(other);
     }
 
-    /*! output operator */
+    /// output operator 
     friend std::ostream& operator<<(std::ostream& cout, const FilePath& filepath) {
         return (cout << filepath.m_FilePath);
     }

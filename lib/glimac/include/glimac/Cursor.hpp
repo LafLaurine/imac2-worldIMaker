@@ -7,8 +7,11 @@
 namespace glimac {
     class Cursor : public Cube {
         public:
+        ///default constructor of cursor
         Cursor() = default;
+        ///default destructor of cursor
         ~Cursor() = default;
+        //draw cursor
         void draw();
     }; 
 }

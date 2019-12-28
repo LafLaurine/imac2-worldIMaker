@@ -12,9 +12,11 @@
 #include <glimac/GameController.hpp> 
 
 namespace glimac {
-
+	///read file for RBF control points
 	void readFileControl(std::string filename,std::vector<ControlPoint> &ctrlPts);
+	///save game file
 	void saveFile(std::string filePath, std::string filename,std::vector<Cube> &allCubes);
+	///load game file
 	void loadFile(std::string filePath, std::string filename,std::vector<Cube> &allCubes);
 }
 

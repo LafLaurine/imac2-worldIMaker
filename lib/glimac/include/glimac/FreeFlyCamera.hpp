@@ -11,9 +11,9 @@ namespace glimac {
 
 class FreeFlyCamera {
 private:
-    //position caméra
+    ///camera position
     glm::vec3 m_position;
-    //coordonnées sphériques du vecteur
+    ///spherical coordinates
     float m_fPhi;
     float m_fTheta;
     glm::vec3 m_frontVector;
@@ -21,14 +21,23 @@ private:
     glm::vec3 m_upVector;
 
 public:
+    ///default constructor of FreeFlyCamera
     FreeFlyCamera();
+    ///default destructor of FreeFlyCamera
     ~FreeFlyCamera() = default;
+    ///get camera position
     inline glm::vec3 getCamPosition(){ return m_position; };
+    ///compute direction vectors
     void computeDirectionVectors();
+    ///move camera to the left
     void moveLeft(float t);
+    ///move camera forward
     void moveFront(float t);
+    ///rotate camera to the left
     void rotateLeft(float degrees);
+    ///rotate camera up
     void rotateUp(float degrees);
+    ///get view matrix of the camera
     glm::mat4 getViewMatrix() const;
 };
 

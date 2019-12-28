@@ -4,21 +4,25 @@
 namespace glimac {
 
     void GameController::handleCamera(SDL_Event &e, TrackballCamera &cam) {
+        //handle key for camera : Z and S for zoom
         if(e.key.keysym.sym == SDLK_z) {
             cam.moveFront(-zoom);
         } else if (e.key.keysym.sym == SDLK_s) {
             cam.moveFront(zoom);
+        // q and d for moving left/right
         } else if (e.key.keysym.sym == SDLK_q) {
             cam.rotateLeft(-zoom);              
         } else if(e.key.keysym.sym == SDLK_d) {
             cam.rotateLeft(zoom);            
         }
+        //u and w for rotate up/down
         else if(e.key.keysym.sym == SDLK_u) {
             cam.rotateUp(-zoom);            
         }
         else if(e.key.keysym.sym == SDLK_w) {
             cam.rotateUp(zoom);            
         }
+        // 0, 1 and 2 for posing the camera at different places
         else if(e.key.keysym.scancode == SDL_SCANCODE_0) {
             cam.posBottom();
         }
@@ -32,6 +36,7 @@ namespace glimac {
     
     void GameController::handleScene(SDL_Event &e, Scene &scene, Cursor& cursor, Overlay &overlay, TrackballCamera &camera) {
         const Uint8 *state = SDL_GetKeyboardState(NULL);
+        // handle key for scene : holding C and moving cursor for painting
         if (state[SDL_SCANCODE_C]) {
             if (e.key.keysym.scancode == SDL_SCANCODE_LEFT)
                 cursor.setPositionX((cursor.getPosition().x)-1);   
@@ -43,27 +48,35 @@ namespace glimac {
                 cursor.setPositionY((cursor.getPosition().y)-1);
             changeColorCube(scene,cursor,overlay,camera);
         }
+        //left arrow to move cursor to the left + check if there is a cube
         else if (e.key.keysym.scancode == SDL_SCANCODE_LEFT) {
             cursor.setPositionX((cursor.getPosition().x)-1);            
             isThereACube(scene, cursor);
+        //right arrow to move cursor to the left + check if there is a cube
         } else if (e.key.keysym.scancode == SDL_SCANCODE_RIGHT) {
            cursor.setPositionX((cursor.getPosition().x)+1);
             isThereACube(scene, cursor);
+        //up arrow to move cursor to the left + check if there is a cube
         } else if (e.key.keysym.scancode == SDL_SCANCODE_UP) {
         	cursor.setPositionY((cursor.getPosition().y)+1);
         	isThereACube(scene, cursor);
+        //down arrow to move cursor to the left + check if there is a cube
         } else if (e.key.keysym.scancode == SDL_SCANCODE_DOWN) {
             cursor.setPositionY((cursor.getPosition().y)-1);
             isThereACube(scene, cursor);
+        //- to move cursor to the back + check if there is a cube
         } else if(e.key.keysym.scancode == SDL_SCANCODE_KP_MINUS){
         	cursor.setPositionZ((cursor.getPosition().z)-1);
         	isThereACube(scene, cursor);
+        //+ move cursor to the front + check if there is a cube
         } else if(e.key.keysym.scancode == SDL_SCANCODE_KP_PLUS){
         	cursor.setPositionZ((cursor.getPosition().z)+1);
         	isThereACube(scene, cursor);
+        // e to extrude cube
         } else if (e.key.keysym.sym == SDLK_e) {
             extrudeCube(scene,cursor);
         }
+        //g to dig cube
         else if (e.key.keysym.sym == SDLK_g) {
             digCube(scene,cursor);
         }
@@ -72,85 +85,94 @@ namespace glimac {
             
     
     int GameController::getIndexCube(Scene& scene, Cursor& cursor){
+        //parse the scene cubes
         for(unsigned int i = 0; i < scene.getAllCubes().size(); i++) {
-            if(cursor.getPosition().x >= ((scene.getAllCubes().at(i).getPosition().x)) 
-            	&& cursor.getPosition().x <= ((scene.getAllCubes().at(i).getPosition().x))
-            	&& cursor.getPosition().y >= ((scene.getAllCubes().at(i).getPosition().y)) 
-            	&& cursor.getPosition().y <= ((scene.getAllCubes().at(i).getPosition().y))
-                && cursor.getPosition().z <= ((scene.getAllCubes().at(i).getPosition().z))
-                && cursor.getPosition().z >= ((scene.getAllCubes().at(i).getPosition().z))){
+            //check if cursor is at the same position as a cube
+            if(cursor.getPosition() == (scene.getAllCubes().at(i).getPosition())){
             	return  i; 
             }
         }
+        //if there is no cube, return -1
         return -1; 
     }
 
     bool GameController::checkPositionCursor(Scene &scene, glm::vec3 position) {
-        if (   position.x <= scene.getLength() && position.z <= scene.getWidth()
+        //check if cursor is in the scene (height, width and length check)
+        if (position.x <= scene.getLength() && position.z <= scene.getWidth()
             && position.x >= 0 && position.z >= 0
-            && position.y <= 10 && position.y >= 0) return true;
+            && position.y <= scene.getHeight() && position.y >= 0) return true;
         else
         {
-            std::cerr << "Cursor out the world" << std::endl;
+            std::cerr << "Cursor out of the world" << std::endl;
             return false;
         } 
     }
 
-
     bool GameController::isThereACube(Scene& scene, Cursor& cursor){
+        //get index of the cube where the cursor is
     	int cubeIndex = getIndexCube(scene,cursor);
+        //if index is -1 or that the cube is invisible, then there is no cube
     	if(cubeIndex == -1 || !scene.getAllCubes().at(cubeIndex).isVisible()){
-    		std::cout << "Il n'y a PAS de cube, c'est vide !  " << std::endl;
+    		std::cout << "There is NO cube, it's empty !  " << std::endl;
             return false;
     	} else {
-    		std::cout << "Il y a un cube ! " << std::endl;
+    		std::cout << "There is a cube ! " << std::endl;
             return true;
     	}
     }
 
     void GameController::addCube(Scene& scene, Cursor& cursor){
-            int cubeIndex = getIndexCube(scene,cursor);
-            if(checkPositionCursor(scene, cursor.getPosition())) {
-                if(isThereACube(scene,cursor)) {
-                    std::cout << "HE OH TU PEUX PAS AJOUTER DE CUBE Y'EN A DEJA UN !!!" << std::endl;
-                }
-                else if(cubeIndex != -1){
-                    scene.getAllCubes().at(cubeIndex).setVisible();
-                }
+        //get index of the cube where the cursor is
+        int cubeIndex = getIndexCube(scene,cursor);
+        //check if cursor is in the scene
+        if(checkPositionCursor(scene, cursor.getPosition())) {
+            //check if there is already a cube
+            if(isThereACube(scene,cursor)) {
+                std::cout << "You CANNOT add a cube, there is one already" << std::endl;
             }
+            //if not, set the cube visible
+            else if(cubeIndex != -1){
+                scene.getAllCubes().at(cubeIndex).setVisible();
+            }
+        }
+    }
+
+    void GameController::deleteCube(Scene& scene, Cursor& cursor){
+        //get index of the cube where the cursor is
+        int cubeIndex = getIndexCube(scene,cursor);
+        //check if cursor is in the scene
+        if(checkPositionCursor(scene, cursor.getPosition())) {
+            //check if there is a cube
+            if(isThereACube(scene,cursor)) {
+            //set cube invisible
+            scene.getAllCubes().at(cubeIndex).setInvisible();
+            //set color of the cube to the original one, because if we add it again, we don't want to keep the color change
+            glm::vec3 color(0.6f,0.2f,0.2f);
+            scene.getAllCubes().at(cubeIndex).setColor(color);
+            }
+            else if (cubeIndex == -1) {
+                std::cout << "You cannot erase emptiness..." << std::endl;
+            }
+        }
     }
 
     int GameController::getHighestCube(Scene &scene, Cursor &cursor)
     {
-            int maxCol = scene.getHeight();
-            int cubeIndex;
-            if(checkPositionCursor(scene, cursor.getPosition())) {
-                bool cube_found = false;
-                while(cursor.getPosition().y<=maxCol && !cube_found) {
-                    if(scene.getAllCubes().at(Scene::from1Dto3D(glm::ivec3(cursor.getPosition().x, cursor.getPosition().y, cursor.getPosition().z))).isVisible() ){
-                        cubeIndex = getIndexCube(scene,cursor);
-                        cube_found = true;
-                    }
-                    else{
-                        cursor.setPositionY((cursor.getPosition().y)+1);
-                    }
+        int maxCol = scene.getHeight();
+        int cubeIndex;
+        if(checkPositionCursor(scene, cursor.getPosition())) {
+            bool cube_found = false;
+            while(cursor.getPosition().y<=maxCol && !cube_found) {
+                if(scene.getAllCubes().at(Scene::from1Dto3D(glm::ivec3(cursor.getPosition().x, cursor.getPosition().y, cursor.getPosition().z))).isVisible() ){
+                    cubeIndex = getIndexCube(scene,cursor);
+                    cube_found = true;
+                }
+                else{
+                    cursor.setPositionY((cursor.getPosition().y)+1);
                 }
             }
+        }
             return cubeIndex;
-    }
-
-    void GameController::deleteCube(Scene& scene, Cursor& cursor){
-            int cubeIndex = getIndexCube(scene,cursor);
-            if(checkPositionCursor(scene, cursor.getPosition())) {
-                if(isThereACube(scene,cursor)) {
-                scene.getAllCubes().at(cubeIndex).setInvisible();
-                glm::vec3 color(0.6f,0.2f,0.2f);
-                scene.getAllCubes().at(cubeIndex).setColor(color);
-                }
-                else if (cubeIndex == -1) {
-                    std::cout << "EH OH TU PEUX PAS SUPP DU VIDE" << std::endl;
-                }
-            }
     }
 
     void GameController::extrudeCube(Scene& scene, Cursor &cursor)
@@ -177,28 +199,34 @@ namespace glimac {
     }
 
     void GameController::changeColorCube(Scene& scene, Cursor &cursor, Overlay &overlay, TrackballCamera &camera){
+        //get index of the cube where the cursor is
         int cubeIndex = getIndexCube(scene,cursor);
+        //check if there is a cube
         if(isThereACube(scene,cursor)){
+            //get color from the overlay color picker
             glm::vec3 color =  glm::make_vec3(overlay.getColor());
+            //change color of the cube selected
             scene.getAllCubes().at(cubeIndex).setColor(color);
         } else {
-            std::cout << "Il n'y a pas de cube" << std::endl;
+            std::cout << "There is no cube" << std::endl;
         }
     }
 
     void GameController::setTextureCube(Scene &scene, Cursor &cursor, Texture &tex) {
+        //get index of the cube where the cursor is
         int cubeIndex = getIndexCube(scene,cursor);
         std::cout << cubeIndex << std::endl;
         scene.getAllCubes().at(cubeIndex).m_type = 1;
         if(isThereACube(scene,cursor)){
             tex.initTexture(scene);
         } else {
-            std::cout << "Il n'y a pas de cube" << std::endl;
+            std::cout << "There is no cube" << std::endl;
         }
     }
 
     void GameController::cleanScene(std::vector <Cube> &allCubes)
     {
+        //set invisible all the cube
         for(Cube &c: allCubes){
             c.setInvisible();
         }

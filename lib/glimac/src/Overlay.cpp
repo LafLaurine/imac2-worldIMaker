@@ -28,7 +28,9 @@ namespace glimac {
     void Overlay::drawOverlay(Scene &scene) {
         ImGui::Begin("Tools",&p_open,ImGuiWindowFlags_NoMove | ImGuiWindowFlags_MenuBar  |ImGuiWindowFlags_NoCollapse);
         {
+            //set color picker
             ImGui::ColorEdit4("Color", this->getColor());
+            //set clicked variables to communicate with the main
             clickedAddCube = 0;
             clickedDeleteCube = 0;
             clickedTree = 0;
@@ -36,6 +38,7 @@ namespace glimac {
             clickedReset = 0;
             clickedAddTexture = 0;
 
+            //set buttons
             if (ImGui::Button("Reset")) 
             {
                 clickedReset++;
@@ -70,8 +73,11 @@ namespace glimac {
             }
         }
         ImGui::End();
+
+        //set the save and load window
         ImGui::Begin("Save and load",&p_open);
         {
+            //set strings for save and load filepath and filename
             static std::string filePath = "./assets/doc/";
             static std::string filename = "world.txt";
 
@@ -82,6 +88,7 @@ namespace glimac {
             ImGui::InputText("Filename", &filename);
             if (ImGui::Button("Save"))
             {
+                //save file with filepath and filename of the user choice
                 saveFile(filePath,filename,scene.getAllCubes());
             }
 
@@ -91,11 +98,16 @@ namespace glimac {
 
             if (ImGui::Button("Load"))
             {
-                loadFile(filePath, loadFilename, scene.getAllCubes());
+                //load file with filepath and filename of the user choice
+                loadFile(loadFilePath, loadFilename, scene.getAllCubes());
             }
         }
         ImGui::End();
+
+        //light settings windows
         ImGui::Begin("Light",&p_open); {
+
+            //set few variables that came from the scene in order to start with the right settings of the two lights
             static int dirLight = scene.getDirectiveLight();
             static float dirLightX = scene.getLightXD();
             static float dirLightY = scene.getLightYD();
@@ -107,7 +119,9 @@ namespace glimac {
             static float pointLightZ = scene.getLightZP();
 
             const char* itemsLight[] = { "On", "Off"};
-            ImGui::Text("Lumiere directionnelle :");
+
+            //Directionnal light
+            ImGui::Text("Directionnal light :");
             ImGui::Combo("D", &dirLight, itemsLight, IM_ARRAYSIZE(itemsLight));
             ImGui::Text("Coordinates D");
             ImGui::InputFloat("xD",&dirLightX);
@@ -116,8 +130,8 @@ namespace glimac {
             ImGui::Text("Z :");
             ImGui::InputFloat("zD", &dirLightZ);
 
-            // Spotlight
-            ImGui::Text("Lumiere ponctuelle :");
+            // Point light
+            ImGui::Text("Point light :");
             ImGui::Combo("P", &pointLight, itemsLight, IM_ARRAYSIZE(itemsLight));
             ImGui::Text("Coordinates P");
             ImGui::InputFloat("xP", &pointLightX);

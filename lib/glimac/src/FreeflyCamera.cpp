@@ -3,15 +3,18 @@
 #include <iostream>
 
 namespace glimac {
+    
+    //set pi and half pi
+    constexpr double PI = 3.141592653589;
+    constexpr double HALF_PI = PI/2;
 
-    const double PI = 3.141592653589;
-    const double HALF_PI = PI/2;
-
+    //freefly constructor
     FreeFlyCamera::FreeFlyCamera(): m_position(glm::vec3(0.f, 0.f, 10.f)), m_fPhi(PI), m_fTheta(0) {
         computeDirectionVectors();	
     }
     
     void FreeFlyCamera::computeDirectionVectors() {
+        //compute direction vectors
         m_frontVector = glm::vec3(std::cos(m_fTheta) * std::sin(m_fPhi),std::sin(m_fTheta),std::cos(m_fTheta) * std::cos(m_fPhi));
         m_leftVector = glm::vec3(std::sin(m_fPhi + HALF_PI),0,std::cos(m_fPhi + HALF_PI));
         m_upVector = glm::cross(m_frontVector,m_leftVector);
@@ -40,9 +43,9 @@ namespace glimac {
     }
 
     glm::mat4 FreeFlyCamera::getViewMatrix() const {
-        //premier arg : position caméra exprimée dans le monde (eye)
-        //2eme arg : point que la caméra regarde (point)
-        //Dernier arg : axe vertical caméra (up)
+        // first argument: camera position expressed in the world (eye)
+        // 2nd argument: point the camera is looking at (point)
+        // Last argument: vertical camera ax (top)
         return glm::lookAt(m_position,m_position+m_frontVector, m_upVector);
     }
     

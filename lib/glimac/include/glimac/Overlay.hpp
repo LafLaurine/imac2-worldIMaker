@@ -15,27 +15,39 @@ namespace glimac
 {
 	class Overlay
 	{
-		public:
-			// Constructor
-			Overlay(){};
-			//Destructor
-			~Overlay();
-			void initImgui(SDL_Window* window,SDL_GLContext* glContext) const;
-			void beginFrame(SDL_Window* window) const;
-			void drawOverlay(Scene &scene);
-    		void endFrame(SDL_Window* window) const;
-			inline int getClickedReset(){return clickedReset;};
-			inline int getClickedAddCube(){return clickedAddCube;};
-			inline int getClickedDeleteCube(){return clickedDeleteCube;};
-			inline int getClickedTree(){return clickedTree;};
-			inline int getClickedCube(){return clickedCube;};
-			inline int getClickedAddTexture(){return clickedAddTexture;};
-			inline float* getColor(){return &m_myCol;};
 		private:
 			float m_myCol = 0.f;
 			bool p_open;
 			int clickedReset, clickedAddCube, clickedDeleteCube;
 			int clickedTree, clickedCube, clickedAddTexture;
+
+		public:
+			///default constructor of overlay
+			Overlay(){};
+			///default destructor of overlay
+			~Overlay();
+			///initialize Imgui window and context
+			void initImgui(SDL_Window* window,SDL_GLContext* glContext) const;
+			///open new frame of Imgui
+			void beginFrame(SDL_Window* window) const;
+			///draw Imgui window with its tools
+			void drawOverlay(Scene &scene);
+			///end frame of Imgui
+    		void endFrame(SDL_Window* window) const;
+			///get if user clicked reset button
+			inline int getClickedReset(){return clickedReset;};
+			///get if user clicked add cube button
+			inline int getClickedAddCube(){return clickedAddCube;};
+			///get if user clicked add delete cube button
+			inline int getClickedDeleteCube(){return clickedDeleteCube;};
+			///get if user clicked generate tree button
+			inline int getClickedTree(){return clickedTree;};
+			///get if user clicked generate big cube button
+			inline int getClickedCube(){return clickedCube;};
+			///get if user clicked add texture button
+			inline int getClickedAddTexture(){return clickedAddTexture;};
+			//get color of the color picker
+			inline float* getColor(){return &m_myCol;};
 	};
 }
 
