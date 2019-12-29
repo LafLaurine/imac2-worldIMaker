@@ -126,7 +126,7 @@ namespace glimac {
         //set plain ground
         for(unsigned int x = 0; x < m_width; x++) {
             for(unsigned int z = 0; z < m_length; z++) {
-                m_allCubes.at(from1Dto3D(glm::ivec3(x,0,z))).setVisible();
+                m_allCubes.at(from3Dto1D(glm::ivec3(x,0,z))).setVisible();
             }
         }
     }
@@ -156,8 +156,8 @@ namespace glimac {
         }
     }
     
-    //convert a 1D vector to a 3D one
-    unsigned int Scene::from1Dto3D(glm::ivec3 pos) {
+    //convert a 3D vector to a 1D one
+    unsigned int Scene::from3Dto1D(glm::ivec3 pos) {
         return (pos.y * m_width + pos.x + pos.z * m_width * m_length);
     }
 }

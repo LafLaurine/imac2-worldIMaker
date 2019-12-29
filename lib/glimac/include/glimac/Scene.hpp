@@ -87,8 +87,8 @@ namespace glimac
 			void changePointLightPosition(float pointLightX, float pointLightY, float pointLightZ);
 			///change directive light position
 			void changeDirectiveLightPosition(float directiveLightX, float directiveLightY, float directiveLightZ);
-			///transform 1D vector to 3D
-			static unsigned int from1Dto3D(glm::ivec3 pos);
+			///transform 3D vector to 1D
+			static unsigned int from3Dto1D(glm::ivec3 pos);
 	};
 }
 

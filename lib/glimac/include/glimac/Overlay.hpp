@@ -19,7 +19,7 @@ namespace glimac
 			float m_myCol = 0.f;
 			bool p_open;
 			int clickedReset, clickedAddCube, clickedDeleteCube;
-			int clickedTree, clickedCube, clickedAddTexture;
+			int clickedTree, clickedCube, clickedAddTexture, clickedChangeCamera;
 
 		public:
 			///default constructor of overlay
@@ -46,6 +46,8 @@ namespace glimac
 			inline int getClickedCube(){return clickedCube;};
 			///get if user clicked add texture button
 			inline int getClickedAddTexture(){return clickedAddTexture;};
+			///get if user clicked change camera
+			inline int getClickedChangeCamera(){return clickedChangeCamera;};
 			//get color of the color picker
 			inline float* getColor(){return &m_myCol;};
 	};

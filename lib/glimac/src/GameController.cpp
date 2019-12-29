@@ -163,7 +163,7 @@ namespace glimac {
         if(checkPositionCursor(scene, cursor.getPosition())) {
             bool cube_found = false;
             while(cursor.getPosition().y<=maxCol && !cube_found) {
-                if(scene.getAllCubes().at(Scene::from1Dto3D(glm::ivec3(cursor.getPosition().x, cursor.getPosition().y, cursor.getPosition().z))).isVisible() ){
+                if(scene.getAllCubes().at(Scene::from3Dto1D(glm::ivec3(cursor.getPosition().x, cursor.getPosition().y, cursor.getPosition().z))).isVisible() ){
                     cubeIndex = getIndexCube(scene,cursor);
                     cube_found = true;
                 }
@@ -182,7 +182,7 @@ namespace glimac {
             int x = cursor.getPosition().x;
             int z = cursor.getPosition().z;
             int y = getHighestCube(scene,cursor);
-            int pos = Scene::from1Dto3D(glm::ivec3(x,y+1,z));
+            int pos = Scene::from3Dto1D(glm::ivec3(x,y+1,z));
             std::cout << "posit" << pos << std::endl;
             scene.getAllCubes().at(pos).setVisible();
             
@@ -231,7 +231,6 @@ namespace glimac {
             c.setInvisible();
         }
     }
-
 
 
 };

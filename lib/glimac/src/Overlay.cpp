@@ -37,6 +37,7 @@ namespace glimac {
             clickedCube = 0;
             clickedReset = 0;
             clickedAddTexture = 0;
+            clickedChangeCamera = 0;
 
             //set buttons
             if (ImGui::Button("Reset")) 
@@ -70,6 +71,12 @@ namespace glimac {
             if (ImGui::Button("Generate big cube")) 
             {
                clickedCube++;
+            }
+
+            //change camera
+            if (ImGui::Button("Change camera")) 
+            {
+                clickedChangeCamera++;
             }
         }
         ImGui::End();
