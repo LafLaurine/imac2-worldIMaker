@@ -160,18 +160,23 @@ namespace glimac {
     {
         int maxCol = scene.getHeight();
         int cubeIndex;
+        // check if cursor is in the scene
         if(checkPositionCursor(scene, cursor.getPosition())) {
             bool cube_found = false;
             while(cursor.getPosition().y<=maxCol && !cube_found) {
-                if(scene.getAllCubes().at(Scene::from1Dto3D(glm::ivec3(cursor.getPosition().x, cursor.getPosition().y, cursor.getPosition().z))).isVisible() ){
+                // if the cube corrsponding to the cubeIndex is visible
+                if(scene.getAllCubes().at(getIndexCube(scene,cursor)).isVisible()){
                     cubeIndex = getIndexCube(scene,cursor);
                     cube_found = true;
                 }
                 else{
+                    // else check in position y+1
+                    std::cout << "no cube visible in this position" << std::endl;
                     cursor.setPositionY((cursor.getPosition().y)+1);
                 }
             }
         }
+            // return highest cube index
             return cubeIndex;
     }
 
@@ -179,13 +184,16 @@ namespace glimac {
     {
         if(isThereACube(scene,cursor))
         {
-            int x = cursor.getPosition().x;
-            int z = cursor.getPosition().z;
-            int y = getHighestCube(scene,cursor);
-            int pos = Scene::from1Dto3D(glm::ivec3(x,y+1,z));
-            std::cout << "posit" << pos << std::endl;
-            scene.getAllCubes().at(pos).setVisible();
-            
+            /// index of highest cube
+            int highestCube = getHighestCube(scene,cursor);
+        
+            // y of highest cube
+            int posY = scene.getAllCubes().at(highestCube).getPosition().y;
+            int posYPlusOne = posY+1;
+            cursor.setPositionY(posYPlusOne);
+            int highestCubePlusOne = getIndexCube(scene, cursor);
+            std::cout << "index highest cube + 1 : " << highestCubePlusOne << std::endl;
+            scene.getAllCubes().at(highestCubePlusOne).setVisible();
         }
     }
 
