@@ -6,6 +6,7 @@
 #include <glimac/main.hpp>
 #include <glimac/GameController.hpp>
 #include <glimac/TrackballCamera.hpp>
+#include <glimac/FreeFlyCamera.hpp>
 #include <glimac/SDLWindowManager.hpp> 
 #include <glimac/FilePath.hpp> 
 #include <glimac/Overlay.hpp>
@@ -45,6 +46,8 @@ int main(int argc, char** argv) {
    
     //construct camera
     TrackballCamera camera;
+    //construct freefly
+    FreeFlyCamera freeCam;
     //set camera position
     camera.setPosMatrix(10,5,5);
     //construct gamecontroller
@@ -54,10 +57,7 @@ int main(int argc, char** argv) {
     glClearColor(0.4, 0.6, 0.2, 1);
     //first initialization of uniform matrices
     scene.createUniformMatrices(FlatCube);
-    //construct cursor
-    Cursor cursor;
-    //set texture
-    Texture texture("MoonMap.jpg",scene);
+
 
     //read control file for tree
     std::vector <ControlPoint> list_ctrlTree;
@@ -65,6 +65,12 @@ int main(int argc, char** argv) {
     //read control file for big cube
     std::vector <ControlPoint> list_ctrlCube;
     readFileControl("otherControls.txt",list_ctrlCube);
+
+    //construct cursor
+    Cursor cursor;
+    //set texture
+    Texture texture("MoonMap.jpg",scene);
+
 
     // Application loop
     while(windowManager.isRunning()) {
