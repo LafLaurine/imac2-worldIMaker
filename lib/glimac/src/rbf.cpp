@@ -1,5 +1,6 @@
 #include <glimac/rbf.hpp>
 #include <assert.h>
+#include <iostream>
 
 namespace glimac{
   
@@ -17,7 +18,7 @@ namespace glimac{
       return pow(1.0f+pow((epsilon*d),2.0f),-1.0f);
     }
     else if(type == FunctionType::BiharmonicSpline) {
-      return d;
+      return -(epsilon)*d;
     }
     else if(type == FunctionType::Multiquadric) {
       return sqrt(1.0f+(epsilon*pow(d,2.0f)));
@@ -35,12 +36,12 @@ namespace glimac{
     Eigen::VectorXf weight = Eigen::VectorXf::Ones(ctrlPts.size());
     //fill the control point weight vector
     for(unsigned int h=0; h<ctrlPts.size(); h++){
-        weight[h]=ctrlPts[h].m_weight;
+        weight[h]=ctrlPts.at(h).m_weight;
     }
     //fill our matrix
     for(unsigned int i=0; i<ctrlPts.size(); i++){
         for(unsigned int j=0; j<ctrlPts.size(); j++){
-            M_constraint(i,j) = norm(ctrlPts[i].m_position-ctrlPts[j].m_position);
+          M_constraint(i,j) = norm(ctrlPts.at(i).m_position-ctrlPts.at(j).m_position);
         }
     }
     //resolution of M_constraint*omega=weight
@@ -59,9 +60,9 @@ namespace glimac{
     for(Cube &c: allCubes){
       value=0;
       for (size_t i = 1; i < ctrlPts.size(); ++i){
-        value+= getRBF(type, c.getPosition(), ctrlPts[i].m_position, epsilon)*omega[i];
-
+        value+= getRBF(type, c.getPosition(), ctrlPts.at(i).m_position, epsilon)*omega[i];
       } 
+      std::cout << value << std::endl;
       //if value is >= 0, the cube will be visible
       if (value >= 0.f) 
         c.setVisible();
