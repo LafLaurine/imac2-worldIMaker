@@ -48,6 +48,8 @@ namespace glimac {
             void changeColorCube(Scene& scene, Cursor &cursor, Overlay &overlay, TrackballCamera &camera);
             ///set texture of the cube selected
             void setTextureCube(Scene &scene, Cursor &cursor, Texture &tex);
+            //remove texture of the cube selected
+            void removeTextureCube(Scene &scene, Cursor &cursor, Texture &tex);
     };
 
 }

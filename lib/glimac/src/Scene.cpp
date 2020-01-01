@@ -27,6 +27,7 @@ namespace glimac {
         uLightIntensityD = glGetUniformLocation(m_programs[type].getGLId(), "uLightIntensityD");
         uTextureLocation = glGetUniformLocation(m_programs[type].getGLId(), "uTexture");
         uIsThereTexture = glGetUniformLocation(m_programs[type].getGLId(), "setTexture");
+        uCubeTypeLocation = glGetUniformLocation(m_programs[type].getGLId(), "uCubeType");
 
         //compute the model matrix
         glm::mat4 modelMat = glm::mat4(1.0f);
@@ -42,6 +43,7 @@ namespace glimac {
         glm::mat4 viewProjMat = ProjMatrix * MVMatrix;
         glm::mat4 normalMat = glm::transpose(glm::inverse(MVMatrix));
         glUniform1i(uIsThereTexture,0);
+        glUniform1i(uCubeTypeLocation,0);
 
         glUniformMatrix4fv(uMVPLocation, // Location
                                 1, // Count
@@ -151,6 +153,12 @@ namespace glimac {
         for(Cube& cube : m_allCubes){
             recalculateMatrices(camera,cube);
             if(cube.isVisible()) {
+                if(cube.m_type == 0) {
+                    glUniform1i(uCubeTypeLocation,0);
+                }
+                else if(cube.m_type == 1) {
+                    glUniform1i(uCubeTypeLocation,1);
+                }
                 cube.draw(texId);
             }
         }

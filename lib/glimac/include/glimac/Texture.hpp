@@ -25,6 +25,7 @@ namespace glimac
 			inline GLuint getId() const{return m_textureId;}
 			///initialize texture
 			void initTexture(Scene &scene);
+			void unbindTexture(Scene &scene);
 	};
 }
 	

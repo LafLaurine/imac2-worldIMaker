@@ -22,4 +22,8 @@ namespace glimac {
 	void Texture::initTexture(Scene &scene) {
 		glUniform1i(scene.uIsThereTexture, 1);
     }
+
+	void Texture::unbindTexture(Scene &scene) {
+		glUniform1i(scene.uIsThereTexture, 0);
+    }
 }

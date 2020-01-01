@@ -132,6 +132,7 @@ namespace glimac {
             }
             //if not, set the cube visible
             else if(cubeIndex != -1){
+                scene.getAllCubes().at(cubeIndex).m_type = 0;
                 scene.getAllCubes().at(cubeIndex).setVisible();
             }
         }
@@ -216,19 +217,30 @@ namespace glimac {
             //change color of the cube selected
             scene.getAllCubes().at(cubeIndex).setColor(color);
         } else {
-            std::cout << "There is no cube" << std::endl;
+            std::cout << "There is no cube for changing color" << std::endl;
         }
     }
 
     void GameController::setTextureCube(Scene &scene, Cursor &cursor, Texture &tex) {
         //get index of the cube where the cursor is
         int cubeIndex = getIndexCube(scene,cursor);
-        std::cout << cubeIndex << std::endl;
         scene.getAllCubes().at(cubeIndex).m_type = 1;
         if(isThereACube(scene,cursor)){
             tex.initTexture(scene);
         } else {
-            std::cout << "There is no cube" << std::endl;
+            std::cout << "There is no cube for adding texture" << std::endl;
+        }
+    }
+
+    void GameController::removeTextureCube(Scene &scene, Cursor &cursor, Texture &tex) {
+        //get index of the cube where the cursor is
+        int cubeIndex = getIndexCube(scene,cursor);
+        std::cout << cubeIndex << std::endl;
+        scene.getAllCubes().at(cubeIndex).m_type = 0;
+        if(isThereACube(scene,cursor)){
+            tex.unbindTexture(scene);
+        } else {
+            std::cout << "There is no cube for removing texture" << std::endl;
         }
     }
 

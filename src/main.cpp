@@ -69,7 +69,7 @@ int main(int argc, char** argv) {
     //construct cursor
     Cursor cursor;
     //set texture
-    Texture texture("MoonMap.jpg",scene);
+    Texture texture("EarthMap.jpg",scene);
 
 
     // Application loop
@@ -131,6 +131,9 @@ int main(int argc, char** argv) {
         }
         if(overlay.getClickedAddTexture() &1) {
             gameController.setTextureCube(scene,cursor, texture);
+        }
+        if(overlay.getClickedRemoveTexture() &1) {
+            gameController.removeTextureCube(scene,cursor, texture);
         }
         //end imgui
         overlay.endFrame(windowManager.m_window);

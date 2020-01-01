@@ -53,6 +53,12 @@ namespace glimac {
             {
                 clickedAddTexture++;
             }
+
+            if (ImGui::Button("Remove texture")) 
+            {
+                clickedRemoveTexture++;
+            }
+
             if (ImGui::Button("Destroy cube")) 
             { 
                 clickedDeleteCube++;

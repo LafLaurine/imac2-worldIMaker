@@ -37,7 +37,7 @@ namespace glimac
 			~Scene() = default;
 			///attributes for uniform location
 			GLuint uMVLocation,uMVPLocation, uLightLocation, uLightPointLocation, uLightPosLocation, uColorLocation, uNormalMatLocation;
-			GLuint uLuminosityLocation;
+			GLuint uLuminosityLocation, uCubeTypeLocation;
 			GLuint uKd, uKs, uShininess, uLightDir_vs, uLightIntensityP, uLightIntensityD;
 			GLuint uTextureLocation, uIsThereTexture;
 			///get scene's height

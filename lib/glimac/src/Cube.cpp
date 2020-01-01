@@ -50,49 +50,53 @@ namespace glimac {
         GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));    
         GLCall(glBufferData(GL_ARRAY_BUFFER,sizeof(cubePositions), cubePositions,GL_STATIC_DRAW));
         GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
+        
         GLuint cubeNormalVbo;
-        //Vertex buffer position
         GLCall(glGenBuffers(1, &cubeNormalVbo));
         GLCall(glBindBuffer(GL_ARRAY_BUFFER, cubeNormalVbo));    
         GLCall(glBufferData(GL_ARRAY_BUFFER,sizeof(normals), normals,GL_STATIC_DRAW));
         GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 
         //Vertex array
-        glGenVertexArrays(1, &m_vao);
-        glBindVertexArray(m_vao);
+        GLCall(glGenVertexArrays(1, &m_vao));
+        GLCall(glBindVertexArray(m_vao));
         // pos vao
-        glEnableVertexAttribArray(0);
-        glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), NULL);
+        GLCall(glEnableVertexAttribArray(0));
+        GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));
+        GLCall(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), NULL));
+        GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
+
         // normal vao
-        glEnableVertexAttribArray(1);
-        glBindBuffer(GL_ARRAY_BUFFER, cubeNormalVbo);
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), NULL);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glBindVertexArray(0);
+        GLCall(glEnableVertexAttribArray(1));
+        GLCall(glBindBuffer(GL_ARRAY_BUFFER, cubeNormalVbo));
+        GLCall(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), NULL));
+        GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
+
         //light vao
         unsigned int lightVAO;
-        glGenVertexArrays(1, &lightVAO);
-        glBindVertexArray(lightVAO);
-        // we only need to bind to the VBO, the container's VBO's data already contains the correct data.
-        glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-        // set the vertex attributes (only position data for our lamp)
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-        glEnableVertexAttribArray(0);
+        GLCall(glGenVertexArrays(1, &lightVAO));
+        GLCall(glBindVertexArray(lightVAO));
+        GLCall(glEnableVertexAttribArray(0));
+        GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));
+        GLCall(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), NULL));
+        GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
+        GLCall(glBindVertexArray(0));
 
         unsigned int textureVAO;
-        glGenVertexArrays(1, &textureVAO);
-        glBindVertexArray(textureVAO);
+        GLCall(glGenVertexArrays(1, &textureVAO));
+        GLCall(glBindVertexArray(textureVAO));
         // we only need to bind to the VBO, the container's VBO's data already contains the correct data.
-        glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-        glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-        glEnableVertexAttribArray(2);
+        GLCall(glEnableVertexAttribArray(2));
+        GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));
+        GLCall(glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0));
+        GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
+        GLCall(glBindVertexArray(0));
 
         //Index buffer
-        glGenBuffers(1, &m_ibo);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indexes), indexes, GL_STATIC_DRAW);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+        GLCall(glGenBuffers(1, &m_ibo));
+        GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo));
+        GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indexes), indexes, GL_STATIC_DRAW));
+        GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
     }
 
 
@@ -108,9 +112,10 @@ namespace glimac {
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
             glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, (void*) 0);
             glBindVertexArray(0);
+            //std::cout << "oui" << std::endl;
         }
         //if cube is textured
-        else {
+        else if(m_type == 1){
             glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
             glBindVertexArray(m_vao);
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
