@@ -50,8 +50,10 @@ int main(int argc, char** argv) {
     FreeFlyCamera freeCam;
     //set camera position
     camera.setPosMatrix(10,5,5);
+    //construct cursor
+    Cursor cursor;
     //construct gamecontroller
-    GameController gameController;
+    GameController gameController(&scene, &cursor);
 
     //set background color
     glClearColor(0.4, 0.6, 0.2, 1);
@@ -67,7 +69,7 @@ int main(int argc, char** argv) {
     readFileControl("otherControls.txt",list_ctrlCube);
 
     //construct cursor
-    Cursor cursor;
+    //Cursor cursor;
     //set texture
     Texture texture("MoonMap.jpg",scene);
 
@@ -84,7 +86,7 @@ int main(int argc, char** argv) {
             case SDL_QUIT: windowManager.exit();
 
                 case SDL_KEYDOWN:
-                    gameController.handleScene(e,scene,cursor,overlay,camera);
+                    gameController.handleScene(e,overlay,camera);
                     gameController.handleCamera(e,camera);
                 default : break;
 
@@ -124,13 +126,13 @@ int main(int argc, char** argv) {
             gameController.cleanScene(scene.getAllCubes());
         }
         if(overlay.getClickedAddCube() &1) {
-            gameController.addCube(scene,cursor);
+            gameController.addToCursor();
         }
         if(overlay.getClickedDeleteCube() &1) {
-            gameController.deleteCube(scene,cursor);
+            gameController.deleteToCursor();
         }
         if(overlay.getClickedAddTexture() &1) {
-            gameController.setTextureCube(scene,cursor, texture);
+            gameController.setTextureCube(texture);
         }
         //end imgui
         overlay.endFrame(windowManager.m_window);

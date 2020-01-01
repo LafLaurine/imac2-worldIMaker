@@ -16,7 +16,7 @@ namespace glimac
 			GLuint m_vbo;
 			GLuint m_ibo;
 			GLuint texId;
-			glm::vec3 m_position;
+			glm::ivec3 m_position;
 			glm::vec3 m_color;
 			bool m_visible;
 		public:
@@ -24,13 +24,13 @@ namespace glimac
 			///default constructor of cube
 			Cube();
 			///constructor with a specific position set
-			Cube(glm::vec3 position);
+			Cube(glm::ivec3 position);
 			///default destructor of cube
 			~Cube() = default;
 			///initialize cube buffer
 			void initBuffer();
 			///get cube position
-			inline glm::vec3 getPosition(){ return m_position; };
+			inline glm::ivec3 getPosition(){ return m_position; };
 			///get cube VAO
 			inline GLuint getVAO(){ return m_vao; };
 			///get cube VBO
@@ -40,13 +40,13 @@ namespace glimac
 			///check if cube is visible
 			inline bool isVisible(){ return m_visible; };
 			///set position of the cube
-			inline glm::vec3 setPosition(glm::vec3 position){return m_position = position;};
+			inline glm::ivec3 setPosition(glm::ivec3 position){ return m_position = position;};
 			///set X position of the cube
-			inline float setPositionX(float positionX){return m_position.x = positionX;};
+			inline int setPositionX(int positionX){return m_position.x = positionX;};
 			///set Y position of the cube
-			inline float setPositionY(float positionY){return m_position.y = positionY;};
+			inline int setPositionY(int positionY){return m_position.y = positionY;};
 			///set Z position of the cube
-			inline float setPositionZ(float positionZ){return m_position.z = positionZ;};
+			inline int setPositionZ(int positionZ){return m_position.z = positionZ;};
 			///get cube color
 			inline glm::vec3 getColor() {return m_color;};
 			///set cube color

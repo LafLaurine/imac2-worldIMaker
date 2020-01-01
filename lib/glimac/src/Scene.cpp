@@ -57,8 +57,12 @@ namespace glimac {
 
     void Scene::recalculateMatrices(TrackballCamera &camera,Cube cube) {
         //compute the model view matrix with the camera
+        float xCube = cube.getPosition().x;
+        float yCube = cube.getPosition().y;
+        float zCube = cube.getPosition().z;
+        glm::vec3 cubePos = {xCube, yCube, zCube};
         glm::mat4 camera_VM = camera.getViewMatrix();
-        glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), cube.getPosition());
+        glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), cubePos);
         glUniform3fv(uColorLocation, 1, glm::value_ptr(cube.getColor()));
         glUniformMatrix4fv(uMVLocation, // Location
                             1, // Count
@@ -126,7 +130,9 @@ namespace glimac {
         //set plain ground
         for(unsigned int x = 0; x < m_width; x++) {
             for(unsigned int z = 0; z < m_length; z++) {
-                m_allCubes.at(from3Dto1D(glm::ivec3(x,0,z))).setVisible();
+                //m_allCubes.at(from3Dto1D(glm::ivec3(x,0,z))).setVisible();
+                Cube* tempCube = tabCubes[x][0][z];
+                gameController.addCube(tempCube*);
             }
         }
     }
@@ -138,7 +144,10 @@ namespace glimac {
             {
                 for(unsigned int x= 0 ; x<m_width ; x++)
                 {
-                    Cube temp_cube(glm::vec3(x,y,z));
+                    Cube temp_cube(glm::ivec3(x,y,z));
+                    // temp cube inutile
+                    // APPELLE ADD_CUBE(cube)
+                    gameController.addCube(temp_cube);
                     m_allCubes.push_back(temp_cube);
                 }
             }
