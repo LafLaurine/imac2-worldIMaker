@@ -25,6 +25,7 @@ namespace glimac {
         uLightDir_vs = glGetUniformLocation(m_programs[type].getGLId(), "uLightDir_vs");
         uLightIntensityP = glGetUniformLocation(m_programs[type].getGLId(), "uLightIntensityP");
         uLightIntensityD = glGetUniformLocation(m_programs[type].getGLId(), "uLightIntensityD");
+        uAmbiantLight = glGetUniformLocation(m_programs[type].getGLId(), "ambiantLightIntensity");
         uTextureLocation = glGetUniformLocation(m_programs[type].getGLId(), "uTexture");
         uIsThereTexture = glGetUniformLocation(m_programs[type].getGLId(), "setTexture");
         uCubeTypeLocation = glGetUniformLocation(m_programs[type].getGLId(), "uCubeType");
@@ -89,6 +90,7 @@ namespace glimac {
         glUniform3f(uKd, 0.6, 0.6, 0.6);
         glUniform3f(uKs, 0, 0.0, 0.0);
         glUniform1f(uShininess, 30.0);
+        glUniform3f(uAmbiantLight,0.2,0.2,0.2);
         //compute light of the point light
         glm::vec4 LightPos = MVMatrix * glm::vec4(xLightP, yLightP, zLightP, 1);
         glUniform3f(uLightPosLocation, LightPos.x, LightPos.y, LightPos.z);

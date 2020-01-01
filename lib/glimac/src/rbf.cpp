@@ -18,7 +18,10 @@ namespace glimac{
       return pow(1.0f+pow((epsilon*d),2.0f),-1.0f);
     }
     else if(type == FunctionType::BiharmonicSpline) {
-      return -(epsilon)*d;
+      if(d == 0) 
+        return 1;
+      else
+        return -(epsilon)*d;
     }
     else if(type == FunctionType::Multiquadric) {
       return sqrt(1.0f+(epsilon*pow(d,2.0f)));

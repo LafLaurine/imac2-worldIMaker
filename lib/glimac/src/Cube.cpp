@@ -116,6 +116,7 @@ namespace glimac {
         }
         //if cube is textured
         else if(m_type == 1){
+            glEnable(GL_BLEND);
             glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
             glBindVertexArray(m_vao);
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
@@ -125,6 +126,7 @@ namespace glimac {
             glActiveTexture(GL_TEXTURE0);
             glBindTexture(GL_TEXTURE_2D, 0); 
             glBindVertexArray(0);
+            glDisable(GL_BLEND);
         }
     }
 

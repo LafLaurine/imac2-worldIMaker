@@ -36,7 +36,7 @@ namespace glimac
 			///default destructor of scene
 			~Scene() = default;
 			///attributes for uniform location
-			GLuint uMVLocation,uMVPLocation, uLightLocation, uLightPointLocation, uLightPosLocation, uColorLocation, uNormalMatLocation;
+			GLuint uMVLocation,uMVPLocation, uLightLocation, uLightPointLocation,uAmbiantLight, uLightPosLocation, uColorLocation, uNormalMatLocation;
 			GLuint uLuminosityLocation, uCubeTypeLocation;
 			GLuint uKd, uKs, uShininess, uLightDir_vs, uLightIntensityP, uLightIntensityD;
 			GLuint uTextureLocation, uIsThereTexture;
