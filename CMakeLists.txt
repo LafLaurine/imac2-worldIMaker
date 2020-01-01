@@ -73,12 +73,12 @@ endif()
 
 
 # compilation flags
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -lSDL2 -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -lSDL2 -lSDL_image -lSDL_mixer -std=c++11")
 set(CMAKE_CXX_FLAGS_DEBUG_INIT "-g")
 
 include_directories(${SDL2_INCLUDE_DIRS} ${OPENGL_INCLUDE_DIR} ${GLEW_INCLUDE_DIR} lib/glimac/include lib/imgui/include third-party/include)
 
-set(ALL_LIBRARIES ${SDL2_LIBRARIES} glimac imgui ${OPENGL_LIBRARIES} ${GLEW_LIBRARY})
+set(ALL_LIBRARIES ${SDL2_LIBRARIES} SDL2_image glimac imgui ${OPENGL_LIBRARIES} ${GLEW_LIBRARY})
 
 # Add the glimac library
 add_subdirectory(lib/glimac)

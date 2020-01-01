@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 
 namespace glimac {
+	
 	Texture::Texture(std::string n) {
 		m_name = n;
 		m_texturePointer = loadImage("./assets/textures/" + m_name);
@@ -34,6 +35,7 @@ namespace glimac {
 			glEnable(GL_TEXTURE_2D);
 			// Texture call
 			glBindTexture(GL_TEXTURE_2D, *gameStart);
+			glPushMatrix();
 				glBegin(GL_QUADS);
 				glColor4ub(255,255,255,255);
 				// Texture coordinate
@@ -47,6 +49,7 @@ namespace glimac {
 				glTexCoord2f(0, 1);
 				glVertex2f(0, 600);
 				glEnd();
+			glPopMatrix();
 			// Deactivate 2D texture
 			glDisable(GL_TEXTURE_2D);		
 	}
