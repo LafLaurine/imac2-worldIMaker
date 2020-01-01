@@ -1,7 +1,5 @@
 #include <GL/glew.h>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_mixer.h>
-#include <SDL2/SDL_image.h>
 #include <iostream>
 #include <cstddef>
 #include <math.h>
@@ -17,9 +15,7 @@
 #include <glimac/Scene.hpp>
 #include <glimac/Cursor.hpp>
 #include <glimac/Texture.hpp>
-#include <imgui/imgui.h>
-#include <imgui/imgui_impl_opengl3.h>
-#include <imgui/imgui_impl_sdl.h>
+#include <glimac/Menu.hpp>
 
 using namespace glimac;
 
@@ -35,6 +31,9 @@ int main(int argc, char** argv) {
     Overlay overlay;
     //construct scene
     Scene scene;
+
+    ProgramType type = ProgramType::TexturedCube;
+    Menu menu(scene,type);
     //get flatcube program, load it and use it
     ProgramType FlatCube = ProgramType::FlatCube;
     scene.loadProgram(FlatCube,"../shaders/colorCube.vs.glsl","../shaders/colorCube.fs.glsl");
@@ -45,25 +44,11 @@ int main(int argc, char** argv) {
     overlay.initImgui(windowManager.m_window,&windowManager.m_glContext);
     //add light to the scene
     scene.addLight();
-    
-    SDL_Renderer *renderer = NULL;
-	SDL_Texture *img = NULL;
-    SDL_Texture *img2 = NULL;
 
-	int w, h; // texture width & height
-
-	renderer = SDL_CreateRenderer(windowManager.m_window, -1, SDL_RENDERER_ACCELERATED);
-
-	img = IMG_LoadTexture(renderer, "./assets/textures/menu.jpg");
-	SDL_QueryTexture(img, NULL, NULL, &w, &h); // get the width and height of the texture
-	// put the location where we want the texture to be drawn into a rectangle
-	// I'm also scaling the texture 2x simply by setting the width and height
-	SDL_Rect texr; texr.x = 0; texr.y = 0; texr.w = w; texr.h = h; 
-
-
-	img2 = IMG_LoadTexture(renderer, "./assets/textures/pause.jpg");
-	SDL_QueryTexture(img2, NULL, NULL, &w, &h);
-
+    //menu
+    Texture textureMenu("truc.jpg");
+    //menu
+    Texture texturePause("truc.jpg");
     //set texture
     Texture texture("MoonMap.jpg");
    
@@ -75,10 +60,8 @@ int main(int argc, char** argv) {
     camera.setPosMatrix(10,5,5);
     //construct gamecontroller
     GameController gameController;
-
     //first initialization of uniform matrices
     scene.createUniformMatrices(FlatCube);
-
 
     //read control file for tree
     std::vector <ControlPoint> list_ctrlTree;
@@ -89,7 +72,6 @@ int main(int argc, char** argv) {
 
     //construct cursor
     Cursor cursor;
-
 
     // Application loop
     while(windowManager.isRunning()) {
@@ -126,24 +108,20 @@ int main(int argc, char** argv) {
                
         }
     }
-
         if(!gameController.gameOn) {
-            SDL_RenderClear(renderer);
-            // copy the texture to the rendering context
-            SDL_RenderCopy(renderer, img, NULL, &texr);
-            // flip the backbuffer
-            // this means that everything that we prepared behind the screens is actually shown
-            SDL_RenderPresent(renderer);
+            menu.draw(scene,type);
         }
 
+        overlay.beginFrame(windowManager.m_window);
         //Rendering code
         //begin imgui
         if(gameController.gameOn == true) {
+            scene.useProgram(FlatCube);
             //set background color
             glClearColor(0.4, 0.6, 0.2, 1);
-            overlay.beginFrame(windowManager.m_window);
-           
-           
+            if(gameController.gamePause) {
+                displayFull(&texturePause.m_textureId);   
+            }
             if(!gameController.gamePause) {
             //draw tools
             overlay.drawOverlay(scene);
@@ -175,15 +153,14 @@ int main(int argc, char** argv) {
                 gameController.setTextureCube(scene,cursor, texture);
             }
             if(overlay.getClickedRemoveTexture() &1) {
-               // gameController.removeTextureCube(scene,cursor, texture);
+            //gameController.removeTextureCube(scene,cursor, texture);
             }
 
             }
-            //end imgui
-            overlay.endFrame(windowManager.m_window);
         }
+        //end imgui
+        overlay.endFrame(windowManager.m_window);
 
     }
-    SDL_DestroyRenderer(renderer); 
     return EXIT_SUCCESS;
 }
