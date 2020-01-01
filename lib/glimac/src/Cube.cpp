@@ -40,7 +40,7 @@ namespace glimac {
         20,21,22,  22,23,20		  // back
     };
 
-    Cube::Cube(glm::vec3 position): m_vao(0), m_ibo(0), m_position(position), m_color(0.6f,0.2f,0.2f), m_visible(false), m_type(0) {
+    Cube::Cube(glm::ivec3 position): m_vao(0), m_ibo(0), m_position(position), m_color(0.6f,0.2f,0.2f), m_visible(false), m_type(0) {
          initBuffer();
     }
 

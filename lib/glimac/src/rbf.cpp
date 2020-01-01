@@ -59,7 +59,7 @@ namespace glimac{
     for(Cube &c: allCubes){
       value=0;
       for (size_t i = 1; i < ctrlPts.size(); ++i){
-        value+= getRBF(type, c.getPosition(), ctrlPts[i].m_position, epsilon)*omega[i];
+        value+= getRBF(type, glm::vec3(c.getPosition()), ctrlPts[i].m_position, epsilon)*omega[i];
 
       } 
       //if value is >= 0, the cube will be visible

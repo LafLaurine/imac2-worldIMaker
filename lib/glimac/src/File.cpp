@@ -68,7 +68,7 @@ namespace glimac{
             std::string line;
             int i=0;
 
-            glm::vec3 position;
+            glm::ivec3 position;
             bool visibility;
             //get position and visibility from the file
             file >> position.x ;
@@ -89,7 +89,7 @@ namespace glimac{
             while(getline(file, line))
             {
                 i++;  
-                glm::vec3 position;
+                glm::ivec3 position;
                 
                 file >> position.x ;
                 file >> position.y ;

@@ -9,6 +9,7 @@
 #include <glimac/TrackballCamera.hpp>
 #include <glimac/Program.hpp>
 #include <glimac/Cube.hpp>
+#include <glimac/GameController.hpp>
 #include <vector>
 
 
@@ -35,6 +36,7 @@ namespace glimac
 			Scene() = default;
 			///default destructor of scene
 			~Scene() = default;
+			Cube* tabCubes[20][20][20];
 			///attributes for uniform location
 			GLuint uMVLocation,uMVPLocation, uLightLocation, uLightPointLocation, uLightPosLocation, uColorLocation, uNormalMatLocation;
 			GLuint uLuminosityLocation;
