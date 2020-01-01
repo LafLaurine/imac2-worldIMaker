@@ -43,6 +43,13 @@ int main(int argc, char** argv) {
     overlay.initImgui(windowManager.m_window,&windowManager.m_glContext);
     //add light to the scene
     scene.addLight();
+
+    //menu
+    Texture textureMenu("truc.jpg");
+    //menu
+    Texture texturePause("truc.jpg");
+    //set texture
+    Texture texture("MoonMap.jpg");
    
     //construct camera
     TrackballCamera camera;
@@ -53,8 +60,9 @@ int main(int argc, char** argv) {
     //construct gamecontroller
     GameController gameController;
 
-    //set background color
-    glClearColor(0.4, 0.6, 0.2, 1);
+        if(!gameController.gameOn) {
+            displayFull(&textureMenu.m_textureId);
+        }
     //first initialization of uniform matrices
     scene.createUniformMatrices(FlatCube);
 
@@ -68,8 +76,6 @@ int main(int argc, char** argv) {
 
     //construct cursor
     Cursor cursor;
-    //set texture
-    Texture texture("EarthMap.jpg",scene);
 
 
     // Application loop
@@ -81,62 +87,81 @@ int main(int argc, char** argv) {
             ImGui_ImplSDL2_ProcessEvent(&e);
 
         switch (e.type) {
+            
             case SDL_QUIT: windowManager.exit();
 
+            case SDL_MOUSEBUTTONUP:
+            if (SDL_BUTTON_LEFT) {
+                gameController.inGame();
+            }
+            break;
+
+            if(gameController.gameOn == true) {
                 case SDL_KEYDOWN:
                     gameController.handleScene(e,scene,cursor,overlay,camera);
                     gameController.handleCamera(e,camera);
+                    if(e.key.keysym.sym == SDLK_p) {
+                        if(!gameController.gamePause) {
+                            gameController.pausedGame();
+                        }
+                        else {
+                            gameController.gamePause = false;
+                        }
+                    }
                 default : break;
-
-			case SDL_MOUSEMOTION:
-				/*if (SDL_GetMouseState(NULL, NULL) && SDL_BUTTON(SDL_BUTTON_RIGHT)) {
-					if (e.motion.xrel != 0) {
-						camera.rotateRight(float(e.motion.xrel) * 1.0f);
-					}
-					if (e.motion.yrel != 0) {
-						camera.rotateLeft(float(e.motion.yrel) * 1.0f);
-					}
-				}*/
-			break;
+            }
+               
         }
     }
+        overlay.beginFrame(windowManager.m_window);
         //Rendering code
         //begin imgui
-        overlay.beginFrame(windowManager.m_window);
-        //draw tools
-        overlay.drawOverlay(scene);
-        //draw cubes
-        scene.drawCubes(camera, texture.m_textureId);
-        //add lights
-        scene.addLight();
-        scene.recalculateMatrices(camera,cursor);
-        //draw cursor
-        cursor.draw();
+        if(gameController.gameOn == true) {
 
-        //handle click on the overlay
-        if(overlay.getClickedTree() &1) {
-            applyRbf(scene.getAllCubes(), list_ctrlTree, FunctionType::InverseQuadratic);
-        }
-        if(overlay.getClickedCube() &1) {
-            applyRbf(scene.getAllCubes(), list_ctrlCube, FunctionType::Gaussian);
-        }
-        if(overlay.getClickedReset() &1) {
-            gameController.cleanScene(scene.getAllCubes());
-        }
-        if(overlay.getClickedAddCube() &1) {
-            gameController.addCube(scene,cursor);
-        }
-        if(overlay.getClickedDeleteCube() &1) {
-            gameController.deleteCube(scene,cursor);
-        }
-        if(overlay.getClickedAddTexture() &1) {
-            gameController.setTextureCube(scene,cursor, texture);
-        }
-        if(overlay.getClickedRemoveTexture() &1) {
-            gameController.removeTextureCube(scene,cursor, texture);
+            //set background color
+            glClearColor(0.4, 0.6, 0.2, 1);
+            if(gameController.gamePause) {
+                displayFull(&texturePause.m_textureId);   
+            }
+            if(!gameController.gamePause) {
+            //draw tools
+            overlay.drawOverlay(scene);
+            //draw cubes
+            scene.drawCubes(camera, texture.m_textureId);
+            //add lights
+            scene.addLight();
+            scene.recalculateMatrices(camera,cursor);
+            //draw cursor
+            cursor.draw();
+
+            //handle click on the overlay
+            if(overlay.getClickedTree() &1) {
+                applyRbf(scene.getAllCubes(), list_ctrlTree, FunctionType::InverseQuadratic);
+            }
+            if(overlay.getClickedCube() &1) {
+                applyRbf(scene.getAllCubes(), list_ctrlCube, FunctionType::Gaussian);
+            }
+            if(overlay.getClickedReset() &1) {
+                gameController.cleanScene(scene.getAllCubes());
+            }
+            if(overlay.getClickedAddCube() &1) {
+                gameController.addCube(scene,cursor);
+            }
+            if(overlay.getClickedDeleteCube() &1) {
+                gameController.deleteCube(scene,cursor);
+            }
+            if(overlay.getClickedAddTexture() &1) {
+                gameController.setTextureCube(scene,cursor, texture);
+            }
+            if(overlay.getClickedRemoveTexture() &1) {
+                gameController.removeTextureCube(scene,cursor, texture);
+            }
+
+            }
         }
         //end imgui
         overlay.endFrame(windowManager.m_window);
+
     }
     return EXIT_SUCCESS;
 }

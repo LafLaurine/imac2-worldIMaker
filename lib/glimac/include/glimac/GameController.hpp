@@ -17,9 +17,14 @@ namespace glimac {
             float zoom = 1.0f;
         public:
             ///default constructor of GameController
-            GameController() = default;
+            GameController();
+            bool gameOn;
+            bool gamePause;
             ///default destructor of GameController
             ~GameController() = default;
+            //if in game
+            void inGame();
+            void pausedGame();
             ///handle camera movements
             void handleCamera(SDL_Event &e, TrackballCamera &cam);
             ///handle scene movements

@@ -3,6 +3,24 @@
 
 namespace glimac {
 
+    GameController::GameController() {
+        gameOn = false;
+        gamePause = false;
+    }
+
+    void GameController::inGame() {
+        if(gameOn == false) {
+            gameOn = true;
+        }
+    }
+
+    void GameController::pausedGame() {
+        if(gamePause == false) {
+            gamePause = true;
+        }
+    }
+
+
     void GameController::handleCamera(SDL_Event &e, TrackballCamera &cam) {
         //handle key for camera : Z and S for zoom
         if(e.key.keysym.sym == SDLK_z) {
@@ -235,7 +253,6 @@ namespace glimac {
     void GameController::removeTextureCube(Scene &scene, Cursor &cursor, Texture &tex) {
         //get index of the cube where the cursor is
         int cubeIndex = getIndexCube(scene,cursor);
-        std::cout << cubeIndex << std::endl;
         scene.getAllCubes().at(cubeIndex).m_type = 0;
         if(isThereACube(scene,cursor)){
             tex.unbindTexture(scene);

@@ -19,7 +19,7 @@ namespace glimac
 			///default constructor of texture
 			Texture(){};
 			///texture constructor with name of the texture and the scene concerned precised
-			Texture(std::string n,Scene &scene);
+			Texture(std::string n);
 			GLuint m_textureId;
 			///get the id of the texture
 			inline GLuint getId() const{return m_textureId;}
@@ -27,6 +27,7 @@ namespace glimac
 			void initTexture(Scene &scene);
 			void unbindTexture(Scene &scene);
 	};
+	void displayFull(GLuint* gameStart);
 }
 	
 

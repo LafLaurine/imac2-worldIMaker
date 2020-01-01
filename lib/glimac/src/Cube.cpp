@@ -29,6 +29,7 @@ namespace glimac {
         glm::vec3(0,-0.5, 0), glm::vec3(0,-0.5, 0), glm::vec3(0,-0.5, 0), glm::vec3(0,-0.5, 0),
         glm::vec3(0, 0,-0.5), glm::vec3(0, 0,-0.5), glm::vec3(0, 0,-0.5), glm::vec3(0, 0,-0.5)
     };
+    
 
     ///stock cube indexes
     const unsigned short indexes[] = {
@@ -39,6 +40,8 @@ namespace glimac {
         16,17,18,  18,19,16,      // bottom
         20,21,22,  22,23,20		  // back
     };
+
+    
 
     Cube::Cube(glm::vec3 position): m_vao(0), m_ibo(0), m_position(position), m_color(0.6f,0.2f,0.2f), m_visible(false), m_type(0) {
          initBuffer();
@@ -88,7 +91,7 @@ namespace glimac {
         // we only need to bind to the VBO, the container's VBO's data already contains the correct data.
         GLCall(glEnableVertexAttribArray(2));
         GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));
-        GLCall(glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0));
+        GLCall(glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), NULL));
         GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
         GLCall(glBindVertexArray(0));
 

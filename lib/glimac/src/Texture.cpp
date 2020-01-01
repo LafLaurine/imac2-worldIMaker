@@ -4,7 +4,7 @@
 #include <GL/glew.h>
 
 namespace glimac {
-	Texture::Texture(std::string n, Scene &scene) {
+	Texture::Texture(std::string n) {
 		m_name = n;
 		m_texturePointer = loadImage("./assets/textures/" + m_name);
 		if(m_texturePointer == NULL)
@@ -26,4 +26,29 @@ namespace glimac {
 	void Texture::unbindTexture(Scene &scene) {
 		glUniform1i(scene.uIsThereTexture, 0);
     }
+
+	void displayFull(GLuint* gameStart) {
+
+        glClear(GL_COLOR_BUFFER_BIT);
+			// Activate 2D texture
+			glEnable(GL_TEXTURE_2D);
+			// Texture call
+			glBindTexture(GL_TEXTURE_2D, *gameStart);
+				glBegin(GL_QUADS);
+				glColor4ub(255,255,255,255);
+				// Texture coordinate
+				glTexCoord2f(1, 1);
+				// Quadrilatere coordinate
+				glVertex2f(1000,600);
+				glTexCoord2f(1, 0);
+				glVertex2f(1000, 0);
+				glTexCoord2f(0, 0);
+				glVertex2f(0, 0);
+				glTexCoord2f(0, 1);
+				glVertex2f(0, 600);
+				glEnd();
+			// Deactivate 2D texture
+			glDisable(GL_TEXTURE_2D);		
+	}
+
 }
