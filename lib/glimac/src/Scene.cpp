@@ -142,7 +142,10 @@ namespace glimac {
         //set plain ground
         for(unsigned int x = 0; x < m_width; x++) {
             for(unsigned int z = 0; z < m_length; z++) {
+                glm::vec4 color(0.6f,0.2f,0.2f,1.0f);
+                m_allCubes.at(from3Dto1D(glm::ivec3(x,0,z))).setColor(color);
                 m_allCubes.at(from3Dto1D(glm::ivec3(x,0,z))).setVisible();
+                
             }
         }
     }
