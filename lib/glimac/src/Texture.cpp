@@ -23,8 +23,9 @@ namespace glimac {
 	
 
 	void Texture::initTexture(Scene &scene, ProgramType type) {
-		if(scene.uIsThereTexture != NULL) {
+		if(scene.uIsThereTexture) {
 			GLCall(glUniform1i(scene.uIsThereTexture, 1));
+			GLCall(glUniform1i(scene.uTextureLocation, 1));
 		}
     }
 

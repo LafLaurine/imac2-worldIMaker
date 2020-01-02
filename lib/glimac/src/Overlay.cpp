@@ -1,5 +1,7 @@
 #include "glimac/Overlay.hpp"
 #include <iostream>
+
+#include <imgui/imgui.h>
 #include <imgui/imgui_stdlib.h>
 #include <glimac/File.hpp>
 
@@ -35,7 +37,8 @@ namespace glimac {
             static float color;
             //set color picker
             ImGui::ColorEdit4("Color", &color);
-            setColor(color);
+            glm::vec4 goodColor = glm::make_vec4(&color);
+            setColor(goodColor);
             //set clicked variables to communicate with the main
             clickedAddCube = 0;
             clickedDeleteCube = 0;

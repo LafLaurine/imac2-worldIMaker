@@ -43,7 +43,7 @@ namespace glimac {
 
     
 
-    Cube::Cube(glm::vec3 position): m_vao(0), m_ibo(0), m_position(position), m_color(0.6f,0.2f,0.2f), m_visible(false), m_type(0) {
+    Cube::Cube(glm::vec3 position): m_vao(0), m_ibo(0), m_position(position), m_color(0.6f,0.2f,0.2f,1.0f), m_visible(false), m_type(0) {
          initBuffer();
     }
 
@@ -103,7 +103,7 @@ namespace glimac {
     }
 
 
-    Cube::Cube() : m_vao(0), m_ibo(0), m_position(0), m_color(0.6f,0.2f,0.2f), m_visible(false), m_type(0) {
+    Cube::Cube() : m_vao(0), m_ibo(0), m_position(0), m_color(0.6f,0.2f,0.2f,1.0f), m_visible(false), m_type(0) {
         initBuffer();
     }
 
@@ -123,11 +123,8 @@ namespace glimac {
             GLCall(glEnable(GL_BLEND));
             GLCall(glBindVertexArray(m_vao));
             GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo));
-            GLCall(glActiveTexture(GL_TEXTURE2));
             GLCall(glBindTexture(GL_TEXTURE_2D, textureId));
             GLCall(glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, (void*) 0));
-            GLCall(glActiveTexture(GL_TEXTURE2));
-            GLCall(glBindTexture(GL_TEXTURE_2D, 0)); 
             GLCall(glBindVertexArray(0));
             GLCall(glDisable(GL_BLEND));
         }

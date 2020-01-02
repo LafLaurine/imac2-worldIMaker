@@ -168,7 +168,7 @@ namespace glimac {
             //set cube invisible
             scene.getAllCubes().at(cubeIndex).setInvisible();
             //set color of the cube to the original one, because if we add it again, we don't want to keep the color change
-            glm::vec3 color(0.6f,0.2f,0.2f);
+            glm::vec4 color(0.6f,0.2f,0.2f,1.0f);
             scene.getAllCubes().at(cubeIndex).setColor(color);
             return 1;
             }
@@ -235,9 +235,9 @@ namespace glimac {
         //check if there is a cube
         if(isThereACube(scene,cursor)){
             //get color from the overlay color picker
-            glm::vec3 color =  glm::make_vec3(overlay.getColor());
             //change color of the cube selected
-            scene.getAllCubes().at(cubeIndex).setColor(color);
+            glm::vec4* color = overlay.getColor();
+            scene.getAllCubes().at(cubeIndex).setColor(*color);
         } else {
             std::cout << "There is no cube for changing color" << std::endl;
         }
