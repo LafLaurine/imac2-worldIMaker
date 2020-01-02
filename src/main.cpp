@@ -81,33 +81,32 @@ int main(int argc, char** argv) {
             // Send event to ImGui
             ImGui_ImplSDL2_ProcessEvent(&e);
 
-        switch (e.type) {
-            
-            case SDL_QUIT: windowManager.exit();
+            switch (e.type) {
+                
+                case SDL_QUIT: windowManager.exit();
 
-            case SDL_MOUSEBUTTONUP:
-            if (SDL_BUTTON_LEFT) {
-                gameController.inGame();
-            }
-            break;
+                case SDL_MOUSEBUTTONUP:
+                if (SDL_BUTTON_LEFT) {
+                    gameController.inGame();
+                }
+                break;
 
-            if(gameController.gameOn == true) {
-                case SDL_KEYDOWN:
-                    gameController.handleScene(e,scene,cursor,overlay,camera);
-                    gameController.handleCamera(e,camera);
-                    if(e.key.keysym.sym == SDLK_p) {
-                        if(!gameController.gamePause) {
-                            gameController.pausedGame();
+                if(gameController.gameOn == true) {
+                    case SDL_KEYDOWN:
+                        gameController.handleScene(e,scene,cursor,overlay,camera);
+                        gameController.handleCamera(e,camera);
+                        if(e.key.keysym.sym == SDLK_p) {
+                            if(!gameController.gamePause) {
+                                gameController.pausedGame();
+                            }
+                            else {
+                                gameController.gamePause = false;
+                            }
                         }
-                        else {
-                            gameController.gamePause = false;
-                        }
-                    }
-                default : break;
+                    default : break;
+                }  
             }
-               
         }
-    }
 
         overlay.beginFrame(windowManager.m_window);
         //Rendering code

@@ -26,7 +26,7 @@ namespace glimac {
     }
 
     void Overlay::drawOverlay(Scene &scene) {
-        ImGui::Begin("Tools",&p_open,ImGuiWindowFlags_NoMove | ImGuiWindowFlags_MenuBar  |ImGuiWindowFlags_NoCollapse);
+        ImGui::Begin("Tools",&p_open);
         {
             //set color picker
             ImGui::ColorEdit4("Color", this->getColor());
@@ -88,7 +88,7 @@ namespace glimac {
         ImGui::End();
 
         //set the save and load window
-        ImGui::Begin("Save and load",&p_open);
+        ImGui::Begin("Save and load",&p_open2);
         {
             //set strings for save and load filepath and filename
             static std::string filePath = "./assets/doc/";
@@ -152,9 +152,29 @@ namespace glimac {
             ImGui::InputFloat("yP", &pointLightY);
             ImGui::Text("Z :");
             ImGui::InputFloat("zP", &pointLightZ);
+
             scene.changeLuminosity(dirLight, pointLight);
             scene.changeDirectiveLightPosition(dirLightX,dirLightY,dirLightZ);
         }
+        ImGui::End();
+
+        ImGui::Begin("Light intensity",&p_open);
+
+        ImGui::Text("Directional light intensity :");
+        static float l1=3.0f;
+        ImGui::SliderFloat("intensity", &l1, 0.0f, 10.0f);
+         scene.changeIntensityDirectional(l1,l1,l1);
+
+        ImGui::Text("Point light intensity :");
+        static float x1=4.0f;
+        ImGui::SliderFloat("intensity", &x1, 0.0f, 10.0f);
+        scene.changeIntensityPoint(x1,x1,x1);
+
+        //ambiant light intensity
+        ImGui::Text("Ambiant light intensity :");
+        static float f1=0.2f;
+        ImGui::SliderFloat("intensity", &f1, 0.0f, 1.0f);
+        scene.changeIntensityAmbiant(f1,f1,f1);
         ImGui::End();
     }
 

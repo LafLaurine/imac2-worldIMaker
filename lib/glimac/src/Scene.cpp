@@ -116,8 +116,16 @@ namespace glimac {
         }
     }
 
-    void Scene::changeIntensity(int &x, int&y, int&z) {
-        glUniform3f(uAmbiantLight,0.2,0.2,0.2);
+    void Scene::changeIntensityAmbiant(float x, float y, float z) {
+        glUniform3f(uAmbiantLight,x,y,z);
+    }
+
+    void Scene::changeIntensityDirectional(float x, float y, float z) {
+        glUniform3f(uLightIntensityD, 3.0, 3.0, 3.0);
+    }
+
+    void Scene::changeIntensityPoint(float x, float y, float z) {
+        glUniform3f(uLightIntensityP, 4.0, 4.0, 4.0);
     }
 
     void Scene::changePointLightPosition(float pointLightX, float pointLightY, float pointLightZ) {
