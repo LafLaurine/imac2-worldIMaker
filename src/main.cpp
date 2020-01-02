@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cstddef>
 #include <math.h>
+#include "./Sound.hpp"
 #include <glimac/main.hpp>
 #include <glimac/GameController.hpp>
 #include <glimac/TrackballCamera.hpp>
@@ -33,7 +34,8 @@ int main(int argc, char** argv) {
     Scene scene;
 
     ProgramType type = ProgramType::TexturedCube;
-    
+    Sound soundPlayer;
+    soundPlayer.play(BACKGROUND);
     Menu menu(scene,type);
 
     //get flatcube program, load it and use it
@@ -145,10 +147,12 @@ int main(int argc, char** argv) {
                 gameController.cleanScene(scene.getAllCubes());
             }
             if(overlay.getClickedAddCube() &1) {
-                gameController.addCube(scene,cursor);
+                if(gameController.addCube(scene,cursor))
+                    soundPlayer.play(BUILD);
             }
             if(overlay.getClickedDeleteCube() &1) {
-                gameController.deleteCube(scene,cursor);
+                if(gameController.deleteCube(scene,cursor))
+                    soundPlayer.play(DESTROY);
             }
             if(overlay.getClickedAddTexture() &1) {
                 gameController.setTextureCube(scene,cursor, texture, FlatCube);

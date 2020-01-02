@@ -7,9 +7,6 @@
 #include <glimac/Scene.hpp>
 #include <glimac/Overlay.hpp>
 #include <glimac/Texture.hpp>
-#include <SDL2/SDL.h>
-
-
 namespace glimac {
 
     class GameController {
@@ -36,9 +33,9 @@ namespace glimac {
             ///check if there is a cube at the cursor position
             bool isThereACube(Scene& scene, Cursor &cursor);
             ///add cube to the scene where the cursor is
-            void addCube(Scene& scene, Cursor& cursor);
+            bool addCube(Scene& scene, Cursor& cursor);
             ///delete cube of the scene where the cursor is
-            void deleteCube(Scene& scene, Cursor& cursor);
+            bool deleteCube(Scene& scene, Cursor& cursor);
             ///extrude cube where the cursor is
             void extrudeCube(Scene &scene, Cursor &cursor);
             ///dig cube where the cursor is

@@ -21,7 +21,7 @@ namespace glimac {
         2, 3, 0
     };
 
-    Menu::Menu(Scene &scene, ProgramType type):m_ibo(0),m_vbo(0),m_vao(0),m_texture(Texture("MenuPrincipal.png")), m_scene(scene), m_type(type)
+    Menu::Menu(Scene &scene, ProgramType type):m_ibo(0),m_vbo(0),m_vao(0),m_texture(Texture("truc.jpg")), m_scene(scene), m_type(type)
     {
         scene.loadProgram(type,"../shaders/texture.vs.glsl","../shaders/texture.fs.glsl");
         const GLuint VERTEX_ATTR_POSITION = 0;

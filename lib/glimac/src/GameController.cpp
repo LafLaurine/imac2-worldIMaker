@@ -139,7 +139,7 @@ namespace glimac {
     	}
     }
 
-    void GameController::addCube(Scene& scene, Cursor& cursor){
+    bool GameController::addCube(Scene& scene, Cursor& cursor){
         //get index of the cube where the cursor is
         int cubeIndex = getIndexCube(scene,cursor);
         //check if cursor is in the scene
@@ -152,11 +152,13 @@ namespace glimac {
             else if(cubeIndex != -1){
                 scene.getAllCubes().at(cubeIndex).m_type = 0;
                 scene.getAllCubes().at(cubeIndex).setVisible();
+                return 1;
             }
         }
+        return 0;
     }
 
-    void GameController::deleteCube(Scene& scene, Cursor& cursor){
+    bool GameController::deleteCube(Scene& scene, Cursor& cursor){
         //get index of the cube where the cursor is
         int cubeIndex = getIndexCube(scene,cursor);
         //check if cursor is in the scene
@@ -168,11 +170,13 @@ namespace glimac {
             //set color of the cube to the original one, because if we add it again, we don't want to keep the color change
             glm::vec3 color(0.6f,0.2f,0.2f);
             scene.getAllCubes().at(cubeIndex).setColor(color);
+            return 1;
             }
             else if (cubeIndex == -1) {
                 std::cout << "You cannot erase emptiness..." << std::endl;
             }
         }
+        return 0;
     }
 
     int GameController::getHighestCube(Scene &scene, Cursor &cursor)

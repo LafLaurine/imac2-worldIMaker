@@ -36,7 +36,6 @@ namespace glimac {
             //set color picker
             ImGui::ColorEdit4("Color", &color);
             setColor(color);
-            //setColor(*getColor());
             //set clicked variables to communicate with the main
             clickedAddCube = 0;
             clickedDeleteCube = 0;
@@ -100,9 +99,6 @@ namespace glimac {
             //set strings for save and load filepath and filename
             static std::string filePath = "./assets/doc/";
             static std::string filename = "world.txt";
-
-            static std::string loadFilePath = "./assets/doc/";
-            static std::string loadFilename = "world.txt";
             ImGui::Text("Save file :");
             ImGui::InputText("Path", &filePath);
             ImGui::InputText("Filename", &filename);
@@ -112,6 +108,8 @@ namespace glimac {
                 saveFile(filePath,filename,scene.getAllCubes());
             }
 
+            static std::string loadFilePath = "./assets/doc/";
+            static std::string loadFilename = "world.txt";
             ImGui::Text("Load file :");
             ImGui::InputText("Path", &loadFilePath);
             ImGui::InputText("Filename", &loadFilename);
@@ -129,7 +127,7 @@ namespace glimac {
         ImGui::Text("Directional light intensity :");
         static float l1=3.0f;
         ImGui::SliderFloat("intensity", &l1, 0.0f, 10.0f);
-         scene.changeIntensityDirectional(l1,l1,l1);
+        scene.changeIntensityDirectional(l1,l1,l1);
 
         ImGui::Text("Point light intensity :");
         static float x1=4.0f;
