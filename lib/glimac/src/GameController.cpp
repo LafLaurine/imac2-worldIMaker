@@ -239,12 +239,12 @@ namespace glimac {
         }
     }
 
-    void GameController::setTextureCube(Scene &scene, Cursor &cursor, Texture &tex) {
+    void GameController::setTextureCube(Scene &scene, Cursor &cursor, Texture &tex, ProgramType type) {
         //get index of the cube where the cursor is
         int cubeIndex = getIndexCube(scene,cursor);
         scene.getAllCubes().at(cubeIndex).m_type = 1;
         if(isThereACube(scene,cursor)){
-            tex.initTexture(scene);
+            tex.initTexture(scene,type);
         } else {
             std::cout << "There is no cube for adding texture" << std::endl;
         }

@@ -47,7 +47,7 @@ void main() {
 		fragColor = vec4(texture(uTexture, vTexCoords).xyz * totalLuminosity, 1.0f);
 		fragColor.a = 0.6;
 	}
-	else {
+	else if((setTexture && uCubeType == 0) || (!setTexture && uCubeType == 0)){
 		fragColor = vec4(totalLuminosity  * color, 1.0f);
 		fragColor.a = 0.6;
 	}

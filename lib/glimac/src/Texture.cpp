@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
-#include "glimac/Texture.hpp"
+#include <glimac/Texture.hpp>
+#include <glimac/gl-exception.hpp>
 #include <GL/glew.h>
 
 namespace glimac {
@@ -12,24 +13,28 @@ namespace glimac {
 		{
 			std::cerr << "Couldn't load texture" << std::endl;
 		}
-		glGenTextures(1, &m_textureId);
-		glBindTexture(GL_TEXTURE_2D, m_textureId);
-		glTexImage2D(GL_TEXTURE_2D,  0,  GL_RGBA,  m_texturePointer->getWidth(),  m_texturePointer->getHeight(),  0,  GL_RGBA,  GL_FLOAT,  m_texturePointer->getPixels());
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glBindTexture(GL_TEXTURE_2D,  0);
+		GLCall(glGenTextures(1, &m_textureId));
+		GLCall(glBindTexture(GL_TEXTURE_2D, m_textureId));
+		GLCall(glTexImage2D(GL_TEXTURE_2D, 0,  GL_RGBA,  m_texturePointer->getWidth(),  m_texturePointer->getHeight(),  0,  GL_RGBA,  GL_FLOAT,  m_texturePointer->getPixels()));
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+		GLCall(glBindTexture(GL_TEXTURE_2D, 0));
     }
+	
 
-	void Texture::initTexture(Scene &scene) {
-		glUniform1i(scene.uIsThereTexture, 1);
+	void Texture::initTexture(Scene &scene, ProgramType type) {
+		if(scene.uIsThereTexture != NULL) {
+			GLCall(glUniform1i(scene.uIsThereTexture, 1));
+		}
     }
 
 	void Texture::unbindTexture(Scene &scene) {
-		glUniform1i(scene.uIsThereTexture, 0);
+		GLCall(glUniform1i(scene.uIsThereTexture, 0));
+		GLCall(glUniform1i(scene.uTextureLocation, 0));
     }
+	
 
 	void displayFull(GLuint* gameStart) {
-
         glClear(GL_COLOR_BUFFER_BIT);
 			// Activate 2D texture
 			glEnable(GL_TEXTURE_2D);

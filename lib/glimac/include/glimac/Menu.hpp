@@ -33,10 +33,11 @@ struct VertexTex{
             GLuint m_ibo;
             GLuint m_vbo;
             GLuint m_vao;
+        public :
+
             Texture m_texture;
             Scene &m_scene;
             ProgramType m_type;
-        public :
             Menu() = default;
             Menu(Scene &scene, ProgramType type);
             ~Menu() = default;

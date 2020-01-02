@@ -26,7 +26,6 @@ namespace glimac
 			float xLightD, yLightD, zLightD;
 			float xLightP, yLightP, zLightP;
 			std::vector<Cube> m_allCubes;
-			std::map<ProgramType, Program> m_programs;
 			TrackballCamera camera;
 			glm::mat4 MVMatrix, ProjMatrix, globalMVMatrix, cubeMVMatrix, NormalMatrix;
 			glm::vec3 lightDir,lightIntensity, m_color;
@@ -35,6 +34,8 @@ namespace glimac
 			Scene() = default;
 			///default destructor of scene
 			~Scene() = default;
+			///map between programtype and its program
+			std::map<ProgramType, Program> m_programs;
 			///attributes for uniform location
 			GLuint uMVLocation,uMVPLocation, uLightLocation, uLightPointLocation,uAmbiantLight, uLightPosLocation, uColorLocation, uNormalMatLocation;
 			GLuint uLuminosityLocation, uCubeTypeLocation;

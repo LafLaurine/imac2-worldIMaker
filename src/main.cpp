@@ -33,7 +33,9 @@ int main(int argc, char** argv) {
     Scene scene;
 
     ProgramType type = ProgramType::TexturedCube;
+    
     Menu menu(scene,type);
+
     //get flatcube program, load it and use it
     ProgramType FlatCube = ProgramType::FlatCube;
     scene.loadProgram(FlatCube,"../shaders/colorCube.vs.glsl","../shaders/colorCube.fs.glsl");
@@ -45,12 +47,10 @@ int main(int argc, char** argv) {
     //add light to the scene
     scene.addLight();
 
-    //menu
-    Texture textureMenu("truc.jpg");
-    //menu
-    Texture texturePause("truc.jpg");
     //set texture
-    Texture texture("MoonMap.jpg");
+    Texture texture("CloudMap.jpg");
+    std::cout << "id" << texture.m_textureId << std::endl;
+
    
     //construct camera
     TrackballCamera camera;
@@ -108,19 +108,21 @@ int main(int argc, char** argv) {
                
         }
     }
-        if(!gameController.gameOn) {
-            menu.draw(scene,type);
-        }
 
         overlay.beginFrame(windowManager.m_window);
         //Rendering code
         //begin imgui
+
+        if(!gameController.gameOn) {
+            menu.draw(scene,type);
+        }
+
         if(gameController.gameOn == true) {
             scene.useProgram(FlatCube);
             //set background color
             glClearColor(0.4, 0.6, 0.2, 1);
             if(gameController.gamePause) {
-                displayFull(&texturePause.m_textureId);   
+                menu.draw(scene,type); 
             }
             if(!gameController.gamePause) {
             //draw tools
@@ -150,7 +152,7 @@ int main(int argc, char** argv) {
                 gameController.deleteCube(scene,cursor);
             }
             if(overlay.getClickedAddTexture() &1) {
-                gameController.setTextureCube(scene,cursor, texture);
+                gameController.setTextureCube(scene,cursor, texture, FlatCube);
             }
             if(overlay.getClickedRemoveTexture() &1) {
             //gameController.removeTextureCube(scene,cursor, texture);
@@ -158,7 +160,7 @@ int main(int argc, char** argv) {
 
             }
         }
-        //end imgui
+        //end imgui        
         overlay.endFrame(windowManager.m_window);
 
     }

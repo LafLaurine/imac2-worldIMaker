@@ -116,6 +116,10 @@ namespace glimac {
         }
     }
 
+    void Scene::changeIntensity(int &x, int&y, int&z) {
+        glUniform3f(uAmbiantLight,0.2,0.2,0.2);
+    }
+
     void Scene::changePointLightPosition(float pointLightX, float pointLightY, float pointLightZ) {
         //recalculate point light position if moved
         glUniform3f(uLightPosLocation, pointLightX, pointLightY, pointLightZ);

@@ -111,25 +111,25 @@ namespace glimac {
     {
         //if cube is not textured
         if(m_type == 0) {
+            glEnable(GL_BLEND);
             glBindVertexArray(m_vao);
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
             glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, (void*) 0);
             glBindVertexArray(0);
-            //std::cout << "oui" << std::endl;
+            glDisable(GL_BLEND);
         }
         //if cube is textured
         else if(m_type == 1){
-            glEnable(GL_BLEND);
-            glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-            glBindVertexArray(m_vao);
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
-            glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, textureId);
-            glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, (void*) 0);
-            glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, 0); 
-            glBindVertexArray(0);
-            glDisable(GL_BLEND);
+            GLCall(glEnable(GL_BLEND));
+            GLCall(glBindVertexArray(m_vao));
+            GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo));
+            GLCall(glActiveTexture(GL_TEXTURE2));
+            GLCall(glBindTexture(GL_TEXTURE_2D, textureId));
+            GLCall(glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, (void*) 0));
+            GLCall(glActiveTexture(GL_TEXTURE2));
+            GLCall(glBindTexture(GL_TEXTURE_2D, 0)); 
+            GLCall(glBindVertexArray(0));
+            GLCall(glDisable(GL_BLEND));
         }
     }
 

@@ -24,7 +24,7 @@ namespace glimac
 			///get the id of the texture
 			inline GLuint getId() const{return m_textureId;}
 			///initialize texture
-			void initTexture(Scene &scene);
+			void initTexture(Scene &scene, ProgramType type);
 			void unbindTexture(Scene &scene);
 	};
 	void displayFull(GLuint* gameStart);
