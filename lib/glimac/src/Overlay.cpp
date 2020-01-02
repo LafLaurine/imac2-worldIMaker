@@ -6,14 +6,18 @@
 namespace glimac {
 
     Overlay::~Overlay() {
+        delete m_io;
         ImGui_ImplOpenGL3_Shutdown();
         ImGui_ImplSDL2_Shutdown();
         ImGui::DestroyContext();
     }
-    void Overlay::initImgui(SDL_Window* window,SDL_GLContext* glContext) const {
+    void Overlay::initImgui(SDL_Window* window,SDL_GLContext* glContext)  {
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
         ImGui::StyleColorsDark();
+
+        m_io = new ImGuiIO();
+        *m_io = ImGui::GetIO();
         ImGui_ImplSDL2_InitForOpenGL(window,&glContext);
         ImGui_ImplOpenGL3_Init("#version 330 core");
     }
@@ -28,8 +32,11 @@ namespace glimac {
     void Overlay::drawOverlay(Scene &scene) {
         ImGui::Begin("Tools",&p_open);
         {
+            static float color;
             //set color picker
-            ImGui::ColorEdit4("Color", this->getColor());
+            ImGui::ColorEdit4("Color", &color);
+            setColor(color);
+            //setColor(*getColor());
             //set clicked variables to communicate with the main
             clickedAddCube = 0;
             clickedDeleteCube = 0;
@@ -88,7 +95,7 @@ namespace glimac {
         ImGui::End();
 
         //set the save and load window
-        ImGui::Begin("Save and load",&p_open2);
+        ImGui::Begin("Save and load",&p_open);
         {
             //set strings for save and load filepath and filename
             static std::string filePath = "./assets/doc/";
@@ -115,6 +122,25 @@ namespace glimac {
                 loadFile(loadFilePath, loadFilename, scene.getAllCubes());
             }
         }
+        ImGui::End();
+        
+        ImGui::Begin("Light intensity",&p_open);
+
+        ImGui::Text("Directional light intensity :");
+        static float l1=3.0f;
+        ImGui::SliderFloat("intensity", &l1, 0.0f, 10.0f);
+         scene.changeIntensityDirectional(l1,l1,l1);
+
+        ImGui::Text("Point light intensity :");
+        static float x1=4.0f;
+        ImGui::SliderFloat("intensity", &x1, 0.0f, 10.0f);
+        scene.changeIntensityPoint(x1,x1,x1);
+
+        //ambiant light intensity
+        ImGui::Text("Ambiant light intensity :");
+        static float f1=0.2f;
+        ImGui::SliderFloat("intensity", &f1, 0.0f, 1.0f);
+        scene.changeIntensityAmbiant(f1,f1,f1);
         ImGui::End();
 
         //light settings windows
@@ -158,24 +184,6 @@ namespace glimac {
         }
         ImGui::End();
 
-        ImGui::Begin("Light intensity",&p_open);
-
-        ImGui::Text("Directional light intensity :");
-        static float l1=3.0f;
-        ImGui::SliderFloat("intensity", &l1, 0.0f, 10.0f);
-         scene.changeIntensityDirectional(l1,l1,l1);
-
-        ImGui::Text("Point light intensity :");
-        static float x1=4.0f;
-        ImGui::SliderFloat("intensity", &x1, 0.0f, 10.0f);
-        scene.changeIntensityPoint(x1,x1,x1);
-
-        //ambiant light intensity
-        ImGui::Text("Ambiant light intensity :");
-        static float f1=0.2f;
-        ImGui::SliderFloat("intensity", &f1, 0.0f, 1.0f);
-        scene.changeIntensityAmbiant(f1,f1,f1);
-        ImGui::End();
     }
 
     void Overlay::endFrame(SDL_Window* window) const {

@@ -20,14 +20,17 @@ namespace glimac
 			bool p_open;
 			int clickedReset, clickedAddCube, clickedDeleteCube;
 			int clickedTree, clickedCube, clickedAddTexture, clickedChangeCamera,clickedRemoveTexture;
+			ImGuiIO* m_io;
 
 		public:
 			///default constructor of overlay
 			Overlay(){};
 			///default destructor of overlay
 			~Overlay();
+			//getter
+			inline const ImGuiIO* getIo(){return m_io;};
 			///initialize Imgui window and context
-			void initImgui(SDL_Window* window,SDL_GLContext* glContext) const;
+			void initImgui(SDL_Window* window,SDL_GLContext* glContext);
 			///open new frame of Imgui
 			void beginFrame(SDL_Window* window) const;
 			///draw Imgui window with its tools
@@ -52,6 +55,8 @@ namespace glimac
 			inline int getClickedChangeCamera(){return clickedChangeCamera;};
 			//get color of the color picker
 			inline float* getColor(){return &m_myCol;};
+
+			inline float setColor(float color){return m_myCol = color;};
 	};
 }
 
