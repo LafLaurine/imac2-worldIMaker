@@ -17,7 +17,7 @@ namespace glimac
 			GLuint m_ibo;
 			GLuint texId;
 			glm::vec3 m_position;
-			glm::vec3 m_color;
+			glm::vec4 m_color;
 			bool m_visible;
 		public:
 			int m_type;
@@ -48,9 +48,9 @@ namespace glimac
 			///set Z position of the cube
 			inline float setPositionZ(float positionZ){return m_position.z = positionZ;};
 			///get cube color
-			inline glm::vec3 getColor() {return m_color;};
+			inline glm::vec4 getColor() {return m_color;};
 			///set cube color
-			inline void setColor(glm::vec3 colorSend){m_color = colorSend;};
+			inline void setColor(glm::vec4 colorSend){m_color = colorSend;};
 			///set cube visible
 			void setVisible();
 			///set cube invisible

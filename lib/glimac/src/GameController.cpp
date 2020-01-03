@@ -5,12 +5,21 @@ namespace glimac {
 
     GameController::GameController() {
         gameOn = false;
+        gameLoad = false;
         gamePause = false;
     }
 
     void GameController::inGame() {
         if(gameOn == false) {
             gameOn = true;
+        }
+    }
+
+
+    void GameController::loadGame() {
+        if(gameLoad == false) {
+            gameLoad = true;
+            inGame();
         }
     }
 
@@ -139,7 +148,7 @@ namespace glimac {
     	}
     }
 
-    void GameController::addCube(Scene& scene, Cursor& cursor){
+    bool GameController::addCube(Scene& scene, Cursor& cursor){
         //get index of the cube where the cursor is
         int cubeIndex = getIndexCube(scene,cursor);
         //check if cursor is in the scene
@@ -152,11 +161,13 @@ namespace glimac {
             else if(cubeIndex != -1){
                 scene.getAllCubes().at(cubeIndex).m_type = 0;
                 scene.getAllCubes().at(cubeIndex).setVisible();
+                return 1;
             }
         }
+        return 0;
     }
 
-    void GameController::deleteCube(Scene& scene, Cursor& cursor){
+    bool GameController::deleteCube(Scene& scene, Cursor& cursor){
         //get index of the cube where the cursor is
         int cubeIndex = getIndexCube(scene,cursor);
         //check if cursor is in the scene
@@ -166,13 +177,15 @@ namespace glimac {
             //set cube invisible
             scene.getAllCubes().at(cubeIndex).setInvisible();
             //set color of the cube to the original one, because if we add it again, we don't want to keep the color change
-            glm::vec3 color(0.6f,0.2f,0.2f);
+            glm::vec4 color(1.0f,1.0f,1.0f,1.0f);
             scene.getAllCubes().at(cubeIndex).setColor(color);
+            return 1;
             }
             else if (cubeIndex == -1) {
                 std::cout << "You cannot erase emptiness..." << std::endl;
             }
         }
+        return 0;
     }
 
     int GameController::getHighestCube(Scene &scene, Cursor &cursor)
@@ -231,9 +244,9 @@ namespace glimac {
         //check if there is a cube
         if(isThereACube(scene,cursor)){
             //get color from the overlay color picker
-            glm::vec3 color =  glm::make_vec3(overlay.getColor());
             //change color of the cube selected
-            scene.getAllCubes().at(cubeIndex).setColor(color);
+            glm::vec4* color = overlay.getColor();
+            scene.getAllCubes().at(cubeIndex).setColor(*color);
         } else {
             std::cout << "There is no cube for changing color" << std::endl;
         }
@@ -242,8 +255,8 @@ namespace glimac {
     void GameController::setTextureCube(Scene &scene, Cursor &cursor, Texture &tex) {
         //get index of the cube where the cursor is
         int cubeIndex = getIndexCube(scene,cursor);
-        scene.getAllCubes().at(cubeIndex).m_type = 1;
         if(isThereACube(scene,cursor)){
+            scene.getAllCubes().at(cubeIndex).m_type = 1;
             tex.initTexture(scene);
         } else {
             std::cout << "There is no cube for adding texture" << std::endl;
@@ -252,10 +265,9 @@ namespace glimac {
 
     void GameController::removeTextureCube(Scene &scene, Cursor &cursor, Texture &tex) {
         //get index of the cube where the cursor is
-        int cubeIndex = getIndexCube(scene,cursor);
-        scene.getAllCubes().at(cubeIndex).m_type = 0;
         if(isThereACube(scene,cursor)){
             tex.unbindTexture(scene);
+            scene.getAllCubes().at(scene.from3Dto1D(cursor.getPosition())).m_type = 0;
         } else {
             std::cout << "There is no cube for removing texture" << std::endl;
         }

@@ -27,7 +27,6 @@ namespace glimac
 			void initTexture(Scene &scene);
 			void unbindTexture(Scene &scene);
 	};
-	void displayFull(GLuint* gameStart);
 }
 	
 

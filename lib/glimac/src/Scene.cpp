@@ -1,6 +1,8 @@
 #include <glimac/Scene.hpp>
 #include <iostream>
 #include <glm/gtc/type_ptr.hpp>
+#include <glimac/gl-exception.hpp>
+
 
 namespace glimac {
     void Scene::loadProgram(ProgramType type, std::string vertexShader, std::string fragmentShader) {
@@ -89,7 +91,7 @@ namespace glimac {
         //compute Kd,Ks and shininess of the light
         glUniform3f(uKd, 0.6, 0.6, 0.6);
         glUniform3f(uKs, 0, 0.0, 0.0);
-        glUniform1f(uShininess, 30.0);
+        glUniform1f(uShininess, 25.0);
         glUniform3f(uAmbiantLight,0.2,0.2,0.2);
         //compute light of the point light
         glm::vec4 LightPos = MVMatrix * glm::vec4(xLightP, yLightP, zLightP, 1);
@@ -102,18 +104,30 @@ namespace glimac {
     void Scene::changeLuminosity(int dirLight, int pointLight) {
         //Day/night for directionnal lights
         if (dirLight == 0){
-            glUniform3f(uLightIntensityD, 3.0, 3.0, 3.0);   
+            glUniform3f(uLightIntensityD, 2.0, 2.0, 2.0);   
         }
         else {
             glUniform3f(uLightIntensityD, 0.0, 0.0, 0.0);
         }
         //Day/night for point light
         if (pointLight == 0){
-            glUniform3f(uLightIntensityP, 4.0, 4.0, 4.0);   
+            glUniform3f(uLightIntensityP, 2.0, 2.0, 2.0);   
         }
         else {
             glUniform3f(uLightIntensityP, 0.0, 0.0, 0.0);
         }
+    }
+
+    void Scene::changeIntensityAmbiant(float &x, float &y, float &z) {
+        glUniform3f(uAmbiantLight,x,y,z);
+    }
+
+    void Scene::changeIntensityDirectional(float &x, float &y, float &z) {
+        glUniform3f(uLightIntensityD, x, y, z);
+    }
+
+    void Scene::changeIntensityPoint(float &x, float &y, float &z) {
+        glUniform3f(uLightIntensityP, x, y, z);
     }
 
     void Scene::changePointLightPosition(float pointLightX, float pointLightY, float pointLightZ) {
@@ -130,7 +144,10 @@ namespace glimac {
         //set plain ground
         for(unsigned int x = 0; x < m_width; x++) {
             for(unsigned int z = 0; z < m_length; z++) {
-                m_allCubes.at(from3Dto1D(glm::ivec3(x,0,z))).setVisible();
+                glm::vec4 color(1.0f,1.0f,1.0f,1.0f);
+                m_allCubes.at(from3Dto1D(glm::vec3(x,0,z))).setColor(color);
+                m_allCubes.at(from3Dto1D(glm::vec3(x,0,z))).setVisible();
+                
             }
         }
     }
@@ -150,7 +167,7 @@ namespace glimac {
         setGround();
     }
 
-    void Scene::drawCubes(TrackballCamera &camera,GLuint texId) {
+    void Scene::drawCubes(TrackballCamera &camera,GLuint &texId) {
         //for each cube, calculate matrice and if it is visible, draw it
         for(Cube& cube : m_allCubes){
             recalculateMatrices(camera,cube);
@@ -159,7 +176,9 @@ namespace glimac {
                     glUniform1i(uCubeTypeLocation,0);
                 }
                 else if(cube.m_type == 1) {
-                    glUniform1i(uCubeTypeLocation,1);
+                    GLCall(glUniform1i(uCubeTypeLocation,1));
+                    GLCall(glUniform1i(uIsThereTexture, 1));
+                    GLCall(glUniform1i(uTextureLocation, texId));
                 }
                 cube.draw(texId);
             }
@@ -167,7 +186,7 @@ namespace glimac {
     }
     
     //convert a 3D vector to a 1D one
-    unsigned int Scene::from3Dto1D(glm::ivec3 pos) {
+    unsigned int Scene::from3Dto1D(glm::vec3 pos) {
         return (pos.y * m_width + pos.x + pos.z * m_width * m_length);
     }
 }
