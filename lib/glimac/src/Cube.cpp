@@ -123,10 +123,8 @@ namespace glimac {
             GLCall(glEnable(GL_BLEND));
             GLCall(glBindVertexArray(m_vao));
             GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo));
-            GLCall(glActiveTexture(GL_TEXTURE2));
             GLCall(glBindTexture(GL_TEXTURE_2D, textureId));
             GLCall(glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, (void*) 0));
-            GLCall(glActiveTexture(GL_TEXTURE2));
             GLCall(glBindTexture(GL_TEXTURE_2D, 0));
             GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
             GLCall(glBindVertexArray(0));

@@ -1,6 +1,8 @@
 #include <glimac/Scene.hpp>
 #include <iostream>
 #include <glm/gtc/type_ptr.hpp>
+#include <glimac/gl-exception.hpp>
+
 
 namespace glimac {
     void Scene::loadProgram(ProgramType type, std::string vertexShader, std::string fragmentShader) {
@@ -116,16 +118,16 @@ namespace glimac {
         }
     }
 
-    void Scene::changeIntensityAmbiant(float x, float y, float z) {
+    void Scene::changeIntensityAmbiant(float &x, float &y, float &z) {
         glUniform3f(uAmbiantLight,x,y,z);
     }
 
-    void Scene::changeIntensityDirectional(float x, float y, float z) {
-        glUniform3f(uLightIntensityD, 3.0, 3.0, 3.0);
+    void Scene::changeIntensityDirectional(float &x, float &y, float &z) {
+        glUniform3f(uLightIntensityD, x, y, z);
     }
 
-    void Scene::changeIntensityPoint(float x, float y, float z) {
-        glUniform3f(uLightIntensityP, 4.0, 4.0, 4.0);
+    void Scene::changeIntensityPoint(float &x, float &y, float &z) {
+        glUniform3f(uLightIntensityP, x, y, z);
     }
 
     void Scene::changePointLightPosition(float pointLightX, float pointLightY, float pointLightZ) {
@@ -143,8 +145,8 @@ namespace glimac {
         for(unsigned int x = 0; x < m_width; x++) {
             for(unsigned int z = 0; z < m_length; z++) {
                 glm::vec4 color(1.0f,1.0f,1.0f,1.0f);
-                m_allCubes.at(from3Dto1D(glm::ivec3(x,0,z))).setColor(color);
-                m_allCubes.at(from3Dto1D(glm::ivec3(x,0,z))).setVisible();
+                m_allCubes.at(from3Dto1D(glm::vec3(x,0,z))).setColor(color);
+                m_allCubes.at(from3Dto1D(glm::vec3(x,0,z))).setVisible();
                 
             }
         }
@@ -165,7 +167,7 @@ namespace glimac {
         setGround();
     }
 
-    void Scene::drawCubes(TrackballCamera &camera,GLuint texId) {
+    void Scene::drawCubes(TrackballCamera &camera,GLuint &texId) {
         //for each cube, calculate matrice and if it is visible, draw it
         for(Cube& cube : m_allCubes){
             recalculateMatrices(camera,cube);
@@ -174,7 +176,9 @@ namespace glimac {
                     glUniform1i(uCubeTypeLocation,0);
                 }
                 else if(cube.m_type == 1) {
-                    glUniform1i(uCubeTypeLocation,1);
+                    GLCall(glUniform1i(uCubeTypeLocation,1));
+                    GLCall(glUniform1i(uIsThereTexture, 1));
+                    GLCall(glUniform1i(uTextureLocation, texId));
                 }
                 cube.draw(texId);
             }
@@ -182,7 +186,7 @@ namespace glimac {
     }
     
     //convert a 3D vector to a 1D one
-    unsigned int Scene::from3Dto1D(glm::ivec3 pos) {
+    unsigned int Scene::from3Dto1D(glm::vec3 pos) {
         return (pos.y * m_width + pos.x + pos.z * m_width * m_length);
     }
 }

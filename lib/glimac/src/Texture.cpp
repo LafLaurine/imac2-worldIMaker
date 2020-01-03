@@ -22,16 +22,20 @@ namespace glimac {
     }
 	
 
-	void Texture::initTexture(Scene &scene, ProgramType type) {
+	void Texture::initTexture(Scene &scene) {
 		if(scene.uIsThereTexture) {
+			GLCall(glUniform1i(scene.uCubeTypeLocation,1));
 			GLCall(glUniform1i(scene.uIsThereTexture, 1));
 			GLCall(glUniform1i(scene.uTextureLocation, 1));
 		}
     }
 
 	void Texture::unbindTexture(Scene &scene) {
-		GLCall(glUniform1i(scene.uIsThereTexture, 0));
-		GLCall(glUniform1i(scene.uTextureLocation, 0));
+		if(!scene.uIsThereTexture) {
+			GLCall(glUniform1i(scene.uCubeTypeLocation,0));
+			GLCall(glUniform1i(scene.uIsThereTexture, 0));
+			GLCall(glUniform1i(scene.uTextureLocation, 0));
+		}
 	}
 
 }

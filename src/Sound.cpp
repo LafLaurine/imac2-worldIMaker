@@ -25,7 +25,7 @@ namespace glimac {
 
 	void Sound::play(Sounds s){
 		if (!isEnabled){return;}
-		if(s == 2){Mix_PlayMusic( backgroundMusic, -1 );}
+		if(s == 2){Mix_PlayMusic( backgroundMusic, 10 );}
 		else {
 			Mix_PlayChannel( -1, soundEffects[s], 0 );
 			Mix_Volume(-1,50);

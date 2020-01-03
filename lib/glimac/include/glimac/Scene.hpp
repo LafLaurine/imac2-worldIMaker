@@ -77,7 +77,7 @@ namespace glimac
 			///initialize default scene
 			void initAllCubes();
 			///draw cube of default scene
-			void drawCubes(TrackballCamera &camera, GLuint texId);
+			void drawCubes(TrackballCamera &camera, GLuint &texId);
 			///add light to the scene : directive light, point light and ambiant light
 			void addLight();
 			///set ground of the scene
@@ -89,10 +89,10 @@ namespace glimac
 			///change directive light position
 			void changeDirectiveLightPosition(float directiveLightX, float directiveLightY, float directiveLightZ);
 			///transform 3D vector to 1D
-			static unsigned int from3Dto1D(glm::ivec3 pos);
-			void changeIntensityAmbiant(float x, float y, float z);
-			void changeIntensityDirectional(float x, float y, float z);
-			void changeIntensityPoint(float x, float y, float z);
+			static unsigned int from3Dto1D(glm::vec3 pos);
+			void changeIntensityAmbiant(float &x, float &y, float &z);
+			void changeIntensityDirectional(float &x, float &y, float &z);
+			void changeIntensityPoint(float &x, float &y, float &z);
 
 	};
 }

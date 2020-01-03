@@ -34,11 +34,12 @@ namespace glimac {
     void Overlay::drawOverlay(Scene &scene) {
         ImGui::Begin("Tools",&p_open);
         {
-            static float color;
             //set color picker
+            static float color;
             ImGui::ColorEdit4("Color", &color);
             glm::vec4 goodColor = glm::make_vec4(&color);
             setColor(goodColor);
+
             //set clicked variables to communicate with the main
             clickedAddCube = 0;
             clickedDeleteCube = 0;
@@ -46,7 +47,6 @@ namespace glimac {
             clickedCube = 0;
             clickedReset = 0;
             clickedAddTexture = 0;
-            clickedChangeCamera = 0;
 
             //set buttons
             if (ImGui::Button("Reset")) 
@@ -87,12 +87,6 @@ namespace glimac {
             {
                clickedCube++;
             }
-
-            //change camera
-            if (ImGui::Button("Change camera")) 
-            {
-                clickedChangeCamera++;
-            }
         }
         ImGui::End();
 
@@ -100,19 +94,19 @@ namespace glimac {
         ImGui::Begin("Save and load",&p_open);
         {
             //set strings for save and load filepath and filename
-            static std::string filePath = "./assets/doc/";
-            static std::string filename = "world.txt";
+            std::string filePath = "./assets/doc/";
+            std::string filename = "world.txt";
             ImGui::Text("Save file :");
-            ImGui::InputText("Path", &filePath);
-            ImGui::InputText("Filename", &filename);
+            ImGui::InputText("Save path", &filePath);
+            ImGui::InputText("Save filename", &filename);
             if (ImGui::Button("Save"))
             {
                 //save file with filepath and filename of the user choice
                 saveFile(filePath,filename,scene.getAllCubes());
             }
 
-            static std::string loadFilePath = "./assets/doc/";
-            static std::string loadFilename = "world.txt";
+            std::string loadFilePath = "./assets/doc/";
+            std::string loadFilename = "world.txt";
             ImGui::Text("Load file :");
             ImGui::InputText("Path", &loadFilePath);
             ImGui::InputText("Filename", &loadFilename);
@@ -125,24 +119,25 @@ namespace glimac {
         }
         ImGui::End();
         
-        ImGui::Begin("Light intensity",&p_open);
+        ImGui::Begin("Light intensity",&p_open); {
+            ImGui::Text("Directional light intensity :");
+            static float l1=2.0f;
+            ImGui::SliderFloat("intensity d", &l1, 0.0f, 10.0f);
+            scene.changeIntensityDirectional(l1,l1,l1);
 
-        ImGui::Text("Directional light intensity :");
-        static float l1=3.0f;
-        ImGui::SliderFloat("intensity", &l1, 0.0f, 10.0f);
-        scene.changeIntensityDirectional(l1,l1,l1);
+            ImGui::Text("Point light intensity :");
+            static float x1=2.0f;
+            ImGui::SliderFloat("intensity p", &x1, 0.0f, 10.0f);
+            scene.changeIntensityPoint(x1,x1,x1);
 
-        ImGui::Text("Point light intensity :");
-        static float x1=4.0f;
-        ImGui::SliderFloat("intensity", &x1, 0.0f, 10.0f);
-        scene.changeIntensityPoint(x1,x1,x1);
-
-        //ambiant light intensity
-        ImGui::Text("Ambiant light intensity :");
-        static float f1=0.2f;
-        ImGui::SliderFloat("intensity", &f1, 0.0f, 1.0f);
-        scene.changeIntensityAmbiant(f1,f1,f1);
+            //ambiant light intensity
+            ImGui::Text("Ambiant light intensity :");
+            static float f1=0.2f;
+            ImGui::SliderFloat("intensity a", &f1, 0.0f, 1.0f);
+            scene.changeIntensityAmbiant(f1,f1,f1);
+        } 
         ImGui::End();
+
 
         //light settings windows
         ImGui::Begin("Light",&p_open); {

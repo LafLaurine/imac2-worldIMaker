@@ -52,9 +52,7 @@ int main(int argc, char** argv) {
     scene.addLight();
 
     //set texture
-    Texture texture("CloudMap.jpg");
-    std::cout << "id" << texture.m_textureId << std::endl;
-
+    Texture texture("EarthMap.jpg");
    
     //construct camera
     TrackballCamera camera;
@@ -132,47 +130,49 @@ int main(int argc, char** argv) {
             scene.useProgram(FlatCube);
             //set background color
             glClearColor(0.17, 0.19, 0.17, 1);
+            
             if(gameController.gamePause) {
                 pause.draw(scene,typeMenu); 
             }
-            if(!gameController.gamePause) {
-            //draw tools
-            overlay.drawOverlay(scene);
-            //draw cubes
-            if(gameController.gameLoad == true) {
-                loadFile("./assets/doc/", "world.txt", scene.getAllCubes());
-            }
-            scene.drawCubes(camera, texture.m_textureId);
-            //add lights
-            scene.addLight();
-            scene.recalculateMatrices(camera,cursor);
-            //draw cursor
-            cursor.draw();
 
-            //handle click on the overlay
-            if(overlay.getClickedTree() &1) {
-                applyRbf(scene.getAllCubes(), list_ctrlTree, FunctionType::InverseQuadratic);
-            }
-            if(overlay.getClickedCube() &1) {
-                applyRbf(scene.getAllCubes(), list_ctrlCube, FunctionType::Gaussian);
-            }
-            if(overlay.getClickedReset() &1) {
-                gameController.cleanScene(scene.getAllCubes());
-            }
-            if(overlay.getClickedAddCube() &1) {
-                if(gameController.addCube(scene,cursor))
-                    soundPlayer.play(BUILD);
-            }
-            if(overlay.getClickedDeleteCube() &1) {
-                if(gameController.deleteCube(scene,cursor))
-                    soundPlayer.play(DESTROY);
-            }
-            if(overlay.getClickedAddTexture() &1) {
-                gameController.setTextureCube(scene,cursor, texture, FlatCube);
-            }
-            if(overlay.getClickedRemoveTexture() &1) {
-            //gameController.removeTextureCube(scene,cursor, texture);
-            }
+            if(!gameController.gamePause) {
+                //draw tools
+                overlay.drawOverlay(scene);
+                //draw cubes
+                if(gameController.gameLoad == true) {
+                    loadFile("./assets/doc/", "world.txt", scene.getAllCubes());
+                }
+                scene.drawCubes(camera, texture.m_textureId);
+                //add lights
+                scene.addLight();
+                scene.recalculateMatrices(camera,cursor);
+                //draw cursor
+                cursor.draw();
+
+                //handle click on the overlay
+                if(overlay.getClickedTree() &1) {
+                    applyRbf(scene.getAllCubes(), list_ctrlTree, FunctionType::InverseQuadratic);
+                }
+                if(overlay.getClickedCube() &1) {
+                    applyRbf(scene.getAllCubes(), list_ctrlCube, FunctionType::Gaussian);
+                }
+                if(overlay.getClickedReset() &1) {
+                    gameController.cleanScene(scene.getAllCubes());
+                }
+                if(overlay.getClickedAddCube() &1) {
+                    if(gameController.addCube(scene,cursor))
+                        soundPlayer.play(BUILD);
+                }
+                if(overlay.getClickedDeleteCube() &1) {
+                    if(gameController.deleteCube(scene,cursor))
+                        soundPlayer.play(DESTROY);
+                }
+                if(overlay.getClickedAddTexture() &1) {
+                    gameController.setTextureCube(scene,cursor,texture);
+                }
+                if(overlay.getClickedRemoveTexture() &1) {
+                    gameController.removeTextureCube(scene,cursor,texture);
+                }
 
             }
         }
