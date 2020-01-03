@@ -17,11 +17,13 @@ namespace glimac {
             GameController();
             bool gameOn;
             bool gamePause;
+            bool gameLoad;
             ///default destructor of GameController
             ~GameController() = default;
             //if in game
             void inGame();
             void pausedGame();
+            void loadGame();
             ///handle camera movements
             void handleCamera(SDL_Event &e, TrackballCamera &cam);
             ///handle scene movements

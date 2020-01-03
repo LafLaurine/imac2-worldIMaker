@@ -32,32 +32,6 @@ namespace glimac {
 	void Texture::unbindTexture(Scene &scene) {
 		GLCall(glUniform1i(scene.uIsThereTexture, 0));
 		GLCall(glUniform1i(scene.uTextureLocation, 0));
-    }
-	
-
-	void displayFull(GLuint* gameStart) {
-        glClear(GL_COLOR_BUFFER_BIT);
-			// Activate 2D texture
-			glEnable(GL_TEXTURE_2D);
-			// Texture call
-			glBindTexture(GL_TEXTURE_2D, *gameStart);
-			glPushMatrix();
-				glBegin(GL_QUADS);
-				glColor4ub(255,255,255,255);
-				// Texture coordinate
-				glTexCoord2f(1, 1);
-				// Quadrilatere coordinate
-				glVertex2f(1000,600);
-				glTexCoord2f(1, 0);
-				glVertex2f(1000, 0);
-				glTexCoord2f(0, 0);
-				glVertex2f(0, 0);
-				glTexCoord2f(0, 1);
-				glVertex2f(0, 600);
-				glEnd();
-			glPopMatrix();
-			// Deactivate 2D texture
-			glDisable(GL_TEXTURE_2D);		
 	}
 
 }

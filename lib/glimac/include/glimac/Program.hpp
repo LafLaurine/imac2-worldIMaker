@@ -12,7 +12,7 @@ namespace glimac {
 	enum class ProgramType
 	{
 		FlatCube,
-		TexturedCube,
+		Menu,
 	};
 
 	class Program {

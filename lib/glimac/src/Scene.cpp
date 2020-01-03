@@ -89,7 +89,7 @@ namespace glimac {
         //compute Kd,Ks and shininess of the light
         glUniform3f(uKd, 0.6, 0.6, 0.6);
         glUniform3f(uKs, 0, 0.0, 0.0);
-        glUniform1f(uShininess, 30.0);
+        glUniform1f(uShininess, 25.0);
         glUniform3f(uAmbiantLight,0.2,0.2,0.2);
         //compute light of the point light
         glm::vec4 LightPos = MVMatrix * glm::vec4(xLightP, yLightP, zLightP, 1);
@@ -102,14 +102,14 @@ namespace glimac {
     void Scene::changeLuminosity(int dirLight, int pointLight) {
         //Day/night for directionnal lights
         if (dirLight == 0){
-            glUniform3f(uLightIntensityD, 3.0, 3.0, 3.0);   
+            glUniform3f(uLightIntensityD, 2.0, 2.0, 2.0);   
         }
         else {
             glUniform3f(uLightIntensityD, 0.0, 0.0, 0.0);
         }
         //Day/night for point light
         if (pointLight == 0){
-            glUniform3f(uLightIntensityP, 4.0, 4.0, 4.0);   
+            glUniform3f(uLightIntensityP, 2.0, 2.0, 2.0);   
         }
         else {
             glUniform3f(uLightIntensityP, 0.0, 0.0, 0.0);
@@ -142,7 +142,7 @@ namespace glimac {
         //set plain ground
         for(unsigned int x = 0; x < m_width; x++) {
             for(unsigned int z = 0; z < m_length; z++) {
-                glm::vec4 color(0.6f,0.2f,0.2f,1.0f);
+                glm::vec4 color(1.0f,1.0f,1.0f,1.0f);
                 m_allCubes.at(from3Dto1D(glm::ivec3(x,0,z))).setColor(color);
                 m_allCubes.at(from3Dto1D(glm::ivec3(x,0,z))).setVisible();
                 

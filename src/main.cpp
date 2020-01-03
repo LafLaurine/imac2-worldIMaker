@@ -33,10 +33,12 @@ int main(int argc, char** argv) {
     //construct scene
     Scene scene;
 
-    ProgramType type = ProgramType::TexturedCube;
+    ProgramType typeMenu = ProgramType::Menu;
     Sound soundPlayer;
     soundPlayer.play(BACKGROUND);
-    Menu menu(scene,type);
+
+    Menu menu(scene,typeMenu,"menu.jpg");
+    Menu pause(scene,typeMenu,"pause.jpg");
 
     //get flatcube program, load it and use it
     ProgramType FlatCube = ProgramType::FlatCube;
@@ -88,15 +90,25 @@ int main(int argc, char** argv) {
                 case SDL_QUIT: windowManager.exit();
 
                 case SDL_MOUSEBUTTONUP:
-                if (SDL_BUTTON_LEFT) {
-                    gameController.inGame();
-                }
+                    int x, y;
+                    SDL_GetMouseState(&x, &y);
+                    if (SDL_BUTTON_LEFT) {
+                        if(floatIsBetween(x, 301, 900) && floatIsBetween(y, 400, 500)){
+                            gameController.inGame();
+                        }
+                        if(floatIsBetween(x, 331, 658) && floatIsBetween(y, 600, 700)){
+                            gameController.loadGame();
+                        }
+                    }
                 break;
 
                 if(gameController.gameOn == true) {
                     case SDL_KEYDOWN:
                         gameController.handleScene(e,scene,cursor,overlay,camera);
                         gameController.handleCamera(e,camera);
+                        if(e.key.keysym.sym == SDLK_ESCAPE) {
+                            windowManager.exit();
+                        }
                         if(e.key.keysym.sym == SDLK_p) {
                             if(!gameController.gamePause) {
                                 gameController.pausedGame();
@@ -112,23 +124,24 @@ int main(int argc, char** argv) {
 
         overlay.beginFrame(windowManager.m_window);
         //Rendering code
-        //begin imgui
-
         if(!gameController.gameOn) {
-            menu.draw(scene,type);
+            menu.draw(scene,typeMenu);
         }
 
         if(gameController.gameOn == true) {
             scene.useProgram(FlatCube);
             //set background color
-            glClearColor(0.4, 0.6, 0.2, 1);
+            glClearColor(0.17, 0.19, 0.17, 1);
             if(gameController.gamePause) {
-                menu.draw(scene,type); 
+                pause.draw(scene,typeMenu); 
             }
             if(!gameController.gamePause) {
             //draw tools
             overlay.drawOverlay(scene);
             //draw cubes
+            if(gameController.gameLoad == true) {
+                loadFile("./assets/doc/", "world.txt", scene.getAllCubes());
+            }
             scene.drawCubes(camera, texture.m_textureId);
             //add lights
             scene.addLight();

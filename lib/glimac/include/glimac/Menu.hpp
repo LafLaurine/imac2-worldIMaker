@@ -33,16 +33,17 @@ struct VertexTex{
             GLuint m_ibo;
             GLuint m_vbo;
             GLuint m_vao;
-        public :
-
             Texture m_texture;
             Scene &m_scene;
             ProgramType m_type;
+        public :
             Menu() = default;
-            Menu(Scene &scene, ProgramType type);
+            Menu(Scene &scene, ProgramType type,std::string tex);
             ~Menu() = default;
             void draw(Scene &scene, ProgramType type);
+            
     };
+    bool floatIsBetween(const float value, const int min, const int max);
 };
 
 #endif

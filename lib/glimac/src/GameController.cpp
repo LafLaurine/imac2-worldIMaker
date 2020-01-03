@@ -5,12 +5,21 @@ namespace glimac {
 
     GameController::GameController() {
         gameOn = false;
+        gameLoad = false;
         gamePause = false;
     }
 
     void GameController::inGame() {
         if(gameOn == false) {
             gameOn = true;
+        }
+    }
+
+
+    void GameController::loadGame() {
+        if(gameLoad == false) {
+            gameLoad = true;
+            inGame();
         }
     }
 
@@ -168,7 +177,7 @@ namespace glimac {
             //set cube invisible
             scene.getAllCubes().at(cubeIndex).setInvisible();
             //set color of the cube to the original one, because if we add it again, we don't want to keep the color change
-            glm::vec4 color(0.6f,0.2f,0.2f,1.0f);
+            glm::vec4 color(1.0f,1.0f,1.0f,1.0f);
             scene.getAllCubes().at(cubeIndex).setColor(color);
             return 1;
             }
