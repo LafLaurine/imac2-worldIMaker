@@ -51,7 +51,7 @@ namespace glimac{
     return omega;
   }
 
-  void applyRbf(std::vector <Cube> &allCubes, std::vector <ControlPoint> &ctrlPts, FunctionType type){
+  void applyRbf(std::list <Cube> &allCubes, std::vector <ControlPoint> &ctrlPts, FunctionType type){
     float epsilon=1.f;
     float value;
     Eigen::VectorXf omega=find_omega(ctrlPts);

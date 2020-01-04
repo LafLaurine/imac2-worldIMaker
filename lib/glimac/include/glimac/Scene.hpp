@@ -9,8 +9,8 @@
 #include <glimac/TrackballCamera.hpp>
 #include <glimac/Program.hpp>
 #include <glimac/Cube.hpp>
-#include <glimac/GameController.hpp>
 #include <vector>
+#include <list>
 
 
 namespace glimac
@@ -26,7 +26,11 @@ namespace glimac
 			int directiveLight;
 			float xLightD, yLightD, zLightD;
 			float xLightP, yLightP, zLightP;
-			std::vector<Cube> m_allCubes;
+			//std::vector<Cube> m_allCubes;
+			std::list<Cube> m_allCubes;
+			Cube m_cubeConstruct;
+			// vecteur.capacity() pour donner capacité maximale au vecteur
+			// ou faire liste chainee
 			std::map<ProgramType, Program> m_programs;
 			TrackballCamera camera;
 			glm::mat4 MVMatrix, ProjMatrix, globalMVMatrix, cubeMVMatrix, NormalMatrix;
@@ -43,11 +47,11 @@ namespace glimac
 			GLuint uKd, uKs, uShininess, uLightDir_vs, uLightIntensityP, uLightIntensityD;
 			GLuint uTextureLocation, uIsThereTexture;
 			///get scene's height
-			inline int getHeight(){ return m_height; };
+			inline unsigned int getHeight(){ return m_height; };
 			///get scene's width
-			inline int getWidth(){ return m_width; };
+			inline unsigned int getWidth(){ return m_width; };
 			///get scene's length
-			inline int getLength(){ return m_length; };
+			inline unsigned int getLength(){ return m_length; };
 			///check if there is a point light
 			inline int getPointLight() {return pointLight;};
 			///check if there is a directive light
@@ -66,7 +70,8 @@ namespace glimac
 			inline float getLightZP() {return zLightP;};
 
 			///get scene's cube
-			inline std::vector<Cube>& getAllCubes() {return m_allCubes;};
+			//inline std::vector<Cube>& getAllCubes() {return m_allCubes;};
+			inline std::list<Cube>& getAllCubes() {return m_allCubes;};
 			///load scene program (shaders)
 			void loadProgram(ProgramType type, std::string vertexShader, std::string fragmentShader);
 			///use program
@@ -78,7 +83,7 @@ namespace glimac
 			///initialize default scene
 			void initAllCubes();
 			///draw cube of default scene
-			void drawCubes(TrackballCamera &camera, GLuint texId);
+			//void drawCubes(TrackballCamera &camera, GLuint texId);
 			///add light to the scene : directive light, point light and ambiant light
 			void addLight();
 			///set ground of the scene

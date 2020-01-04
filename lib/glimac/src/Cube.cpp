@@ -134,6 +134,15 @@ namespace glimac {
             m_visible = false;
         }
     }
+
+    bool Cube::operator==(Cube cube) {
+    if (m_position == cube.m_position) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
     
     
 }

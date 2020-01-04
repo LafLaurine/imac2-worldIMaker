@@ -60,7 +60,7 @@ namespace glimac {
             
             if (ImGui::Button("Set ground")) 
             {
-                scene.setGround();
+                //scene.setGround();
             }
 
             if (ImGui::Button("Generate tree")) 
@@ -96,7 +96,7 @@ namespace glimac {
             if (ImGui::Button("Save"))
             {
                 //save file with filepath and filename of the user choice
-                saveFile(filePath,filename,scene.getAllCubes());
+                saveFile(filePath,filename,scene.getAllCubes(), scene);
             }
 
             ImGui::Text("Load file :");
@@ -106,7 +106,7 @@ namespace glimac {
             if (ImGui::Button("Load"))
             {
                 //load file with filepath and filename of the user choice
-                loadFile(loadFilePath, loadFilename, scene.getAllCubes());
+                loadFile(loadFilePath, loadFilename, scene.getAllCubes(), scene);
             }
         }
         ImGui::End();

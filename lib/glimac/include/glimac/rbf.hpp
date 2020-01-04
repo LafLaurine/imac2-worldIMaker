@@ -5,6 +5,7 @@
 #include <glimac/Cube.hpp>
 #include <math.h>
 #include <vector>
+#include <list>
 #include <algorithm>
 #include <numeric>
 #include <eigen3/Eigen/Dense>
@@ -40,7 +41,7 @@ namespace glimac {
     ///compute omega for RBF function
     const Eigen::VectorXf find_omega(std::vector <ControlPoint> &ctrlPts);
     ///apply RBF function
-    void applyRbf(std::vector <Cube> &allCubes,  std::vector <ControlPoint> &ctrlPts, FunctionType type);    
+    void applyRbf(std::list <Cube> &allCubes,  std::vector <ControlPoint> &ctrlPts, FunctionType type);    
 }
 
 #endif

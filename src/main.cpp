@@ -38,12 +38,11 @@ int main(int argc, char** argv) {
     scene.loadProgram(FlatCube,"../shaders/colorCube.vs.glsl","../shaders/colorCube.fs.glsl");
     scene.useProgram(FlatCube);
     //initialize all of the scene cubes
-    scene.initAllCubes();
+    //gameController.initAllCubes();
     //initialize imgui
     overlay.initImgui(windowManager.m_window,&windowManager.m_glContext);
     //add light to the scene
     scene.addLight();
-   
     //construct camera
     TrackballCamera camera;
     //construct freefly
@@ -67,6 +66,8 @@ int main(int argc, char** argv) {
     //read control file for big cube
     std::vector <ControlPoint> list_ctrlCube;
     readFileControl("otherControls.txt",list_ctrlCube);
+
+    gameController.initAllCubes();
 
     //construct cursor
     //Cursor cursor;
@@ -108,7 +109,7 @@ int main(int argc, char** argv) {
         //draw tools
         overlay.drawOverlay(scene);
         //draw cubes
-        scene.drawCubes(camera, texture.m_textureId);
+        gameController.drawCubes(camera, texture.m_textureId);
         //add lights
         scene.addLight();
         scene.recalculateMatrices(camera,cursor);

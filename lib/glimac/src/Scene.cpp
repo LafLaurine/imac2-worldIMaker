@@ -126,36 +126,59 @@ namespace glimac {
         glUniform3f(uLightDir_vs, directiveLightX, directiveLightY, directiveLightZ);
     }
 
-    void Scene::setGround() {
+    /*void Scene::setGround() {
         //set plain ground
         for(unsigned int x = 0; x < m_width; x++) {
             for(unsigned int z = 0; z < m_length; z++) {
                 //m_allCubes.at(from3Dto1D(glm::ivec3(x,0,z))).setVisible();
-                Cube* tempCube = tabCubes[x][0][z];
-                gameController.addCube(tempCube*);
+                std::cout << tabCubes[x][0][z] << std::endl;
+                (tabCubes[x][0][z])->setVisible();
             }
         }
-    }
+    }*/
 
-    void Scene::initAllCubes() {
+    /*void Scene::initAllCubes() {
         //initialize all the cube of the scene
-        for (unsigned int z = 0; z < m_length; z++) {
-            for (unsigned int y= 0; y < m_height; y++)
+        for (unsigned int z = 0; z < m_length ; z++) {
+            for(unsigned int x= 0 ; x < m_width ; x++) {
+                //this->m_cubeConstruct.setPosition(glm::ivec3(x,y,z));
+                Cube cube(glm::ivec3(x,y,z));
+                m_allCubes.push_back(cube);
+                tabCubes[x][0][z] = &m_allCubes.back();
+
+            }
+        }
+        setGround();
+    }*/
+
+    /* enlever logique visible invisible : 
+    - aller a l'endroit ou cube sont rendus et enlever condition qui voit si cube visible ou pas et on les rend tous
+    - passer le vecteur en liste #include <list
+    - foreach, iterateur fonction lambda   std::iterator vector.for_each(vector.begin(), vector.end(),  fonction lambda)
+    fonction lambda[] dans corchets, tous les trucs  qu'on recupere de l'exterieur, dans () stocke le cube actuel pour chaque iteration (on donne type et nom), dans {} tout ce qu'on veut faire pour chaque cube
+    - on veut enlever initAllcubes, juste le sol et on appelera addcube.
+    déplacer fonction qui permet d'initiliser le sol dans gamecontroller
+    - changer add cube et tout en enlenvant setVisible et en le mettant direct dans le vect avec un pushBack()
+    */
+
+    /*void Scene::initAllCubes() {
+        //initialize all the cube of the scene
+        for (unsigned int z = 0; z < m_length ; z++) {
+            for (unsigned int y= 0; y < m_height ; y++)
             {
                 for(unsigned int x= 0 ; x<m_width ; x++)
                 {
-                    Cube temp_cube(glm::ivec3(x,y,z));
-                    // temp cube inutile
-                    // APPELLE ADD_CUBE(cube)
-                    gameController.addCube(temp_cube);
-                    m_allCubes.push_back(temp_cube);
+                    //this->m_cubeConstruct.setPosition(glm::ivec3(x,y,z));
+                    Cube cube(glm::ivec3(x,y,z));
+                    m_allCubes.push_back(cube);
+                    tabCubes[x][0][z] = &m_allCubes.back();
                 }
             }
         }
         setGround();
-    }
+    }*/
 
-    void Scene::drawCubes(TrackballCamera &camera,GLuint texId) {
+    /*void Scene::drawCubes(TrackballCamera &camera,GLuint texId) {
         //for each cube, calculate matrice and if it is visible, draw it
         for(Cube& cube : m_allCubes){
             recalculateMatrices(camera,cube);
@@ -163,7 +186,7 @@ namespace glimac {
                 cube.draw(texId);
             }
         }
-    }
+    }*/
     
     //convert a 3D vector to a 1D one
     unsigned int Scene::from3Dto1D(glm::ivec3 pos) {

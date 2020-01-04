@@ -5,6 +5,7 @@
 #include <glimac/glm.hpp> 
 #include <glimac/Cursor.hpp>
 #include <glimac/Scene.hpp>
+#include <list>
 #include <glimac/Overlay.hpp>
 #include <glimac/Texture.hpp>
 #include <SDL2/SDL.h>
@@ -36,13 +37,15 @@ namespace glimac {
             //int getIndexCube(Scene& scene, Cursor &cursor);
             ///check if there is a cube at the cursor position
             bool isThereACube();
+            ///initialize default scene
+            void initAllCubes();
+            void drawCubes(TrackballCamera &camera, GLuint texId);
             ///add cube to the scene
-            //void addCube(Scene& scene, Cursor& cursor);
             void addCube(Cube cube);
             ///delete cube of the scene
             void deleteCube(Cube* cube);
             /// check the current cube associated to the cursor's position
-            Cube* checkCurrentCube();
+            bool checkCurrentCube();
             /// Add cube with cursor's position
             void addToCursor();
             /// Delete cube with cursor's position
@@ -60,7 +63,7 @@ namespace glimac {
             ///get heighest cube of the column where the cursor is
             //Cube* getHighestCube(Scene &scene, Cursor &cursor);
             ///clean scene
-            void cleanScene(std::vector <Cube> &allCubes);
+            void cleanScene(std::list <Cube> &allCubes);
             ///change color of the cube selected
             void changeColorCube(Overlay &overlay, TrackballCamera &camera);
             ///set texture of the cube selected

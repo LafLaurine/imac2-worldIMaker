@@ -57,6 +57,7 @@ namespace glimac
 			void setInvisible();
 			///draw a cube
 			void draw(GLuint textureId);
+			bool operator==(Cube cube);
 	};
 }
 

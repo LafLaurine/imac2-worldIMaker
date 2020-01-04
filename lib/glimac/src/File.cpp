@@ -33,21 +33,20 @@ namespace glimac{
 
 	}
 
-    void saveFile(std::string filePath,std::string filename,std::vector<Cube> &allCubes){
+    void saveFile(std::string filePath,std::string filename,std::list<Cube> &allCubes, Scene &scene){
         //create a file
         std::ofstream file(filePath + filename, std::ios::out | std::ios::trunc); 
         if(file)  
         {
-            //parse the scene      
-            for (long unsigned int i = 0; i < allCubes.size(); ++i)
-            {
+
+
+            std::for_each(allCubes.begin(), allCubes.end(), [&file](Cube& cube){
                 //each position of the cube is write into the file
-                file << allCubes[i].getPosition().x <<" ";
-                file << allCubes[i].getPosition().y <<" ";
-                file << allCubes[i].getPosition().z <<" ";
-                //write if the cube is visible or not (0 ou 1)
-                file << allCubes[i].isVisible() << std::endl;
-            }
+                file << cube.getPosition().x <<" ";
+                file << cube.getPosition().y <<" ";
+                file << cube.getPosition().z <<" ";
+            });
+
                 //after constructing the file, close it
                 file.close();
                 std::cout << "Your world is saved" << std::endl;  
@@ -59,7 +58,7 @@ namespace glimac{
         }
     }
 
-	 void loadFile(std::string filePath, std::string filename,std::vector<Cube> &allCubes){
+	 void loadFile(std::string filePath, std::string filename,std::list<Cube> &allCubes, Scene &scene){
         //search file
         std::ifstream file(filePath + filename, std::ios::in); 
 
@@ -69,21 +68,16 @@ namespace glimac{
             int i=0;
 
             glm::ivec3 position;
-            bool visibility;
             //get position and visibility from the file
             file >> position.x ;
             file >> position.y ;
             file >> position.z ;
-            file >> visibility;
 
             //set position received to the scene's first cube
-            allCubes[0].setPosition(position);
-            //if cube is visible, then set it visible or invisible if not
-            if (visibility == true)
-            {
-              allCubes[0].setVisible();
-            }
-            else allCubes[0].setInvisible();
+            Cube cube(position);
+            allCubes.push_back(cube);
+            scene.tabCubes[cube.getPosition().x][cube.getPosition().y][cube.getPosition().z] = &allCubes.back();
+            
 
             //do the scene for every others cubes
             while(getline(file, line))
@@ -94,15 +88,9 @@ namespace glimac{
                 file >> position.x ;
                 file >> position.y ;
                 file >> position.z ;
-                file >> visibility;
 
-                allCubes[i].setPosition(position);
-                if (visibility == true)
-                {
-                allCubes[i].setVisible();
-                }
-                else allCubes[i].setInvisible();
-                            
+                allCubes.push_back(cube);
+                scene.tabCubes[cube.getPosition().x][cube.getPosition().y][cube.getPosition().z] = &allCubes.back();                
             }
             //when task finished, close the file
             file.close();  

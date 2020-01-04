@@ -120,7 +120,7 @@ namespace glimac {
     	//////int cubeIndex = getIndexCube(scene,cursor);
         Cube* cubePtr = m_scene->tabCubes[m_cursor->getPosition().x][m_cursor->getPosition().y][m_cursor->getPosition().z];
         //if cube's pointer is null or that the cube is invisible, then there is no cube
-    	if(cubePtr == nullptr || !cubePtr->isVisible()){
+    	if(cubePtr == nullptr){
     		std::cout << "There is NO cube, it's empty !  " << std::endl;
             return false;
     	} else {
@@ -146,45 +146,66 @@ namespace glimac {
         }
     }*/
 
+        //tempCube détruit, initialiser dans pushBack et récuperer plutot m.all_cube.back() pour mettre dan tabCubes[][][]
+    void GameController::initAllCubes() {
+        //initialize all the cube of the scene
+        for (unsigned int z = 0; z < m_scene->getLength(); z++) {
+                for(unsigned int x= 0 ; x<m_scene->getWidth() ; x++)
+                {
+                    Cube cube(glm::ivec3(x,0,z));
+                    m_scene->getAllCubes().push_back(cube);
+                    m_scene->tabCubes[x][0][z] = &m_scene->getAllCubes().back();
+                }
+        }
+    }
 
+    void GameController::drawCubes(TrackballCamera &camera,GLuint texId) {
+        //for each cube, calculate matrice and if it is visible, draw it
+        for(Cube& cube : m_scene->getAllCubes()){
+            m_scene->recalculateMatrices(camera,cube);
+            cube.draw(texId);
+        }
+    }
 
     // Add cube to vector and array
     void GameController::addCube(Cube cube){
-        if(this->isThereACube()) {
-                std::cout << "You CANNOT add a cube, there is one already" << std::endl;
-        } else {
+        //if(this->isThereACube()) {
+            std::cout << "You CANNOT add a cube, there is one already" << std::endl;
+        //} else {
             std::cout << "Add cube" << std::endl;
-            cube.setVisible();
-            m_scene->tabCubes[cube.getPosition().x][cube.getPosition().y][cube.getPosition().z] = &cube;
-        }
+            //cube.setVisible();
+            m_scene->getAllCubes().push_back(cube);
+            m_scene->tabCubes[cube.getPosition().x][cube.getPosition().y][cube.getPosition().z] = &m_scene->getAllCubes().back();
+        //}
     }
 
     // Delete cube to vector and array
     void GameController::deleteCube(Cube* cube){
         if(this->isThereACube()) {
-            cube->setInvisible();
+            //cube->setInvisible();
+            m_scene->getAllCubes().remove(*cube);
             m_scene->tabCubes[cube->getPosition().x][cube->getPosition().y][cube->getPosition().z] = nullptr;
         } else {
             std::cout << "You cannot erase emptiness..." << std::endl;
         }
     }
     // Update current cube, check which cube is in the cursor's position
-    Cube* GameController::checkCurrentCube(){
+    bool GameController::checkCurrentCube(){
         if(this->isThereACube()) {
             m_currentCube = m_scene->tabCubes[m_cursor->getPosition().x][m_cursor->getPosition().y][m_cursor->getPosition().z];
-            return m_currentCube;
+            return true;
         } else {
             std::cout << "There is no cube to check" << std::endl;
-            return nullptr;
+            return false;
         }
     }
 
     // Add cube with cursor's position
     void GameController::addToCursor(){
-        m_currentCube = this->checkCurrentCube();
-        if(m_currentCube == nullptr){
-            this->addCube(*m_currentCube);
-            m_currentCube = this->checkCurrentCube();
+        this->checkCurrentCube();
+        if(!this->checkCurrentCube()){
+            this->addCube(Cube(m_cursor->getPosition()));
+            this->checkCurrentCube();
         } else {
             std::cout << "Cube already visible" << std::endl;
         }
@@ -192,12 +213,12 @@ namespace glimac {
 
     // Delete cube with cursor's position
     void GameController::deleteToCursor(){
-        m_currentCube = checkCurrentCube();
+        this->checkCurrentCube();
         if(m_currentCube == nullptr){
             std::cout << "No cube here !" << std::endl;
         } else {
-            deleteCube(m_currentCube);
-            m_currentCube = checkCurrentCube();
+            this->deleteCube(m_currentCube);
+            this->checkCurrentCube();
         }
     }
 
@@ -205,7 +226,7 @@ namespace glimac {
     void GameController::moveCursor(glm::ivec3 position){
         if(checkPositionCursor(m_cursor->getPosition())) {
             m_cursor->setPosition(m_cursor->getPosition() += position); 
-            m_currentCube = checkCurrentCube();
+            this->checkCurrentCube();
         }
     }
 
@@ -213,7 +234,7 @@ namespace glimac {
     void GameController::updateCursorPosition(glm::ivec3 newPosition){
         if(checkPositionCursor(m_cursor->getPosition())) {
             m_cursor->setPosition(newPosition);
-            m_currentCube = checkCurrentCube();
+            this->checkCurrentCube();
         }
     }
 
@@ -221,14 +242,18 @@ namespace glimac {
     void GameController::extrudeCube(){
         Cube* lastCubeFound;
         m_currentCube = m_scene->tabCubes[m_cursor->getPosition().x][20][m_cursor->getPosition().z];
+        this->updateCursorPosition(glm::ivec3(m_cursor->getPosition().x,20,m_cursor->getPosition().z));
         glm::ivec3 newPosCursor;
 
-        for(int i=m_scene->getHeight() ; i=1 ; --i){
-            if(m_currentCube == nullptr){
+        for(int i=m_scene->getHeight() ; i=1 ; i--){
+            if(!this->checkCurrentCube()){
+                this->updateCursorPosition(glm::ivec3(m_cursor->getPosition().x,i,m_cursor->getPosition().z));
                 m_currentCube = m_scene->tabCubes[m_cursor->getPosition().x][i][m_cursor->getPosition().z];
             } else {
                 lastCubeFound = m_scene->tabCubes[m_currentCube->getPosition().x][m_currentCube->getPosition().y][m_currentCube->getPosition().z];
+                std::cout << "Pos last cube found : " << lastCubeFound->getPosition() << std::endl;
                 newPosCursor = {lastCubeFound->getPosition().x, (lastCubeFound->getPosition().y)+1, lastCubeFound->getPosition().z};
+                std::cout << "newPosCursor : " << newPosCursor << std::endl;
                 this->updateCursorPosition(newPosCursor);
                 this->addToCursor();
                 // add properties of lastCubeFound to the new cube
@@ -446,7 +471,7 @@ namespace glimac {
         }
     }
 
-    void GameController::cleanScene(std::vector <Cube> &allCubes)
+    void GameController::cleanScene(std::list <Cube> &allCubes)
     {
         //set invisible all the cube
         for(Cube &c: allCubes){
