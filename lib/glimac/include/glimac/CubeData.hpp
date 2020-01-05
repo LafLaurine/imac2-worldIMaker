@@ -8,13 +8,13 @@ namespace glimac
     ///stock cube positions
     const ShapeVertex cubePositions[] = {
         // Front
-       ShapeVertex(glm::vec3(0.5, 0.5, 0.5), glm::vec2(0.0,1.0)),
-       ShapeVertex(glm::vec3(-0.5, 0.5, 0.5), glm::vec2(1.0,0.0)),
-       ShapeVertex(glm::vec3(-0.5, -0.5, 0.5), glm::vec2(1.0,1.0)),
-       ShapeVertex(glm::vec3(0.5, -0.5, 0.5), glm::vec2(0.0,1.0)),
-        
+        ShapeVertex(glm::vec3(0.5, 0.5, 0.5), glm::vec2(1.0,1.0)),
+        ShapeVertex(glm::vec3(-0.5, 0.5, 0.5), glm::vec2(0.0,1.0)),
+        ShapeVertex(glm::vec3(-0.5, -0.5, 0.5), glm::vec2(0.0,0.0)),
+        ShapeVertex(glm::vec3(0.5, -0.5, 0.5), glm::vec2(1.0,0.0)),
+            
         // Right
-        ShapeVertex(glm::vec3(0.5, 0.5, 0.5), glm::vec2(0.0,0.0)),
+        ShapeVertex(glm::vec3(0.5, 0.5, 0.5), glm::vec2(1.0,1.0)),
         ShapeVertex(glm::vec3(0.5, -0.5, 0.5), glm::vec2(1.0,0.0)),
         ShapeVertex(glm::vec3(0.5, -0.5, -0.5), glm::vec2(1.0,1.0)),
         ShapeVertex(glm::vec3(0.5, 0.5, -0.5),glm::vec2(0.0,1.0)),
