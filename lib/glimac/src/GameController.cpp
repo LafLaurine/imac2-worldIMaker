@@ -249,7 +249,7 @@ void GameController::handleCamera(SDL_Event &e, TrackballCamera &cam) {
             lastCubeFound = m_scene->tabCubes[m_cursor->getPosition().x][m_cursor->getPosition().y][m_cursor->getPosition().z];
             std::cout << "Last cube fround : " << lastCubeFound << std::endl;
             for(size_t i=m_scene->getHeight(); i = 1; --i){
-                this->updateCursorPosition(glm::ivec3(lastCubeFound->getPosition().x, (lastCubeFound->getPosition().y-1), lastCubeFound->getPosition().z));
+                this->updateCursorPosition(glm::ivec3(lastCubeFound->getPosition().x, (lastCubeFound->getPosition().y), lastCubeFound->getPosition().z));
                 std::cout << "pos last cube else : " << lastCubeFound->getPosition() << std::endl;
                 this->deleteToCursor();
                 break;
