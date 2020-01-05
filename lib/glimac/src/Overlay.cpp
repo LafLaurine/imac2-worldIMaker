@@ -13,13 +13,11 @@ namespace glimac {
         ImGui_ImplSDL2_Shutdown();
         ImGui::DestroyContext();
     }
+
     void Overlay::initImgui(SDL_Window* window,SDL_GLContext* glContext)  {
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
         ImGui::StyleColorsDark();
-
-        m_io = new ImGuiIO();
-        *m_io = ImGui::GetIO();
         ImGui_ImplSDL2_InitForOpenGL(window,&glContext);
         ImGui_ImplOpenGL3_Init("#version 330 core");
     }
@@ -32,6 +30,7 @@ namespace glimac {
     }
 
     void Overlay::drawOverlay(Scene &scene) {
+        ImGuiIO &m_io = ImGui::GetIO();
         ImGui::Begin("Cube tools",&p_open);
         {
             //set color picker
@@ -53,7 +52,7 @@ namespace glimac {
                 clickedReset++;
             }
 
-            if ((ImGui::Button("Add cube")) || ImGui::IsKeyDown(SDL_SCANCODE_F)) {
+            if ((ImGui::Button("Add cube")) {
                 clickedAddCube++;
             }
             
@@ -67,7 +66,7 @@ namespace glimac {
                 clickedRemoveTexture++;
             }
 
-            if (ImGui::Button("Destroy cube") || ImGui::IsKeyDown(SDL_SCANCODE_V)) 
+            if (ImGui::Button("Destroy cube")) 
             { 
                 clickedDeleteCube++;
             }
@@ -99,27 +98,31 @@ namespace glimac {
         ImGui::Begin("Save and load",&p_open);
         {
             //set strings for save and load filepath and filename
-            std::string filePath = "./assets/doc/";
-            std::string filename = "world.txt";
+            static char filepath[128] = "";
+            static char filename[128] = "";
             ImGui::Text("Save file :");
-            ImGui::InputText("Save path", &filePath);
-            ImGui::InputText("Save filename", &filename);
+            ImGui::InputTextWithHint("filepath", "enter file path", filepath, sizeof(filepath), ImGuiInputTextFlags_EnterReturnsTrue);
+            ImGui::InputTextWithHint("filename", "enter file name", filename, sizeof(filename), ImGuiInputTextFlags_EnterReturnsTrue);
+            std::string filePathS(filepath);
+            std::string fileNameS(filename);
             if (ImGui::Button("Save"))
             {
                 //save file with filepath and filename of the user choice
-                saveFile(filePath,filename,scene.getAllCubes(),scene);
+                saveFile(filePathS,fileNameS,scene.getAllCubes(),scene);
             }
 
-            std::string loadFilePath = "./assets/doc/";
-            std::string loadFilename = "world.txt";
+            static char filepathLoad[128] = "";
+            static char filenameLoad[128] = "";
             ImGui::Text("Load file :");
-            ImGui::InputText("Path", &loadFilePath);
-            ImGui::InputText("Filename", &loadFilename);
+            ImGui::InputTextWithHint("filepathLoad", "enter file path", filepathLoad, sizeof(filepath), ImGuiInputTextFlags_EnterReturnsTrue);
+            ImGui::InputTextWithHint("filenameLoad", "enter file name", filenameLoad, sizeof(filename), ImGuiInputTextFlags_EnterReturnsTrue);
+            std::string filePathL(filepathLoad);
+            std::string fileNameL(filenameLoad);
 
             if (ImGui::Button("Load"))
             {
                 //load file with filepath and filename of the user choice
-                loadFile(loadFilePath, loadFilename, scene.getAllCubes(),scene);
+                loadFile(filePathL, fileNameL, scene.getAllCubes(),scene);
             }
         }
         ImGui::End();

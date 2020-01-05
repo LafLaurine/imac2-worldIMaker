@@ -21,6 +21,7 @@ namespace glimac
 			int clickedReset, clickedAddCube, clickedDeleteCube;
 			int clickedTree, clickedCube, clickedAddTexture, clickedChangeCamera,clickedRemoveTexture;
 			ImGuiIO* m_io;
+			ImVec4 i_color;
 
 		public:
 			///default constructor of overlay
