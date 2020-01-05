@@ -241,31 +241,22 @@ namespace glimac {
     // Extrude
     void GameController::extrudeCube(){
         Cube* lastCubeFound;
-        m_currentCube = m_scene->tabCubes[m_cursor->getPosition().x][20][m_cursor->getPosition().z];
-        this->updateCursorPosition(glm::ivec3(m_cursor->getPosition().x,20,m_cursor->getPosition().z));
-        glm::ivec3 newPosCursor;
+        lastCubeFound = m_scene->tabCubes[m_cursor->getPosition().x][20][m_cursor->getPosition().z];
 
         for(int i=m_scene->getHeight() ; i=1 ; i--){
-            if(!this->checkCurrentCube()){
-                this->updateCursorPosition(glm::ivec3(m_cursor->getPosition().x,i,m_cursor->getPosition().z));
-                m_currentCube = m_scene->tabCubes[m_cursor->getPosition().x][i][m_cursor->getPosition().z];
+            if(lastCubeFound==nullptr){
+                lastCubeFound = m_scene->tabCubes[m_cursor->getPosition().x][i][m_cursor->getPosition().z];
             } else {
-                lastCubeFound = m_scene->tabCubes[m_currentCube->getPosition().x][m_currentCube->getPosition().y][m_currentCube->getPosition().z];
-                std::cout << "Pos last cube found : " << lastCubeFound->getPosition() << std::endl;
-                newPosCursor = {lastCubeFound->getPosition().x, (lastCubeFound->getPosition().y)+1, lastCubeFound->getPosition().z};
-                std::cout << "newPosCursor : " << newPosCursor << std::endl;
-                this->updateCursorPosition(newPosCursor);
+                this->updateCursorPosition(glm::ivec3(lastCubeFound->getPosition().x, (lastCubeFound->getPosition().y)+1, lastCubeFound->getPosition().z));
                 this->addToCursor();
-                // add properties of lastCubeFound to the new cube
-            }
-
-            // if no cube found, add one on the ground
-            if(!isThereACube()){
-                newPosCursor = {lastCubeFound->getPosition().x, 0, lastCubeFound->getPosition().z};
-                this->updateCursorPosition(newPosCursor);
-                this->addToCursor();
+                break;
             }
         }
+        // if no cube found, add one on the ground
+        if(!isThereACube()){
+                this->updateCursorPosition(glm::ivec3(m_cursor->getPosition().x,0,m_cursor->getPosition().z));
+                this->addToCursor();
+            }
 
     }
 
@@ -283,14 +274,12 @@ namespace glimac {
                 lastCubeFound = m_scene->tabCubes[m_currentCube->getPosition().x][m_currentCube->getPosition().y][m_currentCube->getPosition().z];
                 this->updateCursorPosition(lastCubeFound->getPosition());
                 this->deleteToCursor();
-            }
-
-            // if cube found, delete one on the ground
-            if(isThereACube()){
-                newPosCursor = {lastCubeFound->getPosition().x, 0, lastCubeFound->getPosition().z};
-                this->updateCursorPosition(newPosCursor);
-                this->deleteToCursor();
-            }
+            }  
+        }
+        // if cube found, delete one on the ground
+        if(isThereACube()){
+            this->updateCursorPosition(newPosCursor);
+            this->deleteToCursor();
         }
 
     }
