@@ -11,6 +11,7 @@
 #include <glimac/Cube.hpp>
 #include <glimac/Texture.hpp>
 #include <vector>
+#include <list>
 
 
 namespace glimac
@@ -26,7 +27,11 @@ namespace glimac
 			int directiveLight;
 			float xLightD, yLightD, zLightD;
 			float xLightP, yLightP, zLightP;
-			std::vector<Cube> m_allCubes;
+			std::list<Cube> m_allCubes;
+			Cube m_cubeConstruct;
+    ///map between programtype and its program
+			std::map<ProgramType, Program> m_programs;
+
 			TrackballCamera camera;
 			glm::mat4 MVMatrix, ProjMatrix, globalMVMatrix, cubeMVMatrix, NormalMatrix;
 			glm::vec3 lightDir,lightIntensity, m_color;
@@ -35,19 +40,19 @@ namespace glimac
 			Scene() = default;
 			///default destructor of scene
 			~Scene() = default;
-			///map between programtype and its program
-			std::map<ProgramType, Program> m_programs;
+			Cube* tabCubes[20][20][20];
+
 			///attributes for uniform location
 			GLuint uMVLocation,uMVPLocation, uLightLocation, uLightPointLocation,uAmbiantLight, uLightPosLocation, uColorLocation, uNormalMatLocation;
 			GLuint uLuminosityLocation, uCubeTypeLocation;
 			GLuint uKd, uKs, uShininess, uLightDir_vs, uLightIntensityP, uLightIntensityD;
 			GLuint uTextureLocation, uIsThereTexture;
 			///get scene's height
-			inline int getHeight(){ return m_height; };
+			inline unsigned int getHeight(){ return m_height; };
 			///get scene's width
-			inline int getWidth(){ return m_width; };
+			inline unsigned int getWidth(){ return m_width; };
 			///get scene's length
-			inline int getLength(){ return m_length; };
+			inline unsigned int getLength(){ return m_length; };
 			///check if there is a point light
 			inline int getPointLight() {return pointLight;};
 			///check if there is a directive light
@@ -64,9 +69,8 @@ namespace glimac
 			inline float getLightYP() {return yLightP;};
 			///get z position of point light
 			inline float getLightZP() {return zLightP;};
-
 			///get scene's cube
-			inline std::vector<Cube>& getAllCubes() {return m_allCubes;};
+			inline std::list<Cube>& getAllCubes() {return m_allCubes;};
 			///load scene program (shaders)
 			void loadProgram(ProgramType type, std::string vertexShader, std::string fragmentShader);
 			///use program
@@ -77,9 +81,7 @@ namespace glimac
 			void recalculateMatrices(TrackballCamera &camera, Cube cube);
 			///initialize default scene
 			void initAllCubes();
-			///draw cube of default scene
-			void drawCubes(TrackballCamera &camera, Texture &tex);
-			///add light to the scene : directive light, point light and ambiant light
+					///add light to the scene : directive light, point light and ambiant light
 			void addLight();
 			///set ground of the scene
 			void setGround();

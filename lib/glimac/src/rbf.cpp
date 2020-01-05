@@ -55,7 +55,7 @@ namespace glimac{
     return omega;
   }
 
-  void applyRbf(std::vector <Cube> &allCubes, std::vector <ControlPoint> &ctrlPts, FunctionType type){
+  void applyRbf(std::list <Cube> &allCubes, std::vector <ControlPoint> &ctrlPts, FunctionType type){
     float epsilon=1.f;
     float value;
     Eigen::VectorXf omega=find_omega(ctrlPts);
@@ -63,7 +63,7 @@ namespace glimac{
     for(Cube &c: allCubes){
       value=0;
       for (size_t i = 1; i < ctrlPts.size(); ++i){
-        value+= getRBF(type, c.getPosition(), ctrlPts.at(i).m_position, epsilon)*omega[i];
+        value+= getRBF(type, glm::vec3(c.getPosition()), ctrlPts[i].m_position, epsilon)*omega[i];
       } 
       std::cout << value << std::endl;
       //if value is >= 0, the cube will be visible

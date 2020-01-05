@@ -95,17 +95,14 @@ namespace glimac {
         }
     }
 
-    void Cube::setVisible() {
-        if(m_visible == false){
-            m_visible = true;
-        }
+    bool Cube::operator==(Cube cube) {
+    if (m_position == cube.m_position) {
+      return true;
     }
-
-    void Cube::setInvisible() {
-        if(m_visible == true){
-            m_visible = false;
-        }
+    else {
+      return false;
     }
+  }
     
     
 }

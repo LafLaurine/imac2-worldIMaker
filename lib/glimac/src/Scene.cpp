@@ -62,8 +62,12 @@ namespace glimac {
 
     void Scene::recalculateMatrices(TrackballCamera &camera,Cube cube) {
         //compute the model view matrix with the camera
+        float xCube = cube.getPosition().x;
+        float yCube = cube.getPosition().y;
+        float zCube = cube.getPosition().z;
+        glm::vec3 cubePos = {xCube, yCube, zCube};
         glm::mat4 camera_VM = camera.getViewMatrix();
-        glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), cube.getPosition());
+        glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), cubePos);
         glUniform3fv(uColorLocation, 1, glm::value_ptr(cube.getColor()));
         glUniformMatrix4fv(uMVLocation, // Location
                             1, // Count
@@ -141,47 +145,13 @@ namespace glimac {
     }
 
     void Scene::setGround() {
-        //set plain ground
-        for(unsigned int x = 0; x < m_width; x++) {
-            for(unsigned int z = 0; z < m_length; z++) {
-                glm::vec4 color(1.0f,1.0f,1.0f,1.0f);
-                m_allCubes.at(from3Dto1D(glm::vec3(x,0,z))).setColor(color);
-                m_allCubes.at(from3Dto1D(glm::vec3(x,0,z))).setVisible();
-                
-            }
-        }
-    }
-
-    void Scene::initAllCubes() {
-        //initialize all the cube of the scene
-        for (unsigned int z = 0; z < m_length; z++) {
-            for (unsigned int y= 0; y < m_height; y++)
-            {
+        for (unsigned int z = 0; z < m_length ; z++) {
                 for(unsigned int x= 0 ; x<m_width ; x++)
                 {
-                    Cube temp_cube(glm::vec3(x,y,z));
-                    m_allCubes.push_back(temp_cube);
+                    Cube cube(glm::ivec3(x,0,z));
+                    m_allCubes.push_back(cube);
+                    tabCubes[x][0][z] = &m_allCubes.back();
                 }
-            }
-        }
-        setGround();
-    }
-
-    void Scene::drawCubes(TrackballCamera &camera,Texture &tex) {
-        //for each cube, calculate matrice and if it is visible, draw it
-        for(Cube& cube : m_allCubes){
-            recalculateMatrices(camera,cube);
-            if(cube.isVisible()) {
-                if(cube.m_type == 0) {
-                    glUniform1i(uCubeTypeLocation,0);
-                }
-                else if(cube.m_type == 1) {
-                    GLCall(glUniform1i(uCubeTypeLocation,1));
-                    GLCall(glUniform1i(uIsThereTexture, 1));
-                    GLCall(glUniform1i(uTextureLocation, tex.getId()));
-                }
-                cube.draw(tex.getId());
-            }
         }
     }
     

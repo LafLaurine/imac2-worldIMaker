@@ -45,25 +45,25 @@ int main(int argc, char** argv) {
     scene.loadProgram(FlatCube,"../shaders/colorCube.vs.glsl","../shaders/colorCube.fs.glsl");
     scene.useProgram(FlatCube);
     //initialize all of the scene cubes
-    scene.initAllCubes();
+    //gameController.initAllCubes();
     //initialize imgui
     overlay.initImgui(windowManager.m_window,&windowManager.m_glContext);
     //add light to the scene
     scene.addLight();
-
     //set texture
     Texture groundTree("groundTree.jpg");
     //texture tree
     Texture tree("tree.jpg");
-   
     //construct camera
     TrackballCamera camera;
     //construct freefly
     FreeFlyCamera freeCam;
     //set camera position
     camera.setPosMatrix(10,5,5);
+    //construct cursor
+    Cursor cursor;
     //construct gamecontroller
-    GameController gameController;
+    GameController gameController(&scene, &cursor);
     //first initialization of uniform matrices
     scene.createUniformMatrices(FlatCube);
 
@@ -73,9 +73,7 @@ int main(int argc, char** argv) {
     //read control file for big cube
     std::vector <ControlPoint> list_ctrlCube;
     readFileControl("test1.txt",list_ctrlCube);
-
-    //construct cursor
-    Cursor cursor;
+    gameController.initAllCubes();
 
     // Application loop
     while(windowManager.isRunning()) {
@@ -104,7 +102,7 @@ int main(int argc, char** argv) {
 
                 if(gameController.gameOn == true) {
                     case SDL_KEYDOWN:
-                        gameController.handleScene(e,scene,cursor,overlay,camera);
+                        gameController.handleScene(e,scene,overlay,camera);
                         gameController.handleCamera(e,camera);
                         if(e.key.keysym.sym == SDLK_ESCAPE) {
                             windowManager.exit();
@@ -123,6 +121,7 @@ int main(int argc, char** argv) {
         }
 
         overlay.beginFrame(windowManager.m_window);
+
         //Rendering code
         if(!gameController.gameOn) {
             menu.draw(scene,typeMenu);
@@ -144,7 +143,7 @@ int main(int argc, char** argv) {
                 if(gameController.gameLoad == true) {
                     loadFile("./assets/doc/", "world.txt", scene.getAllCubes());
                 }
-                scene.drawCubes(camera, groundTree);
+                gameController.drawCubes(camera, groundTree);
                 //add lights
                 scene.addLight();
                 scene.recalculateMatrices(camera,cursor);
@@ -162,15 +161,15 @@ int main(int argc, char** argv) {
                     gameController.cleanScene(scene.getAllCubes());
                 }
                 if(overlay.getClickedAddCube() &1) {
-                    if(gameController.addCube(scene,cursor))
+                    if(gameController.addToCursor())
                         soundPlayer.play(BUILD);
                 }
                 if(overlay.getClickedDeleteCube() &1) {
-                    if(gameController.deleteCube(scene,cursor))
+                    if(gameController.deleteToCursor())
                         soundPlayer.play(DESTROY);
                 }
                 if(overlay.getClickedAddTexture() &1) {
-                    gameController.setTextureCube(scene,cursor,groundTree);
+                    gameController.setTextureCube(groundTree);
                 }
                 if(overlay.getClickedRemoveTexture() &1) {
                   //  gameController.removeTextureCube(scene,cursor,texture);
