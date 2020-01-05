@@ -45,7 +45,7 @@ namespace glimac{
                 //each position of the cube is write into the file
                 file << cube.getPosition().x <<" ";
                 file << cube.getPosition().y <<" ";
-                file << cube.getPosition().z <<" ";
+                file << cube.getPosition().z << std::endl;
             });
 
                 //after constructing the file, close it
