@@ -57,7 +57,7 @@ namespace glimac {
         GLCall(glBindVertexArray(m_vao));
         GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo));
         GLCall(glBindTexture(GL_TEXTURE_2D, id));
-        GLCall(glUniform1i(glGetUniformLocation(scene.m_programs[type].getGLId(), "uTexure"), id));
+        GLCall(glUniform1i(glGetUniformLocation(scene.m_programs[type].getGLId(), "uTexure"), m_texture->getId()));
         GLCall(glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (void*) 0, 1));
         GLCall(glBindTexture(GL_TEXTURE_2D, 0));
         GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));

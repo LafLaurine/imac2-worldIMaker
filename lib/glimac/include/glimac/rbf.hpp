@@ -2,7 +2,7 @@
 #define WORLD_IMAKER_RBF_HPP
 #pragma once
 #include <glm/glm.hpp>
-#include <glimac/Cube.hpp>
+#include <glimac/GameController.hpp>
 #include <math.h>
 #include <vector>
 #include <list>
@@ -41,7 +41,7 @@ namespace glimac {
     ///compute omega for RBF function
     const Eigen::VectorXf find_omega(std::vector <ControlPoint> &ctrlPts);
     ///apply RBF function
-    void applyRbf(std::list <Cube> &allCubes,  std::vector <ControlPoint> &ctrlPts, FunctionType type);    
+    void applyRbf(std::list <Cube> &allCubes, std::vector <ControlPoint> &ctrlPts, FunctionType type, GameController &gameControl);    
 }
 
 #endif

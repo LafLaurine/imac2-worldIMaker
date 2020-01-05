@@ -13,8 +13,8 @@ namespace glimac {
     class GameController {
         private :
             float zoom = 1.0f;
-            Cursor* m_cursor;
             Scene* m_scene;
+            Cursor* m_cursor;
             Cube* m_currentCube;
         public:
             ///default constructor of GameController
@@ -46,7 +46,7 @@ namespace glimac {
             bool isThereACube();
             ///initialize default scene
             void initAllCubes();
-            void drawCubes(TrackballCamera &camera, GLuint texId);
+            void drawCubes(TrackballCamera &camera, Texture &tex);
             ///add cube to the scene
             void addCube(Cube cube);
             ///delete cube of the scene
@@ -54,9 +54,9 @@ namespace glimac {
             /// check the current cube associated to the cursor's position
             bool checkCurrentCube();
             /// Add cube with cursor's position
-            void addToCursor();
+            bool addToCursor();
             /// Delete cube with cursor's position
-            void deleteToCursor();
+            bool deleteToCursor();
             /// Move cursor
             void moveCursor(glm::ivec3 position);
             /// Repalce the cursor's position with a new

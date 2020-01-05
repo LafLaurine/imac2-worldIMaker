@@ -32,10 +32,7 @@ namespace glimac {
             gamePause = true;
         }
     }
-
-
-
-    void GameController::handleCamera(SDL_Event &e, TrackballCamera &cam) {
+void GameController::handleCamera(SDL_Event &e, TrackballCamera &cam) {
         //handle key for camera : Z and S for zoom
         if(e.key.keysym.sym == SDLK_z) {
             cam.moveFront(-zoom);
@@ -128,6 +125,7 @@ namespace glimac {
     }
 
     bool GameController::isThereACube(){
+    	//////int cubeIndex = getIndexCube(scene,cursor);
         Cube* cubePtr = m_scene->tabCubes[m_cursor->getPosition().x][m_cursor->getPosition().y][m_cursor->getPosition().z];
         //if cube's pointer is null or that the cube is invisible, then there is no cube
     	if(cubePtr == nullptr){
@@ -141,24 +139,22 @@ namespace glimac {
 
     void GameController::initAllCubes() {
         //initialize all the cube of the scene
-        for (unsigned int z = 0; z < m_scene->getLength(); z++) {
-            for(unsigned int x= 0 ; x< m_scene->getWidth() ; x++)
+        for (int z = 0; z < m_scene->getLength(); z++) {
+            for(int x= 0 ; x< m_scene->getWidth() ; x++)
             {
                 Cube cube(glm::ivec3(x,0,z));
                 m_scene->getAllCubes().push_back(cube);
                 m_scene->tabCubes[x][0][z] = &m_scene->getAllCubes().back();
             }
         }
-        return 0;
     }
 
-    void GameController::drawCubes(TrackballCamera &camera,GLuint texId) {
+    void GameController::drawCubes(TrackballCamera &camera,Texture &tex) {
         //for each cube, calculate matrice and if it is visible, draw it
         for(Cube& cube : m_scene->getAllCubes()){
             m_scene->recalculateMatrices(camera,cube);
-            cube.draw(texId);
-
-        return 0;
+            cube.draw(tex.getId());
+        }
     }
 
     // Add cube to vector and array
@@ -190,24 +186,28 @@ namespace glimac {
     }
 
     // Add cube with cursor's position
-    void GameController::addToCursor(){
+    bool GameController::addToCursor(){
         this->checkCurrentCube();
         if(!this->checkCurrentCube()){
             this->addCube(Cube(m_cursor->getPosition()));
             this->checkCurrentCube();
+            return true;
         } else {
             std::cout << "Cube already visible" << std::endl;
+            return false;
         }
     }
 
     // Delete cube with cursor's position
-    void GameController::deleteToCursor(){
+    bool GameController::deleteToCursor(){
         this->checkCurrentCube();
         if(m_currentCube == nullptr){
             std::cout << "No cube here !" << std::endl;
+            return false;
         } else {
             this->deleteCube(m_currentCube);
             this->checkCurrentCube();
+            return true;
         }
     }
 
@@ -256,7 +256,7 @@ namespace glimac {
         Cube* lastCubeFound;
         m_currentCube = m_scene->tabCubes[m_cursor->getPosition().x][20][m_cursor->getPosition().z];
 
-        for(int i=m_scene->getHeight() ; i=1 ; --i){
+        for(int i = m_scene->getHeight(); i = 1 ; --i){
             if(lastCubeFound == nullptr){
                 lastCubeFound = m_scene->tabCubes[m_cursor->getPosition().x][i][m_cursor->getPosition().z];
             } else {
@@ -296,16 +296,16 @@ namespace glimac {
         if(this->isThereACube()){
             cubePtr->m_type = 1;
         } else {
-            std::cout << "There is no cube for adding texture" << std::endl;
+            std::cout << "There is no cube" << std::endl;
         }
     }
 
     void GameController::cleanScene(std::list <Cube> &allCubes)
     {
         allCubes = std::list<Cube>();
-        for (unsigned int z = 0; z < m_scene->getLength() ; z++) {
-            for(unsigned int x= 0 ; x <m_scene->getWidth() ; x++) {
-                for(unsigned int y= 1 ; y < m_scene->getHeight() ; y++) {
+        for (int z = 0; z < m_scene->getLength() ; z++) {
+            for(int x= 0 ; x <m_scene->getWidth() ; x++) {
+                for(int y= 1 ; y < m_scene->getHeight() ; y++) {
                     allCubes.remove(*m_scene->tabCubes[x][y][z]);
                     m_scene->tabCubes[x][y][z] = nullptr;
 
@@ -313,6 +313,5 @@ namespace glimac {
             }
         }
     }
-
 
 };

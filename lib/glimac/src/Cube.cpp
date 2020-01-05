@@ -4,7 +4,7 @@
 
 namespace glimac {
 
-    Cube::Cube(glm::vec3 position): m_vao(0), m_ibo(0), m_position(position), m_color(1.0f,1.0f,1.0f,1.0f), m_visible(false), m_type(0) {
+    Cube::Cube(glm::ivec3 position): m_vao(0), m_ibo(0), m_position(position), m_color(1.0f,1.0f,1.0f,1.0f), m_visible(false), m_type(0) {
          initBuffer();
     }
     

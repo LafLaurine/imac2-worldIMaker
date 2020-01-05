@@ -55,7 +55,7 @@ namespace glimac{
     return omega;
   }
 
-  void applyRbf(std::list <Cube> &allCubes, std::vector <ControlPoint> &ctrlPts, FunctionType type){
+  void applyRbf(std::list <Cube> &allCubes, std::vector <ControlPoint> &ctrlPts, FunctionType type, GameController &gameControl){
     float epsilon=1.f;
     float value;
     Eigen::VectorXf omega=find_omega(ctrlPts);
@@ -68,9 +68,9 @@ namespace glimac{
       std::cout << value << std::endl;
       //if value is >= 0, the cube will be visible
       if (value >= 0.f) 
-        c.setVisible();
+        gameControl.addCube(c);
       else 
-        c.setInvisible();
+        gameControl.deleteCube(&c);
     }  
   }
 };

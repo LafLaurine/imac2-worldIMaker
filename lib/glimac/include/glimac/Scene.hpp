@@ -29,9 +29,6 @@ namespace glimac
 			float xLightP, yLightP, zLightP;
 			std::list<Cube> m_allCubes;
 			Cube m_cubeConstruct;
-    ///map between programtype and its program
-			std::map<ProgramType, Program> m_programs;
-
 			TrackballCamera camera;
 			glm::mat4 MVMatrix, ProjMatrix, globalMVMatrix, cubeMVMatrix, NormalMatrix;
 			glm::vec3 lightDir,lightIntensity, m_color;
@@ -40,19 +37,21 @@ namespace glimac
 			Scene() = default;
 			///default destructor of scene
 			~Scene() = default;
-			Cube* tabCubes[20][20][20];
 
+   			///map between programtype and its program
+			std::map<ProgramType, Program> m_programs;
+			Cube* tabCubes[20][20][20];
 			///attributes for uniform location
 			GLuint uMVLocation,uMVPLocation, uLightLocation, uLightPointLocation,uAmbiantLight, uLightPosLocation, uColorLocation, uNormalMatLocation;
 			GLuint uLuminosityLocation, uCubeTypeLocation;
 			GLuint uKd, uKs, uShininess, uLightDir_vs, uLightIntensityP, uLightIntensityD;
 			GLuint uTextureLocation, uIsThereTexture;
 			///get scene's height
-			inline unsigned int getHeight(){ return m_height; };
+			inline int getHeight(){ return m_height; };
 			///get scene's width
-			inline unsigned int getWidth(){ return m_width; };
+			inline int getWidth(){ return m_width; };
 			///get scene's length
-			inline unsigned int getLength(){ return m_length; };
+			inline int getLength(){ return m_length; };
 			///check if there is a point light
 			inline int getPointLight() {return pointLight;};
 			///check if there is a directive light

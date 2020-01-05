@@ -102,7 +102,7 @@ int main(int argc, char** argv) {
 
                 if(gameController.gameOn == true) {
                     case SDL_KEYDOWN:
-                        gameController.handleScene(e,scene,overlay,camera);
+                        gameController.handleScene(e,overlay,camera);
                         gameController.handleCamera(e,camera);
                         if(e.key.keysym.sym == SDLK_ESCAPE) {
                             windowManager.exit();
@@ -141,7 +141,7 @@ int main(int argc, char** argv) {
                 overlay.drawOverlay(scene);
                 //draw cubes
                 if(gameController.gameLoad == true) {
-                    loadFile("./assets/doc/", "world.txt", scene.getAllCubes());
+                    loadFile("./assets/doc/", "world.txt", scene.getAllCubes(),scene);
                 }
                 gameController.drawCubes(camera, groundTree);
                 //add lights
@@ -152,10 +152,10 @@ int main(int argc, char** argv) {
 
                 //handle click on the overlay
                 if(overlay.getClickedTree() &1) {
-                    applyRbf(scene.getAllCubes(), list_ctrlTree, FunctionType::InverseQuadratic);
+                    applyRbf(scene.getAllCubes(), list_ctrlTree, FunctionType::InverseQuadratic, gameController);
                 }
                 if(overlay.getClickedCube() &1) {
-                    applyRbf(scene.getAllCubes(), list_ctrlCube, FunctionType::ThinPlateSpline);
+                    applyRbf(scene.getAllCubes(), list_ctrlCube, FunctionType::ThinPlateSpline, gameController);
                 }
                 if(overlay.getClickedReset() &1) {
                     gameController.cleanScene(scene.getAllCubes());
