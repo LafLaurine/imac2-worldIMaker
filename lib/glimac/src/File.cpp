@@ -58,35 +58,35 @@ namespace glimac{
     }
 
 	 void loadFile(std::string filePath, std::string filename,std::list<Cube> &allCubes, Scene &scene){
+        std::cout << "world loaded" << std::endl;
         //search file
         std::ifstream file(filePath + filename, std::ios::in); 
 
         if (file)
         {
             std::string line;
-            int i=0;
-
             glm::ivec3 position;
             //get position and visibility from the file
             file >> position.x ;
             file >> position.y ;
             file >> position.z ;
 
-            //set position received to the scene's first cube
-            Cube cube(position);
-            allCubes.push_back(cube);
-            scene.tabCubes[cube.getPosition().x][cube.getPosition().y][cube.getPosition().z] = &allCubes.back();
+            //set position received to the scene's first cube*/
+            Cube cube(glm::ivec3( position.x, position.y, position.z));
+            allCubes.push_front(cube);
+            scene.tabCubes[cube.getPosition().x][cube.getPosition().y][cube.getPosition().z] = &allCubes.front();
             
 
             //do the scene for every others cubes
             while(getline(file, line))
             {
-                i++;  
                 glm::ivec3 position;
                 
                 file >> position.x ;
                 file >> position.y ;
                 file >> position.z ;
+
+                Cube cube(glm::ivec3( position.x, position.y, position.z));
 
                 allCubes.push_back(cube);
                 scene.tabCubes[cube.getPosition().x][cube.getPosition().y][cube.getPosition().z] = &allCubes.back();                
