@@ -55,7 +55,7 @@ namespace glimac{
     return omega;
   }
 
-  void applyRbf(std::list <Cube> &allCubes, std::vector <ControlPoint> &ctrlPts, FunctionType type, GameController &gameControl){
+  /*void applyRbf(std::list <Cube> &allCubes, std::vector <ControlPoint> &ctrlPts, FunctionType type, GameController &gameControl){
     float epsilon=1.f;
     float value;
     Eigen::VectorXf omega=find_omega(ctrlPts);
@@ -72,5 +72,5 @@ namespace glimac{
       else 
         gameControl.deleteCube(&c);
     }  
-  }
+  }*/
 };
