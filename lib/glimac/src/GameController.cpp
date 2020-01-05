@@ -169,8 +169,6 @@ void GameController::handleCamera(SDL_Event &e, TrackballCamera &cam) {
         if(this->isThereACube()) {
             m_scene->getAllCubes().remove(*cube);
             m_scene->tabCubes[cube->getPosition().x][cube->getPosition().y][cube->getPosition().z] = nullptr;
-        } else {
-            std::cout << "You cannot erase emptiness..." << std::endl;
         }
     }
 
@@ -180,7 +178,6 @@ void GameController::handleCamera(SDL_Event &e, TrackballCamera &cam) {
             m_currentCube = m_scene->tabCubes[m_cursor->getPosition().x][m_cursor->getPosition().y][m_cursor->getPosition().z];
             return true;
         } else {
-            std::cout << "There is no cube to check" << std::endl;
             return false;
         }
     }
@@ -267,8 +264,6 @@ void GameController::handleCamera(SDL_Event &e, TrackballCamera &cam) {
             //change color of the cube selected
             cubePtr->setColor(*color);
 
-        } else {
-            std::cout << "There is no cube for changing color" << std::endl;
         }
     }
 
@@ -278,8 +273,6 @@ void GameController::handleCamera(SDL_Event &e, TrackballCamera &cam) {
         std::cout << cubePtr << std::endl;
         if(this->isThereACube()){
             cubePtr->m_type = 1;
-        } else {
-            std::cout << "There is no cube" << std::endl;
         }
     }
 
