@@ -9,6 +9,7 @@
 #include <glimac/TrackballCamera.hpp>
 #include <glimac/Program.hpp>
 #include <glimac/Cube.hpp>
+#include <glimac/Texture.hpp>
 #include <vector>
 #include <list>
 
@@ -26,12 +27,11 @@ namespace glimac
 			int directiveLight;
 			float xLightD, yLightD, zLightD;
 			float xLightP, yLightP, zLightP;
-			//std::vector<Cube> m_allCubes;
 			std::list<Cube> m_allCubes;
 			Cube m_cubeConstruct;
-			// vecteur.capacity() pour donner capacité maximale au vecteur
-			// ou faire liste chainee
+    ///map between programtype and its program
 			std::map<ProgramType, Program> m_programs;
+
 			TrackballCamera camera;
 			glm::mat4 MVMatrix, ProjMatrix, globalMVMatrix, cubeMVMatrix, NormalMatrix;
 			glm::vec3 lightDir,lightIntensity, m_color;
@@ -41,9 +41,10 @@ namespace glimac
 			///default destructor of scene
 			~Scene() = default;
 			Cube* tabCubes[20][20][20];
+
 			///attributes for uniform location
-			GLuint uMVLocation,uMVPLocation, uLightLocation, uLightPointLocation, uLightPosLocation, uColorLocation, uNormalMatLocation;
-			GLuint uLuminosityLocation;
+			GLuint uMVLocation,uMVPLocation, uLightLocation, uLightPointLocation,uAmbiantLight, uLightPosLocation, uColorLocation, uNormalMatLocation;
+			GLuint uLuminosityLocation, uCubeTypeLocation;
 			GLuint uKd, uKs, uShininess, uLightDir_vs, uLightIntensityP, uLightIntensityD;
 			GLuint uTextureLocation, uIsThereTexture;
 			///get scene's height
@@ -80,9 +81,7 @@ namespace glimac
 			void recalculateMatrices(TrackballCamera &camera, Cube cube);
 			///initialize default scene
 			void initAllCubes();
-			///draw cube of default scene
-			//void drawCubes(TrackballCamera &camera, GLuint texId);
-			///add light to the scene : directive light, point light and ambiant light
+					///add light to the scene : directive light, point light and ambiant light
 			void addLight();
 			///set ground of the scene
 			void setGround();
@@ -93,7 +92,11 @@ namespace glimac
 			///change directive light position
 			void changeDirectiveLightPosition(float directiveLightX, float directiveLightY, float directiveLightZ);
 			///transform 3D vector to 1D
-			static unsigned int from3Dto1D(glm::ivec3 pos);
+			static unsigned int from3Dto1D(glm::vec3 pos);
+			void changeIntensityAmbiant(float &x, float &y, float &z);
+			void changeIntensityDirectional(float &x, float &y, float &z);
+			void changeIntensityPoint(float &x, float &y, float &z);
+
 	};
 }
 

@@ -8,9 +8,6 @@
 #include <list>
 #include <glimac/Overlay.hpp>
 #include <glimac/Texture.hpp>
-#include <SDL2/SDL.h>
-
-
 namespace glimac {
 
     class GameController {
@@ -21,12 +18,21 @@ namespace glimac {
             Cube* m_currentCube;
         public:
             ///default constructor of GameController
-            GameController() = default;
+
+            GameController();
             //constructor of GameController
             GameController(Scene *scene, Cursor *cursor);
             //GameController(Scene &scene, Cursor &cursor);
+            bool gameOn;
+            bool gamePause;
+            bool gameLoad;
+
             ///default destructor of GameController
             ~GameController() = default;
+            //if in game
+            void inGame();
+            void pausedGame();
+            void loadGame();
             ///handle camera movements
             void handleCamera(SDL_Event &e, TrackballCamera &cam);
             ///handle scene movements
@@ -36,6 +42,7 @@ namespace glimac {
             ///get index of the cube where the cursor is
             //int getIndexCube(Scene& scene, Cursor &cursor);
             ///check if there is a cube at the cursor position
+
             bool isThereACube();
             ///initialize default scene
             void initAllCubes();
@@ -54,6 +61,7 @@ namespace glimac {
             void moveCursor(glm::ivec3 position);
             /// Repalce the cursor's position with a new
             void updateCursorPosition(glm::ivec3 newPosition);
+
             ///extrude cube where the cursor is
             void extrudeCube();
             ///dig cube where the cursor is
@@ -67,7 +75,10 @@ namespace glimac {
             ///change color of the cube selected
             void changeColorCube(Overlay &overlay, TrackballCamera &camera);
             ///set texture of the cube selected
+
             void setTextureCube(Texture &tex);
+            //remove texture of the cube selected
+            void removeTextureCube(Texture &tex);
     };
 
 }

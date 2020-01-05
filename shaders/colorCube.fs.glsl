@@ -10,6 +10,7 @@ uniform vec3 uColor;
 in vec2 vTexCoords;
 uniform sampler2D uTexture;
 uniform bool setTexture;
+uniform int uCubeType;
 
 uniform vec3 uKd;
 uniform vec3 uKs;
@@ -42,10 +43,12 @@ void main() {
 	vec3 totalLuminosity = min(lum + ambiantLightIntensity, 1.);
     vec3 normal = (uNormalMat * vec4(vNormal, 0.)).xyz;
     vec3 color = uColor;
-	if(setTexture) {
-		fragColor = vec4(texture(uTexture, vTexCoords).xyz, 1.0f);
+	if(setTexture && uCubeType == 1) {
+		fragColor = vec4(texture(uTexture, vTexCoords).xyz * totalLuminosity, 1.0f);
+		fragColor.a = 0.6;
 	}
-	else {
+	else if((setTexture && uCubeType == 0) || (!setTexture && uCubeType == 0)){
 		fragColor = vec4(totalLuminosity  * color, 1.0f);
+		fragColor.a = 0.6;
 	}
 }

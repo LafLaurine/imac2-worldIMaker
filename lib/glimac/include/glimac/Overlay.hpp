@@ -16,18 +16,21 @@ namespace glimac
 	class Overlay
 	{
 		private:
-			float m_myCol = 0.f;
+			glm::vec4 m_myCol;
 			bool p_open;
 			int clickedReset, clickedAddCube, clickedDeleteCube;
-			int clickedTree, clickedCube, clickedAddTexture, clickedChangeCamera;
+			int clickedTree, clickedCube, clickedAddTexture, clickedChangeCamera,clickedRemoveTexture;
+			ImGuiIO* m_io;
 
 		public:
 			///default constructor of overlay
 			Overlay(){};
 			///default destructor of overlay
 			~Overlay();
+			//getter
+			inline const ImGuiIO* getIo(){return m_io;};
 			///initialize Imgui window and context
-			void initImgui(SDL_Window* window,SDL_GLContext* glContext) const;
+			void initImgui(SDL_Window* window,SDL_GLContext* glContext);
 			///open new frame of Imgui
 			void beginFrame(SDL_Window* window) const;
 			///draw Imgui window with its tools
@@ -46,10 +49,13 @@ namespace glimac
 			inline int getClickedCube(){return clickedCube;};
 			///get if user clicked add texture button
 			inline int getClickedAddTexture(){return clickedAddTexture;};
+			///get if user clicked remove texture button
+			inline int getClickedRemoveTexture(){return clickedRemoveTexture;};
 			///get if user clicked change camera
 			inline int getClickedChangeCamera(){return clickedChangeCamera;};
+			inline glm::vec4 setColor(glm::vec4 color){return m_myCol = color;};
 			//get color of the color picker
-			inline float* getColor(){return &m_myCol;};
+			inline glm::vec4* getColor(){return &m_myCol;};
 	};
 }
 

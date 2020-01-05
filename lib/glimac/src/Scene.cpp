@@ -1,6 +1,8 @@
 #include <glimac/Scene.hpp>
 #include <iostream>
 #include <glm/gtc/type_ptr.hpp>
+#include <glimac/gl-exception.hpp>
+
 
 namespace glimac {
     void Scene::loadProgram(ProgramType type, std::string vertexShader, std::string fragmentShader) {
@@ -25,8 +27,10 @@ namespace glimac {
         uLightDir_vs = glGetUniformLocation(m_programs[type].getGLId(), "uLightDir_vs");
         uLightIntensityP = glGetUniformLocation(m_programs[type].getGLId(), "uLightIntensityP");
         uLightIntensityD = glGetUniformLocation(m_programs[type].getGLId(), "uLightIntensityD");
+        uAmbiantLight = glGetUniformLocation(m_programs[type].getGLId(), "ambiantLightIntensity");
         uTextureLocation = glGetUniformLocation(m_programs[type].getGLId(), "uTexture");
         uIsThereTexture = glGetUniformLocation(m_programs[type].getGLId(), "setTexture");
+        uCubeTypeLocation = glGetUniformLocation(m_programs[type].getGLId(), "uCubeType");
 
         //compute the model matrix
         glm::mat4 modelMat = glm::mat4(1.0f);
@@ -42,6 +46,7 @@ namespace glimac {
         glm::mat4 viewProjMat = ProjMatrix * MVMatrix;
         glm::mat4 normalMat = glm::transpose(glm::inverse(MVMatrix));
         glUniform1i(uIsThereTexture,0);
+        glUniform1i(uCubeTypeLocation,0);
 
         glUniformMatrix4fv(uMVPLocation, // Location
                                 1, // Count
@@ -90,7 +95,8 @@ namespace glimac {
         //compute Kd,Ks and shininess of the light
         glUniform3f(uKd, 0.6, 0.6, 0.6);
         glUniform3f(uKs, 0, 0.0, 0.0);
-        glUniform1f(uShininess, 30.0);
+        glUniform1f(uShininess, 25.0);
+        glUniform3f(uAmbiantLight,0.2,0.2,0.2);
         //compute light of the point light
         glm::vec4 LightPos = MVMatrix * glm::vec4(xLightP, yLightP, zLightP, 1);
         glUniform3f(uLightPosLocation, LightPos.x, LightPos.y, LightPos.z);
@@ -102,18 +108,30 @@ namespace glimac {
     void Scene::changeLuminosity(int dirLight, int pointLight) {
         //Day/night for directionnal lights
         if (dirLight == 0){
-            glUniform3f(uLightIntensityD, 3.0, 3.0, 3.0);   
+            glUniform3f(uLightIntensityD, 2.0, 2.0, 2.0);   
         }
         else {
             glUniform3f(uLightIntensityD, 0.0, 0.0, 0.0);
         }
         //Day/night for point light
         if (pointLight == 0){
-            glUniform3f(uLightIntensityP, 4.0, 4.0, 4.0);   
+            glUniform3f(uLightIntensityP, 2.0, 2.0, 2.0);   
         }
         else {
             glUniform3f(uLightIntensityP, 0.0, 0.0, 0.0);
         }
+    }
+
+    void Scene::changeIntensityAmbiant(float &x, float &y, float &z) {
+        glUniform3f(uAmbiantLight,x,y,z);
+    }
+
+    void Scene::changeIntensityDirectional(float &x, float &y, float &z) {
+        glUniform3f(uLightIntensityD, x, y, z);
+    }
+
+    void Scene::changeIntensityPoint(float &x, float &y, float &z) {
+        glUniform3f(uLightIntensityP, x, y, z);
     }
 
     void Scene::changePointLightPosition(float pointLightX, float pointLightY, float pointLightZ) {
@@ -136,44 +154,9 @@ namespace glimac {
                 }
         }
     }
-
-    /*void Scene::setGround() {
-        //set plain ground
-        for(unsigned int x = 0; x < m_width; x++) {
-            for(unsigned int z = 0; z < m_length; z++) {
-                //m_allCubes.at(from3Dto1D(glm::ivec3(x,0,z))).setVisible();
-                std::cout << tabCubes[x][0][z] << std::endl;
-                (tabCubes[x][0][z])->setVisible();
-            }
-        }
-    }*/
-
-    /*void Scene::initAllCubes() {
-        //initialize all the cube of the scene
-        for (unsigned int z = 0; z < m_length ; z++) {
-            for(unsigned int x= 0 ; x < m_width ; x++) {
-                //this->m_cubeConstruct.setPosition(glm::ivec3(x,y,z));
-                Cube cube(glm::ivec3(x,y,z));
-                m_allCubes.push_back(cube);
-                tabCubes[x][0][z] = &m_allCubes.back();
-
-            }
-        }
-        setGround();
-    }*/
-
-    /* enlever logique visible invisible : 
-    - aller a l'endroit ou cube sont rendus et enlever condition qui voit si cube visible ou pas et on les rend tous
-    - passer le vecteur en liste #include <list
-    - foreach, iterateur fonction lambda   std::iterator vector.for_each(vector.begin(), vector.end(),  fonction lambda)
-    fonction lambda[] dans corchets, tous les trucs  qu'on recupere de l'exterieur, dans () stocke le cube actuel pour chaque iteration (on donne type et nom), dans {} tout ce qu'on veut faire pour chaque cube
-    - on veut enlever initAllcubes, juste le sol et on appelera addcube.
-    déplacer fonction qui permet d'initiliser le sol dans gamecontroller
-    - changer add cube et tout en enlenvant setVisible et en le mettant direct dans le vect avec un pushBack()
-    */
     
     //convert a 3D vector to a 1D one
-    unsigned int Scene::from3Dto1D(glm::ivec3 pos) {
+    unsigned int Scene::from3Dto1D(glm::vec3 pos) {
         return (pos.y * m_width + pos.x + pos.z * m_width * m_length);
     }
 }

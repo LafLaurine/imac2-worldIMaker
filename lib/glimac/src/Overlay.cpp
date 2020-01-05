@@ -1,19 +1,25 @@
 #include "glimac/Overlay.hpp"
 #include <iostream>
+
+#include <imgui/imgui.h>
 #include <imgui/imgui_stdlib.h>
 #include <glimac/File.hpp>
 
 namespace glimac {
 
     Overlay::~Overlay() {
+        delete m_io;
         ImGui_ImplOpenGL3_Shutdown();
         ImGui_ImplSDL2_Shutdown();
         ImGui::DestroyContext();
     }
-    void Overlay::initImgui(SDL_Window* window,SDL_GLContext* glContext) const {
+    void Overlay::initImgui(SDL_Window* window,SDL_GLContext* glContext)  {
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
         ImGui::StyleColorsDark();
+
+        m_io = new ImGuiIO();
+        *m_io = ImGui::GetIO();
         ImGui_ImplSDL2_InitForOpenGL(window,&glContext);
         ImGui_ImplOpenGL3_Init("#version 330 core");
     }
@@ -26,10 +32,14 @@ namespace glimac {
     }
 
     void Overlay::drawOverlay(Scene &scene) {
-        ImGui::Begin("Tools",&p_open,ImGuiWindowFlags_NoMove | ImGuiWindowFlags_MenuBar  |ImGuiWindowFlags_NoCollapse);
+        ImGui::Begin("Cube tools",&p_open);
         {
             //set color picker
-            ImGui::ColorEdit4("Color", this->getColor());
+            static float color;
+            ImGui::ColorEdit4("Color", &color);
+            glm::vec4 goodColor = glm::make_vec4(&color);
+            setColor(goodColor);
+
             //set clicked variables to communicate with the main
             clickedAddCube = 0;
             clickedDeleteCube = 0;
@@ -37,7 +47,6 @@ namespace glimac {
             clickedCube = 0;
             clickedReset = 0;
             clickedAddTexture = 0;
-            clickedChangeCamera = 0;
 
             //set buttons
             if (ImGui::Button("Reset")) 
@@ -53,6 +62,12 @@ namespace glimac {
             {
                 clickedAddTexture++;
             }
+
+            if (ImGui::Button("Remove texture")) 
+            {
+                clickedRemoveTexture++;
+            }
+
             if (ImGui::Button("Destroy cube")) 
             { 
                 clickedDeleteCube++;
@@ -73,11 +88,11 @@ namespace glimac {
                clickedCube++;
             }
 
-            //change camera
-            if (ImGui::Button("Change camera")) 
-            {
-                clickedChangeCamera++;
-            }
+            // Texture
+         /*   const char* itemsTextures[] = { "groundTree", "tree"};
+            int item_currentTexture = scene.tex->getId();
+            ImGui::Text("Texture:");
+            ImGui::Combo("Texture", &item_currentTexture, itemsTextures, IM_ARRAYSIZE(itemsTextures));*/
         }
         ImGui::End();
 
@@ -85,20 +100,19 @@ namespace glimac {
         ImGui::Begin("Save and load",&p_open);
         {
             //set strings for save and load filepath and filename
-            static std::string filePath = "./assets/doc/";
-            static std::string filename = "world.txt";
-
-            static std::string loadFilePath = "./assets/doc/";
-            static std::string loadFilename = "world.txt";
+            std::string filePath = "./assets/doc/";
+            std::string filename = "world.txt";
             ImGui::Text("Save file :");
-            ImGui::InputText("Path", &filePath);
-            ImGui::InputText("Filename", &filename);
+            ImGui::InputText("Save path", &filePath);
+            ImGui::InputText("Save filename", &filename);
             if (ImGui::Button("Save"))
             {
                 //save file with filepath and filename of the user choice
                 saveFile(filePath,filename,scene.getAllCubes(), scene);
             }
 
+            std::string loadFilePath = "./assets/doc/";
+            std::string loadFilename = "world.txt";
             ImGui::Text("Load file :");
             ImGui::InputText("Path", &loadFilePath);
             ImGui::InputText("Filename", &loadFilename);
@@ -110,6 +124,26 @@ namespace glimac {
             }
         }
         ImGui::End();
+        
+        ImGui::Begin("Light intensity",&p_open); {
+            ImGui::Text("Directional light intensity :");
+            static float l1=2.0f;
+            ImGui::SliderFloat("intensity d", &l1, 0.0f, 10.0f);
+            scene.changeIntensityDirectional(l1,l1,l1);
+
+            ImGui::Text("Point light intensity :");
+            static float x1=2.0f;
+            ImGui::SliderFloat("intensity p", &x1, 0.0f, 10.0f);
+            scene.changeIntensityPoint(x1,x1,x1);
+
+            //ambiant light intensity
+            ImGui::Text("Ambiant light intensity :");
+            static float f1=0.2f;
+            ImGui::SliderFloat("intensity a", &f1, 0.0f, 1.0f);
+            scene.changeIntensityAmbiant(f1,f1,f1);
+        } 
+        ImGui::End();
+
 
         //light settings windows
         ImGui::Begin("Light",&p_open); {
@@ -146,10 +180,12 @@ namespace glimac {
             ImGui::InputFloat("yP", &pointLightY);
             ImGui::Text("Z :");
             ImGui::InputFloat("zP", &pointLightZ);
+
             scene.changeLuminosity(dirLight, pointLight);
             scene.changeDirectiveLightPosition(dirLightX,dirLightY,dirLightZ);
         }
         ImGui::End();
+
     }
 
     void Overlay::endFrame(SDL_Window* window) const {

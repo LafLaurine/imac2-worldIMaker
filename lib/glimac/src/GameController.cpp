@@ -3,11 +3,37 @@
 
 namespace glimac {
 
+
     GameController::GameController(Scene *scene, Cursor *cursor): zoom(1.0f), m_scene(scene), m_cursor(cursor), m_currentCube(nullptr) {
     }
-    /*
-    GameController::GameController(Scene &scene, Cursor &cursor): zoom(1.0f), m_scene(&scene), m_cursor(&cursor), m_currentCube(nullptr) {
-    }*/
+
+    GameController::GameController() {
+        gameOn = false;
+        gameLoad = false;
+        gamePause = false;
+    }
+
+    void GameController::inGame() {
+        if(gameOn == false) {
+            gameOn = true;
+        }
+    }
+
+
+    void GameController::loadGame() {
+        if(gameLoad == false) {
+            gameLoad = true;
+            inGame();
+        }
+    }
+
+    void GameController::pausedGame() {
+        if(gamePause == false) {
+            gamePause = true;
+        }
+    }
+
+
 
     void GameController::handleCamera(SDL_Event &e, TrackballCamera &cam) {
         //handle key for camera : Z and S for zoom
@@ -102,7 +128,6 @@ namespace glimac {
     }
 
     bool GameController::isThereACube(){
-    	//////int cubeIndex = getIndexCube(scene,cursor);
         Cube* cubePtr = m_scene->tabCubes[m_cursor->getPosition().x][m_cursor->getPosition().y][m_cursor->getPosition().z];
         //if cube's pointer is null or that the cube is invisible, then there is no cube
     	if(cubePtr == nullptr){
@@ -124,6 +149,7 @@ namespace glimac {
                 m_scene->tabCubes[x][0][z] = &m_scene->getAllCubes().back();
             }
         }
+        return 0;
     }
 
     void GameController::drawCubes(TrackballCamera &camera,GLuint texId) {
@@ -131,7 +157,8 @@ namespace glimac {
         for(Cube& cube : m_scene->getAllCubes()){
             m_scene->recalculateMatrices(camera,cube);
             cube.draw(texId);
-        }
+
+        return 0;
     }
 
     // Add cube to vector and array
@@ -253,11 +280,12 @@ namespace glimac {
         //check if there is a cube
         if(this->isThereACube()){
             //get color from the overlay color picker
-            glm::vec3 color = glm::make_vec3(overlay.getColor());
+            glm::vec4* color = overlay.getColor();
             //change color of the cube selected
-            cubePtr->setColor(color);
+            cubePtr->setColor(*color);
+
         } else {
-            std::cout << "There is no cube" << std::endl;
+            std::cout << "There is no cube for changing color" << std::endl;
         }
     }
 
@@ -265,11 +293,10 @@ namespace glimac {
         //find the cube where the cursor is
         Cube* cubePtr = m_scene->tabCubes[m_cursor->getPosition().x][m_cursor->getPosition().y][m_cursor->getPosition().z];
         std::cout << cubePtr << std::endl;
-        cubePtr->m_type = 1;
         if(this->isThereACube()){
-            tex.initTexture(*m_scene);
+            cubePtr->m_type = 1;
         } else {
-            std::cout << "There is no cube" << std::endl;
+            std::cout << "There is no cube for adding texture" << std::endl;
         }
     }
 
