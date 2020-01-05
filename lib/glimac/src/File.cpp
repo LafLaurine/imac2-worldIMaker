@@ -12,13 +12,6 @@ namespace glimac{
 		std::ifstream file("../assets/doc/"+filename, std::ios::in); 
         assert(file.is_open() && "Unable to open control points file");
 		std::string line;
-        std::string element;
-		getline(file,element);
-        if(element.compare("RBF") != 0){
-            std::cerr <<"Read control points : The file is not valid." <<std::endl;
-			file.close();
-			return;
-		}
             //read each line	
    			while(getline(file, line))
     		{
@@ -75,6 +68,7 @@ namespace glimac{
                 }
             }
         }
+    
 
         // put only what there was in the saved scene
         if (file)

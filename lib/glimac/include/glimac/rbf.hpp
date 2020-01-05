@@ -34,10 +34,11 @@ namespace glimac {
     ///compute norm for RBF function
     const double norm(const glm::vec3 vec1);
     ///set RBF for each FunctionType
-    float getRBF(FunctionType type, const glm::vec3 v1, const glm::vec3 v2, const float epsilon);
+    float getRBF(FunctionType type, const glm::ivec3 v1, const glm::vec3 v2, const float epsilon);
     ///compute omega for RBF function
     Eigen::VectorXf findOmega(std::vector <ControlPoint> &ctrlPts, FunctionType type,  const float epsilon);
     ///apply RBF function
+     const Eigen::VectorXf find_omega(std::vector <ControlPoint> &ctrlPts);
     void applyRbf(std::list<Cube> &allCubes, std::vector<ControlPoint> &ctrlPts, FunctionType type, GameController &gamecontrol);    
 }
 

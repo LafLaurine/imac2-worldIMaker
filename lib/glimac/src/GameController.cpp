@@ -211,7 +211,6 @@ namespace glimac {
             glm::vec4* color = overlay.getColor();
             //change color of the cube selected
             cubePtr->setColor(*color);
-
         }
     }
 
