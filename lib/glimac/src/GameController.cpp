@@ -153,6 +153,16 @@ void GameController::handleCamera(SDL_Event &e, TrackballCamera &cam) {
         //for each cube, calculate matrice and if it is visible, draw it
         for(Cube& cube : m_scene->getAllCubes()){
             m_scene->recalculateMatrices(camera,cube);
+
+            if(cube.m_type == 0) {
+                glUniform1i(m_scene->uCubeTypeLocation,0);
+                GLCall(glUniform1i(m_scene->uIsThereTexture, 0));
+            }
+            else if(cube.m_type == 1) {
+                GLCall(glUniform1i(m_scene->uCubeTypeLocation,1));
+                GLCall(glUniform1i(m_scene->uIsThereTexture, 1));
+                GLCall(glUniform1i(m_scene->uTextureLocation, tex.getId()));
+            }
             cube.draw(tex.getId());
         }
     }
@@ -275,9 +285,18 @@ void GameController::handleCamera(SDL_Event &e, TrackballCamera &cam) {
     void GameController::setTextureCube(Texture &tex) {
         //find the cube where the cursor is
         Cube* cubePtr = m_scene->tabCubes[m_cursor->getPosition().x][m_cursor->getPosition().y][m_cursor->getPosition().z];
-        std::cout << cubePtr << std::endl;
         if(this->isThereACube()){
             cubePtr->m_type = 1;
+        } else {
+            std::cout << "There is no cube" << std::endl;
+        }
+    }
+
+    void GameController::removeTextureCube(Texture &tex) {
+        //find the cube where the cursor is
+        Cube* cubePtr = m_scene->tabCubes[m_cursor->getPosition().x][m_cursor->getPosition().y][m_cursor->getPosition().z];
+        if(this->isThereACube() && cubePtr->m_type==1){
+            cubePtr->m_type = 0;
         } else {
             std::cout << "There is no cube" << std::endl;
         }

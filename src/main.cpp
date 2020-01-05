@@ -172,7 +172,7 @@ int main(int argc, char** argv) {
                     gameController.setTextureCube(groundTree);
                 }
                 if(overlay.getClickedRemoveTexture() &1) {
-                  //  gameController.removeTextureCube(scene,cursor,texture);
+                    gameController.removeTextureCube(groundTree);
                 }
 
             }

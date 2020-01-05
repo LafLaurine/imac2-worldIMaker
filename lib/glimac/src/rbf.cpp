@@ -40,6 +40,7 @@ namespace glimac{
     //fill the control point weight vector
     for(unsigned int h=0; h<ctrlPts.size(); h++){
         weight[h]=ctrlPts.at(h).m_weight;
+        std::cout << "WEIGHT : "<< weight[h] << std::endl;
     }
     //fill our matrix
     for(unsigned int i=0; i<ctrlPts.size(); i++){
@@ -59,9 +60,11 @@ namespace glimac{
     float epsilon=1.f;
     float value;
     Eigen::VectorXf omega=find_omega(ctrlPts);
+    std::cout << "OMEGA : " << find_omega(ctrlPts) << std::endl;
     //apply rbf for all cubes
     for(Cube &c: allCubes){
-      value=0;
+      //each position of the cube is write into the file
+      value=0;         
       for (size_t i = 1; i < ctrlPts.size(); ++i){
         value+= getRBF(type, glm::vec3(c.getPosition()), ctrlPts.at(i).m_position, epsilon)*omega[i];
       } 
@@ -69,10 +72,10 @@ namespace glimac{
       //if value is >= 0, the cube will be visible
       gamecontrol.cleanScene(allCubes);
       std::cout << value << std::endl;
-     /*if (value >= 0.f) 
+      if (value >= 0.f) 
         gamecontrol.addCube(c);
       else 
-        gamecontrol.deleteCube(&c);*/
-    }  
+        gamecontrol.deleteCube(&c);
+    }
   }
 };
