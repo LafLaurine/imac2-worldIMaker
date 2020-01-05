@@ -7,7 +7,7 @@ namespace glimac {
     GameController::GameController(Scene *scene, Cursor *cursor): m_scene(scene), m_cursor(cursor), m_currentCube(nullptr) {
     }
     
-    void GameController::handleScene(SDL_Event &e, Overlay &overlay, TrackballCamera &camera) {
+    void GameController::handleScene(SDL_Event &e, Overlay &overlay, FreeFlyCamera &camera) {
         const Uint8 *state = SDL_GetKeyboardState(NULL);
         isThereACube();
         // handle key for scene : holding C and moving cursor for painting
@@ -87,7 +87,7 @@ namespace glimac {
         }
     }
 
-    void GameController::drawCubes(TrackballCamera &camera,Texture &tex) {
+    void GameController::drawCubes(FreeFlyCamera &camera,Texture &tex) {
         //for each cube, calculate matrice and if it is visible, draw it
         for(Cube& cube : m_scene->getAllCubes()){
             m_scene->recalculateMatrices(camera,cube);
@@ -202,7 +202,7 @@ namespace glimac {
         }
     }
 
-    void GameController::changeColorCube(Overlay &overlay, TrackballCamera &camera){
+    void GameController::changeColorCube(Overlay &overlay, FreeFlyCamera &camera){
         //get pointer on the cube where the cursor is
         Cube* cubePtr = m_scene->tabCubes[m_cursor->getPosition().x][m_cursor->getPosition().y][m_cursor->getPosition().z];
         //check if there is a cube

@@ -6,7 +6,7 @@
 #include <glimac/glm.hpp> 
 #include <GL/glew.h>
 #include <map>
-#include <glimac/TrackballCamera.hpp>
+#include <glimac/FreeFlyCamera.hpp>
 #include <glimac/Program.hpp>
 #include <glimac/Cube.hpp>
 #include <glimac/Texture.hpp>
@@ -29,7 +29,7 @@ namespace glimac
 			float xLightP, yLightP, zLightP;
 			std::list<Cube> m_allCubes;
 			Cube m_cubeConstruct;
-			TrackballCamera camera;
+			FreeFlyCamera camera;
 			glm::mat4 MVMatrix, ProjMatrix, globalMVMatrix, cubeMVMatrix, NormalMatrix;
 			glm::vec3 lightDir,lightIntensity, m_color;
 		public:
@@ -77,7 +77,7 @@ namespace glimac
 			///create uniform matrices for the scene
 			void createUniformMatrices(ProgramType type);
 			///calculate matrices for the camera
-			void recalculateMatrices(TrackballCamera &camera, Cube cube);
+			void recalculateMatrices(FreeFlyCamera &camera, Cube cube);
 			///initialize default scene
 			void initAllCubes();
 					///add light to the scene : directive light, point light and ambiant light

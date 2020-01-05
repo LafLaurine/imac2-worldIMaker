@@ -192,4 +192,9 @@ namespace glimac {
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         SDL_GL_SwapWindow(window);
     }
+
+    bool Overlay::isMouseOnInterface() const {
+        ImGuiIO &i_io = ImGui::GetIO();
+        return i_io.WantCaptureMouse;
+    }
 }

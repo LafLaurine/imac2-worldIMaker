@@ -7,7 +7,7 @@
 #include <glimac/main.hpp>
 #include <glimac/GameController.hpp>
 #include <glimac/PlayerController.hpp>
-#include <glimac/TrackballCamera.hpp>
+#include <glimac/FreeFlyCamera.hpp>
 #include <glimac/FreeFlyCamera.hpp>
 #include <glimac/SDLWindowManager.hpp> 
 #include <glimac/FilePath.hpp> 
@@ -56,11 +56,7 @@ int main(int argc, char** argv) {
     //texture tree
     Texture tree("tree.jpg");
     //construct camera
-    TrackballCamera camera;
-    //construct freefly
-    FreeFlyCamera freeCam;
-    //set camera position
-    camera.setPosMatrix(10,5,5);
+    FreeFlyCamera camera;
     //construct cursor
     Cursor cursor;
     //construct gamecontroller
@@ -88,6 +84,11 @@ int main(int argc, char** argv) {
             switch (e.type) {
                 
                 case SDL_QUIT: windowManager.exit();
+
+                if((e.type == SDL_MOUSEMOTION) && (e.motion.state & SDL_BUTTON_LEFT) && !(overlay.isMouseOnInterface())) {
+                    camera.rotateLeft(e.motion.xrel);
+                    camera.rotateUp(e.motion.yrel);
+                }
 
                 case SDL_MOUSEBUTTONUP:
                     int x, y;

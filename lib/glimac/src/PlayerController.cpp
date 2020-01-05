@@ -29,27 +29,31 @@ namespace glimac {
         }
     }
 
-    void PlayerController::handleCamera(SDL_Event &e, TrackballCamera &cam) {
+    void PlayerController::handleCamera(SDL_Event &e, FreeFlyCamera &cam) {
             //handle key for camera : Z and S for zoom
             if(e.key.keysym.sym == SDLK_z) {
-                cam.moveFront(-zoom);
-            } else if (e.key.keysym.sym == SDLK_s) {
                 cam.moveFront(zoom);
+            } else if (e.key.keysym.sym == SDLK_s) {
+                cam.moveFront(-zoom);
             // q and d for moving left/right
             } else if (e.key.keysym.sym == SDLK_q) {
-                cam.rotateLeft(-zoom);              
+                cam.moveLeft(zoom);              
             } else if(e.key.keysym.sym == SDLK_d) {
-                cam.rotateLeft(zoom);            
+                cam.moveLeft(-zoom);            
+            } else if(e.key.keysym.sym == SDLK_a) {
+                cam.moveUp(zoom);
+            } else if(e.key.keysym.sym == SDLK_z) {
+                cam.moveUp(-zoom);
             }
             //u and w for rotate up/down
             else if(e.key.keysym.sym == SDLK_u) {
-                cam.rotateUp(-zoom);            
-            }
-            else if(e.key.keysym.sym == SDLK_w) {
                 cam.rotateUp(zoom);            
             }
+            else if(e.key.keysym.sym == SDLK_w) {
+                cam.rotateUp(-zoom);            
+            }
             // 0, 1 and 2 for posing the camera at different places
-            else if(e.key.keysym.scancode == SDL_SCANCODE_0) {
+           /* else if(e.key.keysym.scancode == SDL_SCANCODE_0) {
                 cam.posBottom();
             }
             else if(e.key.keysym.scancode == SDL_SCANCODE_1) {
@@ -57,7 +61,7 @@ namespace glimac {
             }
             else if(e.key.keysym.scancode == SDL_SCANCODE_2) {
                 cam.posLeft();
-            }
+            }*/
         }
 
 };

@@ -58,6 +58,7 @@ namespace glimac
 			inline glm::vec4 setColor(glm::vec4 color){return m_myCol = color;};
 			//get color of the color picker
 			inline glm::vec4* getColor(){return &m_myCol;};
+			bool isMouseOnInterface() const;
 	};
 }
 

@@ -60,7 +60,7 @@ namespace glimac {
         
     }
 
-    void Scene::recalculateMatrices(TrackballCamera &camera,Cube cube) {
+    void Scene::recalculateMatrices(FreeFlyCamera &camera,Cube cube) {
         //compute the model view matrix with the camera
         float xCube = cube.getPosition().x;
         float yCube = cube.getPosition().y;
