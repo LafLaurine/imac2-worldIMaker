@@ -126,6 +126,17 @@ namespace glimac {
         glUniform3f(uLightDir_vs, directiveLightX, directiveLightY, directiveLightZ);
     }
 
+    void Scene::setGround() {
+        for (unsigned int z = 0; z < m_length ; z++) {
+                for(unsigned int x= 0 ; x<m_width ; x++)
+                {
+                    Cube cube(glm::ivec3(x,0,z));
+                    m_allCubes.push_back(cube);
+                    tabCubes[x][0][z] = &m_allCubes.back();
+                }
+        }
+    }
+
     /*void Scene::setGround() {
         //set plain ground
         for(unsigned int x = 0; x < m_width; x++) {
@@ -160,33 +171,6 @@ namespace glimac {
     déplacer fonction qui permet d'initiliser le sol dans gamecontroller
     - changer add cube et tout en enlenvant setVisible et en le mettant direct dans le vect avec un pushBack()
     */
-
-    /*void Scene::initAllCubes() {
-        //initialize all the cube of the scene
-        for (unsigned int z = 0; z < m_length ; z++) {
-            for (unsigned int y= 0; y < m_height ; y++)
-            {
-                for(unsigned int x= 0 ; x<m_width ; x++)
-                {
-                    //this->m_cubeConstruct.setPosition(glm::ivec3(x,y,z));
-                    Cube cube(glm::ivec3(x,y,z));
-                    m_allCubes.push_back(cube);
-                    tabCubes[x][0][z] = &m_allCubes.back();
-                }
-            }
-        }
-        setGround();
-    }*/
-
-    /*void Scene::drawCubes(TrackballCamera &camera,GLuint texId) {
-        //for each cube, calculate matrice and if it is visible, draw it
-        for(Cube& cube : m_allCubes){
-            recalculateMatrices(camera,cube);
-            if(cube.isVisible()) {
-                cube.draw(texId);
-            }
-        }
-    }*/
     
     //convert a 3D vector to a 1D one
     unsigned int Scene::from3Dto1D(glm::ivec3 pos) {

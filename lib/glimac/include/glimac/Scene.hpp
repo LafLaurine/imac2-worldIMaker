@@ -68,9 +68,7 @@ namespace glimac
 			inline float getLightYP() {return yLightP;};
 			///get z position of point light
 			inline float getLightZP() {return zLightP;};
-
 			///get scene's cube
-			//inline std::vector<Cube>& getAllCubes() {return m_allCubes;};
 			inline std::list<Cube>& getAllCubes() {return m_allCubes;};
 			///load scene program (shaders)
 			void loadProgram(ProgramType type, std::string vertexShader, std::string fragmentShader);

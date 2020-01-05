@@ -39,7 +39,6 @@ namespace glimac{
         if(file)  
         {
 
-
             std::for_each(allCubes.begin(), allCubes.end(), [&file](Cube& cube){
                 //each position of the cube is write into the file
                 file << cube.getPosition().x <<" ";

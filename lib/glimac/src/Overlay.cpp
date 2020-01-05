@@ -60,7 +60,7 @@ namespace glimac {
             
             if (ImGui::Button("Set ground")) 
             {
-                //scene.setGround();
+                scene.setGround();
             }
 
             if (ImGui::Button("Generate tree")) 
