@@ -16,12 +16,12 @@ namespace glimac
 	class Overlay
 	{
 		private:
-			glm::vec4 m_myCol;
 			bool p_open;
 			int clickedReset, clickedAddCube, clickedDeleteCube;
 			int clickedTree, clickedCube, clickedAddTexture, clickedChangeCamera,clickedRemoveTexture;
 			ImGuiIO* m_io;
 			ImVec4 i_color;
+			glm::vec4 m_myCol;
 
 		public:
 			///default constructor of overlay
@@ -56,7 +56,6 @@ namespace glimac
 			inline int getClickedRemoveTexture(){return clickedRemoveTexture;};
 			///get if user clicked change camera
 			inline int getClickedChangeCamera(){return clickedChangeCamera;};
-			inline glm::vec4 setColor(glm::vec4 color){return m_myCol = color;};
 			//get color of the color picker
 			inline glm::vec4* getColor(){return &m_myCol;};
 			bool isMouseOnInterface() const;

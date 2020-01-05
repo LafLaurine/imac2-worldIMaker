@@ -33,11 +33,8 @@ namespace glimac {
         ImGuiIO &m_io = ImGui::GetIO();
         ImGui::Begin("Cube tools",&p_open);
         {
-            //set color picker
-            static float color;
-            ImGui::ColorEdit4("Color", &color);
-            glm::vec4 goodColor = glm::make_vec4(&color);
-            setColor(goodColor);
+            ImGui::ColorEdit4("Color", (float*)&i_color);
+            m_myCol = glm::vec4(i_color.x, i_color.y, i_color.z, 1.0);
 
             //set clicked variables to communicate with the main
             clickedAddCube = 0;
@@ -52,7 +49,7 @@ namespace glimac {
                 clickedReset++;
             }
 
-            if ((ImGui::Button("Add cube")) {
+            if (ImGui::Button("Add cube")) {
                 clickedAddCube++;
             }
             
@@ -86,11 +83,6 @@ namespace glimac {
                clickedCube++;
             }
 
-            // Texture
-         /*   const char* itemsTextures[] = { "groundTree", "tree"};
-            int item_currentTexture = scene.tex->getId();
-            ImGui::Text("Texture:");
-            ImGui::Combo("Texture", &item_currentTexture, itemsTextures, IM_ARRAYSIZE(itemsTextures));*/
         }
         ImGui::End();
 
