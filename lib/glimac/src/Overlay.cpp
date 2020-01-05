@@ -47,14 +47,13 @@ namespace glimac {
             clickedCube = 0;
             clickedReset = 0;
             clickedAddTexture = 0;
-
             //set buttons
             if (ImGui::Button("Reset")) 
             {
                 clickedReset++;
             }
 
-            if (ImGui::Button("Add cube")) {
+            if ((ImGui::Button("Add cube")) || ImGui::IsKeyDown(SDL_SCANCODE_F)) {
                 clickedAddCube++;
             }
             
@@ -68,7 +67,7 @@ namespace glimac {
                 clickedRemoveTexture++;
             }
 
-            if (ImGui::Button("Destroy cube")) 
+            if (ImGui::Button("Destroy cube") || ImGui::IsKeyDown(SDL_SCANCODE_V)) 
             { 
                 clickedDeleteCube++;
             }

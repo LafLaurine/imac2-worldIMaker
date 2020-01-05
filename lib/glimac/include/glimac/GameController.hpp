@@ -5,14 +5,13 @@
 #include <glimac/glm.hpp> 
 #include <glimac/Cursor.hpp>
 #include <glimac/Scene.hpp>
-#include <list>
 #include <glimac/Overlay.hpp>
+#include <list>
 #include <glimac/Texture.hpp>
 namespace glimac {
 
     class GameController {
         private :
-            float zoom = 1.0f;
             Scene* m_scene;
             Cursor* m_cursor;
             Cube* m_currentCube;
@@ -22,27 +21,11 @@ namespace glimac {
             GameController();
             //constructor of GameController
             GameController(Scene *scene, Cursor *cursor);
-            //GameController(Scene &scene, Cursor &cursor);
-            bool gameOn;
-            bool gamePause;
-            bool gameLoad;
-
             ///default destructor of GameController
             ~GameController() = default;
-            //if in game
-            void inGame();
-            void pausedGame();
-            void loadGame();
-            ///handle camera movements
-            void handleCamera(SDL_Event &e, TrackballCamera &cam);
             ///handle scene movements
             void handleScene(SDL_Event &e, Overlay &overlay, TrackballCamera &camera);
-            ///handle SDL event
-            //void handleEvents(SDL_Event &e);
-            ///get index of the cube where the cursor is
-            //int getIndexCube(Scene& scene, Cursor &cursor);
-            ///check if there is a cube at the cursor position
-
+        
             bool isThereACube();
             ///initialize default scene
             void initAllCubes();

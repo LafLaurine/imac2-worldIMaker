@@ -34,7 +34,6 @@ namespace glimac{
     return( (double)sqrt(vec1.x*vec1.x + vec1.y*vec1.y + vec1.z*vec1.z ));
   } 
 
-
   Eigen::VectorXf findOmega(std::vector <ControlPoint> &ctrlPts, FunctionType type,  const float epsilon){
     size_t size=ctrlPts.size();
     //Definition Matrix A
@@ -55,8 +54,8 @@ namespace glimac{
     }
 
     //Definition Vector Solution
-    Eigen::ColPivHouseholderQR<Eigen::MatrixXf> qr(A);
-    Eigen::VectorXf vec_omega = qr.solve(B);
+    Eigen::PartialPivLU<Eigen::MatrixXf> lu(A);
+    Eigen::VectorXf vec_omega = lu.solve(B);
     return vec_omega;
   }
 
@@ -64,13 +63,14 @@ namespace glimac{
     float epsilon = 1.0f;
     float value;
     Eigen::VectorXf omega = findOmega(ctrlPts, type, epsilon);
-  //  std::cout << omega << std::endl;
+    std::cout << omega << std::endl;
     for(Cube& c : allCubes){
       value=0;
       glm::vec3 toFloatVec((float) c.getPosition().x , (float) c.getPosition().y , (float) c.getPosition().z);
       std::cout << toFloatVec << std::endl;
       for (size_t i = 1; i < ctrlPts.size(); ++i){
         value+= getRBF(type, toFloatVec, ctrlPts[i].m_position, epsilon)*omega[i];
+        std::cout << "coucou" << std::endl;
       }
 
       if (value >= 0.f )

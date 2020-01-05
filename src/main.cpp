@@ -6,6 +6,7 @@
 #include "./Sound.hpp"
 #include <glimac/main.hpp>
 #include <glimac/GameController.hpp>
+#include <glimac/PlayerController.hpp>
 #include <glimac/TrackballCamera.hpp>
 #include <glimac/FreeFlyCamera.hpp>
 #include <glimac/SDLWindowManager.hpp> 
@@ -64,6 +65,7 @@ int main(int argc, char** argv) {
     Cursor cursor;
     //construct gamecontroller
     GameController gameController(&scene, &cursor);
+    PlayerController playerController;
     //first initialization of uniform matrices
     scene.createUniformMatrices(FlatCube);
 
@@ -92,29 +94,32 @@ int main(int argc, char** argv) {
                     SDL_GetMouseState(&x, &y);
                     if (SDL_BUTTON_LEFT) {
                         if(floatIsBetween(x, 301, 900) && floatIsBetween(y, 400, 500)){
-                            gameController.inGame();
+                            playerController.inGame();
                         }
                         if(floatIsBetween(x, 331, 658) && floatIsBetween(y, 600, 700)){
-                            gameController.loadGame();
+                            playerController.loadGame();
                         }
                     }
                 break;
 
-                if(gameController.gameOn == true) {
+                if(playerController.gameOn == true) {
                     case SDL_KEYDOWN:
+                    if(!ImGui::GetIO().WantCaptureKeyboard) {
                         gameController.handleScene(e,overlay,camera);
-                        gameController.handleCamera(e,camera);
+                        playerController.handleCamera(e,camera);
                         if(e.key.keysym.sym == SDLK_ESCAPE) {
                             windowManager.exit();
                         }
                         if(e.key.keysym.sym == SDLK_p) {
-                            if(!gameController.gamePause) {
-                                gameController.pausedGame();
+                            if(!playerController.gamePause) {
+                                playerController.pausedGame();
                             }
                             else {
-                                gameController.gamePause = false;
+                                playerController.gamePause = false;
                             }
                         }
+                    }
+                        
                     default : break;
                 }  
             }
@@ -123,24 +128,24 @@ int main(int argc, char** argv) {
         overlay.beginFrame(windowManager.m_window);
 
         //Rendering code
-        if(!gameController.gameOn) {
+        if(!playerController.gameOn) {
             menu.draw(scene,typeMenu);
         }
 
-        if(gameController.gameOn == true) {
+        if(playerController.gameOn == true) {
             scene.useProgram(FlatCube);
             //set background color
             glClearColor(0.17, 0.19, 0.17, 1);
             
-            if(gameController.gamePause) {
+            if(playerController.gamePause) {
                 pause.draw(scene,typeMenu); 
             }
 
-            if(!gameController.gamePause) {
+            if(!playerController.gamePause) {
                 //draw tools
                 overlay.drawOverlay(scene);
                 //draw cubes
-                if(gameController.gameLoad == true) {
+                if(playerController.gameLoad == true) {
                     loadFile("./assets/doc/", "world.txt", scene.getAllCubes(),scene);
                 }
                 gameController.drawCubes(camera, groundTree);

@@ -29,6 +29,8 @@ namespace glimac
 			~Overlay();
 			//getter
 			inline const ImGuiIO* getIo(){return m_io;};
+
+			inline const ImGuiIO* setIo(){return m_io = m_io;};
 			///initialize Imgui window and context
 			void initImgui(SDL_Window* window,SDL_GLContext* glContext);
 			///open new frame of Imgui

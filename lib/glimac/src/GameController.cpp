@@ -2,69 +2,14 @@
 #include <iostream>
 
 namespace glimac {
+    
 
-
-    GameController::GameController(Scene *scene, Cursor *cursor): zoom(1.0f), m_scene(scene), m_cursor(cursor), m_currentCube(nullptr) {
-    }
-
-    GameController::GameController() {
-        gameOn = false;
-        gameLoad = false;
-        gamePause = false;
-    }
-
-    void GameController::inGame() {
-        if(gameOn == false) {
-            gameOn = true;
-        }
-    }
-
-
-    void GameController::loadGame() {
-        if(gameLoad == false) {
-            gameLoad = true;
-            inGame();
-        }
-    }
-
-    void GameController::pausedGame() {
-        if(gamePause == false) {
-            gamePause = true;
-        }
-    }
-void GameController::handleCamera(SDL_Event &e, TrackballCamera &cam) {
-        //handle key for camera : Z and S for zoom
-        if(e.key.keysym.sym == SDLK_z) {
-            cam.moveFront(-zoom);
-        } else if (e.key.keysym.sym == SDLK_s) {
-            cam.moveFront(zoom);
-        // q and d for moving left/right
-        } else if (e.key.keysym.sym == SDLK_q) {
-            cam.rotateLeft(-zoom);              
-        } else if(e.key.keysym.sym == SDLK_d) {
-            cam.rotateLeft(zoom);            
-        }
-        //u and w for rotate up/down
-        else if(e.key.keysym.sym == SDLK_u) {
-            cam.rotateUp(-zoom);            
-        }
-        else if(e.key.keysym.sym == SDLK_w) {
-            cam.rotateUp(zoom);            
-        }
-        // 0, 1 and 2 for posing the camera at different places
-        else if(e.key.keysym.scancode == SDL_SCANCODE_0) {
-            cam.posBottom();
-        }
-        else if(e.key.keysym.scancode == SDL_SCANCODE_1) {
-            cam.posDefault();
-        }
-        else if(e.key.keysym.scancode == SDL_SCANCODE_2) {
-            cam.posLeft();
-        }
+    GameController::GameController(Scene *scene, Cursor *cursor): m_scene(scene), m_cursor(cursor), m_currentCube(nullptr) {
     }
     
     void GameController::handleScene(SDL_Event &e, Overlay &overlay, TrackballCamera &camera) {
         const Uint8 *state = SDL_GetKeyboardState(NULL);
+        isThereACube();
         // handle key for scene : holding C and moving cursor for painting
         if (state[SDL_SCANCODE_C]) {
             if (e.key.keysym.scancode == SDL_SCANCODE_LEFT)
@@ -80,27 +25,21 @@ void GameController::handleCamera(SDL_Event &e, TrackballCamera &cam) {
         //left arrow to move cursor to the left + check if there is a cube
         else if (e.key.keysym.scancode == SDL_SCANCODE_LEFT) {
             m_cursor->setPositionX((m_cursor->getPosition().x)-1);            
-            isThereACube();
         //right arrow to move cursor to the left + check if there is a cube
         } else if (e.key.keysym.scancode == SDL_SCANCODE_RIGHT) {
            m_cursor->setPositionX((m_cursor->getPosition().x)+1);
-            isThereACube();
         //up arrow to move cursor to the left + check if there is a cube
         } else if (e.key.keysym.scancode == SDL_SCANCODE_UP) {
         	m_cursor->setPositionY((m_cursor->getPosition().y)+1);
-        	isThereACube();
         //down arrow to move cursor to the left + check if there is a cube
         } else if (e.key.keysym.scancode == SDL_SCANCODE_DOWN) {
             m_cursor->setPositionY((m_cursor->getPosition().y)-1);
-            isThereACube();
         //- to move cursor to the back + check if there is a cube
         } else if(e.key.keysym.scancode == SDL_SCANCODE_KP_MINUS){
         	m_cursor->setPositionZ((m_cursor->getPosition().z)-1);
-        	isThereACube();
         //+ move cursor to the front + check if there is a cube
         } else if(e.key.keysym.scancode == SDL_SCANCODE_KP_PLUS){
         	m_cursor->setPositionZ((m_cursor->getPosition().z)+1);
-        	isThereACube();
         // e to extrude cube
         } else if (e.key.keysym.sym == SDLK_e) {
             extrudeCube();
@@ -109,7 +48,6 @@ void GameController::handleCamera(SDL_Event &e, TrackballCamera &cam) {
         else if (e.key.keysym.sym == SDLK_g) {
             digCube();
         }
-        std::cout << m_cursor->getPosition() << std::endl;
     }
             
     bool GameController::checkPositionCursor(glm::ivec3 position) {
@@ -308,21 +246,4 @@ void GameController::handleCamera(SDL_Event &e, TrackballCamera &cam) {
             }
         }
     }
-
-/*
-    void GameController::paint_cubes(Cursor &cursor, int perimeter, glm::vec3 color)
-    {
-        glm::vec3 position = cube_at_cursor(cursor).get_position();
-
-        for(int i=-perimeter; i<perimeter; i++)
-            for(int j=-perimeter; j<perimeter; j++)
-                    for(int k=-perimeter; k<perimeter; k++)
-                    {
-                        //make sure all positions are valid = that we paint cubes that exist
-                        if ( valid_position(glm::vec3(position.x-i, position.y-j, position.z-k) ) )
-                                m_all_cubes(position.x-i, position.z-k)[position.y-j].set_color(color);
-                            
-                    }
-    }*/
-
 };
