@@ -229,49 +229,32 @@ void GameController::handleCamera(SDL_Event &e, TrackballCamera &cam) {
 
     // Extrude
     void GameController::extrudeCube(){
-        Cube* lastCubeFound = nullptr;
-        lastCubeFound = m_scene->tabCubes[m_cursor->getPosition().x][m_scene->getHeight()][m_cursor->getPosition().z];
-         std::cout << "Last cube fround : " << lastCubeFound << std::endl;
-
-        for(int i=m_scene->getHeight() ; i=1 ; --i){
-            if(lastCubeFound==nullptr){
-                lastCubeFound = m_scene->tabCubes[m_cursor->getPosition().x][i][m_cursor->getPosition().z];
-                std::cout << "pos last cube : " << lastCubeFound->getPosition() << std::endl;
-            } else {
+        if(isThereACube()){
+            Cube* lastCubeFound = nullptr;
+            lastCubeFound = m_scene->tabCubes[m_cursor->getPosition().x][m_cursor->getPosition().y][m_cursor->getPosition().z];
+            std::cout << "Last cube fround : " << lastCubeFound << std::endl;
+            for(size_t i=m_scene->getHeight(); i = 1; --i){
                 this->updateCursorPosition(glm::ivec3(lastCubeFound->getPosition().x, (lastCubeFound->getPosition().y)+1, lastCubeFound->getPosition().z));
                 std::cout << "pos last cube else : " << lastCubeFound->getPosition() << std::endl;
                 this->addToCursor();
                 break;
             }
         }
-        // if no cube found, add one on the ground
-        if(!isThereACube()){
-            this->updateCursorPosition(glm::ivec3(m_cursor->getPosition().x,0,m_cursor->getPosition().z));
-            this->addToCursor();
-        }
     }
 
     // Dig
     void GameController::digCube(){
-        Cube* lastCubeFound;
-        m_currentCube = m_scene->tabCubes[m_cursor->getPosition().x][20][m_cursor->getPosition().z];
-
-        for(int i = m_scene->getHeight(); i = 1 ; --i){
-            if(lastCubeFound == nullptr){
-                lastCubeFound = m_scene->tabCubes[m_cursor->getPosition().x][i][m_cursor->getPosition().z];
-            } else {
-                lastCubeFound = m_scene->tabCubes[m_currentCube->getPosition().x][m_currentCube->getPosition().y][m_currentCube->getPosition().z];
-                this->updateCursorPosition(lastCubeFound->getPosition());
+        if(isThereACube()){
+            Cube* lastCubeFound = nullptr;
+            lastCubeFound = m_scene->tabCubes[m_cursor->getPosition().x][m_cursor->getPosition().y][m_cursor->getPosition().z];
+            std::cout << "Last cube fround : " << lastCubeFound << std::endl;
+            for(size_t i=m_scene->getHeight(); i = 1; --i){
+                this->updateCursorPosition(glm::ivec3(lastCubeFound->getPosition().x, (lastCubeFound->getPosition().y-1), lastCubeFound->getPosition().z));
+                std::cout << "pos last cube else : " << lastCubeFound->getPosition() << std::endl;
                 this->deleteToCursor();
                 break;
-            }  
+            }
         }
-        // if cube found, delete one on the ground
-        if(isThereACube()){
-            this->updateCursorPosition(glm::ivec3(m_cursor->getPosition().x,0,m_cursor->getPosition().z));
-            this->deleteToCursor();
-        }
-
     }
 
     void GameController::changeColorCube(Overlay &overlay, TrackballCamera &camera){
@@ -313,5 +296,21 @@ void GameController::handleCamera(SDL_Event &e, TrackballCamera &cam) {
             }
         }
     }
+
+/*
+    void GameController::paint_cubes(Cursor &cursor, int perimeter, glm::vec3 color)
+    {
+        glm::vec3 position = cube_at_cursor(cursor).get_position();
+
+        for(int i=-perimeter; i<perimeter; i++)
+            for(int j=-perimeter; j<perimeter; j++)
+                    for(int k=-perimeter; k<perimeter; k++)
+                    {
+                        //make sure all positions are valid = that we paint cubes that exist
+                        if ( valid_position(glm::vec3(position.x-i, position.y-j, position.z-k) ) )
+                                m_all_cubes(position.x-i, position.z-k)[position.y-j].set_color(color);
+                            
+                    }
+    }*/
 
 };

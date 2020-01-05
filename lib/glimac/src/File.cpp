@@ -10,9 +10,15 @@ namespace glimac{
 	void readFileControl(std::string filename,std::vector<ControlPoint> &ctrlPts){
         //search the file 
 		std::ifstream file("../assets/doc/"+filename, std::ios::in); 
-		if(file)
-		{
-    		std::string line;
+        assert(file.is_open() && "Unable to open control points file");
+		std::string line;
+        std::string element;
+		getline(file,element);
+        if(element.compare("RBF") != 0){
+            std::cerr <<"Read control points : The file is not valid." <<std::endl;
+			file.close();
+			return;
+		}
             //read each line	
    			while(getline(file, line))
     		{
@@ -21,16 +27,12 @@ namespace glimac{
         		file >> control.m_position.x;
         		file >> control.m_position.y;
         		file >> control.m_position.z;
-        		file >> control.m_value;
+                file >> control.m_value;
                 //fill the vector with the control class that contains everything we need to know about control points
         		ctrlPts.push_back(control);
     	    }
             //after reading, close the file
 			file.close();  
-		}
-		 else  
-            std::cerr << "Cannot open file!" << std::endl; 
-
 	}
 
     void saveFile(std::string filePath,std::string filename,std::list<Cube> &allCubes, Scene &scene){
@@ -76,7 +78,6 @@ namespace glimac{
             Cube cube(position);
             allCubes.push_back(cube);
             scene.tabCubes[cube.getPosition().x][cube.getPosition().y][cube.getPosition().z] = &allCubes.back();
-            
 
             //do the scene for every others cubes
             while(getline(file, line))
