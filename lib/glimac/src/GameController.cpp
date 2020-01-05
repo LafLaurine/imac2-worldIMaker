@@ -117,12 +117,12 @@ namespace glimac {
     void GameController::initAllCubes() {
         //initialize all the cube of the scene
         for (unsigned int z = 0; z < m_scene->getLength(); z++) {
-                for(unsigned int x= 0 ; x<m_scene->getWidth() ; x++)
-                {
-                    Cube cube(glm::ivec3(x,0,z));
-                    m_scene->getAllCubes().push_back(cube);
-                    m_scene->tabCubes[x][0][z] = &m_scene->getAllCubes().back();
-                }
+            for(unsigned int x= 0 ; x< m_scene->getWidth() ; x++)
+            {
+                Cube cube(glm::ivec3(x,0,z));
+                m_scene->getAllCubes().push_back(cube);
+                m_scene->tabCubes[x][0][z] = &m_scene->getAllCubes().back();
+            }
         }
     }
 
@@ -202,10 +202,11 @@ namespace glimac {
 
     // Extrude
     void GameController::extrudeCube(){
-        Cube* lastCubeFound;
-        lastCubeFound = m_scene->tabCubes[m_cursor->getPosition().x][20][m_cursor->getPosition().z];
+        Cube* lastCubeFound = nullptr;
+        lastCubeFound = m_scene->tabCubes[m_cursor->getPosition().x][m_scene->getHeight()][m_cursor->getPosition().z];
+         std::cout << "Last cube fround : " << lastCubeFound << std::endl;
 
-        for(int i=m_scene->getHeight() ; i=1 ; i--){
+        for(int i=m_scene->getHeight() ; i=1 ; --i){
             if(lastCubeFound==nullptr){
                 lastCubeFound = m_scene->tabCubes[m_cursor->getPosition().x][i][m_cursor->getPosition().z];
                 std::cout << "pos last cube : " << lastCubeFound->getPosition() << std::endl;
