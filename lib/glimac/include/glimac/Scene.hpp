@@ -9,6 +9,7 @@
 #include <glimac/TrackballCamera.hpp>
 #include <glimac/Program.hpp>
 #include <glimac/Cube.hpp>
+#include <glimac/Texture.hpp>
 #include <vector>
 
 
@@ -77,7 +78,7 @@ namespace glimac
 			///initialize default scene
 			void initAllCubes();
 			///draw cube of default scene
-			void drawCubes(TrackballCamera &camera, GLuint &texId);
+			void drawCubes(TrackballCamera &camera, Texture &tex);
 			///add light to the scene : directive light, point light and ambiant light
 			void addLight();
 			///set ground of the scene

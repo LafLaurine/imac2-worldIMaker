@@ -257,7 +257,6 @@ namespace glimac {
         int cubeIndex = getIndexCube(scene,cursor);
         if(isThereACube(scene,cursor)){
             scene.getAllCubes().at(cubeIndex).m_type = 1;
-            tex.initTexture(scene);
         } else {
             std::cout << "There is no cube for adding texture" << std::endl;
         }
@@ -266,7 +265,6 @@ namespace glimac {
     void GameController::removeTextureCube(Scene &scene, Cursor &cursor, Texture &tex) {
         //get index of the cube where the cursor is
         if(isThereACube(scene,cursor)){
-            tex.unbindTexture(scene);
             scene.getAllCubes().at(scene.from3Dto1D(cursor.getPosition())).m_type = 0;
         } else {
             std::cout << "There is no cube for removing texture" << std::endl;

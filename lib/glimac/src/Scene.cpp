@@ -167,7 +167,7 @@ namespace glimac {
         setGround();
     }
 
-    void Scene::drawCubes(TrackballCamera &camera,GLuint &texId) {
+    void Scene::drawCubes(TrackballCamera &camera,Texture &tex) {
         //for each cube, calculate matrice and if it is visible, draw it
         for(Cube& cube : m_allCubes){
             recalculateMatrices(camera,cube);
@@ -178,9 +178,9 @@ namespace glimac {
                 else if(cube.m_type == 1) {
                     GLCall(glUniform1i(uCubeTypeLocation,1));
                     GLCall(glUniform1i(uIsThereTexture, 1));
-                    GLCall(glUniform1i(uTextureLocation, texId));
+                    GLCall(glUniform1i(uTextureLocation, tex.getId()));
                 }
-                cube.draw(texId);
+                cube.draw(tex.getId());
             }
         }
     }

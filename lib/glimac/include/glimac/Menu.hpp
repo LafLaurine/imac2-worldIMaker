@@ -33,7 +33,7 @@ struct VertexTex{
             GLuint m_ibo;
             GLuint m_vbo;
             GLuint m_vao;
-            Texture m_texture;
+            Texture* m_texture;
             Scene &m_scene;
             ProgramType m_type;
         public :

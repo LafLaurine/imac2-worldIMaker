@@ -52,7 +52,9 @@ int main(int argc, char** argv) {
     scene.addLight();
 
     //set texture
-    Texture texture("EarthMap.jpg");
+    Texture groundTree("groundTree.jpg");
+    //texture tree
+    Texture tree("tree.jpg");
    
     //construct camera
     TrackballCamera camera;
@@ -70,7 +72,7 @@ int main(int argc, char** argv) {
     readFileControl("controls.txt",list_ctrlTree);
     //read control file for big cube
     std::vector <ControlPoint> list_ctrlCube;
-    readFileControl("otherControls.txt",list_ctrlCube);
+    readFileControl("test1.txt",list_ctrlCube);
 
     //construct cursor
     Cursor cursor;
@@ -142,7 +144,7 @@ int main(int argc, char** argv) {
                 if(gameController.gameLoad == true) {
                     loadFile("./assets/doc/", "world.txt", scene.getAllCubes());
                 }
-                scene.drawCubes(camera, texture.m_textureId);
+                scene.drawCubes(camera, groundTree);
                 //add lights
                 scene.addLight();
                 scene.recalculateMatrices(camera,cursor);
@@ -154,7 +156,7 @@ int main(int argc, char** argv) {
                     applyRbf(scene.getAllCubes(), list_ctrlTree, FunctionType::InverseQuadratic);
                 }
                 if(overlay.getClickedCube() &1) {
-                    applyRbf(scene.getAllCubes(), list_ctrlCube, FunctionType::Gaussian);
+                    applyRbf(scene.getAllCubes(), list_ctrlCube, FunctionType::ThinPlateSpline);
                 }
                 if(overlay.getClickedReset() &1) {
                     gameController.cleanScene(scene.getAllCubes());
@@ -168,10 +170,10 @@ int main(int argc, char** argv) {
                         soundPlayer.play(DESTROY);
                 }
                 if(overlay.getClickedAddTexture() &1) {
-                    gameController.setTextureCube(scene,cursor,texture);
+                    gameController.setTextureCube(scene,cursor,groundTree);
                 }
                 if(overlay.getClickedRemoveTexture() &1) {
-                    gameController.removeTextureCube(scene,cursor,texture);
+                  //  gameController.removeTextureCube(scene,cursor,texture);
                 }
 
             }

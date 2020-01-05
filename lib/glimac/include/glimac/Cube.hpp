@@ -5,6 +5,7 @@
 #include <glimac/glm.hpp> 
 #include <GL/glew.h>
 #include <glimac/Image.hpp>
+#include <glimac/CubeData.hpp>
 
 namespace glimac
 {

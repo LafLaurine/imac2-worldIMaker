@@ -21,7 +21,7 @@ namespace glimac {
         2, 3, 0
     };
 
-    Menu::Menu(Scene &scene, ProgramType type, std::string tex):m_ibo(0),m_vbo(0),m_vao(0),m_texture(Texture(tex)), m_scene(scene), m_type(type)
+    Menu::Menu(Scene &scene, ProgramType type, std::string tex):m_ibo(0),m_vbo(0),m_vao(0),m_texture(new Texture(tex)), m_scene(scene), m_type(type)
     {
         scene.loadProgram(type,"../shaders/texture.vs.glsl","../shaders/texture.fs.glsl");
         const GLuint VERTEX_ATTR_POSITION = 0;
@@ -53,10 +53,11 @@ namespace glimac {
     
     void Menu::draw(Scene &scene, ProgramType type){
         scene.useProgram(type);
+        GLuint id = m_texture->getId();
         GLCall(glBindVertexArray(m_vao));
         GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo));
-        GLCall(glBindTexture(GL_TEXTURE_2D, m_texture.m_textureId));
-        GLCall(glUniform1i(glGetUniformLocation(scene.m_programs[type].getGLId(), "uTexure"), m_texture.m_textureId));
+        GLCall(glBindTexture(GL_TEXTURE_2D, id));
+        GLCall(glUniform1i(glGetUniformLocation(scene.m_programs[type].getGLId(), "uTexure"), id));
         GLCall(glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (void*) 0, 1));
         GLCall(glBindTexture(GL_TEXTURE_2D, 0));
         GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));

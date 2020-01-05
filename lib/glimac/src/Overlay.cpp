@@ -32,7 +32,7 @@ namespace glimac {
     }
 
     void Overlay::drawOverlay(Scene &scene) {
-        ImGui::Begin("Tools",&p_open);
+        ImGui::Begin("Cube tools",&p_open);
         {
             //set color picker
             static float color;
@@ -87,6 +87,12 @@ namespace glimac {
             {
                clickedCube++;
             }
+
+            // Texture
+         /*   const char* itemsTextures[] = { "groundTree", "tree"};
+            int item_currentTexture = scene.tex->getId();
+            ImGui::Text("Texture:");
+            ImGui::Combo("Texture", &item_currentTexture, itemsTextures, IM_ARRAYSIZE(itemsTextures));*/
         }
         ImGui::End();
 
