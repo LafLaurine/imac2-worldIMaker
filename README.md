@@ -46,6 +46,10 @@ DOXYGEN :
 sudo apt install graphviz doxygen
 ```
 
+SDL2_MIXER :
+```bash
+sudo apt-get install libsdl2-mixer-dev
+```
 
 ## Build project
 
