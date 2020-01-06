@@ -25,6 +25,7 @@ namespace glimac
 			Cube();
 			///constructor with a specific position set
 			Cube(glm::ivec3 position);
+			Cube(glm::ivec3 position,glm::vec4 color);
 			///default destructor of cube
 			~Cube() = default;
 			///initialize cube buffer
