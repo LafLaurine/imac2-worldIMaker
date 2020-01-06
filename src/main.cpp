@@ -18,6 +18,8 @@
 #include <glimac/Cursor.hpp>
 #include <glimac/Texture.hpp>
 #include <glimac/Menu.hpp>
+#include <list>
+#include <algorithm>
 
 using namespace glimac;
 

@@ -62,6 +62,18 @@ namespace glimac{
         //search file
         std::ifstream file(filePath + filename, std::ios::in);  
 
+        // clean list and array of all cubes
+        allCubes = std::list<Cube>();
+        for (int z = 0; z < scene.getLength() ; z++) {
+            for(int x= 0 ; x <scene.getWidth() ; x++) {
+                for(int y= 1 ; y < scene.getHeight() ; y++) {
+                    allCubes.remove(*scene.tabCubes[x][y][z]);
+                    scene.tabCubes[x][y][z] = nullptr;
+
+                }
+            }
+        }
+
         // put only what there was in the saved scene
         if (file)
         {

@@ -4,6 +4,8 @@
 #include <imgui/imgui.h>
 #include <imgui/imgui_stdlib.h>
 #include <glimac/File.hpp>
+#include <list>
+#include <algorithm>
 
 namespace glimac {
 
