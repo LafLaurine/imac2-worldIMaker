@@ -43,10 +43,11 @@ namespace glimac{
         A(i,j)=getRBF(type, ctrlPts[i].m_position,ctrlPts[j].m_position, epsilon);
       }
     }
+    
     Eigen::MatrixXf A_t=A.transpose();
     A=A+A_t;
     A=A+Eigen::MatrixXf::Identity(size,size)*getRBF(type, ctrlPts[0].m_position,ctrlPts[0].m_position, epsilon);
-    
+
     //Definition Vector B
     Eigen::VectorXf B(size);
     for (size_t i=0; i<size; ++i){
@@ -54,29 +55,34 @@ namespace glimac{
     }
 
     //Definition Vector Solution
-    Eigen::PartialPivLU<Eigen::MatrixXf> lu(A);
-    Eigen::VectorXf vec_omega = lu.solve(B);
+    Eigen::ColPivHouseholderQR<Eigen::MatrixXf> qr(A);
+    Eigen::VectorXf vec_omega = qr.solve(B);
     return vec_omega;
   }
 
-  void applyRbf(std::list<Cube> &allCubes, std::vector <ControlPoint> &ctrlPts, FunctionType type, GameController &gamecontrol){
+  void applyRbf(std::list<Cube>& allCubes, std::vector<ControlPoint> &ctrlPts, FunctionType type, GameController &gamecontrol, Scene& scene){
     float epsilon = 1.0f;
     float value;
     Eigen::VectorXf omega = findOmega(ctrlPts, type, epsilon);
-    std::cout << omega << std::endl;
-    for(Cube& c : allCubes){
-      value=0;
-      glm::vec3 toFloatVec((float) c.getPosition().x , (float) c.getPosition().y , (float) c.getPosition().z);
-      std::cout << toFloatVec << std::endl;
-      for (size_t i = 1; i < ctrlPts.size(); ++i){
-        value+= getRBF(type, toFloatVec, ctrlPts[i].m_position, epsilon)*omega[i];
-        std::cout << "coucou" << std::endl;
-      }
 
-      if (value >= 0.f )
-        gamecontrol.addCube(c);  
-       else 
-        gamecontrol.deleteCube(&c);
-    }
+      value=0;
+      gamecontrol.cleanScene(allCubes);
+      for (int x = 0; x < scene.getWidth() ; x++) {
+        for(int y = 0 ; y < scene.getHeight() ; y++) {
+          for(int z = 0 ; z < scene.getLength() ; z++) {
+
+            for (size_t i = 1; i < ctrlPts.size(); ++i){
+              value+= getRBF(type, glm::vec3(float(x), float(y), float(z)), ctrlPts[i].m_position, epsilon)*omega[i];
+              std::cout << ctrlPts[i].m_position << std::endl;
+            }
+
+            if (value >= 0.f )
+              gamecontrol.addCube(Cube(glm::ivec3(x, y, z)));  
+            //else 
+              //gamecontrol.deleteCube(&c);
+          }
+        }
+      }
   }
+
 };

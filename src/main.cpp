@@ -18,6 +18,8 @@
 #include <glimac/Cursor.hpp>
 #include <glimac/Texture.hpp>
 #include <glimac/Menu.hpp>
+#include <list>
+#include <algorithm>
 
 using namespace glimac;
 
@@ -157,10 +159,10 @@ int main(int argc, char** argv) {
 
                 //handle click on the overlay
                 if(overlay.getClickedTree() &1) {
-                    applyRbf(scene.getAllCubes(), list_ctrlTree, FunctionType::InverseQuadratic, gameController);
+                    applyRbf(scene.getAllCubes(), list_ctrlTree, FunctionType::InverseQuadratic, gameController, scene);
                 }
                 if(overlay.getClickedCube() &1) {
-                    applyRbf(scene.getAllCubes(), list_ctrlCube, FunctionType::ThinPlateSpline, gameController);
+                    applyRbf(scene.getAllCubes(), list_ctrlCube, FunctionType::ThinPlateSpline, gameController, scene);
                 }
                 if(overlay.getClickedReset() &1) {
                     gameController.cleanScene(scene.getAllCubes());

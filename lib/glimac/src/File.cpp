@@ -64,7 +64,7 @@ namespace glimac{
         //search file
         std::ifstream file(filePath + filename, std::ios::in); 
 
-        // clean list and arra of all cubes
+        // clean list and array of all cubes
         allCubes = std::list<Cube>();
         for (int z = 0; z < scene.getLength() ; z++) {
             for(int x= 0 ; x <scene.getWidth() ; x++) {

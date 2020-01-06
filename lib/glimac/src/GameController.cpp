@@ -1,5 +1,8 @@
 #include <glimac/GameController.hpp>
 #include <iostream>
+#include <list>
+#include <algorithm>
+
 
 namespace glimac {
     
@@ -80,9 +83,9 @@ namespace glimac {
         for (int z = 0; z < m_scene->getLength(); z++) {
             for(int x= 0 ; x< m_scene->getWidth() ; x++)
             {
-                Cube cube(glm::ivec3(x,0,z));
-                m_scene->getAllCubes().push_back(cube);
+                m_scene->getAllCubes().push_back(glm::ivec3(x,0,z));
                 m_scene->tabCubes[x][0][z] = &m_scene->getAllCubes().back();
+                
             }
         }
     }
