@@ -85,9 +85,13 @@ namespace glimac{
             file >> position.y;
             file >> position.z;
             file >> color.x;
+            //std::cout << "COLOR X : " << color.x << std::endl;
             file >> color.y;
+            //std::cout << "COLOR Y : " << color.y << std::endl;
             file >> color.z;
+            //std::cout << "COLOR Z : " << color.z << std::endl;
             file >> color.w;
+            //std::cout << "COLOR W : " << color.w << std::endl;
 
             //set position received to the scene's first cube*/
             Cube cube(glm::ivec3( position.x, position.y, position.z), color);
@@ -102,7 +106,10 @@ namespace glimac{
                 file >> position.x ;
                 file >> position.y ;
                 file >> position.z ;
-
+                file >> color.x;
+                file >> color.y;
+                file >> color.z;
+                
                 Cube cube(glm::ivec3( position.x, position.y, position.z),color);
                 allCubes.push_back(cube);
                 scene.tabCubes[cube.getPosition().x][cube.getPosition().y][cube.getPosition().z] = &allCubes.back();                
