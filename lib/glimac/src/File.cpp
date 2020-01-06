@@ -31,8 +31,7 @@ namespace glimac{
     void saveFile(std::string filePath,std::string filename,std::list<Cube> &allCubes, Scene &scene){
         //create a file
         std::ofstream file(filePath + filename, std::ios::out | std::ios::trunc); 
-        if(file)  
-        {
+        assert(file.is_open() && "Unable to open save file");
 
             std::for_each(allCubes.begin(), allCubes.end(), [&file](Cube& cube){
                 //each position of the cube is write into the file
@@ -48,17 +47,10 @@ namespace glimac{
                 //after constructing the file, close it
                 file.close();
                 std::cout << "Your world is saved" << std::endl;  
-        }
-        else  {
-            std::cout << filePath << std::endl;
-            std::cout << filename << std::endl;
-            std::cerr << "Cannot write file" << std::endl;
-        }
     }
 
 	 void loadFile(std::string filePath, std::string filename,std::list<Cube> &allCubes, Scene &scene){
         allCubes.clear();
-        std::cout << "World loaded" << std::endl;
         //search file
         std::ifstream file(filePath + filename, std::ios::in);  
 

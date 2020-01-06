@@ -73,7 +73,6 @@ namespace glimac {
     		std::cout << "There is NO cube, it's empty !  " << std::endl;
             return false;
     	} else {
-    		std::cout << "There is a cube ! " << std::endl;
             return true;
     	}
     }
