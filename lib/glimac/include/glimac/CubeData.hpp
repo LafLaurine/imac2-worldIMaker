@@ -6,47 +6,24 @@
 namespace glimac
 {
     ///stock cube positions
-    const ShapeVertex cubePositions[] = {
+    
+    const std::vector<glm::vec3> cubePositions = {
         // Front
-        ShapeVertex(glm::vec3(0.5, 0.5, 0.5), glm::vec2(1.0,1.0)),
-        ShapeVertex(glm::vec3(-0.5, 0.5, 0.5), glm::vec2(0.0,1.0)),
-        ShapeVertex(glm::vec3(-0.5, -0.5, 0.5), glm::vec2(0.0,0.0)),
-        ShapeVertex(glm::vec3(0.5, -0.5, 0.5), glm::vec2(1.0,0.0)),
-            
+        glm::vec3(0.5, 0.5, 0.5), glm::vec3(-0.5, 0.5, 0.5), glm::vec3(-0.5, -0.5, 0.5), glm::vec3(0.5, -0.5, 0.5),
         // Right
-        ShapeVertex(glm::vec3(0.5, 0.5, 0.5), glm::vec2(1.0,1.0)),
-        ShapeVertex(glm::vec3(0.5, -0.5, 0.5), glm::vec2(1.0,0.0)),
-        ShapeVertex(glm::vec3(0.5, -0.5, -0.5), glm::vec2(1.0,1.0)),
-        ShapeVertex(glm::vec3(0.5, 0.5, -0.5),glm::vec2(0.0,1.0)),
-        
+        glm::vec3(0.5, 0.5, 0.5), glm::vec3(0.5, -0.5, 0.5), glm::vec3(0.5, -0.5, -0.5), glm::vec3(0.5, 0.5, -0.5),
         // Top	
-        ShapeVertex(glm::vec3(0.5, 0.5, 0.5), glm::vec2(0.0,0.0)),
-        ShapeVertex(glm::vec3(0.5, 0.5, -0.5),glm::vec2(1.0,0.0)),
-        ShapeVertex(glm::vec3(-0.5, 0.5, -0.5),glm::vec2(1.0,1.0)), 
-        ShapeVertex(glm::vec3(-0.5, 0.5, 0.5), glm::vec2(0.0,1.0)),
-
+        glm::vec3(0.5, 0.5, 0.5), glm::vec3(0.5, 0.5, -0.5), glm::vec3(-0.5, 0.5, -0.5), glm::vec3(-0.5, 0.5, 0.5), 
         // Left	
-        ShapeVertex(glm::vec3(-0.5, 0.5, 0.5), glm::vec2(0.0,0.0)),
-        ShapeVertex(glm::vec3(-0.5, 0.5, -0.5), glm::vec2(1.0,0.0)),
-        ShapeVertex(glm::vec3(-0.5, -0.5, -0.5), glm::vec2(1.0,1.0)),
-        ShapeVertex(glm::vec3(-0.5, -0.5, 0.5),  glm::vec2(0.0,1.0)),
-        
+        glm::vec3(-0.5, 0.5, 0.5), glm::vec3(-0.5, 0.5, -0.5), glm::vec3(-0.5, -0.5, -0.5), glm::vec3(-0.5, -0.5, 0.5),  
         // Bottom
-        ShapeVertex(glm::vec3(-0.5, -0.5, -0.5), glm::vec2(0.0,0.0)),
-        ShapeVertex(glm::vec3(0.5, -0.5, -0.5), glm::vec2(1.0,0.0)),
-        ShapeVertex(glm::vec3(0.5, -0.5, 0.5), glm::vec2(1.0,1.0)),
-        ShapeVertex(glm::vec3(-0.5, -0.5, 0.5), glm::vec2(0.0,1.0)),
-
+        glm::vec3(-0.5, -0.5, -0.5), glm::vec3(0.5, -0.5, -0.5), glm::vec3(0.5, -0.5, 0.5), glm::vec3(-0.5, -0.5, 0.5), 
         // Back	
-        ShapeVertex(glm::vec3(0.5, -0.5, -0.5), glm::vec2(0.0,1.0)),
-        ShapeVertex(glm::vec3(-0.5, -0.5, -0.5), glm::vec2(1.0,0.0)),
-        ShapeVertex(glm::vec3(-0.5, 0.5, -0.5), glm::vec2(1.0,1.0)),
-        ShapeVertex(glm::vec3(0.5, 0.5, -0.5),glm::vec2(0.0,1.0))
+        glm::vec3(0.5, -0.5, -0.5), glm::vec3(-0.5, -0.5, -0.5), glm::vec3(-0.5, 0.5, -0.5), glm::vec3(0.5, 0.5, -0.5)
     };
 
-
     ///stock cube normals
-    const glm::vec3 normals[] = {
+    const std::vector<glm::vec3> normals = {
         glm::vec3(0, 0, 0.5), glm::vec3(0, 0, 0.5), glm::vec3(0, 0, 0.5), glm::vec3(0, 0, 0.5),
         glm::vec3(0.5, 0, 0), glm::vec3(0.5, 0, 0), glm::vec3(0.5, 0, 0), glm::vec3(0.5, 0, 0),
         glm::vec3(0, 0.5, 0), glm::vec3(0, 0.5, 0), glm::vec3(0, 0.5, 0), glm::vec3(0, 0.5, 0),

@@ -7,6 +7,7 @@
 #include <glimac/Scene.hpp>
 #include <glimac/Overlay.hpp>
 #include <list>
+#include <algorithm>
 #include <glimac/Texture.hpp>
 namespace glimac {
 
@@ -24,12 +25,12 @@ namespace glimac {
             ///default destructor of GameController
             ~GameController() = default;
             ///handle scene movements
-            void handleScene(SDL_Event &e, Overlay &overlay, TrackballCamera &camera);
+            void handleScene(SDL_Event &e, Overlay &overlay, FreeFlyCamera &camera);
         
             bool isThereACube();
             ///initialize default scene
             void initAllCubes();
-            void drawCubes(TrackballCamera &camera, Texture &tex);
+            void drawCubes(FreeFlyCamera &camera, Texture &tex);
             ///add cube to the scene
             void addCube(Cube cube);
             ///delete cube of the scene
@@ -56,7 +57,7 @@ namespace glimac {
             ///clean scene
             void cleanScene(std::list <Cube> &allCubes);
             ///change color of the cube selected
-            void changeColorCube(Overlay &overlay, TrackballCamera &camera);
+            void changeColorCube(Overlay &overlay, FreeFlyCamera &camera);
             ///set texture of the cube selected
 
             void setTextureCube(Texture &tex);

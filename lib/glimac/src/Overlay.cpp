@@ -15,13 +15,11 @@ namespace glimac {
         ImGui_ImplSDL2_Shutdown();
         ImGui::DestroyContext();
     }
+
     void Overlay::initImgui(SDL_Window* window,SDL_GLContext* glContext)  {
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
         ImGui::StyleColorsDark();
-
-        m_io = new ImGuiIO();
-        *m_io = ImGui::GetIO();
         ImGui_ImplSDL2_InitForOpenGL(window,&glContext);
         ImGui_ImplOpenGL3_Init("#version 330 core");
     }
@@ -36,11 +34,8 @@ namespace glimac {
     void Overlay::drawOverlay(Scene &scene) {
         ImGui::Begin("Cube tools",&p_open);
         {
-            //set color picker
-            static float color;
-            ImGui::ColorEdit4("Color", &color);
-            glm::vec4 goodColor = glm::make_vec4(&color);
-            setColor(goodColor);
+            ImGui::ColorEdit4("Color", (float*)&i_color);
+            m_myCol = glm::vec4(i_color.x, i_color.y, i_color.z, 1.0);
 
             //set clicked variables to communicate with the main
             clickedAddCube = 0;
@@ -55,7 +50,7 @@ namespace glimac {
                 clickedReset++;
             }
 
-            if ((ImGui::Button("Add cube")) || ImGui::IsKeyDown(SDL_SCANCODE_F)) {
+            if (ImGui::Button("Add cube")) {
                 clickedAddCube++;
             }
             
@@ -69,7 +64,7 @@ namespace glimac {
                 clickedRemoveTexture++;
             }
 
-            if (ImGui::Button("Destroy cube") || ImGui::IsKeyDown(SDL_SCANCODE_V)) 
+            if (ImGui::Button("Destroy cube")) 
             { 
                 clickedDeleteCube++;
             }
@@ -89,11 +84,6 @@ namespace glimac {
                clickedCube++;
             }
 
-            // Texture
-         /*   const char* itemsTextures[] = { "groundTree", "tree"};
-            int item_currentTexture = scene.tex->getId();
-            ImGui::Text("Texture:");
-            ImGui::Combo("Texture", &item_currentTexture, itemsTextures, IM_ARRAYSIZE(itemsTextures));*/
         }
         ImGui::End();
 
@@ -101,27 +91,31 @@ namespace glimac {
         ImGui::Begin("Save and load",&p_open);
         {
             //set strings for save and load filepath and filename
-            std::string filePath = "./assets/doc/";
-            std::string filename = "world.txt";
+            static char filepath[128] = "";
+            static char filename[128] = "";
             ImGui::Text("Save file :");
-            ImGui::InputText("Save path", &filePath);
-            ImGui::InputText("Save filename", &filename);
+            ImGui::InputTextWithHint("filepath", "enter file path", filepath, sizeof(filepath), ImGuiInputTextFlags_EnterReturnsTrue);
+            ImGui::InputTextWithHint("filename", "enter file name", filename, sizeof(filename), ImGuiInputTextFlags_EnterReturnsTrue);
+            std::string filePathS(filepath);
+            std::string fileNameS(filename);
             if (ImGui::Button("Save"))
             {
                 //save file with filepath and filename of the user choice
-                saveFile(filePath,filename,scene.getAllCubes(),scene);
+                saveFile(filePathS,fileNameS,scene.getAllCubes(),scene);
             }
 
-            std::string loadFilePath = "./assets/doc/";
-            std::string loadFilename = "world.txt";
+            static char filepathLoad[128] = "";
+            static char filenameLoad[128] = "";
             ImGui::Text("Load file :");
-            ImGui::InputText("Path", &loadFilePath);
-            ImGui::InputText("Filename", &loadFilename);
+            ImGui::InputTextWithHint("filepathLoad", "enter file path", filepathLoad, sizeof(filepath), ImGuiInputTextFlags_EnterReturnsTrue);
+            ImGui::InputTextWithHint("filenameLoad", "enter file name", filenameLoad, sizeof(filename), ImGuiInputTextFlags_EnterReturnsTrue);
+            std::string filePathL(filepathLoad);
+            std::string fileNameL(filenameLoad);
 
             if (ImGui::Button("Load"))
             {
                 //load file with filepath and filename of the user choice
-                loadFile(loadFilePath, loadFilename, scene.getAllCubes(),scene);
+                loadFile(filePathL, fileNameL, scene.getAllCubes(),scene);
             }
         }
         ImGui::End();
@@ -193,5 +187,10 @@ namespace glimac {
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         SDL_GL_SwapWindow(window);
+    }
+
+    bool Overlay::isMouseOnInterface() const {
+        ImGuiIO &i_io = ImGui::GetIO();
+        return i_io.WantCaptureMouse;
     }
 }

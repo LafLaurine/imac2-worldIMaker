@@ -7,7 +7,7 @@
 #include <glimac/main.hpp>
 #include <glimac/GameController.hpp>
 #include <glimac/PlayerController.hpp>
-#include <glimac/TrackballCamera.hpp>
+#include <glimac/FreeFlyCamera.hpp>
 #include <glimac/FreeFlyCamera.hpp>
 #include <glimac/SDLWindowManager.hpp> 
 #include <glimac/FilePath.hpp> 
@@ -58,11 +58,7 @@ int main(int argc, char** argv) {
     //texture tree
     Texture tree("tree.jpg");
     //construct camera
-    TrackballCamera camera;
-    //construct freefly
-    FreeFlyCamera freeCam;
-    //set camera position
-    camera.setPosMatrix(10,5,5);
+    FreeFlyCamera camera;
     //construct cursor
     Cursor cursor;
     //construct gamecontroller
@@ -76,7 +72,7 @@ int main(int argc, char** argv) {
     readFileControl("controls.txt",list_ctrlTree);
     //read control file for big cube
     std::vector <ControlPoint> list_ctrlCube;
-    readFileControl("test1.txt",list_ctrlCube);
+    readFileControl("otherControls.txt",list_ctrlCube);
     gameController.initAllCubes();
 
     // Application loop
@@ -90,6 +86,11 @@ int main(int argc, char** argv) {
             switch (e.type) {
                 
                 case SDL_QUIT: windowManager.exit();
+
+                if((e.type == SDL_MOUSEMOTION) && (e.motion.state & SDL_BUTTON_LEFT) && !(overlay.isMouseOnInterface())) {
+                    camera.rotateLeft(e.motion.xrel);
+                    camera.rotateUp(e.motion.yrel);
+                }
 
                 case SDL_MOUSEBUTTONUP:
                     int x, y;
@@ -159,10 +160,10 @@ int main(int argc, char** argv) {
 
                 //handle click on the overlay
                 if(overlay.getClickedTree() &1) {
-                    applyRbf(scene.getAllCubes(), list_ctrlTree, FunctionType::InverseQuadratic, gameController, scene);
+                    applyRbf(scene.getAllCubes(), list_ctrlTree, FunctionType::InverseQuadratic, gameController,scene);
                 }
                 if(overlay.getClickedCube() &1) {
-                    applyRbf(scene.getAllCubes(), list_ctrlCube, FunctionType::ThinPlateSpline, gameController, scene);
+                    applyRbf(scene.getAllCubes(), list_ctrlCube, FunctionType::Gaussian, gameController,scene);
                 }
                 if(overlay.getClickedReset() &1) {
                     gameController.cleanScene(scene.getAllCubes());

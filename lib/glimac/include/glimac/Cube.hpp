@@ -19,13 +19,14 @@ namespace glimac
 			GLuint texId;
 			glm::ivec3 m_position;
 			glm::vec4 m_color;
-			bool m_visible;
 		public:
 			int m_type;
+			std::vector<ShapeVertex> m_vertices;
 			///default constructor of cube
 			Cube();
 			///constructor with a specific position set
 			Cube(glm::ivec3 position);
+			Cube(glm::ivec3 position,glm::vec4 color);
 			///default destructor of cube
 			~Cube() = default;
 			///initialize cube buffer
@@ -38,8 +39,6 @@ namespace glimac
 			inline GLuint getVBO(){ return m_vbo; };
 			///get cube IBO
 			inline GLuint getIBO(){ return m_ibo; };
-			///check if cube is visible
-			inline bool isVisible(){ return m_visible; };
 			///set position of the cube
 			inline glm::ivec3 setPosition(glm::ivec3 position){ return m_position = position;};
 			///set X position of the cube
@@ -52,10 +51,6 @@ namespace glimac
 			inline glm::vec4 getColor() {return m_color;};
 			///set cube color
 			inline void setColor(glm::vec4 colorSend){m_color = colorSend;};
-			///set cube visible
-			void setVisible();
-			///set cube invisible
-			void setInvisible();
 			///draw a cube
 			void draw(GLuint textureId);
 			bool operator==(Cube cube);

@@ -11,7 +11,7 @@ namespace glimac{
        setColor(colorCursor);
        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
        glDisable(GL_DEPTH_TEST);
-       glDrawElements(GL_TRIANGLES, 24, GL_UNSIGNED_SHORT, 0);
+       glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, 0);
        glEnable(GL_DEPTH_TEST);
        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
        glBindVertexArray(0);

@@ -3,7 +3,7 @@
 #pragma once
 #include <iostream>
 #include <glimac/glm.hpp> 
-#include <glimac/TrackballCamera.hpp>
+#include <glimac/FreeFlyCamera.hpp>
 #include <SDL2/SDL.h>
 #include <list>
 namespace glimac {
@@ -26,7 +26,7 @@ namespace glimac {
             void pausedGame();
             void loadGame();
             ///handle camera movements
-            void handleCamera(SDL_Event &e, TrackballCamera &cam);
+            void handleCamera(SDL_Event &e, FreeFlyCamera &cam);
     };
 
 }

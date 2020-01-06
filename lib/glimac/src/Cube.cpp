@@ -4,11 +4,15 @@
 
 namespace glimac {
 
-    Cube::Cube(glm::ivec3 position): m_vao(0), m_ibo(0), m_position(position), m_color(1.0f,1.0f,1.0f,1.0f), m_visible(false), m_type(0) {
+    Cube::Cube(glm::ivec3 position): m_vao(0), m_ibo(0), m_position(position), m_color(1.0f,1.0f,1.0f,1.0f), m_type(0) {
+         initBuffer();
+    }
+
+    Cube::Cube(glm::ivec3 position, glm::vec4 color): m_vao(0), m_ibo(0), m_position(position), m_color(color), m_type(0) {
          initBuffer();
     }
     
-    Cube::Cube() : m_vao(0), m_ibo(0), m_position(0), m_color(1.0f,1.0f,1.0f,1.0f), m_visible(false), m_type(0) {
+    Cube::Cube() : m_vao(0), m_ibo(0), m_position(0), m_color(1.0f,1.0f,1.0f,1.0f), m_type(0) {
         initBuffer();
     }
 
@@ -17,14 +21,21 @@ namespace glimac {
         //Vertex buffer position
         GLCall(glGenBuffers(1, &m_vbo));
         GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));    
-        GLCall(glBufferData(GL_ARRAY_BUFFER,24 * sizeof(ShapeVertex), cubePositions,GL_STATIC_DRAW));
+        for(size_t i = 0; i < cubePositions.size(); ++i) {
+            ShapeVertex vertex;
+            vertex.position = cubePositions[i]; // Position
+            vertex.normal = normals[i]; // Normal
+            m_vertices.push_back(vertex);
+        }
+        GLCall(glBufferData(GL_ARRAY_BUFFER,m_vertices.size() * sizeof(ShapeVertex), m_vertices.data(),GL_STATIC_DRAW));
         GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
-        
+
         GLuint cubeNormalVbo;
         GLCall(glGenBuffers(1, &cubeNormalVbo));
         GLCall(glBindBuffer(GL_ARRAY_BUFFER, cubeNormalVbo));    
-        GLCall(glBufferData(GL_ARRAY_BUFFER,sizeof(normals), normals,GL_STATIC_DRAW));
+        GLCall(glBufferData(GL_ARRAY_BUFFER,normals.size(),normals.data(),GL_STATIC_DRAW));
         GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
+
 
         //Vertex array
         GLCall(glGenVertexArrays(1, &m_vao));

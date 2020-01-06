@@ -17,6 +17,7 @@ private:
     float m_fPhi;
     float m_fTheta;
     glm::vec3 m_frontVector;
+    glm::vec3 m_frontVectorFixed;
     glm::vec3 m_leftVector;
     glm::vec3 m_upVector;
 
@@ -25,8 +26,6 @@ public:
     FreeFlyCamera();
     ///default destructor of FreeFlyCamera
     ~FreeFlyCamera() = default;
-    ///get camera position
-    inline glm::vec3 getCamPosition(){ return m_position; };
     ///compute direction vectors
     void computeDirectionVectors();
     ///move camera to the left
@@ -39,6 +38,8 @@ public:
     void rotateUp(float degrees);
     ///get view matrix of the camera
     glm::mat4 getViewMatrix() const;
+    void setPosMatrix(int l, int L, int H);
+    void moveUp(float t);
 };
 
 }
