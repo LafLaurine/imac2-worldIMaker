@@ -21,11 +21,12 @@ namespace glimac
 			glm::vec4 m_color;
 		public:
 			int m_type;
-			std::vector<ShapeVertex> c_vertices;
+			std::vector<ShapeVertex> m_vertices;
 			///default constructor of cube
 			Cube();
 			///constructor with a specific position set
 			Cube(glm::ivec3 position);
+			Cube(glm::ivec3 position,glm::vec4 color);
 			///default destructor of cube
 			~Cube() = default;
 			///initialize cube buffer

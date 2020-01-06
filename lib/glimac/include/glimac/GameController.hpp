@@ -7,6 +7,7 @@
 #include <glimac/Scene.hpp>
 #include <glimac/Overlay.hpp>
 #include <list>
+#include <algorithm>
 #include <glimac/Texture.hpp>
 namespace glimac {
 

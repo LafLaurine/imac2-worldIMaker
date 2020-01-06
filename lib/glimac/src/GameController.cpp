@@ -80,8 +80,7 @@ namespace glimac {
         for (int z = 0; z < m_scene->getLength(); z++) {
             for(int x= 0 ; x< m_scene->getWidth() ; x++)
             {
-                Cube cube(glm::ivec3(x,0,z));
-                m_scene->getAllCubes().push_back(cube);
+                m_scene->getAllCubes().push_back(glm::ivec3(x,0,z));
                 m_scene->tabCubes[x][0][z] = &m_scene->getAllCubes().back();
             }
         }
@@ -107,7 +106,6 @@ namespace glimac {
 
     // Add cube to vector and array
     void GameController::addCube(Cube cube){
-        std::cout << "You CANNOT add a cube, there is one already" << std::endl;
         m_scene->getAllCubes().push_back(cube);
         m_scene->tabCubes[cube.getPosition().x][cube.getPosition().y][cube.getPosition().z] = &m_scene->getAllCubes().back();
     }

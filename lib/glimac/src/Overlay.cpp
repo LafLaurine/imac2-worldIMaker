@@ -30,7 +30,6 @@ namespace glimac {
     }
 
     void Overlay::drawOverlay(Scene &scene) {
-        ImGuiIO &m_io = ImGui::GetIO();
         ImGui::Begin("Cube tools",&p_open);
         {
             ImGui::ColorEdit4("Color", (float*)&i_color);

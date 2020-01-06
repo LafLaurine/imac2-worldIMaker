@@ -39,7 +39,7 @@ namespace glimac {
     Eigen::VectorXf findOmega(std::vector <ControlPoint> &ctrlPts, FunctionType type,  const float epsilon);
     ///apply RBF function
      const Eigen::VectorXf find_omega(std::vector <ControlPoint> &ctrlPts);
-    void applyRbf(std::list<Cube> &allCubes, std::vector<ControlPoint> &ctrlPts, FunctionType type, GameController &gamecontrol);    
+    void applyRbf(std::list<Cube> &allCubes, std::vector<ControlPoint> &ctrlPts, FunctionType type, GameController &gamecontrol, Scene &scene);    
 }
 
 #endif

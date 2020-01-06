@@ -4,10 +4,9 @@
 
 namespace glimac{
 
-  float getRBF(FunctionType type, const glm::ivec3 v1, const glm::vec3 v2, const float epsilon){
-    glm::vec3 vector = glm::vec3(v1);
+  float getRBF(FunctionType type, const glm::vec3 v1, const glm::vec3 v2, const float epsilon){
     //get distance between two vectors
-    float d = glm::distance(vector, v2);
+    float d = glm::distance(v1, v2);
     //set the function for different RBF 
     if(type == FunctionType::Gaussian) {
       return exp(-epsilon*d*d); 
@@ -34,8 +33,8 @@ namespace glimac{
   const double norm(const glm::vec3 vec1){
     return( (double)sqrt(vec1.x*vec1.x + vec1.y*vec1.y + vec1.z*vec1.z ));
   } 
-
-    const Eigen::VectorXf find_omega(std::vector <ControlPoint> &ctrlPts){
+  
+  const Eigen::VectorXf find_omega(std::vector <ControlPoint> &ctrlPts){
     Eigen::MatrixXf M_constraint = Eigen::MatrixXf::Zero(ctrlPts.size(), ctrlPts.size());
     Eigen::VectorXf weight = Eigen::VectorXf::Ones(ctrlPts.size());
     //fill the control point weight vector
@@ -56,20 +55,27 @@ namespace glimac{
     return omega;
   }
 
-  void applyRbf(std::list<Cube> &allCubes, std::vector <ControlPoint> &ctrlPts, FunctionType type, GameController &gamecontrol){
+  void applyRbf(std::list<Cube>& allCubes, std::vector<ControlPoint> &ctrlPts, FunctionType type, GameController &gamecontrol, Scene& scene){
     float epsilon = 1.0f;
     float value;
     Eigen::VectorXf omega = find_omega(ctrlPts);
-    std::cout << omega << std::endl;
-    for(Cube& c : allCubes){
+
       value=0;
-      for (size_t i = 1; i < ctrlPts.size(); ++i){
-        std::cout << ctrlPts[i].m_position << std::endl;
-        value+= getRBF(type, c.getPosition(), ctrlPts[i].m_position, epsilon)*(omega[i]);
+      for (int x = 0; x < scene.getWidth() ; x++) {
+        for(int y = 0 ; y < scene.getHeight() ; y++) {
+          for(int z = 0 ; z < scene.getLength() ; z++) {
+
+            for (size_t i = 1; i < ctrlPts.size(); ++i){
+              value+= getRBF(type, glm::vec3(float(x), float(y), float(z)), ctrlPts[i].m_position, epsilon)*omega[i];
+              std::cout << ctrlPts[i].m_position << std::endl;
+            }
+
+            if (value >= 0.f )
+              gamecontrol.addCube(Cube(glm::ivec3(x, y, z)));  
+            
+          }
+        }
       }
-      std::cout << value << std::endl;
-      if (value >= 0.f )
-        gamecontrol.addCube(c);
-    }
   }
+
 };

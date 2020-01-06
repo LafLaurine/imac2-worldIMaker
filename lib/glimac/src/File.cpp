@@ -38,7 +38,11 @@ namespace glimac{
                 //each position of the cube is write into the file
                 file << cube.getPosition().x <<" ";
                 file << cube.getPosition().y <<" ";
-                file << cube.getPosition().z << std::endl;
+                file << cube.getPosition().z << " ";
+                file << cube.getColor().x << " ";
+                file << cube.getColor().y << " ";
+                file << cube.getColor().z << " ";
+                file << cube.getColor().w << std::endl;
             });
 
                 //after constructing the file, close it
@@ -53,37 +57,29 @@ namespace glimac{
     }
 
 	 void loadFile(std::string filePath, std::string filename,std::list<Cube> &allCubes, Scene &scene){
+        allCubes.clear();
         std::cout << "world loaded" << std::endl;
         //search file
-        std::ifstream file(filePath + filename, std::ios::in); 
-
-        // clean list and arra of all cubes
-        allCubes = std::list<Cube>();
-        for (int z = 0; z < scene.getLength() ; z++) {
-            for(int x= 0 ; x <scene.getWidth() ; x++) {
-                for(int y= 1 ; y < scene.getHeight() ; y++) {
-                    allCubes.remove(*scene.tabCubes[x][y][z]);
-                    scene.tabCubes[x][y][z] = nullptr;
-
-                }
-            }
-        }
-    
+        std::ifstream file(filePath + filename, std::ios::in);  
 
         // put only what there was in the saved scene
         if (file)
         {
             std::string line;
             glm::ivec3 position;
+            glm::vec4 color;
             //get position and visibility from the file
-            file >> position.x ;
-            file >> position.y ;
-            file >> position.z ;
+            file >> position.x;
+            file >> position.y;
+            file >> position.z;
+            file >> color.x;
+            file >> color.y;
+            file >> color.z;
+            file >> color.w;
 
             //set position received to the scene's first cube*/
-            Cube cube(glm::ivec3( position.x, position.y, position.z));
+            Cube cube(glm::ivec3( position.x, position.y, position.z), color);
             allCubes.push_front(cube);
-            scene.tabCubes[cube.getPosition().x][cube.getPosition().y][cube.getPosition().z] = &allCubes.front();
             
 
             //do the scene for every others cubes
@@ -95,8 +91,7 @@ namespace glimac{
                 file >> position.y ;
                 file >> position.z ;
 
-                Cube cube(glm::ivec3( position.x, position.y, position.z));
-
+                Cube cube(glm::ivec3( position.x, position.y, position.z),color);
                 allCubes.push_back(cube);
                 scene.tabCubes[cube.getPosition().x][cube.getPosition().y][cube.getPosition().z] = &allCubes.back();                
             }
@@ -107,6 +102,5 @@ namespace glimac{
             std::cerr << "Cannot open file !" << std::endl; 
 
     }
-
 
 }
