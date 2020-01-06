@@ -58,7 +58,7 @@ namespace glimac{
 
 	 void loadFile(std::string filePath, std::string filename,std::list<Cube> &allCubes, Scene &scene){
         allCubes.clear();
-        std::cout << "world loaded" << std::endl;
+        std::cout << "World loaded" << std::endl;
         //search file
         std::ifstream file(filePath + filename, std::ios::in);  
 

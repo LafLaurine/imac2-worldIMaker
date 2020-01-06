@@ -59,20 +59,16 @@ namespace glimac{
     float epsilon = 1.0f;
     float value;
     Eigen::VectorXf omega = find_omega(ctrlPts);
-
       value=0;
       for (int x = 0; x < scene.getWidth() ; x++) {
         for(int y = 0 ; y < scene.getHeight() ; y++) {
           for(int z = 0 ; z < scene.getLength() ; z++) {
 
             for (size_t i = 1; i < ctrlPts.size(); ++i){
-              value+= getRBF(type, glm::vec3(float(x), float(y), float(z)), ctrlPts[i].m_position, epsilon)*omega[i];
-              std::cout << ctrlPts[i].m_position << std::endl;
+              value+= getRBF(type, glm::vec3(float(x), float(y), float(z)), ctrlPts[i].m_position, epsilon)*(-omega[i]);
             }
-
             if (value >= 0.f )
-              gamecontrol.addCube(Cube(glm::ivec3(x, y, z)));  
-            
+              gamecontrol.addCube(Cube(glm::ivec3(x, y, z)));
           }
         }
       }

@@ -66,8 +66,8 @@ int main(int argc, char** argv) {
     scene.createUniformMatrices(FlatCube);
 
     //read control file for tree
-    std::vector <ControlPoint> list_ctrlTree;
-    readFileControl("controls.txt",list_ctrlTree);
+    std::vector <ControlPoint> list_ctrlRBF;
+    readFileControl("controls.txt",list_ctrlRBF);
     //read control file for big cube
     std::vector <ControlPoint> list_ctrlCube;
     readFileControl("otherControls.txt",list_ctrlCube);
@@ -157,11 +157,11 @@ int main(int argc, char** argv) {
                 cursor.draw();
 
                 //handle click on the overlay
-                if(overlay.getClickedTree() &1) {
-                    applyRbf(scene.getAllCubes(), list_ctrlTree, FunctionType::InverseQuadratic, gameController,scene);
+                if(overlay.getClickedRBF() &1) {
+                    applyRbf(scene.getAllCubes(), list_ctrlRBF, FunctionType::ThinPlateSpline, gameController,scene);
                 }
                 if(overlay.getClickedCube() &1) {
-                    applyRbf(scene.getAllCubes(), list_ctrlCube, FunctionType::Gaussian, gameController,scene);
+                    applyRbf(scene.getAllCubes(), list_ctrlCube, FunctionType::InverseQuadratic, gameController,scene);
                 }
                 if(overlay.getClickedReset() &1) {
                     gameController.cleanScene(scene.getAllCubes());

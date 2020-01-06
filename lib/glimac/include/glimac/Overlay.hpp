@@ -18,7 +18,7 @@ namespace glimac
 		private:
 			bool p_open;
 			int clickedReset, clickedAddCube, clickedDeleteCube;
-			int clickedTree, clickedCube, clickedAddTexture, clickedChangeCamera,clickedRemoveTexture;
+			int clickedRBF, clickedCube, clickedAddTexture, clickedChangeCamera,clickedRemoveTexture;
 			ImGuiIO* m_io;
 			ImVec4 i_color;
 			glm::vec4 m_myCol;
@@ -47,7 +47,7 @@ namespace glimac
 			///get if user clicked add delete cube button
 			inline int getClickedDeleteCube(){return clickedDeleteCube;};
 			///get if user clicked generate tree button
-			inline int getClickedTree(){return clickedTree;};
+			inline int getClickedRBF(){return clickedRBF;};
 			///get if user clicked generate big cube button
 			inline int getClickedCube(){return clickedCube;};
 			///get if user clicked add texture button

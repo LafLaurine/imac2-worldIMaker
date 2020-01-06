@@ -38,7 +38,7 @@ namespace glimac {
             //set clicked variables to communicate with the main
             clickedAddCube = 0;
             clickedDeleteCube = 0;
-            clickedTree = 0;
+            clickedRBF = 0;
             clickedCube = 0;
             clickedReset = 0;
             clickedAddTexture = 0;
@@ -72,12 +72,12 @@ namespace glimac {
                 scene.setGround();
             }
 
-            if (ImGui::Button("Generate tree")) 
+            if (ImGui::Button("Generate rbf1")) 
             {
-                clickedTree++;
+                clickedRBF++;
             }
 
-            if (ImGui::Button("Generate big cube")) 
+            if (ImGui::Button("Generate rbf2")) 
             {
                clickedCube++;
             }
