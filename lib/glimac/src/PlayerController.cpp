@@ -14,8 +14,7 @@ namespace glimac {
             gameOn = true;
         }
     }
-
-
+    
     void PlayerController::loadGame() {
         if(gameLoad == false) {
             gameLoad = true;

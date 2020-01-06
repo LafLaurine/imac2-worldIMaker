@@ -55,8 +55,7 @@ namespace glimac{
         std::ifstream file(filePath + filename, std::ios::in);  
 
         // put only what there was in the saved scene
-        if (file)
-        {
+         assert(file.is_open() && "Unable to open save file");
             std::string line;
             glm::ivec3 position;
             glm::vec4 color;
@@ -94,11 +93,7 @@ namespace glimac{
                 scene.tabCubes[cube.getPosition().x][cube.getPosition().y][cube.getPosition().z] = &allCubes.back();                
             }
             //when task finished, close the file
-            file.close();  
-        }
-         else  
-            std::cerr << "Cannot open file !" << std::endl; 
-
+            file.close();
     }
 
 }

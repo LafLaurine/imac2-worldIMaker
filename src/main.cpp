@@ -86,12 +86,6 @@ int main(int argc, char** argv) {
             switch (e.type) {
                 
                 case SDL_QUIT: windowManager.exit();
-
-                if((e.type == SDL_MOUSEMOTION) && (e.motion.state & SDL_BUTTON_LEFT) && !(overlay.isMouseOnInterface())) {
-                    camera.rotateLeft(e.motion.xrel);
-                    camera.rotateUp(e.motion.yrel);
-                }
-
                 case SDL_MOUSEBUTTONUP:
                     int x, y;
                     SDL_GetMouseState(&x, &y);

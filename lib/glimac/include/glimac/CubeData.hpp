@@ -16,32 +16,32 @@ namespace glimac
         // Right
         ShapeVertex(glm::vec3(0.5, 0.5, 0.5), glm::vec2(1.0,1.0)),
         ShapeVertex(glm::vec3(0.5, -0.5, 0.5), glm::vec2(1.0,0.0)),
-        ShapeVertex(glm::vec3(0.5, -0.5, -0.5), glm::vec2(1.0,1.0)),
-        ShapeVertex(glm::vec3(0.5, 0.5, -0.5),glm::vec2(0.0,1.0)),
+        ShapeVertex(glm::vec3(0.5, -0.5, -0.5), glm::vec2(1.0,0.0)),
+        ShapeVertex(glm::vec3(0.5, 0.5, -0.5),glm::vec2(1.0,1.0)),
         
         // Top	
-        ShapeVertex(glm::vec3(0.5, 0.5, 0.5), glm::vec2(0.0,0.0)),
-        ShapeVertex(glm::vec3(0.5, 0.5, -0.5),glm::vec2(1.0,0.0)),
-        ShapeVertex(glm::vec3(-0.5, 0.5, -0.5),glm::vec2(1.0,1.0)), 
+        ShapeVertex(glm::vec3(0.5, 0.5, 0.5), glm::vec2(1.0,1.0)),
+        ShapeVertex(glm::vec3(0.5, 0.5, -0.5),glm::vec2(1.0,1.0)),
+        ShapeVertex(glm::vec3(-0.5, 0.5, -0.5),glm::vec2(0.0,1.0)), 
         ShapeVertex(glm::vec3(-0.5, 0.5, 0.5), glm::vec2(0.0,1.0)),
 
         // Left	
-        ShapeVertex(glm::vec3(-0.5, 0.5, 0.5), glm::vec2(0.0,0.0)),
-        ShapeVertex(glm::vec3(-0.5, 0.5, -0.5), glm::vec2(1.0,0.0)),
-        ShapeVertex(glm::vec3(-0.5, -0.5, -0.5), glm::vec2(1.0,1.0)),
-        ShapeVertex(glm::vec3(-0.5, -0.5, 0.5),  glm::vec2(0.0,1.0)),
+        ShapeVertex(glm::vec3(-0.5, 0.5, 0.5), glm::vec2(0.0,1.0)),
+        ShapeVertex(glm::vec3(-0.5, 0.5, -0.5), glm::vec2(0.0,1.0)),
+        ShapeVertex(glm::vec3(-0.5, -0.5, -0.5), glm::vec2(0.0,0.0)),
+        ShapeVertex(glm::vec3(-0.5, -0.5, 0.5),  glm::vec2(0.0,0.0)),
         
         // Bottom
         ShapeVertex(glm::vec3(-0.5, -0.5, -0.5), glm::vec2(0.0,0.0)),
         ShapeVertex(glm::vec3(0.5, -0.5, -0.5), glm::vec2(1.0,0.0)),
-        ShapeVertex(glm::vec3(0.5, -0.5, 0.5), glm::vec2(1.0,1.0)),
-        ShapeVertex(glm::vec3(-0.5, -0.5, 0.5), glm::vec2(0.0,1.0)),
+        ShapeVertex(glm::vec3(0.5, -0.5, 0.5), glm::vec2(1.0,0.0)),
+        ShapeVertex(glm::vec3(-0.5, -0.5, 0.5), glm::vec2(0.0,0.0)),
 
         // Back	
-        ShapeVertex(glm::vec3(0.5, -0.5, -0.5), glm::vec2(0.0,1.0)),
-        ShapeVertex(glm::vec3(-0.5, -0.5, -0.5), glm::vec2(1.0,0.0)),
-        ShapeVertex(glm::vec3(-0.5, 0.5, -0.5), glm::vec2(1.0,1.0)),
-        ShapeVertex(glm::vec3(0.5, 0.5, -0.5),glm::vec2(0.0,1.0))
+        ShapeVertex(glm::vec3(0.5, -0.5, -0.5), glm::vec2(1.0,0.0)),
+        ShapeVertex(glm::vec3(-0.5, -0.5, -0.5), glm::vec2(0.0,0.0)),
+        ShapeVertex(glm::vec3(-0.5, 0.5, -0.5), glm::vec2(0.0,1.0)),
+        ShapeVertex(glm::vec3(0.5, 0.5, -0.5),glm::vec2(1.0,1.0))
     };
 
 
