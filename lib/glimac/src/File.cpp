@@ -58,21 +58,9 @@ namespace glimac{
 
 	 void loadFile(std::string filePath, std::string filename,std::list<Cube> &allCubes, Scene &scene){
         allCubes.clear();
-        std::cout << "world loaded" << std::endl;
+        std::cout << "World loaded" << std::endl;
         //search file
         std::ifstream file(filePath + filename, std::ios::in);  
-
-        // clean list and array of all cubes
-        allCubes = std::list<Cube>();
-        for (int z = 0; z < scene.getLength() ; z++) {
-            for(int x= 0 ; x <scene.getWidth() ; x++) {
-                for(int y= 1 ; y < scene.getHeight() ; y++) {
-                    allCubes.remove(*scene.tabCubes[x][y][z]);
-                    scene.tabCubes[x][y][z] = nullptr;
-
-                }
-            }
-        }
 
         // put only what there was in the saved scene
         if (file)
@@ -97,7 +85,6 @@ namespace glimac{
             Cube cube(glm::ivec3( position.x, position.y, position.z), color);
             allCubes.push_front(cube);
             
-
             //do the scene for every others cubes
             while(getline(file, line))
             {

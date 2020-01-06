@@ -24,7 +24,6 @@ namespace glimac {
     }
 
     void FreeFlyCamera::moveLeft(float t) {
-        std::cout << m_position << std::endl;
         m_position += t * m_leftVector;
         computeDirectionVectors();
     }
