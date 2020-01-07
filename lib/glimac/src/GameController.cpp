@@ -149,7 +149,6 @@ namespace glimac {
             return false;
         } else {
             this->deleteCube(m_currentCube);
-            this->checkCurrentCube();
             return true;
         }
     }
