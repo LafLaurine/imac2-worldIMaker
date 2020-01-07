@@ -17,7 +17,7 @@ namespace glimac {
     {
         //set all of the uniform matrices
         uColorLocation = glGetUniformLocation(m_programs[type].getGLId(), "uColor");
-        uMVLocation = glGetUniformLocation(m_programs[type].getGLId(), "uModel");
+        uMVLocation = glGetUniformLocation(m_programs[type].getGLId(), "uModelView");
         uMVPLocation = glGetUniformLocation(m_programs[type].getGLId(), "uViewProj");
         uNormalMatLocation = glGetUniformLocation(m_programs[type].getGLId(), "uNormalMat");
         uLightPosLocation = glGetUniformLocation(m_programs[type].getGLId(), "uLightPos_vs");

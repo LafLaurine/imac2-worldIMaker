@@ -8,53 +8,42 @@ namespace glimac
     ///stock cube positions
     const ShapeVertex cubePositions[] = {
         // Front
-        ShapeVertex(glm::vec3(0.5, 0.5, 0.5), glm::vec2(1.0,1.0)),
-        ShapeVertex(glm::vec3(-0.5, 0.5, 0.5), glm::vec2(0.0,1.0)),
-        ShapeVertex(glm::vec3(-0.5, -0.5, 0.5), glm::vec2(0.0,0.0)),
-        ShapeVertex(glm::vec3(0.5, -0.5, 0.5), glm::vec2(1.0,0.0)),
+        ShapeVertex(glm::vec3(0.5, 0.5, 0.5), glm::vec2(1.0,1.0),glm::vec3(0, 0, 0.5)),
+        ShapeVertex(glm::vec3(-0.5, 0.5, 0.5), glm::vec2(0.0,1.0),glm::vec3(0, 0, 0.5)),
+        ShapeVertex(glm::vec3(-0.5, -0.5, 0.5), glm::vec2(0.0,0.0),glm::vec3(0, 0, 0.5)),
+        ShapeVertex(glm::vec3(0.5, -0.5, 0.5), glm::vec2(1.0,0.0),glm::vec3(0, 0, 0.5)),
             
         // Right
-        ShapeVertex(glm::vec3(0.5, 0.5, 0.5), glm::vec2(1.0,1.0)),
-        ShapeVertex(glm::vec3(0.5, -0.5, 0.5), glm::vec2(1.0,0.0)),
-        ShapeVertex(glm::vec3(0.5, -0.5, -0.5), glm::vec2(1.0,0.0)),
-        ShapeVertex(glm::vec3(0.5, 0.5, -0.5),glm::vec2(1.0,1.0)),
+        ShapeVertex(glm::vec3(0.5, 0.5, 0.5), glm::vec2(1.0,1.0),glm::vec3(0.5, 0, 0)),
+        ShapeVertex(glm::vec3(0.5, -0.5, 0.5), glm::vec2(1.0,0.0),glm::vec3(0.5, 0, 0)),
+        ShapeVertex(glm::vec3(0.5, -0.5, -0.5), glm::vec2(1.0,0.0),glm::vec3(0.5, 0, 0)),
+        ShapeVertex(glm::vec3(0.5, 0.5, -0.5),glm::vec2(1.0,1.0),glm::vec3(0.5, 0, 0)),
         
         // Top	
-        ShapeVertex(glm::vec3(0.5, 0.5, 0.5), glm::vec2(1.0,1.0)),
-        ShapeVertex(glm::vec3(0.5, 0.5, -0.5),glm::vec2(1.0,1.0)),
-        ShapeVertex(glm::vec3(-0.5, 0.5, -0.5),glm::vec2(0.0,1.0)), 
-        ShapeVertex(glm::vec3(-0.5, 0.5, 0.5), glm::vec2(0.0,1.0)),
+        ShapeVertex(glm::vec3(0.5, 0.5, 0.5), glm::vec2(1.0,1.0),glm::vec3(0, 0.5, 0)),
+        ShapeVertex(glm::vec3(0.5, 0.5, -0.5),glm::vec2(1.0,1.0),glm::vec3(0, 0.5, 0)),
+        ShapeVertex(glm::vec3(-0.5, 0.5, -0.5),glm::vec2(0.0,1.0),glm::vec3(0, 0.5, 0)), 
+        ShapeVertex(glm::vec3(-0.5, 0.5, 0.5), glm::vec2(0.0,1.0),glm::vec3(0, 0.5, 0)),
 
         // Left	
-        ShapeVertex(glm::vec3(-0.5, 0.5, 0.5), glm::vec2(0.0,1.0)),
-        ShapeVertex(glm::vec3(-0.5, 0.5, -0.5), glm::vec2(0.0,1.0)),
-        ShapeVertex(glm::vec3(-0.5, -0.5, -0.5), glm::vec2(0.0,0.0)),
-        ShapeVertex(glm::vec3(-0.5, -0.5, 0.5),  glm::vec2(0.0,0.0)),
+        ShapeVertex(glm::vec3(-0.5, 0.5, 0.5), glm::vec2(0.0,1.0),glm::vec3(-0.5, 0, 0)),
+        ShapeVertex(glm::vec3(-0.5, 0.5, -0.5), glm::vec2(0.0,1.0),glm::vec3(-0.5, 0, 0)),
+        ShapeVertex(glm::vec3(-0.5, -0.5, -0.5), glm::vec2(0.0,0.0),glm::vec3(-0.5, 0, 0)),
+        ShapeVertex(glm::vec3(-0.5, -0.5, 0.5),  glm::vec2(0.0,0.0),glm::vec3(-0.5, 0, 0)),
         
         // Bottom
-        ShapeVertex(glm::vec3(-0.5, -0.5, -0.5), glm::vec2(0.0,0.0)),
-        ShapeVertex(glm::vec3(0.5, -0.5, -0.5), glm::vec2(1.0,0.0)),
-        ShapeVertex(glm::vec3(0.5, -0.5, 0.5), glm::vec2(1.0,0.0)),
-        ShapeVertex(glm::vec3(-0.5, -0.5, 0.5), glm::vec2(0.0,0.0)),
+        ShapeVertex(glm::vec3(-0.5, -0.5, -0.5), glm::vec2(0.0,0.0),glm::vec3(0,-0.5, 0)),
+        ShapeVertex(glm::vec3(0.5, -0.5, -0.5), glm::vec2(1.0,0.0),glm::vec3(0,-0.5, 0)),
+        ShapeVertex(glm::vec3(0.5, -0.5, 0.5), glm::vec2(1.0,0.0),glm::vec3(0,-0.5, 0)),
+        ShapeVertex(glm::vec3(-0.5, -0.5, 0.5), glm::vec2(0.0,0.0),glm::vec3(0,-0.5, 0)),
 
         // Back	
-        ShapeVertex(glm::vec3(0.5, -0.5, -0.5), glm::vec2(1.0,0.0)),
-        ShapeVertex(glm::vec3(-0.5, -0.5, -0.5), glm::vec2(0.0,0.0)),
-        ShapeVertex(glm::vec3(-0.5, 0.5, -0.5), glm::vec2(0.0,1.0)),
-        ShapeVertex(glm::vec3(0.5, 0.5, -0.5),glm::vec2(1.0,1.0))
+        ShapeVertex(glm::vec3(0.5, -0.5, -0.5), glm::vec2(1.0,0.0),glm::vec3(0, 0,-0.5)),
+        ShapeVertex(glm::vec3(-0.5, -0.5, -0.5), glm::vec2(0.0,0.0),glm::vec3(0, 0,-0.5)),
+        ShapeVertex(glm::vec3(-0.5, 0.5, -0.5), glm::vec2(0.0,1.0),glm::vec3(0, 0,-0.5)),
+        ShapeVertex(glm::vec3(0.5, 0.5, -0.5),glm::vec2(1.0,1.0),glm::vec3(0, 0,-0.5))
     };
-
-
-    ///stock cube normals
-    const glm::vec3 normals[] = {
-        glm::vec3(0, 0, 0.5), glm::vec3(0, 0, 0.5), glm::vec3(0, 0, 0.5), glm::vec3(0, 0, 0.5),
-        glm::vec3(0.5, 0, 0), glm::vec3(0.5, 0, 0), glm::vec3(0.5, 0, 0), glm::vec3(0.5, 0, 0),
-        glm::vec3(0, 0.5, 0), glm::vec3(0, 0.5, 0), glm::vec3(0, 0.5, 0), glm::vec3(0, 0.5, 0),
-        glm::vec3(-0.5, 0, 0), glm::vec3(-0.5, 0, 0), glm::vec3(-0.5, 0, 0), glm::vec3(-0.5, 0, 0),
-        glm::vec3(0,-0.5, 0), glm::vec3(0,-0.5, 0), glm::vec3(0,-0.5, 0), glm::vec3(0,-0.5, 0),
-        glm::vec3(0, 0,-0.5), glm::vec3(0, 0,-0.5), glm::vec3(0, 0,-0.5), glm::vec3(0, 0,-0.5)
-    };
-
+    
     ///stock cube indexes
     const unsigned short indexes[] = {
         0, 1, 2,   2, 3, 0,       // front

@@ -21,17 +21,11 @@ namespace glimac {
     struct ShapeVertex{
         glm::vec3 position;
         glm::vec2 texCoords;
+        glm::vec3 normals;
 
-        ShapeVertex(){
-            this->position.x = 0;
-            this->position.y = 0;
-            this->position.z = 0;
-            this->texCoords.x = 0;
-            this->texCoords.y = 0;
-        }
-
-        ShapeVertex(glm::vec3 position, glm::vec2 texCoords)
-        : position(position), texCoords(texCoords)
+        ShapeVertex() = default;
+        ShapeVertex(const glm::vec3 &position, const glm::vec2 &texCoords, const glm::vec3 &normals)
+        : position(position), texCoords(texCoords), normals(normals)
         {
         }
 

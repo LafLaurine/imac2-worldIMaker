@@ -151,7 +151,7 @@ int main(int argc, char** argv) {
                     applyRbf(scene.getAllCubes(), list_ctrlRBF, FunctionType::InverseQuadratic, gameController,scene);
                 }
                 if(overlay.getClickedCube() &1) {
-                    applyRbf(scene.getAllCubes(), list_ctrlCube, FunctionType::Gaussian, gameController,scene);
+                    applyRbf(scene.getAllCubes(), list_ctrlCube, FunctionType::Multiquadric, gameController,scene);
                 }
                 if(overlay.getClickedReset() &1) {
                     gameController.cleanScene(scene.getAllCubes());
