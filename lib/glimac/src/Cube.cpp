@@ -17,6 +17,7 @@ namespace glimac {
   }
   
   void Cube::initBuffer() {
+      
       //Vertex buffer position
       GLCall(glGenBuffers(1, &m_vbo));
       GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));    
@@ -27,16 +28,15 @@ namespace glimac {
       GLCall(glGenVertexArrays(1, &m_vao));
       GLCall(glBindVertexArray(m_vao));
       // pos vao
-      GLCall(glEnableVertexAttribArray(0));
-      GLCall(glEnableVertexAttribArray(1));
-      GLCall(glEnableVertexAttribArray(2));
+      GLCall(glEnableVertexAttribArray(VERTEX_ATTR_POSITION));
+      GLCall(glEnableVertexAttribArray(VERTEX_ATTR_NORMAL));
+      GLCall(glEnableVertexAttribArray(VERTEX_ATTR_TEXT));
       GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_vbo));
-      GLCall(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(ShapeVertex), (const GLvoid*) offsetof(ShapeVertex, position)));
-      GLCall(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(ShapeVertex), (const GLvoid*) offsetof(ShapeVertex, normals)));
-      GLCall(glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(ShapeVertex), (const GLvoid*) offsetof(ShapeVertex, texCoords)));
+      GLCall(glVertexAttribPointer(VERTEX_ATTR_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof(ShapeVertex), (const GLvoid*) offsetof(ShapeVertex, position)));
+      GLCall(glVertexAttribPointer(VERTEX_ATTR_NORMAL, 3, GL_FLOAT, GL_FALSE, sizeof(ShapeVertex), (const GLvoid*) offsetof(ShapeVertex, normals)));
+      GLCall(glVertexAttribPointer(VERTEX_ATTR_TEXT, 2, GL_FLOAT, GL_FALSE, sizeof(ShapeVertex), (const GLvoid*) offsetof(ShapeVertex, texCoords)));
       GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
-      GLCall(glBindVertexArray(m_vao));
-
+      GLCall(glBindVertexArray(0));
       //Index buffer
       GLCall(glGenBuffers(1, &m_ibo));
       GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo));

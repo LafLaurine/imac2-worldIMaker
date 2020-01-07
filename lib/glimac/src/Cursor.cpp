@@ -8,7 +8,7 @@ namespace glimac{
        glBindVertexArray(m_vao);
        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
        //red color because why not
-       glm::vec4 colorCursor(1.0f,0.0f,0.0f,1.0f);
+       glm::vec4 colorCursor(0.0f,0.0f,0.0f,1.0f);
        setColor(colorCursor);
        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
        glDisable(GL_DEPTH_TEST);

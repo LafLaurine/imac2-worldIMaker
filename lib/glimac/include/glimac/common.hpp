@@ -16,6 +16,10 @@ namespace glimac {
 	static constexpr unsigned int m_height = 20;
 	static constexpr unsigned int m_width = 20;
 	static constexpr unsigned int m_length = 20;
+    
+    constexpr GLuint VERTEX_ATTR_POSITION = 0;
+    constexpr GLuint VERTEX_ATTR_NORMAL = 1;
+    constexpr GLuint VERTEX_ATTR_TEXT = 2;
 
     ///ShapeVertex structure
     struct ShapeVertex{

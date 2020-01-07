@@ -66,9 +66,13 @@ namespace glimac
 			void loadProgram(ProgramType type, std::string vertexShader, std::string fragmentShader);
 			///use program
 			void useProgram(ProgramType type);
+			///unbind program
+			void unbindProgram(ProgramType type);
 			///create uniform matrices for the scene
 			void createUniformMatrices(ProgramType type);
 			///calculate matrices for the camera
+			void calculateMatrices();
+			///calculate matrices on change
 			void recalculateMatrices(FreeFlyCamera &camera, Cube cube);
 			///initialize default scene
 			void initAllCubes();

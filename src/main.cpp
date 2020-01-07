@@ -38,10 +38,9 @@ int main(int argc, char** argv) {
     Menu pause(scene,typeMenu,"pause.jpg");
 
     //get colorcube program, load it and use it
-    ProgramType ColorCube = ProgramType::ColorCube;
-    scene.loadProgram(ColorCube,"../shaders/colorCube.vs.glsl","../shaders/colorCube.fs.glsl");
-    scene.useProgram(ColorCube);
-
+    ProgramType Cube = ProgramType::Cube;
+    scene.loadProgram(Cube,"../shaders/colorCube.vs.glsl","../shaders/colorCube.fs.glsl");
+    scene.useProgram(Cube);
     //initialize imgui
     overlay.initImgui(windowManager.m_window,&windowManager.m_glContext);
     //add light to the scene
@@ -57,8 +56,8 @@ int main(int argc, char** argv) {
     //construct playercontroller
     PlayerController playerController;
     //first initialization of uniform matrices
-    scene.createUniformMatrices(ColorCube);
-
+    scene.createUniformMatrices(Cube);
+    scene.calculateMatrices();
     //read control file for tree
     std::vector <ControlPoint> list_ctrlRBF;
     readFileControl("controls.txt",list_ctrlRBF);
@@ -124,7 +123,7 @@ int main(int argc, char** argv) {
         }
 
         if(playerController.gameOn == true) {
-            scene.useProgram(ColorCube);
+            scene.useProgram(Cube);
             //set background color
             glClearColor(0.17, 0.19, 0.17, 1);
             
@@ -145,7 +144,6 @@ int main(int argc, char** argv) {
                 scene.recalculateMatrices(camera,cursor);
                 //draw cursor
                 cursor.draw();
-
                 //handle click on the overlay
                 if(overlay.getClickedRBF() &1) {
                     applyRbf(scene.getAllCubes(), list_ctrlRBF, FunctionType::InverseQuadratic, gameController,scene);

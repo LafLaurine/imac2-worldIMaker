@@ -11,7 +11,7 @@ namespace glimac {
 	///get programtype to check if shader is for cube or menu
 	enum class ProgramType
 	{
-		ColorCube,
+		Cube,
 		Menu,
 	};
 
@@ -49,6 +49,7 @@ namespace glimac {
 		void use() const {
 			GLCall(glUseProgram(m_nGLId));
 		}
+		void unbindProgram();
 
 	private:
 		Program(const Program&);
@@ -62,7 +63,7 @@ namespace glimac {
 	///Load source code from files and build a GLSL program
 	Program loadProgram(const FilePath& vsFile, const FilePath& fsFile);
 
-	void unbindProgram();
+
 
 
 }

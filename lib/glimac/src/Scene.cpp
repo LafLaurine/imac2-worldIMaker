@@ -13,40 +13,45 @@ namespace glimac {
         m_programs[type].use();
     }
 
+    void Scene::unbindProgram(ProgramType type) {
+        m_programs[type].unbindProgram();
+    }
+
     void Scene::createUniformMatrices(ProgramType type)
     {
-        //set all of the uniform matrices
-        uColorLocation = glGetUniformLocation(m_programs[type].getGLId(), "uColor");
-        uMVLocation = glGetUniformLocation(m_programs[type].getGLId(), "uModelView");
-        uMVPLocation = glGetUniformLocation(m_programs[type].getGLId(), "uViewProj");
-        uNormalMatLocation = glGetUniformLocation(m_programs[type].getGLId(), "uNormalMat");
-        uLightPosLocation = glGetUniformLocation(m_programs[type].getGLId(), "uLightPos_vs");
-        uKs = glGetUniformLocation(m_programs[type].getGLId(), "uKs");
-        uShininess = glGetUniformLocation(m_programs[type].getGLId(), "uShininess");
-        uLightDir_vs = glGetUniformLocation(m_programs[type].getGLId(), "uLightDir_vs");
-        uLightIntensityP = glGetUniformLocation(m_programs[type].getGLId(), "uLightIntensityP");
-        uLightIntensityD = glGetUniformLocation(m_programs[type].getGLId(), "uLightIntensityD");
-        uAmbiantLight = glGetUniformLocation(m_programs[type].getGLId(), "ambiantLightIntensity");
-        uTextureLocation = glGetUniformLocation(m_programs[type].getGLId(), "uTexture");
-        uIsThereTexture = glGetUniformLocation(m_programs[type].getGLId(), "setTexture");
-        uCubeTypeLocation = glGetUniformLocation(m_programs[type].getGLId(), "uCubeType");
+            //set all of the uniform matrices
+            uMVLocation = glGetUniformLocation(m_programs[type].getGLId(), "uModelView");
+            uMVPLocation = glGetUniformLocation(m_programs[type].getGLId(), "uViewProj");
+            uNormalMatLocation = glGetUniformLocation(m_programs[type].getGLId(), "uNormalMat");
+            uColorLocation = glGetUniformLocation(m_programs[type].getGLId(), "uColor");
+            uLightPosLocation = glGetUniformLocation(m_programs[type].getGLId(), "uLightPos_vs");
+            uKs = glGetUniformLocation(m_programs[type].getGLId(), "uKs");
+            uShininess = glGetUniformLocation(m_programs[type].getGLId(), "uShininess");
+            uLightDir_vs = glGetUniformLocation(m_programs[type].getGLId(), "uLightDir_vs");
+            uLightIntensityP = glGetUniformLocation(m_programs[type].getGLId(), "uLightIntensityP");
+            uLightIntensityD = glGetUniformLocation(m_programs[type].getGLId(), "uLightIntensityD");
+            uAmbiantLight = glGetUniformLocation(m_programs[type].getGLId(), "ambiantLightIntensity");
+            uTextureLocation = glGetUniformLocation(m_programs[type].getGLId(), "uTexture");
+            uIsThereTexture = glGetUniformLocation(m_programs[type].getGLId(), "setTexture");
+            uCubeTypeLocation = glGetUniformLocation(m_programs[type].getGLId(), "uCubeType");     
+            glUniform1i(uIsThereTexture,0);
+            glUniform1i(uCubeTypeLocation,0);
 
+     
+    }
+
+    void Scene::calculateMatrices() {
         //compute the model matrix
         glm::mat4 modelMat = glm::mat4(1.0f);
-
         glUniformMatrix4fv(uMVLocation, // Location
                             1, // Count
                             GL_FALSE, // Transpose
                             glm::value_ptr(modelMat)); // Value
-
         //compute the model view and projection matrices
         MVMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -10.0f));
         ProjMatrix = glm::perspective(glm::radians(45.0f), 1.0f, 0.1f, 100.0f);
         glm::mat4 viewProjMat = ProjMatrix * MVMatrix;
         glm::mat4 normalMat = glm::transpose(glm::inverse(MVMatrix));
-        glUniform1i(uIsThereTexture,0);
-        glUniform1i(uCubeTypeLocation,0);
-
         glUniformMatrix4fv(uMVPLocation, // Location
                                 1, // Count
                                 GL_FALSE, // Transpose
@@ -56,7 +61,6 @@ namespace glimac {
                         1, // Count
                         GL_FALSE, // Transpose
                         glm::value_ptr(normalMat)); // Value
-        
     }
 
     void Scene::recalculateMatrices(FreeFlyCamera &camera,Cube cube) {
