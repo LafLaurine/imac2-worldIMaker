@@ -61,7 +61,7 @@ int main(int argc, char** argv) {
 
     //read control file for tree
     std::vector <ControlPoint> list_ctrlRBF;
-    readFileControl("inverse_multi.txt",list_ctrlRBF);
+    readFileControl("controls.txt",list_ctrlRBF);
     //read control file for big cube
     std::vector <ControlPoint> list_ctrlCube;
     readFileControl("otherControls.txt",list_ctrlCube);
@@ -151,7 +151,7 @@ int main(int argc, char** argv) {
                     applyRbf(scene.getAllCubes(), list_ctrlRBF, FunctionType::InverseQuadratic, gameController,scene);
                 }
                 if(overlay.getClickedCube() &1) {
-                    applyRbf(scene.getAllCubes(), list_ctrlCube, FunctionType::InverseQuadratic, gameController,scene);
+                    applyRbf(scene.getAllCubes(), list_ctrlCube, FunctionType::Gaussian, gameController,scene);
                 }
                 if(overlay.getClickedReset() &1) {
                     gameController.cleanScene(scene.getAllCubes());
@@ -175,7 +175,6 @@ int main(int argc, char** argv) {
         }
         //end imgui        
         overlay.endFrame(windowManager.m_window);
-        soundPlayer.clean();
 
     }
     return EXIT_SUCCESS;
