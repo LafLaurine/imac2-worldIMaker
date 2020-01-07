@@ -21,7 +21,7 @@ namespace glimac {
         	    m_cursor->setPositionY((m_cursor->getPosition().y)+1);   
             else if (e.key.keysym.scancode == SDL_SCANCODE_DOWN)
                 m_cursor->setPositionY((m_cursor->getPosition().y)-1);
-            changeColorCube(overlay,camera);
+            changeColorCube(overlay);
         }
         //left arrow to move cursor to the left + check if there is a cube
         else if (e.key.keysym.scancode == SDL_SCANCODE_LEFT) {
