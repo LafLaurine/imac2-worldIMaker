@@ -12,7 +12,7 @@ uniform sampler2D uTexture;
 uniform bool setTexture;
 uniform int uCubeType;
 
-uniform vec3 uKd;
+vec3 uKd;
 uniform vec3 uKs;
 uniform float uShininess;
 uniform vec3 uLightPos_vs;
@@ -26,6 +26,12 @@ vec3 blinnPhongP(vec3 position_vs, vec3 normal_vs){
 	vec3 w_zero = normalize(-position_vs);
 	vec3 w_i = (normalize(uLightPos_vs - vPos));
 	vec3 halfVector = (w_zero + w_i) / 2;
+	if(setTexture && uCubeType == 1) {
+		uKd = texture(uTexture, vTexCoords).xyz;
+	}
+	else {
+		uKd = vec3(0.6,0.6,0.6);
+	}
 	return (uLightIntensityP / (d * d)) * ( uKd * ( dot(w_i, normal_vs ) ) + uKs * ( pow( dot(halfVector, normal_vs), uShininess ) ) );
 }
 
@@ -34,7 +40,12 @@ vec3 blinnPhongD(vec3 position_vs, vec3 normal_vs){
 	vec3 w_zero = normalize(-position_vs);
 	vec3 w_i = normalize(-uLightDir_vs);
 	vec3 halfVector = (w_zero + w_i) / 2;
-
+	if(setTexture && uCubeType == 1) {
+		uKd = texture(uTexture, vTexCoords).xyz;
+	}
+	else {
+		uKd = vec3(0.6,0.6,0.6);
+	}
 	return uLightIntensityD * ( uKd * ( dot(w_i, normal_vs ) ) + uKs * ( pow( dot(halfVector, normal_vs), uShininess ) ) );
 }
 

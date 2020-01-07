@@ -2,17 +2,12 @@
 #define WORLD_IMAKER_SCENE_HPP
 
 #pragma once
-
-#include <glimac/glm.hpp> 
-#include <GL/glew.h>
 #include <map>
 #include <glimac/FreeFlyCamera.hpp>
 #include <glimac/Program.hpp>
 #include <glimac/Cube.hpp>
 #include <glimac/Texture.hpp>
-#include <vector>
-#include <list>
-
+#include <glimac/common.hpp>
 
 namespace glimac
 {
@@ -20,9 +15,6 @@ namespace glimac
 	class Scene
 	{
 		private:
-			static constexpr unsigned int m_height = 20;
-			static constexpr unsigned int m_width = 20;
-			static constexpr unsigned int m_length = 20;
 			int pointLight;
 			int directiveLight;
 			float xLightD, yLightD, zLightD;
@@ -40,11 +32,11 @@ namespace glimac
    			///map between programtype and its program
 			std::map<ProgramType, Program> m_programs;
 			///3 tab of our world that contains cube
-			Cube* tabCubes[20][20][20];
+			Cube* tabCubes[m_width][m_height][m_length];
 			///attributes for uniform location
-			GLuint uMVLocation,uMVPLocation, uLightLocation, uLightPointLocation,uAmbiantLight, uLightPosLocation, uColorLocation, uNormalMatLocation;
+			GLuint uMVLocation,uMVPLocation,uAmbiantLight, uLightPosLocation, uColorLocation, uNormalMatLocation;
 			GLuint uLuminosityLocation, uCubeTypeLocation;
-			GLuint uKd, uKs, uShininess, uLightDir_vs, uLightIntensityP, uLightIntensityD;
+			GLuint uKs, uShininess, uLightDir_vs, uLightIntensityP, uLightIntensityD;
 			GLuint uTextureLocation, uIsThereTexture;
 			///get scene's height
 			inline int getHeight(){ return m_height; };

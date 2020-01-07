@@ -1,11 +1,9 @@
 #include <glimac/glm.hpp> 
 #include "glimac/FreeFlyCamera.hpp"
 #include <iostream>
+#include <glimac/common.hpp>
 
 namespace glimac {
-
-    constexpr double PI = 3.141592653589;
-    constexpr double HALF_PI = PI/2;
     
     //freefly constructor
     FreeFlyCamera::FreeFlyCamera(): m_position(glm::vec3(10.f, 5.f, 35.f)), m_fPhi(PI), m_fTheta(0) {

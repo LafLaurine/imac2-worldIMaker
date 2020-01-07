@@ -21,7 +21,6 @@ namespace glimac {
         uMVPLocation = glGetUniformLocation(m_programs[type].getGLId(), "uViewProj");
         uNormalMatLocation = glGetUniformLocation(m_programs[type].getGLId(), "uNormalMat");
         uLightPosLocation = glGetUniformLocation(m_programs[type].getGLId(), "uLightPos_vs");
-        uKd = glGetUniformLocation(m_programs[type].getGLId(), "uKd");
         uKs = glGetUniformLocation(m_programs[type].getGLId(), "uKs");
         uShininess = glGetUniformLocation(m_programs[type].getGLId(), "uShininess");
         uLightDir_vs = glGetUniformLocation(m_programs[type].getGLId(), "uLightDir_vs");
@@ -93,7 +92,6 @@ namespace glimac {
         zLightP = 1.0f;
 
         //compute Kd,Ks and shininess of the light
-        glUniform3f(uKd, 0.6, 0.6, 0.6);
         glUniform3f(uKs, 0, 0.0, 0.0);
         glUniform1f(uShininess, 25.0);
         glUniform3f(uAmbiantLight,0.2,0.2,0.2);

@@ -11,7 +11,6 @@ namespace glimac {
     
     void GameController::handleScene(SDL_Event &e, Overlay &overlay, FreeFlyCamera &camera) {
         const Uint8 *state = SDL_GetKeyboardState(NULL);
-        isThereACube();
         // handle key for scene : holding C and moving cursor for painting
         if (state[SDL_SCANCODE_C]) {
             if (e.key.keysym.scancode == SDL_SCANCODE_LEFT)
@@ -214,7 +213,7 @@ namespace glimac {
     void GameController::setTextureCube(Texture &tex) {
         //find the cube where the cursor is
         Cube* cubePtr = m_scene->tabCubes[m_cursor->getPosition().x][m_cursor->getPosition().y][m_cursor->getPosition().z];
-        if(this->isThereACube()){
+        if(this->isThereACube() && cubePtr->m_type==0){
             cubePtr->m_type = 1;
         }
     }
