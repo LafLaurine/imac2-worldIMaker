@@ -137,6 +137,15 @@ namespace glimac {
             static float f1=0.2f;
             ImGui::SliderFloat("intensity a", &f1, 0.0f, 1.0f);
             scene.changeIntensityAmbiant(f1,f1,f1);
+
+            if(ImGui::Button("Night")) {
+                f1 = 0.47f;
+                scene.changeIntensityAmbiant(f1,f1,f1);
+            }
+            if (ImGui::Button("Day")) {
+                f1 = 0.2f;
+                scene.changeIntensityAmbiant(f1,f1,f1);
+            }
         } 
         ImGui::End();
 
