@@ -28,10 +28,8 @@ namespace glimac
 			Overlay(){};
 			///default destructor of overlay
 			~Overlay();
-			//getter
+			//getter of io
 			inline const ImGuiIO* getIo(){return m_io;};
-
-			inline const ImGuiIO* setIo(){return m_io = m_io;};
 			///initialize Imgui window and context
 			void initImgui(SDL_Window* window,SDL_GLContext* glContext);
 			///open new frame of Imgui
@@ -58,7 +56,6 @@ namespace glimac
 			inline int getClickedChangeCamera(){return clickedChangeCamera;};
 			//get color of the color picker
 			inline glm::vec4* getColor(){return &m_myCol;};
-			bool isMouseOnInterface() const;
 	};
 }
 

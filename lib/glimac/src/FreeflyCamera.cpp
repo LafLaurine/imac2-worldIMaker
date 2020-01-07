@@ -54,10 +54,4 @@ namespace glimac {
         // Last argument: vertical camera ax (top)
         return glm::lookAt(m_position,m_position+m_frontVector, m_upVector);
     }
-
-    void FreeFlyCamera::setPosMatrix(int l, int L, int H)
-    {
-        m_position = glm::vec3(l,L,H);
-    }
-    
 }

@@ -20,9 +20,9 @@ namespace glimac
 	class Scene
 	{
 		private:
-			static const unsigned int m_height = 20;
-			static const unsigned int m_width = 20;
-			static const unsigned int m_length = 20;
+			static constexpr unsigned int m_height = 20;
+			static constexpr unsigned int m_width = 20;
+			static constexpr unsigned int m_length = 20;
 			int pointLight;
 			int directiveLight;
 			float xLightD, yLightD, zLightD;
@@ -37,9 +37,9 @@ namespace glimac
 			Scene() = default;
 			///default destructor of scene
 			~Scene() = default;
-
    			///map between programtype and its program
 			std::map<ProgramType, Program> m_programs;
+			///3 tab of our world that contains cube
 			Cube* tabCubes[20][20][20];
 			///attributes for uniform location
 			GLuint uMVLocation,uMVPLocation, uLightLocation, uLightPointLocation,uAmbiantLight, uLightPosLocation, uColorLocation, uNormalMatLocation;
@@ -80,7 +80,7 @@ namespace glimac
 			void recalculateMatrices(FreeFlyCamera &camera, Cube cube);
 			///initialize default scene
 			void initAllCubes();
-					///add light to the scene : directive light, point light and ambiant light
+			///add light to the scene : directive light, point light and ambiant light
 			void addLight();
 			///set ground of the scene
 			void setGround();
@@ -90,10 +90,11 @@ namespace glimac
 			void changePointLightPosition(float pointLightX, float pointLightY, float pointLightZ);
 			///change directive light position
 			void changeDirectiveLightPosition(float directiveLightX, float directiveLightY, float directiveLightZ);
-			///transform 3D vector to 1D
-			static unsigned int from3Dto1D(glm::vec3 pos);
+			///change ambiant light intensity
 			void changeIntensityAmbiant(float &x, float &y, float &z);
+			///change directional light intensity
 			void changeIntensityDirectional(float &x, float &y, float &z);
+			///change point light intensity
 			void changeIntensityPoint(float &x, float &y, float &z);
 
 	};

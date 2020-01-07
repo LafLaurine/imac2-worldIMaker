@@ -14,16 +14,17 @@ namespace glimac {
         public:
             ///default constructor of PlayerController
             PlayerController();
-            //PlayerController(Scene &scene, Cursor &cursor);
+            ///some bool values that check game state
             bool gameOn;
             bool gamePause;
             bool gameLoad;
-
             ///default destructor of PlayerController
             ~PlayerController() = default;
-            //if in game
+            ///if in game
             void inGame();
+            ///if game is paused
             void pausedGame();
+            ///if game is loaded
             void loadGame();
             ///handle camera movements
             void handleCamera(SDL_Event &e, FreeFlyCamera &cam);

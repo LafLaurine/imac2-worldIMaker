@@ -19,11 +19,10 @@ namespace glimac
 			Texture(){};
 			///texture constructor with name of the texture and the scene concerned precised
 			Texture(std::string n);
+			///texture destructor
 			~Texture() = default;
 			///get the id of the texture
 			inline GLuint getId() const{return m_textureId;}
-			void bind(unsigned int slot) const;
-			void unbind(unsigned int slot) const;
 	};
 }
 	

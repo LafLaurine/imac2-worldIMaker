@@ -25,6 +25,7 @@ namespace glimac
 			Cube();
 			///constructor with a specific position set
 			Cube(glm::ivec3 position);
+			///constructor with a specific position and color set
 			Cube(glm::ivec3 position,glm::vec4 color);
 			///default destructor of cube
 			~Cube() = default;
@@ -52,6 +53,7 @@ namespace glimac
 			inline void setColor(glm::vec4 colorSend){m_color = colorSend;};
 			///draw a cube
 			void draw(GLuint textureId);
+			///redefinition of operator ==
 			bool operator==(Cube cube);
 	};
 }

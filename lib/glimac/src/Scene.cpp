@@ -154,9 +154,4 @@ namespace glimac {
                 }
         }
     }
-    
-    //convert a 3D vector to a 1D one
-    unsigned int Scene::from3Dto1D(glm::vec3 pos) {
-        return (pos.y * m_width + pos.x + pos.z * m_width * m_length);
-    }
 }

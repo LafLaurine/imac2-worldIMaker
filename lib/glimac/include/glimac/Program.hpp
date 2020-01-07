@@ -8,10 +8,10 @@
 
 namespace glimac {
 
-	///get programtype to check if cube is flat or textured
+	///get programtype to check if shader is for cube or menu
 	enum class ProgramType
 	{
-		FlatCube,
+		ColorCube,
 		Menu,
 	};
 

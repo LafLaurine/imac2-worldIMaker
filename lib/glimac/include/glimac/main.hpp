@@ -7,8 +7,6 @@
 /// WorldImaker is a super project made by Mallet Flora and Lafontaine Laurine.
 /// \section install_bigsec How to install
 /// \subsection dependencies_sec Dependecies
-/// \li nb 1
-/// \li nb 2
 /// \li Doxygen (if you want the documentation)
 /// \subsection install_sec Install with cmake (Linux)
 /// \li go to worldimaker dir

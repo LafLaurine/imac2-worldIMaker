@@ -16,6 +16,7 @@ private:
     ///spherical coordinates
     float m_fPhi;
     float m_fTheta;
+    ///vector coordonates
     glm::vec3 m_frontVector;
     glm::vec3 m_frontVectorFixed;
     glm::vec3 m_leftVector;
@@ -36,10 +37,10 @@ public:
     void rotateLeft(float degrees);
     ///rotate camera up
     void rotateUp(float degrees);
+    ///move camera up
+    void moveUp(float t);
     ///get view matrix of the camera
     glm::mat4 getViewMatrix() const;
-    void setPosMatrix(int l, int L, int H);
-    void moveUp(float t);
 };
 
 }

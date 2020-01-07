@@ -2,7 +2,7 @@
 #include <iostream>
 
 namespace glimac {
-
+    
     PlayerController::PlayerController() {
         gameOn = false;
         gameLoad = false;
@@ -14,7 +14,7 @@ namespace glimac {
             gameOn = true;
         }
     }
-    
+
     void PlayerController::loadGame() {
         if(gameLoad == false) {
             gameLoad = true;
@@ -41,7 +41,7 @@ namespace glimac {
                 cam.moveLeft(-zoom);            
             } else if(e.key.keysym.sym == SDLK_a) {
                 cam.moveUp(zoom);
-            } else if(e.key.keysym.sym == SDLK_z) {
+            } else if(e.key.keysym.sym == SDLK_x) {
                 cam.moveUp(-zoom);
             }
             //u and w for rotate up/down
@@ -51,16 +51,6 @@ namespace glimac {
             else if(e.key.keysym.sym == SDLK_w) {
                 cam.rotateUp(-zoom);            
             }
-            // 0, 1 and 2 for posing the camera at different places
-           /* else if(e.key.keysym.scancode == SDL_SCANCODE_0) {
-                cam.posBottom();
-            }
-            else if(e.key.keysym.scancode == SDL_SCANCODE_1) {
-                cam.posDefault();
-            }
-            else if(e.key.keysym.scancode == SDL_SCANCODE_2) {
-                cam.posLeft();
-            }*/
         }
 
 };

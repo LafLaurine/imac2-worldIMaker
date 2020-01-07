@@ -7,6 +7,8 @@
 #include <SDL_mixer.h>
 
 namespace glimac {
+
+	///enumaration of sound used
     enum Sounds {BUILD,DESTROY,BACKGROUND}; //  0 1 2
 	class Sound {
 		private:
@@ -21,13 +23,21 @@ namespace glimac {
 		   };
 
 		public:
-			int build();
+			///constructor sound
             Sound();
+			///destructor sound
 			~Sound() = default;
+			///build sound
+			int build();
+			///play sound
 			void play(Sounds s);
-			int  loadSounds();
+			///load sounds
+			int loadSounds();
+			///set music
 			void setEnable(bool isEnabled);
+			///get if music enabled
 			bool getEnable() const;
+			///clean music
 			void clean();
 	};
 }

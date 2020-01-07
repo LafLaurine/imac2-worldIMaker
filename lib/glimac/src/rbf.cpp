@@ -49,6 +49,7 @@ namespace glimac{
     }
     //resolution of M_constraint*omega=weight
     //choice of LU method (because faster I think)
+    //this factorization involves two matrices, one lower triangular matrix and one upper triangular matrix : it's the case here !
     Eigen::PartialPivLU<Eigen::MatrixXf> lu(M_constraint);
     Eigen::VectorXf omega = lu.solve(weight);
 

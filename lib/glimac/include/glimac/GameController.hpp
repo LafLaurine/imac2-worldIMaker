@@ -9,8 +9,9 @@
 #include <list>
 #include <algorithm>
 #include <glimac/Texture.hpp>
-namespace glimac {
 
+namespace glimac {
+    
     class GameController {
         private :
             Scene* m_scene;
@@ -18,7 +19,6 @@ namespace glimac {
             Cube* m_currentCube;
         public:
             ///default constructor of GameController
-
             GameController();
             //constructor of GameController
             GameController(Scene *scene, Cursor *cursor);
@@ -26,10 +26,11 @@ namespace glimac {
             ~GameController() = default;
             ///handle scene movements
             void handleScene(SDL_Event &e, Overlay &overlay, FreeFlyCamera &camera);
-        
+            ///check if there is a cube at cursor
             bool isThereACube();
             ///initialize default scene
             void initAllCubes();
+            ///draw cubes to the scene
             void drawCubes(FreeFlyCamera &camera, Texture &tex);
             ///add cube to the scene
             void addCube(Cube cube);
@@ -45,23 +46,19 @@ namespace glimac {
             void moveCursor(glm::ivec3 position);
             /// Repalce the cursor's position with a new
             void updateCursorPosition(glm::ivec3 newPosition);
-
             ///extrude cube where the cursor is
             void extrudeCube();
             ///dig cube where the cursor is
             void digCube();
             ///check if cursor is in the scene
             bool checkPositionCursor(glm::ivec3 position);
-            ///get heighest cube of the column where the cursor is
-            //Cube* getHighestCube(Scene &scene, Cursor &cursor);
             ///clean scene
             void cleanScene(std::list <Cube> &allCubes);
             ///change color of the cube selected
             void changeColorCube(Overlay &overlay, FreeFlyCamera &camera);
             ///set texture of the cube selected
-
             void setTextureCube(Texture &tex);
-            //remove texture of the cube selected
+            ///remove texture of the cube selected
             void removeTextureCube(Texture &tex);
     };
 

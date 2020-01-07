@@ -6,7 +6,6 @@
 
 namespace glimac {
     
-
     GameController::GameController(Scene *scene, Cursor *cursor): m_scene(scene), m_cursor(cursor), m_currentCube(nullptr) {
     }
     
@@ -66,7 +65,6 @@ namespace glimac {
     }
 
     bool GameController::isThereACube(){
-    	//////int cubeIndex = getIndexCube(scene,cursor);
         Cube* cubePtr = m_scene->tabCubes[m_cursor->getPosition().x][m_cursor->getPosition().y][m_cursor->getPosition().z];
         //if cube's pointer is null or that the cube is invisible, then there is no cube
     	if(cubePtr == nullptr){
@@ -93,7 +91,7 @@ namespace glimac {
         //for each cube, calculate matrice and if it is visible, draw it
         for(Cube& cube : m_scene->getAllCubes()){
             m_scene->recalculateMatrices(camera,cube);
-
+            //type 0 doesn't have a texture
             if(cube.m_type == 0) {
                 glUniform1i(m_scene->uCubeTypeLocation,0);
                 GLCall(glUniform1i(m_scene->uIsThereTexture, 0));
@@ -175,6 +173,7 @@ namespace glimac {
 
     // Extrude
     void GameController::extrudeCube(){
+        //if there is a cube on the column, get highest cube and add cube on top
         if(isThereACube()){
             Cube* lastCubeFound = nullptr;
             lastCubeFound = m_scene->tabCubes[m_cursor->getPosition().x][m_cursor->getPosition().y][m_cursor->getPosition().z];
@@ -188,6 +187,7 @@ namespace glimac {
 
     // Dig
     void GameController::digCube(){
+        //if there is a cube on the column, get highest cube and erase cube
         if(isThereACube()){
             Cube* lastCubeFound = nullptr;
             lastCubeFound = m_scene->tabCubes[m_cursor->getPosition().x][m_cursor->getPosition().y][m_cursor->getPosition().z];

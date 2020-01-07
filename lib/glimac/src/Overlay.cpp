@@ -44,6 +44,7 @@ namespace glimac {
             clickedCube = 0;
             clickedReset = 0;
             clickedAddTexture = 0;
+
             //set buttons
             if (ImGui::Button("Reset")) 
             {
@@ -139,7 +140,6 @@ namespace glimac {
         } 
         ImGui::End();
 
-
         //light settings windows
         ImGui::Begin("Light",&p_open); {
 
@@ -187,10 +187,5 @@ namespace glimac {
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         SDL_GL_SwapWindow(window);
-    }
-
-    bool Overlay::isMouseOnInterface() const {
-        ImGuiIO &i_io = ImGui::GetIO();
-        return i_io.WantCaptureMouse;
     }
 }

@@ -10,7 +10,6 @@ namespace glimac {
 	int Sound::build() {
 		for(int i = 0; i < nbSoundsEffects; i++)
 			soundEffects[i] = NULL;
-
         if(Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 2, 4096 ) == -1 ) {
             std::cout << "SOUND ERROR" << std::endl;
             return -1;
@@ -72,7 +71,6 @@ namespace glimac {
 				Mix_FreeChunk(soundEffects[i]);
 			}
 		}
-
 		if(backgroundMusic) {
 			//Free the music
 			Mix_FreeMusic( backgroundMusic );

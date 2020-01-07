@@ -16,8 +16,11 @@ class SDLWindowManager {
     public:     
         SDL_Window* m_window;
         SDL_GLContext m_glContext;
+        ///SDLWindowManager constructor
         SDLWindowManager(uint32_t width, uint32_t height, const char* title);
+        ///SDLWindowManager destructor
         ~SDLWindowManager();
+        ///handle event
         bool pollEvent(SDL_Event& e);
         bool isKeyPressed(SDL_Keycode key) const;
         bool isMouseButtonPressed(uint32_t button) const;
@@ -25,6 +28,7 @@ class SDLWindowManager {
         void swapBuffers();
         /// Return the time in seconds
         float getTime() const;
+        /// Check if window is currently active
         inline bool isRunning() const { return m_running; }
         inline void exit() { m_running = false; };
     };

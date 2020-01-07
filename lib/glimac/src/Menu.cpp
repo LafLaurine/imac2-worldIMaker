@@ -5,6 +5,8 @@
 #include <glimac/gl-exception.hpp>
 
 namespace glimac {
+
+    ///define vertices of menu
     const VertexTex vertices[] = { 
         VertexTex(glm::vec2(-1.f, 1.f), 
                 glm::vec2(0.f, 0.f)),
@@ -16,17 +18,20 @@ namespace glimac {
                 glm::vec2(0.f, 1.f))
     };
 
+    ///define indice of menu
     const uint32_t indices[] = {
         0, 1, 2,
         2, 3, 0
     };
 
+    ///construct menu
     Menu::Menu(Scene &scene, ProgramType type, std::string tex):m_ibo(0),m_vbo(0),m_vao(0),m_texture(new Texture(tex)), m_scene(scene), m_type(type)
     {
+        //get shaders associated with menu
         scene.loadProgram(type,"../shaders/texture.vs.glsl","../shaders/texture.fs.glsl");
         const GLuint VERTEX_ATTR_POSITION = 0;
         const GLuint VERTEX_ATTR_TEXCOORD = 1;
-
+        
         GLCall(glGenBuffers(1, &m_vbo));
         GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_vbo)); 
         GLCall(glBufferData(GL_ARRAY_BUFFER, 4 * sizeof(VertexTex), vertices, GL_STATIC_DRAW));
@@ -51,8 +56,11 @@ namespace glimac {
         GLCall(glBindVertexArray(0)); 
     }
     
+    //draw menu
     void Menu::draw(Scene &scene, ProgramType type){
+        //use shaders loaded
         scene.useProgram(type);
+        //get texture id
         GLuint id = m_texture->getId();
         GLCall(glBindVertexArray(m_vao));
         GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo));
