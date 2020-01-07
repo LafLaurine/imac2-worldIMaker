@@ -55,7 +55,7 @@ namespace glimac {
             ///clean scene
             void cleanScene(std::list <Cube> &allCubes);
             ///change color of the cube selected
-            void changeColorCube(Overlay &overlay, FreeFlyCamera &camera);
+            void changeColorCube(Overlay &overlay);
             ///set texture of the cube selected
             void setTextureCube(Texture &tex);
             ///remove texture of the cube selected

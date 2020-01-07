@@ -197,7 +197,7 @@ namespace glimac {
         }
     }
 
-    void GameController::changeColorCube(Overlay &overlay, FreeFlyCamera &camera){
+    void GameController::changeColorCube(Overlay &overlay){
         //get pointer on the cube where the cursor is
         Cube* cubePtr = m_scene->tabCubes[m_cursor->getPosition().x][m_cursor->getPosition().y][m_cursor->getPosition().z];
         //check if there is a cube
