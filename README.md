@@ -86,3 +86,41 @@ Make sure you're still in your build folder and :
 Build with `f5`
 
 ## Guide of the editor
+
+### Camera 
+Front : z
+Back : s
+Left : q
+Right : d
+Up rotation : u
+Down rotation : w
+Up : u
+Down : x
+
+### Cursor
+Up : Directional arrow
+Down : Directional arrow
+Left : Directional arrow
+Right : Directional arrow
+Front : +
+Back : -
+
+### Cube
+Add : Add cube button
+Suppression : Destroy cube button
+Reset : Reset button
+Add texture : Add texture button
+Supprimer texture : Delete texture button
+C : change color cube
+Hold C + directional arrows : change color of many cubes
+Ground : "set ground” button
+Extrude cube : E
+Dig cube : G
+
+### Scene
+Save file : Fill text field then button “save”
+Load file :  Fill text field then button “load”
+Generate RBF : Button “generate rbf” or “generate big cube”
+
+
+
