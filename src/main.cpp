@@ -63,12 +63,17 @@ int main(int argc, char** argv) {
     //first initialization of uniform matrices
     scene.createUniformMatrices(Cube);
     scene.calculateMatrices();
-    //read control file for tree
+    //read control file
     std::vector <ControlPoint> list_ctrlRBF;
     readFileControl("controls.txt",list_ctrlRBF);
-    //read control file for big cube
+    //read control file 
     std::vector <ControlPoint> list_ctrlCube;
-    readFileControl("multiquadratic.txt",list_ctrlCube);
+    readFileControl("multiquadric.txt",list_ctrlCube);
+    std::vector <ControlPoint> list_ctrl3;
+    readFileControl("otherControls.txt",list_ctrl3);
+    std::vector <ControlPoint> list_ctrl4;
+    readFileControl("test2.txt",list_ctrl4);
+    
 
     //init all cube of the scene
     gameController.initAllCubes();
@@ -152,7 +157,7 @@ int main(int argc, char** argv) {
                     applyRbf(scene.getAllCubes(), list_ctrlRBF, FunctionType::InverseQuadratic, gameController,scene);
                 }
                 if(overlay.getClickedCube() &1) {
-                    applyRbf(scene.getAllCubes(), list_ctrlCube, FunctionType::Multiquadric, gameController,scene);
+                    applyRbf(scene.getAllCubes(), list_ctrl4, FunctionType::ThinPlateSpline, gameController,scene);
                 }
                 if(overlay.getClickedReset() &1) {
                     gameController.cleanScene(scene.getAllCubes());

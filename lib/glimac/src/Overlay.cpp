@@ -113,7 +113,6 @@ namespace glimac {
                     clickedPig++;
                 }
 
-
                 if (ImGui::Button("Remove texture")) 
                 {
                     clickedRemoveTexture++;

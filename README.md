@@ -3,6 +3,8 @@
 3D field and scene viewer editor. School project for IMAC.
 This is a project mixed with C++, OpenGL 3.3 and SDL2.
 
+Rapport : ./assets/rapport/Raport_LAFONTAINE_MALLET.pdf
+
 ## Table of Contents
 
 + [Getting started](#Getting-started)

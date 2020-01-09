@@ -56,8 +56,6 @@ namespace glimac{
     return omega;
   }
 
-  
-
   void applyRbf(std::list<Cube>& allCubes, std::vector<ControlPoint> &ctrlPts, FunctionType type, GameController &gamecontrol, Scene& scene){
     float epsilon = 0.8f;
     float value;
