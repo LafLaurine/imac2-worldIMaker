@@ -55,7 +55,12 @@ namespace glimac {
                 clickedAddCube++;
             }
             
-            if (ImGui::Button("Add texture")) 
+            if (ImGui::Button("Add texture wood")) 
+            {
+                clickedAddTexture++;
+            }
+
+            if (ImGui::Button("Add texture ground")) 
             {
                 clickedAddTexture++;
             }

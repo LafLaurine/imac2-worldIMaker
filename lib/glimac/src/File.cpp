@@ -57,6 +57,10 @@ namespace glimac{
         std::string line;
         glm::ivec3 position;
         glm::vec4 color;
+
+        //set position received to the scene's first cube*
+        Cube cube(glm::ivec3( position.x, position.y, position.z), color);
+        allCubes.push_front(cube);
             
         //do the scene for every others cubes
         while(getline(file, line))

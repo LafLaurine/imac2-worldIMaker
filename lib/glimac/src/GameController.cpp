@@ -214,6 +214,8 @@ namespace glimac {
         Cube* cubePtr = m_scene->tabCubes[m_cursor->getPosition().x][m_cursor->getPosition().y][m_cursor->getPosition().z];
         if(this->isThereACube() && cubePtr->m_type==0){
             cubePtr->m_type = 1;
+            std::cout << cubePtr->m_type << std::endl;
+            this->checkCurrentCube();
         }
     }
 
@@ -222,6 +224,8 @@ namespace glimac {
         Cube* cubePtr = m_scene->tabCubes[m_cursor->getPosition().x][m_cursor->getPosition().y][m_cursor->getPosition().z];
         if(this->isThereACube() && cubePtr->m_type==1){
             cubePtr->m_type = 0;
+            std::cout << cubePtr->m_type << std::endl;
+            this->checkCurrentCube();
         }
     }
 

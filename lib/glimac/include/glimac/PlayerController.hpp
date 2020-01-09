@@ -23,6 +23,7 @@ namespace glimac {
             inline bool getGameOn() const{return gameOn;};
             inline bool getGamePause() const{return gamePause;};
             inline bool setGamePauseF() {return gamePause = false;};
+            inline bool setGameOn() {return gameOn = true;};
             inline bool getGameLoad() const{return gameLoad;};
             ///if in game
             void inGame();

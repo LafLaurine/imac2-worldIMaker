@@ -89,6 +89,7 @@ int main(int argc, char** argv) {
                         }
                         if(floatIsBetween(x, 331, 658) && floatIsBetween(y, 600, 700)){
                             playerController.loadGame();
+                            loadFile("./assets/doc/", "world.txt", scene.getAllCubes(),scene);
                         }
                     }
                 break;
@@ -132,13 +133,10 @@ int main(int argc, char** argv) {
                 pause.draw(scene,typeMenu); 
             }
 
-            if(!playerController.getGamePause()) {
+            if(!playerController.getGamePause() || playerController.getGameLoad() == true) {
                 //draw tools
                 overlay.drawOverlay(scene);
                 //draw cubes
-                if(playerController.getGameLoad() == true) {
-                    loadFile("./assets/doc/", "world.txt", scene.getAllCubes(),scene);
-                }
                 gameController.drawCubes(camera, groundTree);
                 //add lights
                 scene.addLight();
