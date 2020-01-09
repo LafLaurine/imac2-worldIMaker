@@ -19,25 +19,23 @@ namespace glimac {
 
     void Scene::createUniformMatrices(ProgramType type)
     {
-            //set all of the uniform matrices
-            uMVLocation = glGetUniformLocation(m_programs[type].getGLId(), "uModelView");
-            uMVPLocation = glGetUniformLocation(m_programs[type].getGLId(), "uViewProj");
-            uNormalMatLocation = glGetUniformLocation(m_programs[type].getGLId(), "uNormalMat");
-            uColorLocation = glGetUniformLocation(m_programs[type].getGLId(), "uColor");
-            uLightPosLocation = glGetUniformLocation(m_programs[type].getGLId(), "uLightPos_vs");
-            uKs = glGetUniformLocation(m_programs[type].getGLId(), "uKs");
-            uShininess = glGetUniformLocation(m_programs[type].getGLId(), "uShininess");
-            uLightDir_vs = glGetUniformLocation(m_programs[type].getGLId(), "uLightDir_vs");
-            uLightIntensityP = glGetUniformLocation(m_programs[type].getGLId(), "uLightIntensityP");
-            uLightIntensityD = glGetUniformLocation(m_programs[type].getGLId(), "uLightIntensityD");
-            uAmbiantLight = glGetUniformLocation(m_programs[type].getGLId(), "ambiantLightIntensity");
-            uTextureLocation = glGetUniformLocation(m_programs[type].getGLId(), "uTexture");
-            uIsThereTexture = glGetUniformLocation(m_programs[type].getGLId(), "setTexture");
-            uCubeTypeLocation = glGetUniformLocation(m_programs[type].getGLId(), "uCubeType");     
-            glUniform1i(uIsThereTexture,0);
-            glUniform1i(uCubeTypeLocation,0);
-
-     
+        //set all of the uniform matrices
+        uMVLocation = glGetUniformLocation(m_programs[type].getGLId(), "uModelView");
+        uMVPLocation = glGetUniformLocation(m_programs[type].getGLId(), "uViewProj");
+        uNormalMatLocation = glGetUniformLocation(m_programs[type].getGLId(), "uNormalMat");
+        uColorLocation = glGetUniformLocation(m_programs[type].getGLId(), "uColor");
+        uLightPosLocation = glGetUniformLocation(m_programs[type].getGLId(), "uLightPos_vs");
+        uKs = glGetUniformLocation(m_programs[type].getGLId(), "uKs");
+        uShininess = glGetUniformLocation(m_programs[type].getGLId(), "uShininess");
+        uLightDir_vs = glGetUniformLocation(m_programs[type].getGLId(), "uLightDir_vs");
+        uLightIntensityP = glGetUniformLocation(m_programs[type].getGLId(), "uLightIntensityP");
+        uLightIntensityD = glGetUniformLocation(m_programs[type].getGLId(), "uLightIntensityD");
+        uAmbiantLight = glGetUniformLocation(m_programs[type].getGLId(), "ambiantLightIntensity");
+        uTextureLocation = glGetUniformLocation(m_programs[type].getGLId(), "uTexture");
+        uIsThereTexture = glGetUniformLocation(m_programs[type].getGLId(), "setTexture");
+        uCubeTypeLocation = glGetUniformLocation(m_programs[type].getGLId(), "uCubeType");     
+        glUniform1i(uIsThereTexture,0);
+        glUniform1i(uCubeTypeLocation,0);
     }
 
     void Scene::calculateMatrices() {

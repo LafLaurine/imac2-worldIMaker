@@ -59,7 +59,7 @@ namespace glimac {
             ///set texture of the cube selected
             void setTextureCube(Texture &tex);
             ///remove texture of the cube selected
-            void removeTextureCube(Texture &tex);
+            void removeTextureCube();
     };
 
 }

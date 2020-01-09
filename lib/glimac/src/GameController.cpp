@@ -91,16 +91,16 @@ namespace glimac {
         for(Cube& cube : m_scene->getAllCubes()){
             m_scene->recalculateMatrices(camera,cube);
             //type 0 doesn't have a texture
-            if(cube.m_type == 0) {
+            if(cube.getType() == 0) {
                 glUniform1i(m_scene->uCubeTypeLocation,0);
                 GLCall(glUniform1i(m_scene->uIsThereTexture, 0));
             }
-            else if(cube.m_type == 1) {
+            else if(cube.getType() == 1) {
                 GLCall(glUniform1i(m_scene->uCubeTypeLocation,1));
                 GLCall(glUniform1i(m_scene->uIsThereTexture, 1));
                 GLCall(glUniform1i(m_scene->uTextureLocation, tex.getId()));
             }
-            cube.draw(tex.getId());
+            cube.draw();
         }
     }
 
@@ -136,7 +136,6 @@ namespace glimac {
             this->checkCurrentCube();
             return true;
         } else {
-            std::cout << "Cube already visible" << std::endl;
             return false;
         }
     }
@@ -145,7 +144,6 @@ namespace glimac {
     bool GameController::deleteToCursor(){
         this->checkCurrentCube();
         if(m_currentCube == nullptr){
-            std::cout << "No cube here !" << std::endl;
             return false;
         } else {
             this->deleteCube(m_currentCube);
@@ -212,19 +210,18 @@ namespace glimac {
     void GameController::setTextureCube(Texture &tex) {
         //find the cube where the cursor is
         Cube* cubePtr = m_scene->tabCubes[m_cursor->getPosition().x][m_cursor->getPosition().y][m_cursor->getPosition().z];
-        if(this->isThereACube() && cubePtr->m_type==0){
-            cubePtr->m_type = 1;
-            std::cout << cubePtr->m_type << std::endl;
+        if(this->isThereACube() && cubePtr->getType() == 0){
+            cubePtr->setType(1);
+            cubePtr->setCubeTextureId(tex.getId());
             this->checkCurrentCube();
         }
     }
 
-    void GameController::removeTextureCube(Texture &tex) {
+    void GameController::removeTextureCube() {
         //find the cube where the cursor is
         Cube* cubePtr = m_scene->tabCubes[m_cursor->getPosition().x][m_cursor->getPosition().y][m_cursor->getPosition().z];
-        if(this->isThereACube() && cubePtr->m_type==1){
-            cubePtr->m_type = 0;
-            std::cout << cubePtr->m_type << std::endl;
+        if(this->isThereACube() && cubePtr->getType() == 1){
+            cubePtr->setType(0);
             this->checkCurrentCube();
         }
     }

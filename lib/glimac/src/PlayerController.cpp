@@ -51,6 +51,6 @@ namespace glimac {
             else if(e.key.keysym.sym == SDLK_w) {
                 cam.rotateUp(-zoom);            
             }
-        }
+    }
 
 };

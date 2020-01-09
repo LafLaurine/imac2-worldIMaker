@@ -45,9 +45,13 @@ int main(int argc, char** argv) {
     overlay.initImgui(windowManager.m_window,&windowManager.m_glContext);
     //add light to the scene
     scene.addLight();
-    //set texture
-    Texture groundTree("groundTree.jpg");
-    Texture tree("tree.jpg");
+    //load texture
+    Texture ground("groundTree.jpg");
+    Texture wood("wood.png");
+    Texture gold("gold.jpeg");
+    Texture grass("grass.jpeg");
+    Texture iron("iron.jpeg");
+    Texture pig("pig.jpeg");
     //construct camera
     FreeFlyCamera camera;
     //construct cursor
@@ -137,7 +141,7 @@ int main(int argc, char** argv) {
                 //draw tools
                 overlay.drawOverlay(scene);
                 //draw cubes
-                gameController.drawCubes(camera, groundTree);
+                gameController.drawCubes(camera, ground);
                 //add lights
                 scene.addLight();
                 scene.recalculateMatrices(camera,cursor);
@@ -161,11 +165,26 @@ int main(int argc, char** argv) {
                     if(gameController.deleteToCursor())
                         soundPlayer.play(DESTROY);
                 }
-                if(overlay.getClickedAddTexture() &1) {
-                    gameController.setTextureCube(groundTree);
+                if(overlay.getClickedAddTextureGround() &1) {
+                    gameController.setTextureCube(ground);
+                }
+                if(overlay.getClickedAddTextureGold() &1) {
+                    gameController.setTextureCube(gold);
+                }
+                if(overlay.getClickedAddTextureWood() &1) {
+                    gameController.setTextureCube(wood);
+                }
+                if(overlay.getClickedAddTextureGrass() &1) {
+                    gameController.setTextureCube(grass);
+                }
+                if(overlay.getClickedAddTextureIron() &1) {
+                    gameController.setTextureCube(iron);
+                }
+                if(overlay.getClickedAddTexturePig() &1) {
+                    gameController.setTextureCube(pig);
                 }
                 if(overlay.getClickedRemoveTexture() &1) {
-                    gameController.removeTextureCube(groundTree);
+                    gameController.removeTextureCube();
                 }
 
             }

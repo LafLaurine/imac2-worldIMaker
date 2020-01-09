@@ -4,15 +4,15 @@
 
 namespace glimac {
   
-  Cube::Cube(glm::ivec3 position): m_vao(0), m_ibo(0), m_position(position), m_color(1.0f,1.0f,1.0f,1.0f), m_type(0) {
+  Cube::Cube(glm::ivec3 position): m_vao(0), m_ibo(0), m_texId(0), m_position(position), m_color(1.0f,1.0f,1.0f,1.0f), m_type(0) {
     initBuffer();
   }
   
-  Cube::Cube(glm::ivec3 position, glm::vec4 color): m_vao(0), m_ibo(0), m_position(position), m_color(color), m_type(0) {
+  Cube::Cube(glm::ivec3 position, glm::vec4 color): m_vao(0), m_ibo(0), m_texId(0), m_position(position), m_color(color), m_type(0) {
     initBuffer();
   }
   
-  Cube::Cube() : m_vao(0), m_ibo(0), m_position(0), m_color(1.0f,1.0f,1.0f,1.0f), m_type(0) {
+  Cube::Cube() : m_vao(0), m_ibo(0), m_texId(0), m_position(0), m_color(1.0f,1.0f,1.0f,1.0f), m_type(0) {
     initBuffer();
   }
   
@@ -44,7 +44,7 @@ namespace glimac {
       GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
     }
 
-    void Cube::draw(GLuint textureId) 
+    void Cube::draw() 
     {
       //if cube is not textured
       if(m_type == 0) {
@@ -61,7 +61,7 @@ namespace glimac {
         GLCall(glBindVertexArray(m_vao));
         GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo));
         GLCall(glActiveTexture(GL_TEXTURE3));
-        GLCall(glBindTexture(GL_TEXTURE_2D, textureId));
+        GLCall(glBindTexture(GL_TEXTURE_2D, m_texId));
         GLCall(glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, (void*) 0));
         GLCall(glActiveTexture(GL_TEXTURE3));
         GLCall(glBindTexture(GL_TEXTURE_2D, 0));

@@ -43,7 +43,12 @@ namespace glimac {
             clickedRBF = 0;
             clickedCube = 0;
             clickedReset = 0;
-            clickedAddTexture = 0;
+            clickedAddTextureWood = 0;
+            clickedAddTextureGround = 0;
+            clickedAddTextureGold = 0;
+            clickedAddTextureGrass = 0;
+            clickedAddTextureIron = 0;
+            clickedPig = 0;
 
             //set buttons
             if (ImGui::Button("Reset")) 
@@ -53,21 +58,6 @@ namespace glimac {
 
             if (ImGui::Button("Add cube")) {
                 clickedAddCube++;
-            }
-            
-            if (ImGui::Button("Add texture wood")) 
-            {
-                clickedAddTexture++;
-            }
-
-            if (ImGui::Button("Add texture ground")) 
-            {
-                clickedAddTexture++;
-            }
-
-            if (ImGui::Button("Remove texture")) 
-            {
-                clickedRemoveTexture++;
             }
 
             if (ImGui::Button("Destroy cube")) 
@@ -90,9 +80,49 @@ namespace glimac {
                clickedCube++;
             }
 
+            if (ImGui::TreeNode("Textures"))
+            {
+                ImGui::TextWrapped("Clic on wanted texture");
+                if (ImGui::Button("Wood")) 
+                {
+                    clickedAddTextureWood++;
+                }
+
+                if (ImGui::Button("Ground")) 
+                {
+                    clickedAddTextureGround++;
+                }
+
+                if (ImGui::Button("Gold")) 
+                {
+                    clickedAddTextureGold++;
+                }
+
+                if (ImGui::Button("Grass")) 
+                {
+                    clickedAddTextureGrass++;
+                }
+
+                if (ImGui::Button("Iron")) 
+                {
+                    clickedAddTextureIron++;
+                }
+
+                if (ImGui::Button("Pig")) 
+                {
+                    clickedPig++;
+                }
+
+
+                if (ImGui::Button("Remove texture")) 
+                {
+                    clickedRemoveTexture++;
+                }
+                ImGui::TreePop();
+            }
         }
         ImGui::End();
-
+        
         //set the save and load window
         ImGui::Begin("Save and load",&p_open);
         {
@@ -123,6 +153,7 @@ namespace glimac {
                 //load file with filepath and filename of the user choice
                 loadFile(filePathL, fileNameL, scene.getAllCubes(),scene);
             }
+            
         }
         ImGui::End();
         

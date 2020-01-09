@@ -1,9 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <algorithm>
 #include <glimac/File.hpp>
-#include <vector>
-#include <glm/glm.hpp>
 
 namespace glimac{
 
@@ -31,18 +26,21 @@ namespace glimac{
     void saveFile(std::string filePath,std::string filename,std::list<Cube> &allCubes, Scene &scene){
         //create a file
         std::ofstream file(filePath + filename, std::ios::out | std::ios::trunc); 
-        assert(file.is_open() && "Unable to open save file");
-        std::for_each(allCubes.begin(), allCubes.end(), [&file](Cube& cube){
-            //each position of the cube is write into the file
-            file << cube.getPosition().x <<" ";
-            file << cube.getPosition().y <<" ";
-            file << cube.getPosition().z << " ";
-            file << cube.getColor().x << " ";
-            file << cube.getColor().y << " ";
-            file << cube.getColor().z << " ";
-            file << cube.getColor().w << std::endl;
-        });
-
+        if(!file) {
+            std::cout << "Unable to save file" << std::endl;
+        }
+        else {
+            std::for_each(allCubes.begin(), allCubes.end(), [&file](Cube& cube){
+                //each position of the cube is write into the file
+                file << cube.getPosition().x <<" ";
+                file << cube.getPosition().y <<" ";
+                file << cube.getPosition().z << " ";
+                file << cube.getColor().x << " ";
+                file << cube.getColor().y << " ";
+                file << cube.getColor().z << " ";
+                file << cube.getColor().w << std::endl;
+            });
+        }
         //after constructing the file, close it
         file.close();
         std::cout << "Your world is saved" << std::endl;  
@@ -53,23 +51,27 @@ namespace glimac{
         //search file
         std::ifstream file(filePath + filename, std::ios::in);  
         // put only what there was in the saved scene
-        assert(file.is_open() && "Unable to open save file");
-        std::string line;
-        glm::ivec3 position;
-        glm::vec4 color;
-            
-        //do the scene for every others cubes
-        do {
-            file >> position.x ;
-            file >> position.y ;
-            file >> position.z ;
-            file >> color.x;
-            file >> color.y;
-            file >> color.z;
-            Cube cube(glm::ivec3( position.x, position.y, position.z),color);
-            allCubes.push_back(cube);
-            scene.tabCubes[cube.getPosition().x][cube.getPosition().y][cube.getPosition().z] = &allCubes.back();                
-        } while(getline(file, line));
+        if(!file) {
+            std::cout << "Unable to load file" << std::endl;
+        }
+        else {
+            std::string line;
+            glm::ivec3 position;
+            glm::vec4 color;
+                
+            //do the scene for every others cubes
+            do {
+                file >> position.x ;
+                file >> position.y ;
+                file >> position.z ;
+                file >> color.x;
+                file >> color.y;
+                file >> color.z;
+                Cube cube(glm::ivec3( position.x, position.y, position.z),color);
+                allCubes.push_back(cube);
+                scene.tabCubes[cube.getPosition().x][cube.getPosition().y][cube.getPosition().z] = &allCubes.back();                
+            } while(getline(file, line));
+        }
         //when task finished, close the file
         file.close();
     }

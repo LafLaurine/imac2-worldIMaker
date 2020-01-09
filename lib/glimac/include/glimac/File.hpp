@@ -5,8 +5,11 @@
 
 #include <SDL2/SDL.h>
 #include <iostream>
+#include <fstream>
+#include <algorithm>
 #include <vector>
 #include <list>
+#include <GL/glew.h>
 #include <cstddef>
 #include <glimac/glm.hpp>
 #include <glimac/rbf.hpp>

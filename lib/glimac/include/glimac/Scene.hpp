@@ -15,15 +15,15 @@ namespace glimac
 	class Scene
 	{
 		private:
+			///list of all our cubes that are in the scene
+			std::list<Cube> m_allCubes;
+			Cube m_cubeConstruct;
+			glm::mat4 MVMatrix, ProjMatrix, NormalMatrix;
+			glm::vec3 lightDir,lightIntensity;
 			int pointLight;
 			int directiveLight;
 			float xLightD, yLightD, zLightD;
 			float xLightP, yLightP, zLightP;
-			std::list<Cube> m_allCubes;
-			Cube m_cubeConstruct;
-			FreeFlyCamera camera;
-			glm::mat4 MVMatrix, ProjMatrix, globalMVMatrix, cubeMVMatrix, NormalMatrix;
-			glm::vec3 lightDir,lightIntensity, m_color;
 		public:
 			///default constructor of scene
 			Scene() = default;

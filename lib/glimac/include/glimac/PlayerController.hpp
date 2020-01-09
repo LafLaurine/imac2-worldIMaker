@@ -4,6 +4,7 @@
 #include <iostream>
 #include <glimac/glm.hpp> 
 #include <glimac/FreeFlyCamera.hpp>
+#include <glimac/Overlay.hpp>
 #include <SDL2/SDL.h>
 #include <list>
 namespace glimac {

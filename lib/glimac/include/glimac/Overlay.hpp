@@ -18,7 +18,7 @@ namespace glimac
 		private:
 			bool p_open;
 			int clickedReset, clickedAddCube, clickedDeleteCube;
-			int clickedRBF, clickedCube, clickedAddTexture, clickedChangeCamera,clickedRemoveTexture;
+			int clickedRBF, clickedPig, clickedCube, clickedAddTextureIron, clickedAddTextureWood,clickedAddTextureGrass,clickedAddTextureGold,clickedAddTextureGround,clickedRemoveTexture;
 			ImGuiIO* m_io;
 			ImVec4 i_color;
 			glm::vec4 m_myCol;
@@ -49,11 +49,14 @@ namespace glimac
 			///get if user clicked generate big cube button
 			inline int getClickedCube(){return clickedCube;};
 			///get if user clicked add texture button
-			inline int getClickedAddTexture(){return clickedAddTexture;};
+			inline int getClickedAddTextureWood(){return clickedAddTextureWood;};
+			inline int getClickedAddTextureGround(){return clickedAddTextureGround;};
+			inline int getClickedAddTextureGold(){return clickedAddTextureGold;};
+			inline int getClickedAddTextureIron(){return clickedAddTextureIron;};
+			inline int getClickedAddTextureGrass(){return clickedAddTextureGrass;};
+			inline int getClickedAddTexturePig(){return clickedPig;};
 			///get if user clicked remove texture button
 			inline int getClickedRemoveTexture(){return clickedRemoveTexture;};
-			///get if user clicked change camera
-			inline int getClickedChangeCamera(){return clickedChangeCamera;};
 			//get color of the color picker
 			inline glm::vec4* getColor(){return &m_myCol;};
 	};
