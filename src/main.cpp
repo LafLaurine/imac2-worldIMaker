@@ -64,7 +64,7 @@ int main(int argc, char** argv) {
     readFileControl("controls.txt",list_ctrlRBF);
     //read control file for big cube
     std::vector <ControlPoint> list_ctrlCube;
-    readFileControl("test.txt",list_ctrlCube);
+    readFileControl("multiquadratic.txt",list_ctrlCube);
 
     //init all cube of the scene
     gameController.initAllCubes();
@@ -148,7 +148,7 @@ int main(int argc, char** argv) {
                     applyRbf(scene.getAllCubes(), list_ctrlRBF, FunctionType::InverseQuadratic, gameController,scene);
                 }
                 if(overlay.getClickedCube() &1) {
-                    applyRbf(scene.getAllCubes(), list_ctrlCube, FunctionType::ThinPlateSpline, gameController,scene);
+                    applyRbf(scene.getAllCubes(), list_ctrlCube, FunctionType::Multiquadric, gameController,scene);
                 }
                 if(overlay.getClickedReset() &1) {
                     gameController.cleanScene(scene.getAllCubes());

@@ -29,17 +29,15 @@ namespace glimac {
     public:
         glm::vec3 m_position;
         float m_value;
-        float m_weight;
     };
 
-    ///compute norm for RBF function
-    const double norm(const glm::vec3 vec1);
     ///set RBF for each FunctionType
     float getRBF(FunctionType type, const glm::ivec3 v1, const glm::vec3 v2, const float epsilon);
     ///compute omega for RBF function
     const Eigen::VectorXf find_omega(std::vector <ControlPoint> &ctrlPts);
     ///apply RBF function
-    void applyRbf(std::list<Cube> &allCubes, std::vector<ControlPoint> &ctrlPts, FunctionType type, GameController &gamecontrol, Scene &scene);    
+    void applyRbf(std::list<Cube> &allCubes, std::vector<ControlPoint> &ctrlPts, FunctionType type, GameController &gamecontrol, Scene &scene);
+     
 }
 
 #endif

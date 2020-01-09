@@ -33,13 +33,13 @@ namespace glimac{
   const double norm(const glm::vec3 vec1){
     return( (double)sqrt(vec1.x*vec1.x + vec1.y*vec1.y + vec1.z*vec1.z ));
   } 
-  
+
   const Eigen::VectorXf find_omega(std::vector <ControlPoint> &ctrlPts){
     Eigen::MatrixXf M_constraint = Eigen::MatrixXf::Zero(ctrlPts.size(), ctrlPts.size());
     Eigen::VectorXf weight = Eigen::VectorXf::Ones(ctrlPts.size());
     //fill the control point weight vector
     for(unsigned int h=0; h<ctrlPts.size(); h++){
-        weight[h]=ctrlPts.at(h).m_weight;
+        weight[h]=ctrlPts.at(h).m_value;
     }
     //fill our matrix
     for(unsigned int i=0; i<ctrlPts.size(); i++){
@@ -48,23 +48,24 @@ namespace glimac{
         }
     }
     //resolution of M_constraint*omega=weight
-    //choice of LU method (because faster I think)
-    //this factorization involves two matrices, one lower triangular matrix and one upper triangular matrix : it's the case here !
-    Eigen::PartialPivLU<Eigen::MatrixXf> lu(M_constraint);
-    Eigen::VectorXf omega = lu.solve(weight);
-
+    //choice of QR method
+    //This type of decomposition is often used for the calculation of solutions of non-square linear systems, 
+    //in particular to determine the pseudo-inverse of a matrix
+    Eigen::ColPivHouseholderQR<Eigen::MatrixXf> qr(M_constraint);
+		Eigen::VectorXf omega = qr.solve(weight);
     return omega;
   }
 
+  
+
   void applyRbf(std::list<Cube>& allCubes, std::vector<ControlPoint> &ctrlPts, FunctionType type, GameController &gamecontrol, Scene& scene){
-    float epsilon = 1.0f;
+    float epsilon = 0.8f;
     float value;
-    Eigen::VectorXf omega = find_omega(ctrlPts);
-      value=0;
+    Eigen::VectorXf omega = find_omega(ctrlPts);  
       for (int x = 0; x < scene.getWidth() ; x++) {
         for(int y = 0 ; y < scene.getHeight() ; y++) {
           for(int z = 0 ; z < scene.getLength() ; z++) {
-
+            value=0;
             for (size_t i = 1; i < ctrlPts.size(); ++i){
               value+= getRBF(type, glm::vec3(float(x), float(y), float(z)), ctrlPts[i].m_position, epsilon)*(-omega[i]);
             }
