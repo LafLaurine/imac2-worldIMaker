@@ -47,6 +47,7 @@ int main(int argc, char** argv) {
     scene.addLight();
     //set texture
     Texture groundTree("groundTree.jpg");
+    Texture tree("tree.jpg");
     //construct camera
     FreeFlyCamera camera;
     //construct cursor
@@ -63,7 +64,7 @@ int main(int argc, char** argv) {
     readFileControl("controls.txt",list_ctrlRBF);
     //read control file for big cube
     std::vector <ControlPoint> list_ctrlCube;
-    readFileControl("otherControls.txt",list_ctrlCube);
+    readFileControl("test.txt",list_ctrlCube);
 
     //init all cube of the scene
     gameController.initAllCubes();
@@ -92,7 +93,7 @@ int main(int argc, char** argv) {
                     }
                 break;
 
-                if(playerController.gameOn == true) {
+                if(playerController.getGameOn() == true) {
                     case SDL_KEYDOWN:
                     if(!ImGui::GetIO().WantCaptureKeyboard) {
                         gameController.handleScene(e,overlay,camera);
@@ -101,11 +102,11 @@ int main(int argc, char** argv) {
                             windowManager.exit();
                         }
                         if(e.key.keysym.sym == SDLK_p) {
-                            if(!playerController.gamePause) {
+                            if(!playerController.getGamePause()) {
                                 playerController.pausedGame();
                             }
                             else {
-                                playerController.gamePause = false;
+                                playerController.setGamePauseF();
                             }
                         }
                     }
@@ -118,24 +119,24 @@ int main(int argc, char** argv) {
         overlay.beginFrame(windowManager.m_window);
 
         //Rendering code
-        if(!playerController.gameOn) {
+        if(!playerController.getGameOn()) {
             menu.draw(scene,typeMenu);
         }
 
-        if(playerController.gameOn == true) {
+        if(playerController.getGameOn() == true) {
             scene.useProgram(Cube);
             //set background color
             glClearColor(0.17, 0.19, 0.17, 1);
             
-            if(playerController.gamePause) {
+            if(playerController.getGamePause()) {
                 pause.draw(scene,typeMenu); 
             }
 
-            if(!playerController.gamePause) {
+            if(!playerController.getGamePause()) {
                 //draw tools
                 overlay.drawOverlay(scene);
                 //draw cubes
-                if(playerController.gameLoad == true) {
+                if(playerController.getGameLoad() == true) {
                     loadFile("./assets/doc/", "world.txt", scene.getAllCubes(),scene);
                 }
                 gameController.drawCubes(camera, groundTree);
@@ -149,7 +150,7 @@ int main(int argc, char** argv) {
                     applyRbf(scene.getAllCubes(), list_ctrlRBF, FunctionType::InverseQuadratic, gameController,scene);
                 }
                 if(overlay.getClickedCube() &1) {
-                    applyRbf(scene.getAllCubes(), list_ctrlCube, FunctionType::Multiquadric, gameController,scene);
+                    applyRbf(scene.getAllCubes(), list_ctrlCube, FunctionType::ThinPlateSpline, gameController,scene);
                 }
                 if(overlay.getClickedReset() &1) {
                     gameController.cleanScene(scene.getAllCubes());

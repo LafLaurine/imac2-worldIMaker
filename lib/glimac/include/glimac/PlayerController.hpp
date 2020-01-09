@@ -11,15 +11,19 @@ namespace glimac {
     class PlayerController {
         private :
             float zoom = 1.0f;
-        public:
-            ///default constructor of PlayerController
-            PlayerController();
             ///some bool values that check game state
             bool gameOn;
             bool gamePause;
             bool gameLoad;
+        public:
+            ///default constructor of PlayerController
+            PlayerController();
             ///default destructor of PlayerController
             ~PlayerController() = default;
+            inline bool getGameOn() const{return gameOn;};
+            inline bool getGamePause() const{return gamePause;};
+            inline bool setGamePauseF() {return gamePause = false;};
+            inline bool getGameLoad() const{return gameLoad;};
             ///if in game
             void inGame();
             ///if game is paused
